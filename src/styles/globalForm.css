@@ -1,0 +1,98 @@
+form {
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	min-height: fit-content;
+	min-width: fit-content;
+	width: 60%;
+	height: 90%;
+	padding-bottom: 2%;
+
+	border: solid 1.5px var(--header-background-colors);
+	border-radius: var(--radius);
+
+	color: var(--primary-font-color);
+	background-color: var(--component-background-color);
+}
+
+.form-title {
+	height: fit-content;
+	max-height: 50px;
+	width: 100%;
+	padding: 1% 0%;
+	align-self: flex-start;
+	text-align: center;
+	border-radius: var(--radius) var(--radius) 0 0;
+	background-color: var(--header-background-color);
+}
+
+.form-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	margin: 10px;
+	height: fit-content;
+	max-height: 200px;
+}
+
+label {
+	font-weight: bold;
+	font-size: 0.8em;
+	margin-top: 5px;
+}
+
+input,
+select {
+	width: 80%;
+	max-width: 80%;
+	min-width: 80%;	
+
+	height: 35px;
+	max-height: 35px;
+	min-height: 35px;
+
+	margin: 5px 0px;
+	padding: 0% 1%;
+
+	border: 1px solid var(--highlight-color);
+	border-radius: var(--radius);
+
+	background-color: var(--component-background-color);
+	color: var(--primary-font-color);
+}
+
+textarea {
+	width: 80%;
+	max-width: 80%;
+	min-width: 80%;
+
+	height: 100px;
+	max-height: 150px;
+	min-height: 35px;
+
+	margin: 5px 0px;
+	padding: 1%;
+
+	border: 1px solid var(--highlight-color);
+	border-radius: var(--radius);
+
+	background-color: var(--component-background-color);
+	color: var(--primary-font-color);
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+	color: var(--foreground-color);
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+	outline: 1px solid var(--highlight-color);
+	box-shadow: var(--box-shadow-small);
+	outline-offset: none;
+}
