@@ -1,0 +1,8 @@
+@use '../../styles/global.scss';
+
+aside {
+	width: 12vw;
+	height: 100vh;
+	box-shadow: global.$box-shadow-small;
+	z-index: 10;
+};

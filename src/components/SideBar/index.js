@@ -1,10 +1,12 @@
-import '@/styles/global.css';
+import '@/styles/global.scss';
+import '@/components/SideBar/sideBar.scss'
 
 export default function SideBar() {
 	return(
 		<aside>
 			<header>
 				{/* <img src='' /> */}
+				<div><p>imagem</p></div>
 				<p>{`userInfo.name 's Tasks`}</p>
 			</header>
 
