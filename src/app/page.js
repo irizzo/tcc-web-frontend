@@ -2,7 +2,7 @@ import '@/styles/globalForm.css';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
       <p>Home</p>
     </main>
   );

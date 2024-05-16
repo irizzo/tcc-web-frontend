@@ -1,8 +1,41 @@
 @use '../../styles/global.scss';
 
 aside {
-	width: 12vw;
+	width: 15vw;
 	height: 100vh;
 	box-shadow: global.$box-shadow-small;
 	z-index: 10;
+	align-items: flex-start;
+	justify-content: flex-start
 };
+
+header {
+	height: fit-content;
+	min-height: 10%;
+	padding: 5px 2px;
+	border-bottom: 1px solid global.$primary-font-color;
+
+	text-align: center;
+
+	h1 {
+		font-size: 1.4rem;
+		margin-bottom: 1%;
+	}
+}
+
+nav {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	
+	padding: 5% 10%;
+	text-align: left;
+	height: 90%;
+
+	ul {
+		list-style: "> " inside;
+		text-decoration: none;
+
+	}
+}

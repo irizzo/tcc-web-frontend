@@ -25,13 +25,16 @@ export const pageTitles = {
 	dashboard: "Dashboard",
 	event: {
 		new: "Novo Evento",
-		all: "Todos Os Eventos",
+		all: "Eventos",
 	},
-	routine: {},
+	routines: {
+		all: "Rotinas"
+	},
 	settings: "Configurações",
 	tasks: {
 		new: "Nova Tarefa",
-		all: "Todas As Tarefas",
+		all: "Tarefas",
 	},
-	user: {}
+	user: {},
+	about: "Sobre"
 }

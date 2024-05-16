@@ -1,7 +1,8 @@
 @use '../../styles/global.scss';
 
 .card {
-	width: 30%;
+	width: 24%; // 0,5% de espaço para cada lado
+	min-width: 240px;
 	background-color: global.$component-background-color;
 	border-radius: global.$radius;
 }
@@ -20,6 +21,7 @@
 	border-top-right-radius: global.$radius;
 	padding: 5px 10px;
 	text-align: left;
+	font-size: 1.2rem;
 }
 
 .card__list {

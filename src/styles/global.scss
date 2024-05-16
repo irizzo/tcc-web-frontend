@@ -40,11 +40,14 @@ h1, h2, h3, h4, h5, h6, p, li {
 
 body {
 	background-color: $page-background-color;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
 
-	width: 100%;
-	height: 100%;
-	min-width: 100%;
-	min-height: 100%;
+	width: 100vw;
+	height: 100vh;
+	min-width: 100vw;
+	min-height: 100vh;
 }
 
 /* Button */
@@ -79,6 +82,15 @@ body {
 	border: $highlight-color 1px solid;
 }
 
-.highlight-text {
+.text--highlight {
 	color: $highlight-color;
 }
+
+// .grid {
+// 	display: grid;
+// 	gap: 2%;
+// 	grid-template-columns: 1fr 1fr 1fr 1fr;
+// 	grid-template-rows: 50% 50%;
+
+// 	padding: 1%;
+// }

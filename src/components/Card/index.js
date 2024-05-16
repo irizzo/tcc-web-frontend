@@ -1,10 +1,8 @@
 import '@/styles/global.scss';
 import './card.scss';
 
+// TODO: card item
 export default function Card({ title, itemsList, height="default" }) {
-
-	console.log(`height = ${height}`);
-	console.log(`card--${height}--height`);
 	return(
 		<div className={`card card--${height}--height`}>
 			<h2 className='card__title'>{title}</h2>
