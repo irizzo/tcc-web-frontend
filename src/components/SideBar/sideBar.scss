@@ -3,27 +3,33 @@
 aside {
 	width: 15vw;
 	height: 100vh;
-	box-shadow: global.$box-shadow-small;
+	// box-shadow: global.$box-shadow-200-small;
+	border-right: 2px solid global.$primary-color-200--30op;
 	z-index: 10;
 	align-items: flex-start;
 	justify-content: flex-start
 };
 
-header {
+.sidebar__header {
 	height: fit-content;
-	min-height: 10%;
+	min-height: 8%;
 	padding: 5px 2px;
-	border-bottom: 1px solid global.$primary-font-color;
-
+	// border-bottom: 1px solid global.$primary-color-200--30op;
 	text-align: center;
+	background-color: global.$primary-color-200;
 
-	h1 {
+	.header__title {
 		font-size: 1.4rem;
 		margin-bottom: 1%;
+		text-align: center;
+	}
+
+	.header__subtitle {
+		text-align: center;
 	}
 }
 
-nav {
+.sidebar__nav {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -33,9 +39,8 @@ nav {
 	text-align: left;
 	height: 90%;
 
-	ul {
+	.nav__list {
 		list-style: "> " inside;
 		text-decoration: none;
-
 	}
 }

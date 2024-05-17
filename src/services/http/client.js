@@ -2,7 +2,8 @@ const devBaseURL = process.env.DEVELOPMENT_BASE_URL
 
 const httpClient = ({ baseURL }) => {
 	const defaultHeaders = new Headers({
-		'Content-type': 'application/json; charset=UTF-8'
+		'Content-type': 'application/json; charset=UTF-8',
+		'Authorization': 'jwt' // TODO: get jwt from cookies
 	});
 
 	return {

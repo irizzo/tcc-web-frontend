@@ -1,14 +1,18 @@
 /* global */
 
+// neutrals
 $page-background-color: #3E3B39;
-$header-background-color: #181818;
-$component-background-color: #2B2828;
-$highlight-color: #fa7d4bff; /* coral */
-$primary-font-color: #ffe4d6ff; /* champagne-pink */
-$foreground-color: #fcc19aff; /* peach */
+$foreground-color: #2B2828;
+$primary-font-color: #ffffff;
 
-$box-shadow: 0px 0px 5px 3px $highlight-color;
-$box-shadow-small: 0px 0px 3px 1px $highlight-color;
+$primary-color-200: #748CAB;
+$primary-color-200--30op: #748cab;
+$primary-color-800: #0D1321;
+
+$box-shadow-200: 0px 0px 5px 3px $primary-color-200;
+$box-shadow-200-small: 1px 1px 2px 1px $primary-color-200;
+$box-shadow-800: 0px 0px 5px 3px $primary-color-800;
+$box-shadow-800-small: 1px 1px 2px 1px $primary-color-800;
 
 $radius: 10px;
 
@@ -34,8 +38,13 @@ $radius: 10px;
 	flex-direction: row;
 }
 
+.flex--space-between {
+	justify-content: space-between;
+}
+
 h1, h2, h3, h4, h5, h6, p, li {
 	color: $primary-font-color;
+	text-align: unset;
 }
 
 body {
@@ -48,49 +57,52 @@ body {
 	height: 100vh;
 	min-width: 100vw;
 	min-height: 100vh;
+
+	// overflow-x: hidden;
 }
 
 /* Button */
 .button,button {
 	height: 40px;
+	min-height: 40px;
 	width: 250px;
-
 	margin-top: 5px;
-
 	font-weight: bold;
-
 	border-radius: 10px;
-
 	cursor: pointer;
 }
 
-.button:hover, button:hover {
-	outline: 1px solid $highlight-color;
-	box-shadow: $box-shadow-small;
-	outline-offset: none;
+.button--filled {
+	color: $primary-color-800;
+	background-color: $primary-color-200;
+	border: $primary-color-200 1px solid;
 }
 
-.button--filled {
-	color: $primary-font-color;
-	background-color: $highlight-color;
-	border: $highlight-color 1px solid;
+.button--filled:hover {
+	color: $primary-color-200;
+	background-color: initial;
+	border: $primary-color-200 1px solid;
+	box-shadow: $box-shadow-200-small;
+	outline: 1px solid $primary-color-200;
+	outline-offset: none;
+	transition: 150ms;
 }
 
 .button--outlined {
-	color: $highlight-color;
+	color: $primary-color-200;
 	background-color: initial;
-	border: $highlight-color 1px solid;
+	border: $primary-color-200 1px solid;
+}
+
+.button--outlined:hover {
+	outline: 1px solid $primary-color-200;
+	color: $primary-color-800;
+	background-color: $primary-color-200--30op;
+	box-shadow: $box-shadow-200-small;
+	outline-offset: none;
+	transition: 150ms;
 }
 
 .text--highlight {
-	color: $highlight-color;
+	color: $primary-color-200;
 }
-
-// .grid {
-// 	display: grid;
-// 	gap: 2%;
-// 	grid-template-columns: 1fr 1fr 1fr 1fr;
-// 	grid-template-rows: 50% 50%;
-
-// 	padding: 1%;
-// }

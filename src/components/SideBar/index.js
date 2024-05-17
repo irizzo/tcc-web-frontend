@@ -21,23 +21,23 @@ export default function SideBar() {
 
 	return(
 		<aside>
-			<header>
-				<h1>{`Isabelle Rizzo`}</h1>
-				<p>{today}</p>
+			<header className='sidebar__header'>
+				<h1 className='header__title'>{`Isabelle Rizzo`}</h1>
+				<p className='header__subtitle'>{today}</p>
 			</header>
 
 			{/* TODO: colocar as rotas para as páginas */}
-			<nav>
-				<ul>
-					<li>{pageTitles.event.all}</li>
-					<li>{pageTitles.tasks.all}</li>
-					<li>{pageTitles.routines.all}</li>
+			<nav className='sidebar__nav'>
+				<ul className='nav__list'>
+					<li className='nav__list__item'>{pageTitles.event.all}</li>
+					<li className='nav__list__item'>{pageTitles.tasks.all}</li>
+					<li className='nav__list__item'>{pageTitles.routines.all}</li>
 				</ul>
 
-				<ul>
-					<li>{pageTitles.settings}</li>
-					<li>{pageTitles.contents}</li>
-					<li>{pageTitles.about}</li>
+				<ul className='nav__list'>
+					<li className='nav__list__item'>{pageTitles.settings}</li>
+					<li className='nav__list__item'>{pageTitles.contents}</li>
+					<li className='nav__list__item'>{pageTitles.about}</li>
 				</ul>
 			</nav>
 		</aside>
