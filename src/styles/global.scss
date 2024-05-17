@@ -62,14 +62,22 @@ body {
 }
 
 /* Button */
-.button,button {
+/* TODO: remove from global.scss */
+.button {
 	height: 40px;
 	min-height: 40px;
 	width: 250px;
 	margin-top: 5px;
 	font-weight: bold;
+	font-size: small;
 	border-radius: 10px;
 	cursor: pointer;
+}
+
+.button--small {
+	height: 35px;
+	min-height: 35px;
+	width: 100px;
 }
 
 .button--filled {

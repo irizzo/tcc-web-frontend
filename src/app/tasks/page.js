@@ -1,5 +1,3 @@
-'use client';
-
 import '@/styles/global.scss';
 import './tasks.scss';
 
@@ -9,7 +7,7 @@ import { taskList } from '@/dataMock';
 
 export default function AllTasks() {
 	return(
-		<main className='flex flex--row'>
+		<main className='flex flex--row tasks__main'>
 			<Card itemsList={taskList} title='Master Tasklist'/>
 			<Card itemsList={taskList} title='Master Tasklist'/>
 			<Card itemsList={taskList} title='Master Tasklist'/>

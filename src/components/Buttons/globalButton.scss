@@ -1,0 +1,49 @@
+@use '../../styles/global.scss';
+
+.button {
+	height: 40px;
+	min-height: 40px;
+	width: 250px;
+	margin-top: 5px;
+	font-weight: bold;
+	font-size: small;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.button--small {
+	height: 35px;
+	min-height: 35px;
+	width: 100px;
+}
+
+.button--filled {
+	color: $primary-color-800;
+	background-color: $primary-color-200;
+	border: $primary-color-200 1px solid;
+}
+
+.button--filled:hover {
+	color: $primary-color-200;
+	background-color: initial;
+	border: $primary-color-200 1px solid;
+	box-shadow: $box-shadow-200-small;
+	outline: 1px solid $primary-color-200;
+	outline-offset: none;
+	transition: 150ms;
+}
+
+.button--outlined {
+	color: $primary-color-200;
+	background-color: initial;
+	border: $primary-color-200 1px solid;
+}
+
+.button--outlined:hover {
+	outline: 1px solid $primary-color-200;
+	color: $primary-color-800;
+	background-color: $primary-color-200--30op;
+	box-shadow: $box-shadow-200-small;
+	outline-offset: none;
+	transition: 150ms;
+}

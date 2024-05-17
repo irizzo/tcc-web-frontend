@@ -3,7 +3,7 @@ import '@/components/SideBar/sideBar.scss'
 
 import { pageTitles } from "@/resources/locale"
 
-// Todo:mover para recursos (@/resources)
+// Todo: mover para recursos (@/resources)
 const daysDictionary = {
 	0: "Dom",
 	1: "Seg",
@@ -27,6 +27,7 @@ export default function SideBar() {
 			</header>
 
 			{/* TODO: colocar as rotas para as páginas */}
+			{/* TODO: colocar div com as opções da página atual */}
 			<nav className='sidebar__nav'>
 				<ul className='nav__list'>
 					<li className='nav__list__item'>{pageTitles.event.all}</li>

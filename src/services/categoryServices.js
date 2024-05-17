@@ -40,7 +40,7 @@ export async function getCategoriesList() {
 	};
 
 	// const getCategoriesListResponse = await httpClient.get({
-	// 	path: '/get-categories-list'
+	// 	path: '/categories'
 	// });
 
 	// return {
