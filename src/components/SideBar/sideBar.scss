@@ -3,8 +3,8 @@
 aside {
 	width: 15vw;
 	height: 100vh;
-	// box-shadow: global.$box-shadow-200-small;
-	border-right: 2px solid global.$primary-color-200--30op;
+	// box-shadow: global.$box-shadow--light--small;
+	border-right: 2px solid global.$primary-color-light--30op;
 	z-index: 10;
 	align-items: flex-start;
 	justify-content: flex-start
@@ -14,9 +14,9 @@ aside {
 	height: fit-content;
 	min-height: 8%;
 	padding: 5px 2px;
-	// border-bottom: 1px solid global.$primary-color-200--30op;
+	// border-bottom: 1px solid global.$primary-color-light--30op;
 	text-align: center;
-	background-color: global.$primary-color-200;
+	background-color: global.$primary-color-light;
 
 	.header__title {
 		font-size: 1.4rem;

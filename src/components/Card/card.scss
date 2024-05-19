@@ -6,7 +6,7 @@
 	min-width: 240px;
 	background-color: global.$foreground-color;
 	border-radius: global.$radius;
-	box-shadow: global.$box-shadow-200-small;
+	box-shadow: global.$box-shadow--light--small;
 }
 
 .card__header {
@@ -14,7 +14,7 @@
 	height: 5%;
 	max-height: 50px;
 
-	background-color: global.$primary-color-800;
+	background-color: global.$primary-color-dark;
 	border-top-left-radius: global.$radius;
 	border-top-right-radius: global.$radius;
 

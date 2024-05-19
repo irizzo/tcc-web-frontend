@@ -1,0 +1,25 @@
+@use '../../styles/global.scss';
+
+.menu {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100vw;
+	height: 8%;
+	padding: 1%;
+
+	background-color: global.$foreground-color;
+	border-bottom: 0.8px solid global.$primary-color-light--30op;
+
+}
+
+.menu__title {
+	height: fit-content;
+	justify-self: flex-start;
+}
+
+.menu__buttons {
+	width: fit-content;
+}

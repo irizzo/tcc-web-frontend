@@ -5,14 +5,20 @@ $page-background-color: #3E3B39;
 $foreground-color: #2B2828;
 $primary-font-color: #ffffff;
 
-$primary-color-200: #748CAB;
-$primary-color-200--30op: #748cab;
-$primary-color-800: #0D1321;
+$primary-color-light: #BE95C4;
+$primary-color-light--30op: #BE95C44d;
+$primary-color-intermediate: #9F86C0;
+$primary-color-intermediate--30op: #9F86C04d;
+$primary-color-dark: #231942;
+$primary-color-dark--30op: #2319424d;
 
-$box-shadow-200: 0px 0px 5px 3px $primary-color-200;
-$box-shadow-200-small: 1px 1px 2px 1px $primary-color-200;
-$box-shadow-800: 0px 0px 5px 3px $primary-color-800;
-$box-shadow-800-small: 1px 1px 2px 1px $primary-color-800;
+
+$box-shadow--light: 0px 0px 5px 3px $primary-color-light;
+$box-shadow--light--small: 1px 1px 2px 1px $primary-color-light;
+$box-shadow--intermediate: 0px 0px 5px 3px $primary-color-intermediate;
+$box-shadow--intermediate--small: 1px 1px 2px 1px $primary-color-intermediate;
+$box-shadow--dark: 0px 0px 5px 3px $primary-color-dark;
+$box-shadow--dark--small: 1px 1px 2px 1px $primary-color-dark;
 
 $radius: 10px;
 
@@ -58,7 +64,7 @@ body {
 	min-width: 100vw;
 	min-height: 100vh;
 
-	// overflow-x: hidden;
+	overflow-x: hidden;
 }
 
 /* Button */
@@ -81,36 +87,36 @@ body {
 }
 
 .button--filled {
-	color: $primary-color-800;
-	background-color: $primary-color-200;
-	border: $primary-color-200 1px solid;
+	color: $primary-color-dark;
+	background-color: $primary-color-light;
+	border: $primary-color-light 1px solid;
 }
 
 .button--filled:hover {
-	color: $primary-color-200;
+	color: $primary-color-light;
 	background-color: initial;
-	border: $primary-color-200 1px solid;
-	box-shadow: $box-shadow-200-small;
-	outline: 1px solid $primary-color-200;
+	border: $primary-color-light 1px solid;
+	box-shadow: $box-shadow--light--small;
+	outline: 1px solid $primary-color-light;
 	outline-offset: none;
 	transition: 150ms;
 }
 
 .button--outlined {
-	color: $primary-color-200;
+	color: $primary-color-light;
 	background-color: initial;
-	border: $primary-color-200 1px solid;
+	border: $primary-color-light 1px solid;
 }
 
 .button--outlined:hover {
-	outline: 1px solid $primary-color-200;
-	color: $primary-color-800;
-	background-color: $primary-color-200--30op;
-	box-shadow: $box-shadow-200-small;
+	outline: 1px solid $primary-color-light;
+	color: $primary-color-dark;
+	background-color: $primary-color-light--30op;
+	box-shadow: $box-shadow--light--small;
 	outline-offset: none;
 	transition: 150ms;
 }
 
 .text--highlight {
-	color: $primary-color-200;
+	color: $primary-color-light;
 }

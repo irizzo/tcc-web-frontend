@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 const nextConfig = {
 	sassOptions: {
-		includePaths: [path.join(__dirname, 'styles')],
+		includePaths: [path.join(__dirname, 'styles'), path.join(__dirname, 'app'), '*/components/' ],
 	},
 };
 

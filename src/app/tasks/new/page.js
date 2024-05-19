@@ -4,6 +4,8 @@ import '@/styles/globalForm.scss';
 
 import { useState, useEffect } from 'react';
 
+import Button from '@/components/Buttons/Button';
+
 // import * as todoServices from '@/services/todoServices';
 // import * as categoryServices from '@/services/categoryServices';
 import * as categoryServices from '@/services/categoryServices';
@@ -135,7 +137,7 @@ export default function NewTask() {
 				<input name="toDoDate" type="datetime-local" onChange={(e) => { setToDoDate(e.target.value); }}></input>
 			</section>
 
-			<button className='button button--filled' type='submit'>{buttons.submitForm}</button>
+			<Button title={buttons.submitForm} variant='filled' buttonType='submit' />
 		</form>
 	)
 };

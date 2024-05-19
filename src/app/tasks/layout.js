@@ -1,7 +1,7 @@
 import '@/styles/global.scss';
 
 import SideBar from '@/components/SideBar';
-import PageContainer from '@/components/PageContainer';
+import { DashboardPageContainer } from '@/components/PageContainer';
 
 export const metadata = {
 	title: 'Todo List',
@@ -10,9 +10,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<PageContainer>
+		<DashboardPageContainer>
 			<SideBar />
 			{children}
-		</PageContainer>
+		</DashboardPageContainer>
 	);
 }

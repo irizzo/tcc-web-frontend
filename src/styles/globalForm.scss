@@ -2,9 +2,9 @@
 
 $input__height: 35px;
 $input__width: 100%;
-$input__border: 2px solid global.$primary-color-800;
+$input__border: 2px solid global.$primary-color-light--30op;
 
-form {
+.form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -19,7 +19,7 @@ form {
 	margin: 0% 1%;
 	padding: 0 0 1%;
 	
-	border: solid 1.5px global.$primary-color-800;
+	box-shadow: global.$box-shadow--intermediate;
 	border-radius: global.$radius;
 
 	color: global.$primary-font-color;
@@ -37,7 +37,8 @@ form {
 	padding: 0.5% 0%;
 	text-align: center;
 	border-radius: global.$radius global.$radius 0 0;
-	background-color: global.$primary-color-800;
+	color: global.$primary-color-dark;
+	background-color: global.$primary-color-light;
 }
 
 .form__section {
@@ -47,16 +48,18 @@ form {
 	justify-content: center;
 
 	padding: 0% 1%;
-	width: $input__width;
-	margin: 10px;
+	width: 80%;
+	margin: 8px;
 	height: fit-content;
-	max-height: 200px;
+	max-height: lightpx;
 }
 
 label {
+	width: $input__width;
 	font-weight: bold;
 	font-size: 1.0rem;
 	margin-top: 5px;
+	vertical-align: middle;
 }
 
 input, select {
@@ -108,7 +111,26 @@ textarea::placeholder {
 textarea:focus,
 input:focus,
 select:focus {
-	outline: 1px solid global.$primary-color-200;
-	box-shadow: global.$box-shadow-200-small;
+	outline: 1px solid global.$primary-color-intermediate;
+	box-shadow: global.$box-shadow--intermediate--small;
 	outline-offset: none;
+}
+
+.form__info {
+	width: 75%;
+	max-width: 75%;
+	margin-bottom: 1%;
+
+	height: fit-content;
+
+	p {
+		font-size: small;
+		width: $input__width;
+		max-width: $input__width;
+
+		i {
+			margin-right: 1%;
+			color: global.$primary-color-intermediate
+		}
+	}
 }
