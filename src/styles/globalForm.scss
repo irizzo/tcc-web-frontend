@@ -1,0 +1,136 @@
+@use './global.scss';
+
+$input__height: 35px;
+$input__width: 100%;
+$input__border: 2px solid global.$primary-color-light--30op;
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	flex: 1;
+	min-height: fit-content;
+	min-width: fit-content;
+	max-width: 85vw;
+	height: 98vh;
+	max-height: fit-content;
+	margin: 0% 1%;
+	padding: 0 0 1%;
+	
+	box-shadow: global.$box-shadow--intermediate;
+	border-radius: global.$radius;
+
+	color: global.$primary-font-color;
+	background-color: global.$foreground-color;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.form__title {
+	font-size: 1.3rem;
+	height: fit-content;
+	max-height: 50px;
+	width: 100%;
+	padding: 0.5% 0%;
+	text-align: center;
+	border-radius: global.$radius global.$radius 0 0;
+	color: global.$primary-color-dark;
+	background-color: global.$primary-color-light;
+}
+
+.form__section {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+
+	padding: 0% 1%;
+	width: 80%;
+	margin: 8px;
+	height: fit-content;
+	max-height: lightpx;
+}
+
+label {
+	width: $input__width;
+	font-weight: bold;
+	font-size: 1.0rem;
+	margin-top: 5px;
+	vertical-align: middle;
+}
+
+input, select {
+	width: $input__width;
+	max-width: $input__width;
+	min-width: $input__width;	
+
+	height: $input__height;
+	max-height: $input__height;
+	min-height: $input__height;
+
+	margin: 5px 0px;
+	padding: 0% 1%;
+
+	border: $input__border;
+	border-radius: global.$radius;
+
+	background-color: global.$foreground-color;
+	color: global.$primary-font-color;
+}
+
+textarea {
+	width: $input__width;
+	max-width: $input__width;
+	min-width: $input__width;
+
+	resize: vertical;
+	height: 50px;
+	max-height: 150px;
+	min-height: $input__height;
+
+	margin: 5px 0px;
+	padding: 1%;
+
+	border: $input__border;
+	border-radius: global.$radius;
+
+	background-color: global.$foreground-color;
+	color: global.$primary-font-color;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+	font-size: 0.8rem;
+	color: rgb(197, 199, 210);
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+	outline: 1px solid global.$primary-color-intermediate;
+	box-shadow: global.$box-shadow--intermediate--small;
+	outline-offset: none;
+}
+
+.form__info {
+	width: 75%;
+	max-width: 75%;
+	margin-bottom: 1%;
+
+	height: fit-content;
+
+	p {
+		font-size: small;
+		width: $input__width;
+		max-width: $input__width;
+
+		i {
+			margin-right: 1%;
+			color: global.$primary-color-intermediate
+		}
+	}
+}

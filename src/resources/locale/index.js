@@ -1,9 +1,19 @@
 export const formDefaults = {
-	defaultOption: "Por favor escolha uma opção"
+	defaultOption: "Por favor escolha uma opção",
+	defaultButtonTitle: "Enviar",
+	passwordRequirements: `A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços` 
 }
 
 export const buttons = {
 	submitForm: "Finalizar"
+}
+
+export const userFormsFields = {
+	firstName: "Primeiro Nome",
+	lastName: "Sobrenome",
+	email: "Email",
+	password: "Senha",
+	confirmPassword: "Confirme a Senha",
 }
 
 export const newTaskFormTitles = {
@@ -25,13 +35,19 @@ export const pageTitles = {
 	dashboard: "Dashboard",
 	event: {
 		new: "Novo Evento",
-		all: "Todos Os Eventos",
+		all: "Eventos",
 	},
-	routine: {},
+	routines: {
+		all: "Rotinas"
+	},
 	settings: "Configurações",
 	tasks: {
 		new: "Nova Tarefa",
-		all: "Todas As Tarefas",
+		all: "Tarefas",
 	},
-	user: {}
+	user: {
+		login: "Login",
+		signUp: "Cadastro"
+	},
+	about: "Sobre"
 }

@@ -1,11 +1,14 @@
 'use client';
 
-import '@/styles/globalForm.css';
+import '@/styles/globalForm.scss';
 
 import { useState, useEffect } from 'react';
 
+import Button from '@/components/Buttons/Button';
+
 // import * as todoServices from '@/services/todoServices';
 // import * as categoryServices from '@/services/categoryServices';
+import * as categoryServices from '@/services/categoryServices';
 
 // import { sanitizeString } from '@/resources/sanitization';
 // import { dueDateValidation, titleValidation } from '@/resources/validations';
@@ -22,7 +25,7 @@ export default function NewTask() {
 
 
 	const [categoriesList, setCategoriesList] = useState(false);
-	/* 
+	
 	async function loadCategories() {
 		const c = await categoryServices.getCategoriesList();
 
@@ -37,6 +40,7 @@ export default function NewTask() {
 		loadCategories();
 	}, []);
 
+	/*
 	async function handleSubmit(e) {
 		e.preventDefault();
 
@@ -82,24 +86,24 @@ export default function NewTask() {
 	*/
 
 	return (
-		<form className='flex' autoComplete='off' /*onSubmit={handleSubmit}*/>
-			<h2 className='form-title'>{pageTitles.tasks.new}</h2>
-			<section className='form-item'>
+		<form className='form' autoComplete='off' /*onSubmit={handleSubmit}*/>
+			<h1 className='form__title'>{pageTitles.tasks.new}</h1>
+			<section className='form__section'>
 				<label htmlFor="title">{newTaskFormTitles.title}</label>
 				<input name="title" type="text" required placeholder={newTaskFormTitles.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</section>
 
-			<section className='form-item'>
+			<section className='form__section'>
 				<label htmlFor="description">{newTaskFormTitles.description}</label>
 				<textarea name="description" placeholder={newTaskFormTitles.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</section>
 
-			<section className='form-item'>
+			<section className='form__section'>
 				<label htmlFor="dueDate">{newTaskFormTitles.dueDate}</label>
 				<input name="dueDate" type="datetime-local" onChange={(e) => { setDueDate(e.target.value); }}></input>
 			</section>
 
-			<section className='form-item'>
+			<section className='form__section'>
 				<label htmlFor="priority">{newTaskFormTitles.priority}</label>
 				<select>
 					<option defaultValue="">--{formDefaults.defaultOption}--</option>
@@ -110,10 +114,11 @@ export default function NewTask() {
 				</select>
 			</section>
 
-			{/* <section className='form-item'>
-				<label htmlFor="category">Category</label>
+			{/* categorias */}
+			<section className='form__section'>
+				<label htmlFor="category">{newTaskFormTitles.category}</label>
 				<select id="category" onChange={(e) => { setCategoryCode(e.target.value); }}>
-					<option defaultValue="">--formDefaults.defaultOption}--</option>
+					<option defaultValue="">--{formDefaults.defaultOption}--</option>
 
 					{categoriesList ?
 						categoriesList.map((category) => {
@@ -125,14 +130,14 @@ export default function NewTask() {
 						<option disabled value="">No categories found</option>
 					}
 				</select>
-			</section> */}
+			</section>
 
-			<section className='form-item'>
+			<section className='form__section'>
 				<label htmlFor="toDoDate">{newTaskFormTitles.toDoDate}</label>
 				<input name="toDoDate" type="datetime-local" onChange={(e) => { setToDoDate(e.target.value); }}></input>
 			</section>
 
-			<button className='outlined' type='submit'>{buttons.submitForm}</button>
+			<Button title={buttons.submitForm} variant='filled' buttonType='submit' />
 		</form>
 	)
 };

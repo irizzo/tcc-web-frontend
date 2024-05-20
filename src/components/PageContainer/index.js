@@ -1,10 +1,18 @@
-import '@/styles/global.css';
-import './pageContainer.css';
+import '@/styles/global.scss';
+import './pageContainer.scss';
 
-export default function PageContainer({ children }) {
+export function DashboardPageContainer({ children }) {
 	return(
-		<main className="flex container">
+		<div className="flex flex--row container container--dashboard ">
 			{children}
-		</main>
+		</div>
+	);
+}
+
+export function DefaultPageContainer({ children }) {
+	return (
+		<div className="flex container container--default">
+			{children}
+		</div>
 	);
 }

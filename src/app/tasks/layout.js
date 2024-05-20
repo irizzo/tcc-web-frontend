@@ -1,8 +1,7 @@
 import '@/styles/global.scss';
 
-// import { Inter } from 'next/font/google';
-
-// const inter = Inter({ subsets: [ 'latin' ] });
+import SideBar from '@/components/SideBar';
+import { DashboardPageContainer } from '@/components/PageContainer';
 
 export const metadata = {
 	title: 'Todo List',
@@ -11,10 +10,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang="en">
-			<body>
-					{children}
-			</body>
-		</html>
+		<DashboardPageContainer>
+			<SideBar />
+			{children}
+		</DashboardPageContainer>
 	);
 }

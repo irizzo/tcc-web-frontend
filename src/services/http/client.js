@@ -1,11 +1,25 @@
-const devBaseURL = process.env.DEVELOPMENT_BASE_URL
+let baseURL = "";
 
-const httpClient = ({ baseURL }) => {
+if (process.env.CURRENT_ENV === 'production') {
+	baseURL = process.env.PRODUCTION_BASE_URL
+} else baseURL = process.env.DEVELOPMENT_BASE_URL;
+
+const httpClient = ({ headers = null }) => {
 	const defaultHeaders = new Headers({
-		'Content-type': 'application/json; charset=UTF-8'
+		'Content-type': 'application/json; charset=UTF-8',
+		...headers
 	});
 
 	return {
+		get: async ({ path }) => {
+			const res = await fetch(`${baseURL}${path}`, {
+				method: 'GET',
+				headers: defaultHeaders
+			});
+
+			return res.json();
+		},
+
 		post: async ({ path, payload }) => {
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'POST',
@@ -15,9 +29,20 @@ const httpClient = ({ baseURL }) => {
 
 			return res.json();
 		},
-		get: async ({ path }) => {
+
+		put: async ({ path, payload }) => {
 			const res = await fetch(`${baseURL}${path}`, {
-				method: 'GET',
+				method: 'PUT',
+				body: JSON.stringify(payload),
+				headers: defaultHeaders
+			});
+
+			return res.json();
+		},
+		
+		delete: async ({ path }) => {
+			const res = await fetch(`${baseURL}${path}`, {
+				method: 'DELETE',
 				headers: defaultHeaders
 			});
 
@@ -26,4 +51,4 @@ const httpClient = ({ baseURL }) => {
 	};
 };
 
-export default httpClient({ baseURL: devBaseURL });
+export default httpClient;
