@@ -2,12 +2,24 @@ import httpClient from './http/client';
 
 import resDictionary from '@/resources/resDictionary';
 
+const basePath = '/categories';
+
+/* Category Services
+	* create category
+	* alter category info
+	* delete category
+	* list all categories
+	* list category details
+*/
+
 // create a category
-export async function createCategory(categoryData) {
+export async function createCategory(categoryData, userToken) {
 	console.log('[service createCategory]');
 
-	const createCategoryResponse = await httpClient.post({
-		path: '/create-category',
+	const newHttpClient = httpClient({ headers: { 'Authorization': userToken } });
+
+	const createCategoryResponse = await newHttpClient.post({
+		path: basePath,
 		payload: categoryData
 	});
 
@@ -18,7 +30,7 @@ export async function createCategory(categoryData) {
 }
 
 // get categories list (all categories)
-export async function getCategoriesList() {
+export async function getCategoriesList(userToken) {
 	console.log('[service getCategoriesList]');
 
 	return { // mock data
@@ -40,7 +52,7 @@ export async function getCategoriesList() {
 	};
 
 	// const getCategoriesListResponse = await httpClient.get({
-	// 	path: '/categories'
+	// 	path: basePath
 	// });
 
 	// return {
@@ -53,3 +65,8 @@ export async function getCategoriesList() {
 // alter category
 
 // delete category
+
+module.exports = {
+	createCategory,
+	getCategoriesList
+}
