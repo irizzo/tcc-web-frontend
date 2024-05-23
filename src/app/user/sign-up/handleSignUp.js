@@ -20,5 +20,7 @@ export default async function handleSignUp(e, data) {
 
 	const fetchRes = await signUpService(data);
 
+	alert(fetchRes.message);
+
 	// TODO: redirect to dashboard
 }

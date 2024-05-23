@@ -1,5 +1,8 @@
 'use client';
 
+import { useState, useContext, useEffect } from 'react';
+import { UserAccessStateContext } from '@/contexts';
+
 import { DefaultPageContainer } from '@/components/PageContainer';
 import Menu from '@/components/Menu';
 import { DefaultButton } from '@/components/Buttons';
@@ -7,10 +10,25 @@ import { FormContainer, FormSection, FormInfo } from '@/components/Form';
 
 import * as locale from '@/resources/locale';
 import handleSignUp from './handleSignUp';
-import { useState } from 'react';
+
+import { navigateTo } from '@/services/general';
+import { verifyUserAccessService } from '@/services/userAccessServices';
 
 export default function SignUp() {
-	// TODO: check if user's logged in, if so, redirect to dashboard
+	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+
+	useEffect(() => {
+		if (userAccessState) {
+			console.log(`logged in (userAccessState = ${userAccessState})`);
+			const isUserAuthorized = verifyUserAccessService();
+			if (isUserAuthorized.success) {
+				navigateTo({ path: '/dashboard'});
+			} else setUserAccessState(false);
+
+		} else {
+			console.log(`not logged in (userAccessState = ${userAccessState})`);
+		}
+	});
 
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');

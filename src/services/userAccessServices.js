@@ -10,6 +10,22 @@ import messagesDictionary from '@/resources/messages';
 
 const baseAccessPath = '/user-access';
 
+export async function verifyUserAccessService() {
+	console.log('[verifyUserAccessService]');
+
+	const fetchUserAccessRes = await httpClient.get({ path: `${baseAccessPath}/`});
+
+	const verifyUserAccessRes = {
+		success: fetchUserAccessRes.success,
+		result: fetchUserAccessRes?.result,
+		message: messagesDictionary[fetchUserAccessRes.code] ? messagesDictionary[fetchUserAccessRes.code] : (
+			fetchUserAccessRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		)
+	};
+
+	return verifyUserAccessRes;
+}
+
 /** Sign Up Service
  *
  * @param {{ firstName: String, lastName: String, email: String, password: String }} userSignUpData
