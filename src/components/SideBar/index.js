@@ -1,28 +1,27 @@
-import '@/styles/global.scss';
-import '@/components/SideBar/sideBar.scss'
+import '@/components/SideBar/sideBar.scss';
 
-import { pageTitles } from "@/resources/locale"
+import { pageTitles } from '@/resources/locale';
 
 // Todo: mover para recursos (@/resources)
 const daysDictionary = {
-	0: "Dom",
-	1: "Seg",
-	2: "Ter",
-	3: "Qua", 
-	4: "Qui",
-	5: "Sex",
-	6: "Sáb"
-}
+	0: 'Dom',
+	1: 'Seg',
+	2: 'Ter',
+	3: 'Qua',
+	4: 'Qui',
+	5: 'Sex',
+	6: 'Sáb'
+};
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
-	const today = `${daysDictionary[weekday]}, ${currentDate.toLocaleDateString()}`
+	const today = `${daysDictionary[weekday]}, ${currentDate.toLocaleDateString()}`;
 
 	return(
 		<aside>
 			<header className='sidebar__header'>
-				<h1 className='header__title'>{`Isabelle Rizzo`}</h1>
+				<h1 className='header__title'>{'Isabelle Rizzo'}</h1>
 				<p className='header__subtitle'>{today}</p>
 			</header>
 
@@ -42,5 +41,5 @@ export default function SideBar() {
 				</ul>
 			</nav>
 		</aside>
-	)
+	);
 }

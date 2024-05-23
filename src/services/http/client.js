@@ -1,30 +1,33 @@
-let baseURL = "";
+const _BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
 
-if (process.env.CURRENT_ENV === 'production') {
-	baseURL = process.env.PRODUCTION_BASE_URL
-} else baseURL = process.env.DEVELOPMENT_BASE_URL;
+// const _BASEURL = 'http://localhost:8080';
 
-const httpClient = ({ headers = null }) => {
+const httpClient = ({ baseURL }) => {
 	const defaultHeaders = new Headers({
-		'Content-type': 'application/json; charset=UTF-8',
-		...headers
+		'Content-type': 'application/json; charset=UTF-8'
 	});
 
 	return {
-		get: async ({ path }) => {
+		// TODO: implement custom headers in all methods
+		get: async({ path, customHeaders = null }) => {
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'GET',
-				headers: defaultHeaders
+				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
 			});
 
 			return res.json();
 		},
 
-		post: async ({ path, payload }) => {
+		post: async ({ path, payload, customHeaders = null }) => {
+			console.log('[httpClient] [post]');
+			console.log('[httpClient] [post] test');
+			console.log(`body = ${JSON.stringify(payload)}`);
+			console.log(`headers = ${customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders}`);
+
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'POST',
 				body: JSON.stringify(payload),
-				headers: defaultHeaders
+				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
 			});
 
 			return res.json();
@@ -39,7 +42,7 @@ const httpClient = ({ headers = null }) => {
 
 			return res.json();
 		},
-		
+
 		delete: async ({ path }) => {
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'DELETE',
@@ -51,4 +54,6 @@ const httpClient = ({ headers = null }) => {
 	};
 };
 
-export default httpClient;
+console.log(`[/http/client] _BASEURL = ${_BASEURL}`);
+
+export default httpClient({ baseURL: _BASEURL });

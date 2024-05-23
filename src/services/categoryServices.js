@@ -1,6 +1,6 @@
 import httpClient from './http/client';
 
-import resDictionary from '@/resources/resDictionary';
+import messagesDictionary from '@/resources/messages';
 
 const basePath = '/categories';
 
@@ -25,7 +25,7 @@ export async function createCategory(categoryData, userToken) {
 
 	return {
 		status: createCategoryResponse.success,
-		message: resDictionary?.[createCategoryResponse.code]
+		message: messagesDictionary?.[createCategoryResponse.code]
 	};
 }
 
@@ -58,7 +58,7 @@ export async function getCategoriesList(userToken) {
 	// return {
 	// 	status: getCategoriesListResponse.success,
 	// 	result: getCategoriesListResponse.result,
-	// 	message: resDictionary?.[getCategoriesListResponse.code]
+	// 	message: messagesDictionary?.[getCategoriesListResponse.code]
 	// };
 }
 

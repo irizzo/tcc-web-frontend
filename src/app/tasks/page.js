@@ -1,9 +1,9 @@
-import '@/styles/global.scss';
+
 import './tasks.scss';
 
 import Card from '@/components/Card';
 
-import { taskList } from '@/dataMock';
+import { taskList } from '@/resources/mockData';
 
 export default function AllTasks() {
 	return(
@@ -13,5 +13,5 @@ export default function AllTasks() {
 			<Card itemsList={taskList} title='Master Tasklist'/>
 			<Card itemsList={taskList} title='Master Tasklist' />
 		</main>
-	)
+	);
 }

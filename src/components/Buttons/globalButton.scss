@@ -1,4 +1,4 @@
-@use '../../styles/global.scss';
+@use '../../styles/variables.scss';
 
 .button {
 	height: 40px;
@@ -12,11 +12,11 @@
 }
 
 .button:hover {
-	color: global.$primary-color-light;
-	background-color: global.$primary-color-light--30op;
-	border: global.$primary-color-light 1px solid;
-	box-shadow: global.$box-shadow--light--small;
-	outline: 1px solid global.$primary-color-light;
+	color: variables.$primary-color-light;
+	background-color: variables.$primary-color-light--30op;
+	border: variables.$primary-color-light 1px solid;
+	box-shadow: variables.$box-shadow--light--small;
+	outline: 1px solid variables.$primary-color-light;
 	outline-offset: none;
 	transition: 150ms;
 }
@@ -28,13 +28,22 @@
 }
 
 .button--filled {
-	color: global.$primary-color-dark;
-	background-color: global.$primary-color-light;
-	border: global.$primary-color-light 1px solid;
+	color: variables.$primary-color-dark;
+	background-color: variables.$primary-color-light;
+	border: variables.$primary-color-light 1px solid;
 }
 
 .button--outlined {
-	color: global.$primary-color-light;
+	color: variables.$primary-color-light;
 	background-color: initial;
-	border: global.$primary-color-light 1px solid;
+	border: variables.$primary-color-light 1px solid;
+}
+
+.button--link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	text-decoration: none;
 }

@@ -1,51 +1,19 @@
 /* User Services
-	* sign up
-	* login
-	* logout
 	* list user info
 	* delete user
 	* alter user info
-	* verifyUser 
 */
+const { cookies } = require('next/headers');
+const baseUserPath = '/user';
 
+exports.listUserInfo = async () => {
 
-const baseUserPath = '/user'
+};
 
-/** Sign Up
- * 
- * @param {{email: String, password: String}} userSignUpData
- * @returns 
- */
-async function signUp(userSignUpData) {
-	// no auth
-}
+exports.updateUserInfo = async () => {
 
-async function login(userLoginData) {
-	// no auth
-}
+};
 
-async function logout() {
+exports.deleteUser = async () => {
 
-}
-
-async function listUserInfo() {
-
-}
-
-async function updateUserInfo() {
-
-}
-
-async function deleteUser() {
-
-}
-
-
-module.exports = {
-	signUp,
-	login,
-	logout,
-	listUserInfo,
-	updateUserInfo,
-	deleteUser
 };

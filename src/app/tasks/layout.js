@@ -1,5 +1,3 @@
-import '@/styles/global.scss';
-
 import SideBar from '@/components/SideBar';
 import { DashboardPageContainer } from '@/components/PageContainer';
 

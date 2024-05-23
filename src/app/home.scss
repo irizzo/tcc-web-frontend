@@ -1,4 +1,4 @@
-@use '../styles/global.scss';
+@use '../styles/variables.scss';
 
 .home__container {
 	width: 100vw;
@@ -17,7 +17,7 @@
 	height: 8%;
 	padding: 1% 0%;
 
-	border-bottom: 0.8px solid global.$primary-color-light--30op;
+	border-bottom: 0.8px solid variables.$primary-color-light--30op;
 
 	.button {
 		margin: 0% 1%;
@@ -45,6 +45,6 @@
 		margin-bottom: 1%;
 		width: 80%;
 		text-align: center;
-		color: global.$primary-color-light;
+		color: variables.$primary-color-light;
 	}
 }

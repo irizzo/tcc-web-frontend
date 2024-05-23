@@ -1,29 +1,29 @@
-@use './global.scss';
+@use '../../styles/variables.scss';
 
 $input__height: 35px;
 $input__width: 100%;
-$input__border: 2px solid global.$primary-color-light--30op;
+$input__border: 2px solid variables.$primary-color-light--30op;
 
-.form {
+.form__container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 
-	flex: 1;
 	min-height: fit-content;
-	min-width: fit-content;
-	max-width: 85vw;
-	height: 98vh;
 	max-height: fit-content;
+
+	min-width: fit-content;
+	max-width: 100%;
+
 	margin: 0% 1%;
 	padding: 0 0 1%;
-	
-	box-shadow: global.$box-shadow--intermediate;
-	border-radius: global.$radius;
 
-	color: global.$primary-font-color;
-	background-color: global.$foreground-color;
+	box-shadow: variables.$box-shadow--intermediate;
+	border-radius: variables.$radius;
+
+	color: variables.$primary-font-color;
+	background-color: variables.$foreground-color;
 
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -36,9 +36,19 @@ $input__border: 2px solid global.$primary-color-light--30op;
 	width: 100%;
 	padding: 0.5% 0%;
 	text-align: center;
-	border-radius: global.$radius global.$radius 0 0;
-	color: global.$primary-color-dark;
-	background-color: global.$primary-color-light;
+	border-radius: variables.$radius variables.$radius 0 0;
+	color: variables.$primary-color-dark;
+	background-color: variables.$primary-color-light;
+}
+
+.form__content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+
+	flex: 1;
+	width: 100%;
 }
 
 .form__section {
@@ -62,10 +72,11 @@ label {
 	vertical-align: middle;
 }
 
-input, select {
+input,
+select {
 	width: $input__width;
 	max-width: $input__width;
-	min-width: $input__width;	
+	min-width: $input__width;
 
 	height: $input__height;
 	max-height: $input__height;
@@ -75,10 +86,10 @@ input, select {
 	padding: 0% 1%;
 
 	border: $input__border;
-	border-radius: global.$radius;
+	border-radius: variables.$radius;
 
-	background-color: global.$foreground-color;
-	color: global.$primary-font-color;
+	background-color: variables.$foreground-color;
+	color: variables.$primary-font-color;
 }
 
 textarea {
@@ -95,10 +106,10 @@ textarea {
 	padding: 1%;
 
 	border: $input__border;
-	border-radius: global.$radius;
+	border-radius: variables.$radius;
 
-	background-color: global.$foreground-color;
-	color: global.$primary-font-color;
+	background-color: variables.$foreground-color;
+	color: variables.$primary-font-color;
 }
 
 input::placeholder,
@@ -111,8 +122,8 @@ textarea::placeholder {
 textarea:focus,
 input:focus,
 select:focus {
-	outline: 1px solid global.$primary-color-intermediate;
-	box-shadow: global.$box-shadow--intermediate--small;
+	outline: 1px solid variables.$primary-color-intermediate;
+	box-shadow: variables.$box-shadow--intermediate--small;
 	outline-offset: none;
 }
 
@@ -130,7 +141,28 @@ select:focus {
 
 		i {
 			margin-right: 1%;
-			color: global.$primary-color-intermediate
+			color: variables.$primary-color-intermediate
 		}
 	}
+}
+
+.form__container--login {
+	height: 40%;
+	max-height: 40%;
+	width: 40%;
+	max-width: 40%;
+}
+
+.form__container--sign-up {
+	height: 80%;
+	max-height: 80%;
+	width: 60%;
+	max-width: 60%;
+}
+
+.form_container--full {
+	height: 100%;
+	max-height: 100%;
+	flex: 1;
+	max-width: 100%;
 }

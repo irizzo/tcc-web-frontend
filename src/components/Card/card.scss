@@ -1,12 +1,12 @@
-@use '../../styles/global.scss';
+@use '../../styles/variables.scss';
 
 .card {
-	width: 24%; // 0,5% de espaço para cada lado
+	width: 24%;
 	height: 95vh;
 	min-width: 240px;
-	background-color: global.$foreground-color;
-	border-radius: global.$radius;
-	box-shadow: global.$box-shadow--light--small;
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+	box-shadow: variables.$box-shadow--light--small;
 }
 
 .card__header {
@@ -14,9 +14,9 @@
 	height: 5%;
 	max-height: 50px;
 
-	background-color: global.$primary-color-dark;
-	border-top-left-radius: global.$radius;
-	border-top-right-radius: global.$radius;
+	background-color: variables.$primary-color-dark;
+	border-top-left-radius: variables.$radius;
+	border-top-right-radius: variables.$radius;
 
 	padding: 0% 5%;
 
@@ -26,14 +26,14 @@
 	}
 	
 	.header__icon {
-		color: global.$primary-font-color;
+		color: variables.$primary-font-color;
 	}
 }
 
 .card__content {
 	height: 95%;
-	border-bottom-left-radius: global.$radius;
-	border-bottom-right-radius: global.$radius;
+	border-bottom-left-radius: variables.$radius;
+	border-bottom-right-radius: variables.$radius;
 }
 
 .card__list {

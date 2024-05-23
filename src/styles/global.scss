@@ -1,26 +1,4 @@
-/* global */
-
-// neutrals
-$page-background-color: #3E3B39;
-$foreground-color: #2B2828;
-$primary-font-color: #ffffff;
-
-$primary-color-light: #BE95C4;
-$primary-color-light--30op: #BE95C44d;
-$primary-color-intermediate: #9F86C0;
-$primary-color-intermediate--30op: #9F86C04d;
-$primary-color-dark: #231942;
-$primary-color-dark--30op: #2319424d;
-
-
-$box-shadow--light: 0px 0px 5px 3px $primary-color-light;
-$box-shadow--light--small: 1px 1px 2px 1px $primary-color-light;
-$box-shadow--intermediate: 0px 0px 5px 3px $primary-color-intermediate;
-$box-shadow--intermediate--small: 1px 1px 2px 1px $primary-color-intermediate;
-$box-shadow--dark: 0px 0px 5px 3px $primary-color-dark;
-$box-shadow--dark--small: 1px 1px 2px 1px $primary-color-dark;
-
-$radius: 10px;
+@use './variables.scss';
 
 * {
 	padding: 0%;
@@ -48,13 +26,17 @@ $radius: 10px;
 	justify-content: space-between;
 }
 
+.flex--center {
+	justify-content: center;
+}
+
 h1, h2, h3, h4, h5, h6, p, li {
-	color: $primary-font-color;
+	color: variables.$primary-font-color;
 	text-align: unset;
 }
 
 body {
-	background-color: $page-background-color;
+	background-color: variables.$page-background-color;
 	box-sizing: border-box;
 	display: flex;
 	flex-wrap: wrap;
@@ -67,56 +49,6 @@ body {
 	overflow-x: hidden;
 }
 
-/* Button */
-/* TODO: remove from global.scss */
-.button {
-	height: 40px;
-	min-height: 40px;
-	width: 250px;
-	margin-top: 5px;
-	font-weight: bold;
-	font-size: small;
-	border-radius: 10px;
-	cursor: pointer;
-}
-
-.button--small {
-	height: 35px;
-	min-height: 35px;
-	width: 100px;
-}
-
-.button--filled {
-	color: $primary-color-dark;
-	background-color: $primary-color-light;
-	border: $primary-color-light 1px solid;
-}
-
-.button--filled:hover {
-	color: $primary-color-light;
-	background-color: initial;
-	border: $primary-color-light 1px solid;
-	box-shadow: $box-shadow--light--small;
-	outline: 1px solid $primary-color-light;
-	outline-offset: none;
-	transition: 150ms;
-}
-
-.button--outlined {
-	color: $primary-color-light;
-	background-color: initial;
-	border: $primary-color-light 1px solid;
-}
-
-.button--outlined:hover {
-	outline: 1px solid $primary-color-light;
-	color: $primary-color-dark;
-	background-color: $primary-color-light--30op;
-	box-shadow: $box-shadow--light--small;
-	outline-offset: none;
-	transition: 150ms;
-}
-
 .text--highlight {
-	color: $primary-color-light;
+	color: variables.$primary-color-light;
 }
