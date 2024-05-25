@@ -1,6 +1,7 @@
 $page-background-color: #3E3B39;
 $foreground-color: #2B2828;
 $primary-font-color: #ffffff;
+$placeholder-font-color: rgba(255, 255, 255, 0.6);
 
 $primary-color-light: #BE95C4;
 $primary-color-light--30op: #BE95C44d;
@@ -8,7 +9,6 @@ $primary-color-intermediate: #9F86C0;
 $primary-color-intermediate--30op: #9F86C04d;
 $primary-color-dark: #231942;
 $primary-color-dark--30op: #2319424d;
-
 
 $box-shadow--light: 0px 0px 5px 3px $primary-color-light;
 $box-shadow--light--small: 1px 1px 2px 1px $primary-color-light;
@@ -18,3 +18,4 @@ $box-shadow--dark: 0px 0px 5px 3px $primary-color-dark;
 $box-shadow--dark--small: 1px 1px 2px 1px $primary-color-dark;
 
 $radius: 10px;
+$radius--small: 8px;

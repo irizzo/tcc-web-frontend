@@ -6,7 +6,7 @@ import { LinkButton } from '@/components/Buttons';
 import Menu from '@/components/Menu';
 
 export default function Home() {
-	// check if user's logged in, if so, redirect to dashboard
+	// TODO: check if user's logged in, if so, redirect to dashboard
 
 	return (
 		<div className='flex home__container'>

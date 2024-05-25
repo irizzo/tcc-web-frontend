@@ -7,9 +7,9 @@ import * as locale from '@/resources/locale';
 export default function Loading() {
 	return (
 		<div className='flex flex--center loading__container'>
-			<div class="spinner-box">
-				<div class="circle-border">
-					<div class="circle-core"></div>
+			<div className="spinner-box">
+				<div className="circle-border">
+					<div className="circle-core"></div>
 				</div>
 			</div>
 
