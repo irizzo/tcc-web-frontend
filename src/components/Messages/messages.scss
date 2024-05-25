@@ -1,0 +1,20 @@
+@use '../../styles/variables.scss';
+
+.message__container {
+	margin-top: 5%;
+
+	width: 100%;
+	height: 100%;
+	
+	flex: 1;
+
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: variables.$radius--small;
+}
+
+.message__content {
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	color: variables.$placeholder-font-color;
+}

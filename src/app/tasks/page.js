@@ -2,9 +2,11 @@
 import './tasks.scss';
 
 import { ListBoard, TaskCard } from '@/components/Card';
+import { GeneralMessage } from '@/components/Messages';
 
-// import { taskList } from '@/resources/mockData';
-const taskList = [];
+import { taskList } from '@/resources/mockData';
+
+// const taskList = [];
 
 export default function AllTasks() {
 	return (
@@ -15,10 +17,10 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />
+							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
 						})
 						:
-						<p>No tasks found...</p>
+						<GeneralMessage content={'No tasks found'} />
 				}
 			</ListBoard>
 
@@ -26,10 +28,10 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />
+							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
 						})
 						:
-						<p>No tasks found...</p>
+						<GeneralMessage content={'No tasks found'} />
 				}
 			</ListBoard>
 
@@ -37,10 +39,10 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />
+							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
 						})
 						:
-						<p>No tasks found...</p>
+						<GeneralMessage content={'No tasks found'} />
 				}
 			</ListBoard>
 		</main>
