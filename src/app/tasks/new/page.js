@@ -1,44 +1,46 @@
 'use client';
 
-import '@/styles/globalForm.scss';
-
 import { useState, useEffect } from 'react';
 
-import Button from '@/components/Buttons/Button';
+import { DefaultButton } from '@/components/Buttons';
+import { FormContainer, FormSection } from '@/components/Form';
 
-// import * as todoServices from '@/services/todoServices';
-// import * as categoryServices from '@/services/categoryServices';
-import * as categoryServices from '@/services/categoryServices';
+import * as locale from '@/resources/locale';
 
-// import { sanitizeString } from '@/resources/sanitization';
-// import { dueDateValidation, titleValidation } from '@/resources/validations';
-
-import { formDefaults, buttons, newTaskFormTitles, pageTitles } from '@/resources/locale'
+// TODO: get categories from backend
+const _categoriesList = [];
 
 export default function NewTask() {
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [dueDate, setDueDate] = useState('');
-	const [categoryCode, setCategoryCode] = useState('');
-	const [priorityCode, setPriorityCode] = useState('');
-	const [toDoDate, setToDoDate] = useState('');
+	const [ title, setTitle ] = useState('');
+	const [ description, setDescription ] = useState('');
+	const [ dueDate, setDueDate ] = useState('');
+	const [ categoryCode, setCategoryCode ] = useState('');
+	const [ priorityCode, setPriorityCode ] = useState('');
+	const [ toDoDate, setToDoDate ] = useState('');
 
+	const [ categoriesList, setCategoriesList ] = useState(false);
 
-	const [categoriesList, setCategoriesList] = useState(false);
-	
 	async function loadCategories() {
-		const c = await categoryServices.getCategoriesList();
+		setCategoriesList(_categoriesList);
+
+		/* const c = await categoryServices.getCategoriesList();
 
 		if (c.result.length === 0 || c.status === false) {
 			setCategoriesList(false);
 		} else {
 			setCategoriesList(c.result);
-		}
+		}*/
+
 	}
 
 	useEffect(() => {
 		loadCategories();
 	}, []);
+
+	async function handleNewTaskForm(e) {
+		e.preventDefault();
+		return;
+	}
 
 	/*
 	async function handleSubmit(e) {
@@ -86,58 +88,53 @@ export default function NewTask() {
 	*/
 
 	return (
-		<form className='form' autoComplete='off' /*onSubmit={handleSubmit}*/>
-			<h1 className='form__title'>{pageTitles.tasks.new}</h1>
-			<section className='form__section'>
-				<label htmlFor="title">{newTaskFormTitles.title}</label>
-				<input name="title" type="text" required placeholder={newTaskFormTitles.title} onChange={(e) => { setTitle(e.target.value); }}></input>
-			</section>
+		<FormContainer
+			title={locale.pageTitles.tasks.new}
+			submitCallback={(e) => handleNewTaskForm(e)}
+		>
+			<FormSection labelFor='title' sectionTitle={locale.taskInfoTitles.title}>
+				<input name='title' type='text' required placeholder={locale.taskInfoTitles.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+			</FormSection>
 
-			<section className='form__section'>
-				<label htmlFor="description">{newTaskFormTitles.description}</label>
-				<textarea name="description" placeholder={newTaskFormTitles.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
-			</section>
+			<FormSection labelFor='description' sectionTitle={locale.taskInfoTitles.description}>
+				<textarea name='description' placeholder={locale.taskInfoTitles.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
+			</FormSection>
 
-			<section className='form__section'>
-				<label htmlFor="dueDate">{newTaskFormTitles.dueDate}</label>
-				<input name="dueDate" type="datetime-local" onChange={(e) => { setDueDate(e.target.value); }}></input>
-			</section>
+			<FormSection labelFor='dueDate' sectionTitle={locale.taskInfoTitles.dueDate}>
+				<input name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
+			</FormSection>
 
-			<section className='form__section'>
-				<label htmlFor="priority">{newTaskFormTitles.priority}</label>
-				<select>
-					<option defaultValue="">--{formDefaults.defaultOption}--</option>
-					<option key={1} value={1}>{newTaskFormTitles.quadrantOne}</option>
-					<option key={1} value={1}>{newTaskFormTitles.quadrantTwo}</option>
-					<option key={1} value={1}>{newTaskFormTitles.quadrantThree}</option>
-					<option key={1} value={1}>{newTaskFormTitles.quadrantFour}</option>
+			<FormSection labelFor='priotity' sectionTitle={locale.taskInfoTitles.priority}>
+				<select name='priority' onChange={ (e) => setPriorityCode(e.target.value) }>
+					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
+					<option key={1} value={1}>{locale.taskInfoTitles.quadrantOne}</option>
+					<option key={1} value={1}>{locale.taskInfoTitles.quadrantTwo}</option>
+					<option key={1} value={1}>{locale.taskInfoTitles.quadrantThree}</option>
+					<option key={1} value={1}>{locale.taskInfoTitles.quadrantFour}</option>
 				</select>
-			</section>
+			</FormSection>
 
-			{/* categorias */}
-			<section className='form__section'>
-				<label htmlFor="category">{newTaskFormTitles.category}</label>
-				<select id="category" onChange={(e) => { setCategoryCode(e.target.value); }}>
-					<option defaultValue="">--{formDefaults.defaultOption}--</option>
+			<FormSection labelFor='category' sectionTitle={locale.taskInfoTitles.category}>
+				<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
+					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 
-					{categoriesList ?
+					{categoriesList.length > 0 ?
 						categoriesList.map((category) => {
 							return (
 								<option key={category.code} value={category.code}>{category.title}</option>
 							);
 						})
 						:
-						<option disabled value="">No categories found</option>
+						<option disabled value=''>No categories found</option>
 					}
 				</select>
-			</section>
+			</FormSection>
 
-			<section className='form__section'>
-				<label htmlFor="toDoDate">{newTaskFormTitles.toDoDate}</label>
-				<input name="toDoDate" type="datetime-local" onChange={(e) => { setToDoDate(e.target.value); }}></input>
-			</section>
+			<FormSection labelFor='toDoDate' sectionTitle={locale.taskInfoTitles.toDoDate}>
+				<input name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
+			</FormSection>
 
-			<Button title={buttons.submitForm} variant='filled' buttonType='submit' />
-		</form>
-	)
+			<DefaultButton title={locale.formDefaults.submitButtonTitle} variant='filled' buttonType='submit' />
+		</FormContainer>
+	);
 };
