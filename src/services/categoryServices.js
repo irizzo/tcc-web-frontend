@@ -65,8 +65,3 @@ export async function getCategoriesList(userToken) {
 // alter category
 
 // delete category
-
-module.exports = {
-	createCategory,
-	getCategoriesList
-}

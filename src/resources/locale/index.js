@@ -1,22 +1,18 @@
 export const formDefaults = {
 	defaultOption: 'Por favor escolha uma opção',
-	defaultButtonTitle: 'Enviar',
+	submitButtonTitle: 'Enviar',
 	passwordRequirements: 'A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços'
 };
 
-export const buttons = {
-	submitForm: 'Finalizar'
-};
-
-export const userFormsFields = {
+export const userInfoTitles  ={
 	firstName: 'Primeiro Nome',
 	lastName: 'Sobrenome',
 	email: 'Email',
 	password: 'Senha',
 	confirmPassword: 'Confirme a Senha'
-};
+}
 
-export const newTaskFormTitles = {
+export const taskInfoTitles = {
 	title: 'Título da Tarefa',
 	description: 'Descrição',
 	dueDate: 'Prazo',
@@ -43,7 +39,8 @@ export const pageTitles = {
 	settings: 'Configurações',
 	tasks: {
 		new: 'Nova Tarefa',
-		all: 'Tarefas'
+		all: 'Tarefas',
+		edit: 'Editar Tarefa'
 	},
 	user: {
 		login: 'Login',
@@ -54,5 +51,12 @@ export const pageTitles = {
 
 export const general = {
 	loading: 'Carregando',
-	save: 'Salvar'
+	save: 'Salvar',
+	edit: 'Editar',
+	cancel: 'Cancelar'
+};
+
+export const appInfo = {
+	name: 'Nome do Produto',
+	description: 'Descrição do Produto'
 }

@@ -2,13 +2,17 @@ import './globalButton.scss';
 
 import Link from 'next/link';
 
-export function DefaultButton({ title, variant, small = false, buttonType = 'button' }) {
+export function DefaultButton({ title, variant, small = false, buttonType = 'button', onClickFunction=null }) {
 	const buttonVariant = variant === 'outlined' ? 'outlined' : 'filled';
 	let variantClasses = `button--${buttonVariant}`;
 	small ? variantClasses += ' button--small' : null;
 
 	return (
-		<button className={`button ${variantClasses}`} type={buttonType}>{title}</button>
+		<button
+			className={`button ${variantClasses}`}
+			type={buttonType}
+			onClick={onClickFunction}
+		>{title}</button>
 	);
 }
 

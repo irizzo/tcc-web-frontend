@@ -3,7 +3,7 @@
 import './globalForm.scss';
 import { FaCircleInfo } from 'react-icons/fa6';
 
-export function FormContainer({ children, title, submitCallback, variantClasses ='form_container--full' }) {
+export function FormContainer({ children, title, submitCallback, variantClasses ='form__container--full' }) {
 	return (
 		<div className={`form__container ${variantClasses}`} autoComplete='off' onSubmit={submitCallback}>
 			<h1 className='form__title'>{title}</h1>

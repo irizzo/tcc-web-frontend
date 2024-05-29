@@ -1,8 +1,7 @@
 import './card.scss';
-import Link from 'next/link';
 
+import Link from 'next/link';
 import { FaEllipsisVertical, FaTag, FaRegCalendar } from 'react-icons/fa6';
-import { TitleLink } from '../Link';
 
 export function ListBoard({ title, children }) {
 	return (
@@ -19,21 +18,24 @@ export function ListBoard({ title, children }) {
 	);
 }
 
-export function CardContainer({ children, path, title }) {
+export function CardContainer({ children, path = '', title, _query=null }) {
 	return (
 		<div className='flex card__container'>
-			<h2 className='card__title'>{title}</h2>
-			{/* <TitleLink path={path} title={title}/> */}
+			<Link className='card__title' href={{ pathname: path, query: _query }} >
+				<h3>{title}</h3>
+			</Link>
+
 			{children}
 		</div>
 	);
 }
 
-export function TaskCard({ path, taskInfo }) {
+export function TaskCard({ taskInfo }) {
 	// TODO: treat dates
+	const taskPath = `/tasks/${taskInfo.id}`;
 
 	return (
-		<CardContainer path={path} title={taskInfo.title}>
+		<CardContainer path={taskPath} title={taskInfo.title} _query={taskInfo}>
 			{taskInfo.dueDate && <p>{taskInfo.dueDate.toString()}</p>}
 			{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />}
 		</CardContainer>
