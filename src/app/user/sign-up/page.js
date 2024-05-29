@@ -45,29 +45,29 @@ export default function SignUp() {
 					variantClasses='form__container--sign-up'
 					submitCallback={(e) => handleSignUp(e, { firstName, lastName, email, password, confirmPassword })}
 				>
-					<FormSection labelFor='firstName' sectionTitle={locale.userFormsFields.firstName}>
-						<input type='text' name="firstName" required placeholder={locale.userFormsFields.firstName} onChange={(e) => { setFirstName(e.target.value); }} />
+					<FormSection labelFor='firstName' sectionTitle={locale.userInfoTitles.firstName}>
+						<input type='text' name="firstName" required placeholder={locale.userInfoTitles.firstName} onChange={(e) => { setFirstName(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='lastName' sectionTitle={ locale.userFormsFields.lastName }>
-						<input type='text' name="lastName" required placeholder={locale.userFormsFields.lastName} onChange={(e) => { setLastName(e.target.value); }} />
+					<FormSection labelFor='lastName' sectionTitle={ locale.userInfoTitles.lastName }>
+						<input type='text' name="lastName" required placeholder={locale.userInfoTitles.lastName} onChange={(e) => { setLastName(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='email' sectionTitle={ locale.userFormsFields.email }>
-						<input type='email' name="email" required placeholder={locale.userFormsFields.email} onChange={(e) => { setEmail(e.target.value); }} />
+					<FormSection labelFor='email' sectionTitle={ locale.userInfoTitles.email }>
+						<input type='email' name="email" required placeholder={locale.userInfoTitles.email} onChange={(e) => { setEmail(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='password' sectionTitle={ locale.userFormsFields.password }>
-						<input type='password' name="password" required placeholder={locale.userFormsFields.password} onChange={(e) => { setPassword(e.target.value); }} />
+					<FormSection labelFor='password' sectionTitle={ locale.userInfoTitles.password }>
+						<input type='password' name="password" required placeholder={locale.userInfoTitles.password} onChange={(e) => { setPassword(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='confirmPassword' sectionTitle={ locale.userFormsFields.confirmPassword }>
-						<input type='password' name="confirmPassword" required placeholder={locale.userFormsFields.confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value); }} />
+					<FormSection labelFor='confirmPassword' sectionTitle={ locale.userInfoTitles.confirmPassword }>
+						<input type='password' name="confirmPassword" required placeholder={locale.userInfoTitles.confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value); }} />
 					</FormSection>
 
 					<FormInfo>{locale.formDefaults.passwordRequirements}</FormInfo>
 
-					<DefaultButton title={locale.formDefaults.defaultButtonTitle} variant="filled" buttonType='submit' />
+					<DefaultButton title={locale.formDefaults.submitButtonTitle} variant="filled" buttonType='submit' />
 
 				</FormContainer>
 			</main>
