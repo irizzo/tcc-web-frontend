@@ -16,8 +16,8 @@ export default function AllTasks() {
 			<ListBoard title={'All'}>
 				{
 					taskList.length > 0 ?
-						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
+						taskList.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} />;
 						})
 						:
 						<GeneralMessage content={'No tasks found'} />
@@ -36,6 +36,17 @@ export default function AllTasks() {
 			</ListBoard>
 
 			<ListBoard title={'Past Due'}>
+				{
+					taskList.length > 0 ?
+						taskList.map((t) => {
+							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
+						})
+						:
+						<GeneralMessage content={'No tasks found'} />
+				}
+			</ListBoard>
+
+			<ListBoard title={'Title'}>
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
