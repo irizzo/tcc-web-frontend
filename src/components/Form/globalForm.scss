@@ -19,7 +19,7 @@ $input__border: 2px solid variables.$primary-color-light--30op;
 	margin: 0% 1%;
 	padding: 0 0 1%;
 
-	box-shadow: variables.$box-shadow--intermediate;
+	box-shadow: variables.$box-shadow--light;
 	border-radius: variables.$radius;
 
 	color: variables.$primary-font-color;
@@ -90,6 +90,7 @@ select {
 
 	background-color: variables.$foreground-color;
 	color: variables.$primary-font-color;
+	font-size: 14px;
 }
 
 textarea {
@@ -110,6 +111,7 @@ textarea {
 
 	background-color: variables.$foreground-color;
 	color: variables.$primary-font-color;
+	font-size: 14px;
 }
 
 input::placeholder,
@@ -122,9 +124,19 @@ textarea::placeholder {
 textarea:focus,
 input:focus,
 select:focus {
-	outline: 1px solid variables.$primary-color-intermediate;
-	box-shadow: variables.$box-shadow--intermediate--small;
+	outline: 1px solid variables.$primary-color-light;
+	box-shadow: variables.$box-shadow--light--small;
 	outline-offset: none;
+}
+
+textarea:read-only,
+input:read-only,
+select:disabled {
+	outline: none;
+	box-shadow: none;
+	outline-offset: none;
+	cursor: default;
+	border: none;
 }
 
 .form__info {
@@ -141,7 +153,7 @@ select:focus {
 
 		i {
 			margin-right: 1%;
-			color: variables.$primary-color-intermediate
+			color: variables.$primary-color-light
 		}
 	}
 }

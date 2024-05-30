@@ -25,6 +25,15 @@ export const taskInfoTitles = {
 	toDoDate: 'Quando fazer?'
 };
 
+export const taskInfoDefaults = {
+	title: 'Título da Tarefa',
+	description: 'Descrição',
+	dueDate: 'Nenhum Prazo Selecionado',
+	priority: 'Nenhuma Prioridade Selecionada',
+	category: 'Nenhuma Categoria Selecionada',
+	toDoDate: 'Nenhuma Data Selecionada'
+}
+
 export const pageTitles = {
 	home: 'Início',
 	contents: 'Conteúdos',

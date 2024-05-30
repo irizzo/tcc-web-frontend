@@ -6,7 +6,7 @@
 	min-width: 240px;
 	background-color: variables.$foreground-color;
 	border-radius: variables.$radius;
-	box-shadow: variables.$box-shadow--light--small;
+	box-shadow: variables.$box-shadow--light--small--offset;
 
 	overflow-x: scroll;
 
@@ -14,7 +14,7 @@
 		color: variables.$primary-font-color;
 		padding: 1% 2%;
 		margin-bottom: 1%;
-		box-shadow: variables.$box-shadow--intermediate--small;
+		box-shadow: variables.$box-shadow--light--small--offset;
 	}
 
 	header .header__title {

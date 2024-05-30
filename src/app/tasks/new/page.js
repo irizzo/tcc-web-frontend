@@ -108,9 +108,9 @@ export default function NewTask() {
 				<select name='priority' onChange={ (e) => setPriorityCode(e.target.value) }>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 					<option key={1} value={1}>{locale.taskInfoTitles.quadrantOne}</option>
-					<option key={1} value={1}>{locale.taskInfoTitles.quadrantTwo}</option>
-					<option key={1} value={1}>{locale.taskInfoTitles.quadrantThree}</option>
-					<option key={1} value={1}>{locale.taskInfoTitles.quadrantFour}</option>
+					<option key={2} value={2}>{locale.taskInfoTitles.quadrantTwo}</option>
+					<option key={3} value={3}>{locale.taskInfoTitles.quadrantThree}</option>
+					<option key={4} value={4}>{locale.taskInfoTitles.quadrantFour}</option>
 				</select>
 			</FormSection>
 

@@ -11,7 +11,6 @@ import { taskList } from '@/resources/mockData';
 export default function AllTasks() {
 	return (
 		<main className='flex flex--row tasks__main'>
-			{/* TODO: componente para mostrar 'no tasks found' */}
 
 			<ListBoard title={'All'}>
 				{

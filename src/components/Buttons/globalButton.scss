@@ -11,14 +11,27 @@
 	cursor: pointer;
 }
 
-.button:hover {
-	color: variables.$primary-color-light;
-	background-color: variables.$primary-color-light--30op;
-	border: variables.$primary-color-light 1px solid;
-	box-shadow: variables.$box-shadow--light--small;
-	outline: 1px solid variables.$primary-color-light;
+%button-hover {
 	outline-offset: none;
-	transition: 150ms;
+	transition: 300ms;
+	color: variables.$primary-font-color;
+}
+
+.button:disabled {
+	cursor: not-allowed;
+	background-color: variables.$disabled-background-color;
+	color: variables.$placeholder-font-color;
+	border: none;
+}
+
+.button:disabled:hover {
+	cursor: not-allowed;
+	background-color: variables.$disabled-background-color;
+	border: none;
+	box-shadow: none;
+	outline: none;
+	outline-offset: none;
+	transition: none;
 }
 
 .button--small {
@@ -28,15 +41,30 @@
 }
 
 .button--filled {
-	color: variables.$primary-color-dark;
-	background-color: variables.$primary-color-light;
-	border: variables.$primary-color-light 1px solid;
+	color: variables.$primary-font-color;
+	background-color: variables.$primary-color-dark;
+	border: variables.$primary-color-dark 1px solid;
+}
+
+.button--filled:hover {
+	@extend %button-hover;
+
+	background-color: variables.$primary-color-dark--30op;
+	border: variables.$primary-color-dark 1px solid;
+	box-shadow: variables.$box-shadow--dark--small;
 }
 
 .button--outlined {
 	color: variables.$primary-color-light;
 	background-color: initial;
 	border: variables.$primary-color-light 1px solid;
+}
+
+.button--outlined:hover {
+	@extend %button-hover;
+	background-color: variables.$primary-color-light--15op;
+	border: variables.$primary-color-light 1px solid;
+	box-shadow: variables.$box-shadow--light--small;
 }
 
 .button--link {
