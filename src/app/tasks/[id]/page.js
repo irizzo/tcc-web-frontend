@@ -7,23 +7,20 @@ import { DefaultButton } from '@/components/Buttons';
 import * as locale from '@/resources/locale';
 
 export default function TaskPage({ params, searchParams }) {
-	console.log('TASK PAGE');
-	console.log(`searchParams = ${JSON.stringify(searchParams)}`);
-
 	let categoriesList = [];
-	let prioritesList = [];
 
 	const [ title, setTitle ] = useState(searchParams.title);
 	const [ description, setDescription ] = useState(searchParams.description);
 	const [ dueDate, setDueDate ] = useState(searchParams.dueDate);
-	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode);
-	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode);
+	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode ? searchParams.categoryCode : locale.taskInfoDefaults.category);
+	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode ? searchParams.priorityCode : locale.taskInfoDefaults.priority);
 	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate);
 
 	const [ editing, setEditing ] = useState(false);
 
 	if(editing) {
 		// load resources
+		console.log('editing');
 	}
 
 	return (
@@ -45,7 +42,7 @@ export default function TaskPage({ params, searchParams }) {
 
 			<FormSection labelFor='priotity' sectionTitle={locale.taskInfoTitles.priority}>
 				<select name='priority' disabled={!editing} value={priorityCode} onChange={(e) => setPriorityCode(e.target.value)}>
-					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
+					<option defaultValue=''>{priorityCode}</option>
 					<option key={1} value={1}>{locale.taskInfoTitles.quadrantOne}</option>
 					<option key={2} value={2}>{locale.taskInfoTitles.quadrantTwo}</option>
 					<option key={3} value={3}>{locale.taskInfoTitles.quadrantThree}</option>
@@ -55,7 +52,7 @@ export default function TaskPage({ params, searchParams }) {
 
 			<FormSection labelFor='category' sectionTitle={locale.taskInfoTitles.category}>
 				<select name='category' disabled={!editing} value={categoryCode} onChange={(e) => { setCategoryCode(e.target.value); }}>
-					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
+					<option defaultValue=''>{categoryCode}</option>
 
 					{categoriesList.length > 0 ?
 						categoriesList.map((category) => {

@@ -42,16 +42,16 @@
 
 .button--filled {
 	color: variables.$primary-font-color;
-	background-color: variables.$primary-color-dark;
-	border: variables.$primary-color-dark 1px solid;
+	background-color: variables.$primary-color-light;
+	border: variables.$primary-color-light 1px solid;
 }
 
 .button--filled:hover {
 	@extend %button-hover;
 
-	background-color: variables.$primary-color-dark--30op;
-	border: variables.$primary-color-dark 1px solid;
-	box-shadow: variables.$box-shadow--dark--small;
+	background-color: variables.$primary-color-light--30op;
+	border: variables.$primary-color-light 1px solid;
+	box-shadow: variables.$box-shadow--light--small;
 }
 
 .button--outlined {

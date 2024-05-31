@@ -10,7 +10,7 @@ export const userInfoTitles  ={
 	email: 'Email',
 	password: 'Senha',
 	confirmPassword: 'Confirme a Senha'
-}
+};
 
 export const taskInfoTitles = {
 	title: 'Título da Tarefa',
@@ -32,7 +32,7 @@ export const taskInfoDefaults = {
 	priority: 'Nenhuma Prioridade Selecionada',
 	category: 'Nenhuma Categoria Selecionada',
 	toDoDate: 'Nenhuma Data Selecionada'
-}
+};
 
 export const pageTitles = {
 	home: 'Início',
@@ -42,8 +42,8 @@ export const pageTitles = {
 		new: 'Novo Evento',
 		all: 'Eventos'
 	},
-	routines: {
-		all: 'Rotinas'
+	habits: {
+		all: 'Hábitos'
 	},
 	settings: 'Configurações',
 	tasks: {
@@ -68,4 +68,14 @@ export const general = {
 export const appInfo = {
 	name: 'Nome do Produto',
 	description: 'Descrição do Produto'
-}
+};
+
+export const weekdays = {
+	0: 'Dom',
+	1: 'Seg',
+	2: 'Ter',
+	3: 'Qua',
+	4: 'Qui',
+	5: 'Sex',
+	6: 'Sáb'
+};

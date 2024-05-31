@@ -1,24 +1,15 @@
-import '@/components/SideBar/sideBar.scss';
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook } from 'react-icons/fa6';
 
-import { pageTitles } from '@/resources/locale';
-
-// Todo: mover para recursos (@/resources)
-const daysDictionary = {
-	0: 'Dom',
-	1: 'Seg',
-	2: 'Ter',
-	3: 'Qua',
-	4: 'Qui',
-	5: 'Sex',
-	6: 'Sáb'
-};
+import './sideBar.scss';
+import * as locale from '@/resources/locale';
+import Link from 'next/link';
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
-	const today = `${daysDictionary[weekday]}, ${currentDate.toLocaleDateString()}`;
+	const today = `${locale.weekdays[weekday]}, ${currentDate.toLocaleDateString()}`;
 
-	return(
+	return (
 		<aside>
 			<header className='sidebar__header'>
 				<h1 className='header__title'>{'Isabelle Rizzo'}</h1>
@@ -29,17 +20,29 @@ export default function SideBar() {
 			{/* TODO: colocar div com as opções da página atual */}
 			<nav className='sidebar__nav'>
 				<ul className='nav__list'>
-					<li className='nav__list__item'>{pageTitles.event.all}</li>
-					<li className='nav__list__item'>{pageTitles.tasks.all}</li>
-					<li className='nav__list__item'>{pageTitles.routines.all}</li>
+					<NavListItem path='/events'>{locale.pageTitles.event.all}</NavListItem>
+					<NavListItem path='/tasks'>{locale.pageTitles.tasks.all}</NavListItem>
+					<NavListItem path='/habits'>{locale.pageTitles.habits.all}</NavListItem>
 				</ul>
 
 				<ul className='nav__list'>
-					<li className='nav__list__item'>{pageTitles.settings}</li>
-					<li className='nav__list__item'>{pageTitles.contents}</li>
-					<li className='nav__list__item'>{pageTitles.about}</li>
+					<NavListItem path='/settings' customIcon={<FaGear className='nav__item__icon' />} >{locale.pageTitles.settings}</NavListItem>
+					<NavListItem path='/contents' customIcon={<FaBook className='nav__item__icon' />} >{locale.pageTitles.contents}</NavListItem>
+					<NavListItem path='/about' customIcon={<FaCircleInfo className='nav__item__icon' />} >{locale.pageTitles.about}</NavListItem>
 				</ul>
 			</nav>
 		</aside>
+	);
+}
+
+function NavListItem({children, path='/', customIcon=null}) {
+	return (
+		<Link className='flex flex--row flex--row nav__item' href={path}>
+			{customIcon ?
+				customIcon :
+				<FaArrowRight className='nav__item__icon' />
+			}
+			<li>{children}</li>
+		</Link>
 	);
 }
