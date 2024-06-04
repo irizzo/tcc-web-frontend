@@ -6,5 +6,5 @@ export default function ContentsFeed({ params, searchParams }) {
 			<h1>{searchParams.title}</h1>
 			<p>{searchParams.content}</p>
 		</main>
-	)
+	);
 }

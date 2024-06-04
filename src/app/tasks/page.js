@@ -5,7 +5,6 @@ import { ListBoard, TaskCard } from '@/components/Card';
 import { GeneralMessage } from '@/components/Messages';
 
 import { taskList } from '@/resources/mockData';
-// const taskList = [];
 
 export default function AllTasks() {
 	return (

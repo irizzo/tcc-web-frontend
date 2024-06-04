@@ -10,11 +10,11 @@ export default function TaskPage({ params, searchParams }) {
 	let categoriesList = [];
 
 	const [ title, setTitle ] = useState(searchParams.title);
-	const [ description, setDescription ] = useState(searchParams.description);
-	const [ dueDate, setDueDate ] = useState(searchParams.dueDate);
+	const [ description, setDescription ] = useState(searchParams.description ? searchParams.description : locale.taskInfoDefaults.description);
+	const [ dueDate, setDueDate ] = useState(searchParams.dueDate ? searchParams.dueDate : locale.taskInfoDefaults.dueDate);
 	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode ? searchParams.categoryCode : locale.taskInfoDefaults.category);
 	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode ? searchParams.priorityCode : locale.taskInfoDefaults.priority);
-	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate);
+	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate ? searchParams.toDoDate : locale.taskInfoDefaults.toDoDate);
 
 	const [ editing, setEditing ] = useState(false);
 
@@ -23,10 +23,28 @@ export default function TaskPage({ params, searchParams }) {
 		console.log('editing');
 	}
 
+	async function handleEditTaskForm(e) {
+		e.preventDefault();
+		return;
+	};
+
+	function handleEdit() {
+		if (editing) {
+			setTitle(searchParams.title);
+			setDescription(searchParams.description ? searchParams.description : locale.taskInfoDefaults.description);
+			setDueDate(searchParams.dueDate ? searchParams.dueDate : locale.taskInfoDefaults.dueDate);
+			setCategoryCode(searchParams.categoryCode ? searchParams.categoryCode : locale.taskInfoDefaults.category);
+			setPriorityCode(searchParams.priorityCode ? searchParams.priorityCode : locale.taskInfoDefaults.priority);
+			setToDoDate(searchParams.toDoDate ? searchParams.toDoDate : locale.taskInfoDefaults.toDoDate);
+		}
+
+		setEditing(!editing);
+	}
+
 	return (
 		<FormContainer
 			title={locale.pageTitles.tasks.new}
-			submitCallback={(e) => handleNewTaskForm(e)}
+			submitCallback={(e) => handleEditTaskForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.taskInfoTitles.title}>
 				<input name='title' value={title} readOnly={!editing} type='text' required placeholder={locale.taskInfoTitles.title} onChange={(e) => { setTitle(e.target.value); }}></input>
@@ -75,7 +93,7 @@ export default function TaskPage({ params, searchParams }) {
 					title={editing ? locale.general.cancel : locale.general.edit}
 					variant='outlined'
 					buttonType='button'
-					onClickFunction={() => setEditing(!editing)}
+					onClickFunction={handleEdit()}
 				/>
 
 				<DefaultButton

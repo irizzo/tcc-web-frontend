@@ -53,6 +53,16 @@ export function FeedCard({ contentInfo }) {
 	);
 }
 
+export function CategoryCard ({ categoryInfo }) {
+	const categoryPath = `/categories/${categoryInfo.id}`;
+
+	return (
+		<CardContainer path={categoryPath} title={categoryInfo.title} _query={categoryInfo}>
+			{categoryInfo.description && <p>{categoryInfo.description}</p>}
+		</CardContainer>
+	);
+}
+
 export function ScheduleTag({ scheduledDate }) {
 	return (
 		<div className='tag__container'>
