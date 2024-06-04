@@ -27,16 +27,27 @@ export const taskInfoTitles = {
 
 export const taskInfoDefaults = {
 	title: 'Título da Tarefa',
-	description: 'Descrição',
+	description: 'Descrição da Tarefa',
 	dueDate: 'Nenhum Prazo Selecionado',
 	priority: 'Nenhuma Prioridade Selecionada',
 	category: 'Nenhuma Categoria Selecionada',
 	toDoDate: 'Nenhuma Data Selecionada'
 };
 
+export const categoriesInfoTitles = {
+	title: 'Título da Categoria',
+	description: 'Descrição da Categoria'
+};
+
 export const pageTitles = {
 	home: 'Início',
 	contents: 'Conteúdos',
+	categories: {
+		new: 'Nova Categoria',
+		all: 'Categorias',
+		edit: 'Edita Categoria'
+
+	},
 	dashboard: 'Dashboard',
 	event: {
 		new: 'Novo Evento',
