@@ -40,15 +40,15 @@
 
 .card__container {
 	align-items: flex-start;
-	justify-content: space-arounds;
+	justify-content: space-around;
 
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: variables.$foreground-color;
 
 	width: 100%;
 	border: 1px solid variables.$primary-color-light--30op;
-	padding: 2%;
+	padding: 1% 2%;
 	margin-bottom: 1%;
-	border-radius: variables.$radius--small;
+	border-radius: variables.$radius;
 
 	.card__title {
 		text-align: left;
@@ -59,14 +59,22 @@
 		font-size: 1rem;
 		margin-bottom: 1%;
 		cursor: pointer;
-
 	}
-
+	
 	p {
 		font-size: smaller;
 		color: variables.$placeholder-font-color;
 		margin-bottom: 1%;
 	}
+
+	.card__title:hover h3 {
+		color: variables.$primary-color-light;
+	}
+}
+
+.card__container:hover {
+	box-shadow: variables.$box-shadow--light--small--offset;
+	background-color: variables.$primary-color-light--15op;
 }
 
 .tag__container {

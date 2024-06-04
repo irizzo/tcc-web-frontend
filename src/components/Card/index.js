@@ -42,6 +42,17 @@ export function TaskCard({ taskInfo }) {
 	);
 }
 
+export function FeedCard({ contentInfo }) {
+	const contentPath = `/contents/${contentInfo.id}`;
+	const abstract = contentInfo.content.slice(0, 200) + '...';
+
+	return (
+		<CardContainer path={contentPath} title={contentInfo.title} _query={contentInfo}>
+			<p>{abstract}</p>
+		</CardContainer>
+	);
+}
+
 export function ScheduleTag({ scheduledDate }) {
 	return (
 		<div className='tag__container'>

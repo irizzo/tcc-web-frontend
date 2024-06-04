@@ -1,0 +1,24 @@
+@use '../../styles/variables.scss';
+
+.contents__main {
+	flex: 1;
+	height: 100%;
+
+	background-color: variables.$foreground-color;
+
+	.contents__page-title {
+		width: 95%;
+		text-align: center;
+		border-bottom: 2px solid variables.$primary-color-light--30op;
+		margin-bottom: 1%;
+	}
+
+	.contents__feed {
+		// background-color: variables.$foreground-color;
+		padding: 1%;
+		width: 95%;
+		flex: 1;
+		max-height: 90vh;
+		overflow-x: scroll;
+	}
+}

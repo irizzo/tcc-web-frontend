@@ -14,7 +14,7 @@ aside {
 	min-height: 8%;
 	padding: 5px 2px;
 	text-align: center;
-	background-color: variables.$primary-color-dark;
+	background-color: variables.$primary-color-dark--30op;
 	width: 100%;
 
 	.header__title {
@@ -72,5 +72,4 @@ aside {
 
 .nav__item:hover li {
 	color: variables.$primary-color-light;
-	text-decoration: underline;
 }
