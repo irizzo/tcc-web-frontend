@@ -1,9 +1,13 @@
+'use server';
+
 /* User Access Services
 	* sign up
 	* login
 	* logout
 	* verify user access
 */
+
+import { cookies } from 'next/headers';
 
 import httpClient from './http/client';
 import messagesDictionary from '@/resources/messages';
@@ -12,6 +16,10 @@ const baseAccessPath = '/user-access';
 
 export async function verifyUserAccessService() {
 	console.log('[verifyUserAccessService]');
+
+	const cookieStore = cookies();
+	const tokenCookie = cookieStore.has('token');
+	console.log(`[verifyUserAccessService] tokenCookie = ${JSON.stringify(tokenCookie)}`);
 
 	const fetchUserAccessRes = await httpClient.get({ path: `${baseAccessPath}/`});
 
@@ -46,6 +54,16 @@ export async function signUpService(userSignUpData) {
 			singUpFetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
+
+	if(signUpServiceRes.success) {
+		console.log('[signUpService] sucesso; setar cookies');
+
+		cookies().set({
+			name: signUpServiceRes.result.tokenCookieData.name,
+			value: signUpServiceRes.result.tokenCookieData.value,
+			...signUpServiceRes.result.tokenCookieData.options
+		});
+	}
 
 	return signUpServiceRes;
 }

@@ -8,7 +8,6 @@ export function DefaultButton({ title, variant, small = false, buttonType = 'but
 	small ? variantClasses += ' button--small' : null;
 	customStyles ? variantClasses += ` ${customStyles}` : null;
 
-	console.log(`variantClasses = ${variantClasses}`);
 	return (
 		<button
 			className={`button ${variantClasses}`}

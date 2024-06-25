@@ -16,7 +16,12 @@ const messagesDictionary = {
 	DEFAULT_SUCCESS: 'Sucesso.',
 
 	EMPTY_FIELD: 'Por favor, preencha todos os campos obrigatórios.',
-	DIF_CONFIRM_PASS: 'Senha e Confirmação da Senha devem ser iguais.' // TODO: change to better name
+	DIF_CONFIRM_PASS: 'Senha e Confirmação da Senha devem ser iguais.', // TODO: change to better name
+
+	EMAIL_NOT_UNIQUE: 'Email já cadastrado',
+	INVALID_PASSWORD: 'Senha inválida',
+	INVALID_EMAIL: 'Email inválido'
+
 };
 
 module.exports = messagesDictionary;

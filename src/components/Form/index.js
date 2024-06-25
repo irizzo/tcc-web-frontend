@@ -7,7 +7,7 @@ export function FormContainer({ children, title, submitCallback, variantClasses 
 	return (
 		<div className={`form__container ${variantClasses}`} autoComplete='off' onSubmit={submitCallback}>
 			<h1 className='form__title'>{title}</h1>
-			<form className='form__content'>
+			<form className='form__content' autoComplete='off'>
 				{children}
 			</form>
 		</div>

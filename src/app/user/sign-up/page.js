@@ -3,16 +3,16 @@
 import { useState, useContext, useEffect } from 'react';
 import { UserAccessStateContext } from '@/hooks';
 
+import { signUpService, verifyUserAccessService } from '@/services/userAccessServices';
+import { navigateTo } from '@/services/general';
+import messagesDictionary from '@/resources/messages';
+
 import { DefaultPageContainer } from '@/components/PageContainer';
 import Menu from '@/components/Menu';
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection, FormInfo } from '@/components/Form';
 
 import * as locale from '@/resources/locale';
-import handleSignUp from './handleSignUp';
-
-import { navigateTo } from '@/services/general';
-import { verifyUserAccessService } from '@/services/userAccessServices';
 
 export default function SignUp() {
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
@@ -21,14 +21,39 @@ export default function SignUp() {
 		if (userAccessState) {
 			console.log(`logged in (userAccessState = ${userAccessState})`);
 			const isUserAuthorized = verifyUserAccessService();
+
 			if (isUserAuthorized.success) {
+				console.log('logged in (AUTHORIZED)');
 				navigateTo({ path: '/dashboard'});
 			} else setUserAccessState(false);
-
-		} else {
-			console.log(`not logged in (userAccessState = ${userAccessState})`);
 		}
-	}, []);
+	}, [ setUserAccessState, userAccessState ]);
+
+	async function handleSignUp(e, data) {
+		console.log('[handleSignUp]');
+
+		e.preventDefault();
+
+		// validations
+		if (!data.firstName || !data.lastName || !data.email || !data.password || !data.confirmPassword) {
+			alert(messagesDictionary.EMPTY_FIELD);
+			return;
+		}
+
+		if (data.password !== data.confirmPassword) {
+			alert(messagesDictionary.DIF_CONFIRM_PASS);
+			return;
+		}
+
+		const fetchRes = await signUpService(data);
+
+		if(fetchRes.success) {
+			console.log('usuário criado!');
+			setUserAccessState(true);
+		} else {
+			alert(fetchRes.message);
+		}
+	}
 
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');

@@ -20,9 +20,8 @@ const httpClient = ({ baseURL }) => {
 
 		post: async ({ path, payload, customHeaders = null }) => {
 			console.log('[httpClient] [post]');
-			console.log('[httpClient] [post] test');
-			console.log(`body = ${JSON.stringify(payload)}`);
-			console.log(`headers = ${customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders}`);
+			// console.log(`body = ${JSON.stringify(payload)}`);
+			// console.log(`headers = ${JSON.stringify(customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders)}`);
 
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'POST',
@@ -53,7 +52,5 @@ const httpClient = ({ baseURL }) => {
 		}
 	};
 };
-
-console.log(`[/http/client] _BASEURL = ${_BASEURL}`);
 
 export default httpClient({ baseURL: _BASEURL });
