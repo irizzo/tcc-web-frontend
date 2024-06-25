@@ -1,13 +1,14 @@
-import { FaArrowRight, FaGear, FaCircleInfo, FaBook } from 'react-icons/fa6';
+import Link from 'next/link';
+
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus } from 'react-icons/fa6';
 
 import './sideBar.scss';
 import * as locale from '@/resources/locale';
-import Link from 'next/link';
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
-	const today = `${locale.weekdays[weekday]}, ${currentDate.toLocaleDateString()}`;
+	const today = `${locale.weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
 
 	return (
 		<aside>
@@ -17,12 +18,20 @@ export default function SideBar() {
 			</header>
 
 			{/* TODO: colocar as rotas para as páginas */}
-			{/* TODO: colocar div com as opções da página atual */}
 			<nav className='sidebar__nav'>
 				<ul className='nav__list'>
-					<NavListItem path='/events'>{locale.pageTitles.event.all}</NavListItem>
+					<NavListItem path='/dashboard'>{locale.pageTitles.dashboard}</NavListItem>
+					<NavListItem path='/categories'>{locale.pageTitles.categories.all}</NavListItem>
+					<NavListItem path='/events'>{locale.pageTitles.events.all}</NavListItem>
 					<NavListItem path='/tasks'>{locale.pageTitles.tasks.all}</NavListItem>
 					<NavListItem path='/habits'>{locale.pageTitles.habits.all}</NavListItem>
+				</ul>
+
+				<ul className='nav__list'>
+					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/categories/new'>{locale.pageTitles.categories.new}</NavListItem>
+					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/events/new'>{locale.pageTitles.events.new}</NavListItem>
+					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/tasks/new'>{locale.pageTitles.tasks.new}</NavListItem>
+					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/habits/new'>{locale.pageTitles.habits.new}</NavListItem>
 				</ul>
 
 				<ul className='nav__list'>

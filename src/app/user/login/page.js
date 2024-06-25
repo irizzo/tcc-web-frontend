@@ -1,5 +1,7 @@
 'use client';
 
+import * as locale from '@/resources/locale';
+
 import { DefaultPageContainer } from '@/components/PageContainer';
 import Menu from '@/components/Menu';
 import { DefaultButton } from '@/components/Buttons';
@@ -18,16 +20,16 @@ export default function Login() {
 		<DefaultPageContainer>
 			<Menu buttonsShown />
 			<main className='flex flex--center' style={{ flex: 1, width: '100vw'}}>
-				<FormContainer title={'pageTitles.user.login'} variantClasses='form__container--login' submitCallback={handleLogin}>
-					<FormSection labelFor='email' sectionTitle={'loginFormTitles.email'}>
-						<input type='email' name="email" required placeholder={'loginFormTitles.email'} /*onChange={(e) => { setDescription(e.target.value); }}*/ />
+				<FormContainer title={locale.pageTitles.user.login} variantClasses='form__container--login' submitCallback={handleLogin}>
+					<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
+						<input type='email' name="email" required placeholder={locale.entitiesProperties.user.email} /*onChange={(e) => { setDescription(e.target.value); }}*/ />
 					</FormSection>
 
-					<FormSection labelFor='password' sectionTitle={'loginFormTitles.password'}>
-						<input type='pacssword' name="password" required placeholder={'loginFormTitles.password'} /*onChange={(e) => { setDescription(e.target.value); }}*/ />
+					<FormSection labelFor='password' sectionTitle={locale.entitiesProperties.user.password}>
+						<input type='pacssword' name="password" required placeholder={locale.entitiesProperties.user.password} /*onChange={(e) => { setDescription(e.target.value); }}*/ />
 					</FormSection>
 
-					<DefaultButton title={'login button'} variant="filled" buttonType='submit' />
+					<DefaultButton title={locale.formDefaults.submitButtonTitle} variant="filled" buttonType='submit' />
 				</FormContainer>
 			</main>
 		</DefaultPageContainer>

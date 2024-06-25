@@ -1,10 +1,12 @@
+'use client';
+
 import './categoriesPage.scss';
 import * as locale from '@/resources/locale';
 
 import { GeneralMessage } from '@/components/Messages';
 import { CategoryCard } from '@/components/Card';
 
-import { categoriesList } from '@/resources/mockData';;
+const categoriesList = [];
 
 export default function ContentsFeed() {
 	return (
@@ -17,7 +19,7 @@ export default function ContentsFeed() {
 							return <CategoryCard key={category.id} categoryInfo={category} />;
 						})
 						:
-						<GeneralMessage content={'No categories found.'} />
+						<GeneralMessage content={locale.notFoundDefaults.categories} />
 				}
 			</div>
 		</main>

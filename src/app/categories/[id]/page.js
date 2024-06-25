@@ -33,25 +33,25 @@ export default function CategoryPage({ searchParams }) {
 			title={ editing ? locale.pageTitles.categories.edit : searchParams.title }
 			submitCallback={(e) => handleEditCategoryForm(e)}
 		>
-			<FormSection labelFor='categoryTitle' sectionTitle={locale.categoriesInfoTitles.title}>
+			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>
 				<input name='categoryTitle' value={categoryTitle} readOnly={!editing} type='text' onChange={(e) => { setCategoryTitle(e.target.value);}} />
 			</FormSection>
 
-			<FormSection labelFor='categoryDescription' sectionTitle={locale.categoriesInfoTitles.description}>
+			<FormSection labelFor='categoryDescription' sectionTitle={locale.entitiesProperties.categories.description}>
 				<textarea name='categoryDescription' value={categoryDescription} readOnly={!editing} type='text' onChange={(e) => { setCategoryDescription(e.target.value);}} />
 			</FormSection>
 
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton
-					title={editing ? locale.general.cancel : locale.general.edit}
+					title={editing ? locale.actionsTitles.cancel : locale.actionsTitles.edit}
 					variant='outlined'
 					buttonType='button'
 					onClickFunction={handleEdit}
 				/>
 
 				<DefaultButton
-					title={locale.general.save}
+					title={locale.actionsTitles.save}
 					variant='filled'
 					buttonType='submit'
 					isDisabled={editing ? false : true}

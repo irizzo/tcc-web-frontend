@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';;
 
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection } from '@/components/Form';
 
 import * as locale from '@/resources/locale';
+
+// TODO: fix dates and selects placeholders styles
 
 // TODO: get categories from backend
 const _categoriesList = [];
@@ -92,29 +94,29 @@ export default function NewTask() {
 			title={locale.pageTitles.tasks.new}
 			submitCallback={(e) => handleNewTaskForm(e)}
 		>
-			<FormSection labelFor='title' sectionTitle={locale.taskInfoTitles.title}>
-				<input name='title' type='text' required placeholder={locale.taskInfoTitles.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
+				<input name='title' type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='description' sectionTitle={locale.taskInfoTitles.description}>
-				<textarea name='description' placeholder={locale.taskInfoTitles.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
+			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.tasks.description}>
+				<textarea name='description' placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
-			<FormSection labelFor='dueDate' sectionTitle={locale.taskInfoTitles.dueDate}>
+			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
 				<input name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='priotity' sectionTitle={locale.taskInfoTitles.priority}>
+			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
 				<select name='priority' onChange={ (e) => setPriorityCode(e.target.value) }>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
-					<option key={1} value={1}>{locale.taskInfoTitles.quadrantOne}</option>
-					<option key={2} value={2}>{locale.taskInfoTitles.quadrantTwo}</option>
-					<option key={3} value={3}>{locale.taskInfoTitles.quadrantThree}</option>
-					<option key={4} value={4}>{locale.taskInfoTitles.quadrantFour}</option>
+					<option key={1} value={1}>{locale.entitiesProperties.general.quadrantOne}</option>
+					<option key={2} value={2}>{locale.entitiesProperties.general.quadrantTwo}</option>
+					<option key={3} value={3}>{locale.entitiesProperties.general.quadrantThree}</option>
+					<option key={4} value={4}>{locale.entitiesProperties.general.quadrantFour}</option>
 				</select>
 			</FormSection>
 
-			<FormSection labelFor='category' sectionTitle={locale.taskInfoTitles.category}>
+			<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
 				<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 
@@ -125,12 +127,12 @@ export default function NewTask() {
 							);
 						})
 						:
-						<option disabled value=''>No categories found</option>
+						<option disabled value=''>{locale.notFoundDefaults.categories}</option>
 					}
 				</select>
 			</FormSection>
 
-			<FormSection labelFor='toDoDate' sectionTitle={locale.taskInfoTitles.toDoDate}>
+			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
 				<input name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
 			</FormSection>
 

@@ -4,84 +4,65 @@ export const formDefaults = {
 	passwordRequirements: 'A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços'
 };
 
-export const userInfoTitles  ={
-	firstName: 'Primeiro Nome',
-	lastName: 'Sobrenome',
-	email: 'Email',
-	password: 'Senha',
-	confirmPassword: 'Confirme a Senha'
-};
+// userInfoTitles -> entitiesProperties.user ...
+export const entitiesProperties = {
+	general: {
+		dueDate: 'Prazo',
+		priority: 'Prioridade',
+		quadrantOne: 'Urgente e Difícil',
+		quadrantTwo: 'Não Urgente e Difícil',
+		quadrantThree: 'Urgente e Fácil',
+		quadrantFour: 'Não Urgente e Fácil',
+		category: 'Categoria',
+		toDoDate: 'Quando fazer?'
+	},
 
-export const taskInfoTitles = {
-	title: 'Título da Tarefa',
-	description: 'Descrição',
-	dueDate: 'Prazo',
-	priority: 'Prioridade',
-	quadrantOne: 'Urgente e Difícil',
-	quadrantTwo: 'Não Urgente e Difícil',
-	quadrantThree: 'Urgente e Fácil',
-	quadrantFour: 'Não Urgente e Fácil',
-	category: 'Categoria',
-	toDoDate: 'Quando fazer?'
-};
+	generalDefaults: {
+		dueDate: 'Nenhum Prazo Selecionado',
+		priority: 'Nenhuma Prioridade Selecionada',
+		category: 'Nenhuma Categoria Selecionada',
+		toDoDate: 'Nenhuma Data Selecionada'
+	},
 
-export const taskInfoDefaults = {
-	title: 'Título da Tarefa',
-	description: 'Descrição da Tarefa',
-	dueDate: 'Nenhum Prazo Selecionado',
-	priority: 'Nenhuma Prioridade Selecionada',
-	category: 'Nenhuma Categoria Selecionada',
-	toDoDate: 'Nenhuma Data Selecionada'
-};
-
-export const categoriesInfoTitles = {
-	title: 'Título da Categoria',
-	description: 'Descrição da Categoria'
-};
-
-export const pageTitles = {
-	home: 'Início',
-	contents: 'Conteúdos',
 	categories: {
-		new: 'Nova Categoria',
-		all: 'Categorias',
-		edit: 'Edita Categoria'
+		title: 'Título da Categoria',
+		description: 'Descrição da Categoria'
+	},
 
+	contents: {
+		title: 'Título da Conteúdo',
+		content: 'Conteúdo'
 	},
-	dashboard: 'Dashboard',
-	event: {
-		new: 'Novo Evento',
-		all: 'Eventos'
+
+	events: {
+		title: 'Título do Evento',
+		description: 'Descrição do Evento'
 	},
+
 	habits: {
-		all: 'Hábitos'
+		title: 'Título Do Hábito',
+		description: 'Descrição Do Hábito',
+		high: 'Alto',
+		medium: 'Médio',
+		low: 'Baixo'
 	},
-	settings: 'Configurações',
+
 	tasks: {
-		new: 'Nova Tarefa',
-		all: 'Tarefas',
-		edit: 'Editar Tarefa'
+		title: 'Título da Tarefa',
+		description: 'Descrição da Tarefa'
 	},
+
 	user: {
-		login: 'Login',
-		signUp: 'Cadastro'
-	},
-	about: 'Sobre'
+		firstName: 'Primeiro Nome',
+		lastName: 'Sobrenome',
+		email: 'Email',
+		password: 'Senha',
+		confirmPassword: 'Confirme a Senha'
+	}
 };
 
-export const general = {
-	loading: 'Carregando',
-	save: 'Salvar',
-	edit: 'Editar',
-	cancel: 'Cancelar'
-};
-
-export const appInfo = {
-	name: 'Nome do Produto',
-	description: 'Descrição do Produto'
-};
-
-export const weekdays = {
+// weekday -> weekdaysMap
+export const weekdaysMap = {
 	0: 'Dom',
 	1: 'Seg',
 	2: 'Ter',
@@ -90,3 +71,80 @@ export const weekdays = {
 	5: 'Sex',
 	6: 'Sáb'
 };
+
+export const pageTitles = {
+	home: 'Início',
+
+	contents: 'Conteúdos',
+
+	categories: {
+		all: 'Categorias',
+		new: 'Nova Categoria',
+		edit: 'Editar Categoria',
+		view: 'Visualizar Categoria'
+	},
+
+	dashboard: 'Dashboard',
+
+	events: {
+		new: 'Novo Evento',
+		all: 'Eventos',
+		view: 'Visualizar Evento'
+
+	},
+
+	habits: {
+		all: 'Hábitos',
+		new: 'Novo Hábito',
+		view: 'Visualizar Hábito'
+
+	},
+
+	settings: 'Configurações',
+
+	tasks: {
+		new: 'Nova Tarefa',
+		all: 'Tarefas',
+		edit: 'Editar Tarefa',
+		view: 'Visualizar Tarefa'
+
+	},
+
+	user: {
+		login: 'Login',
+		signUp: 'Cadastro'
+	},
+
+	about: 'Sobre',
+
+	loading: 'Carregando'
+};
+
+export const actionsTitles = {
+	save: 'Salvar',
+	edit: 'Editar',
+	cancel: 'Cancelar',
+	start: 'Começar',
+	login: 'Login'
+};
+
+export const appInfo = {
+	name: 'Daily Life',
+	description: 'Descrição do Produto'
+};
+
+export const notFoundDefaults = {
+	general: 'Nenhum dado disponível',
+	categories: 'Nenhuma categoria encontrada',
+	contents: 'Nenhum conteúdo disponível',
+	events: 'Nenhum evento encontrado',
+	habits: 'Nenhum hábito encontrado',
+	tasks: 'Nenhuma tarefa encontrada'
+};
+
+export const groupDataByTitle = {
+	all: 'Todos',
+	dueSoon: 'Prazo Próximo',
+	pastDue: 'Prazo esgotado'
+}
+

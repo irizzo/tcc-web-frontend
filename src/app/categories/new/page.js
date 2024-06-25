@@ -11,7 +11,7 @@ export default function NewCategory() {
 	const [ categoryTitle, setCategoryTitle ] = useState('');
 	const [ categoryDescription, setCategoryDescription ] = useState('');
 
-	async function handleEditCategoryForm(e) {
+	async function handleNewCategoryForm(e) {
 		e.preventDefault();
 		return;
 	}
@@ -19,17 +19,17 @@ export default function NewCategory() {
 	return (
 		<FormContainer
 			title={locale.pageTitles.categories.new}
-			submitCallback={(e) => handleEditCategoryForm(e)}
+			submitCallback={(e) => handleNewCategoryForm(e)}
 		>
-			<FormSection labelFor='categoryTitle' sectionTitle={locale.categoriesInfoTitles.title}>
+			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>
 				<input name='categoryTitle' value={categoryTitle} type='text' onChange={(e) => { setCategoryTitle(e.target.value); }} />
 			</FormSection>
 
-			<FormSection labelFor='categoryDescription' sectionTitle={locale.categoriesInfoTitles.description}>
+			<FormSection labelFor='categoryDescription' sectionTitle={locale.entitiesProperties.categories.description}>
 				<textarea name='categoryDescription' value={categoryDescription} type='text' onChange={(e) => { setCategoryDescription(e.target.value); }} />
 			</FormSection>
 
-			<DefaultButton title={locale.formDefaults.submitButtonTitle} variant='filled' buttonType='submit' />
+			<DefaultButton title={locale.actionsTitles.save} variant='filled' buttonType='submit' />
 		</FormContainer>
 	);
 }

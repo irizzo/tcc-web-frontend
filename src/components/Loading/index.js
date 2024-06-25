@@ -1,8 +1,6 @@
 import './loading.scss';
 
-import { FaArrowsRotate } from 'react-icons/fa6';
 import * as locale from '@/resources/locale';
-
 
 export default function Loading() {
 	return (
@@ -13,7 +11,7 @@ export default function Loading() {
 				</div>
 			</div>
 
-			<h1 className='loading__title'>{locale.general.loading}</h1>
+			<h1 className='loading__title'>{locale.pageTitles.loading}</h1>
 		</div>
 	);
 }

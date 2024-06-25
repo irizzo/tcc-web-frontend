@@ -1,6 +1,6 @@
 import '@/styles/global.scss';
 
-import { UserAccessStateProvider } from '@/contexts';
+import { UserAccessStateProvider } from '@/hooks';
 
 // import { Inter } from 'next/font/google';
 
@@ -15,9 +15,9 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
-					<UserAccessStateProvider>
-						{children}
-					</UserAccessStateProvider>
+				<UserAccessStateProvider>
+					{children}
+				</UserAccessStateProvider>
 			</body>
 		</html>
 	);

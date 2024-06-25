@@ -5,8 +5,7 @@ import './contentsPage.scss';
 import { GeneralMessage } from '@/components/Messages';
 import { FeedCard } from '@/components/Card';
 
-import { contentsList } from '@/resources/mockData';
-// const contentsList = [];
+const contentsList = [];
 
 export default function ContentsFeed() {
 	return (
@@ -19,7 +18,7 @@ export default function ContentsFeed() {
 							return <FeedCard key={content.id} contentInfo={content} />;
 						})
 						:
-						<GeneralMessage content={'No available content.'} />
+						<GeneralMessage content={locale.notFoundDefaults.contents} />
 				}
 			</div>
 		</main>

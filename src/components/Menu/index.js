@@ -7,7 +7,7 @@ import * as locale from '@/resources/locale';
 export default function Menu({ buttonsShown=false }) {
 	return (
 		<nav className='menu'>
-			<h2 className='menu__title'>{'locale.general.productName'}</h2>
+			<h2 className='menu__title'>{locale.appInfo.name}</h2> {/*  TODO: Link to home */}
 
 			{
 				buttonsShown ?
