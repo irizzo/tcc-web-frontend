@@ -1,14 +1,29 @@
 'use client';
 
-import * as locale from '@/resources/locale';
+import { useContext, useCallback, useEffect } from 'react';
+
+import { UserAccessStateContext } from '@/hooks';
 
 import { DefaultPageContainer } from '@/components/PageContainer';
 import Menu from '@/components/Menu';
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection } from '@/components/Form';
 
+import _verifyUserAuth from '@/utils/verifyUserAuth';
+import messagesDictionary from '@/resources/messages';
+import * as locale from '@/resources/locale';
+
 export default function Login() {
-	// check if user's logged in, if so, redirect to dashboard
+	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+
+	const verifyUserAuth = useCallback(
+		async () => { _verifyUserAuth(userAccessState, setUserAccessState); },
+		[ userAccessState, setUserAccessState ]
+	);
+
+	useEffect(() => {
+		verifyUserAuth();
+	}, [ verifyUserAuth ]);
 
 	async function handleLogin(e) {
 		console.log('handleLogin');

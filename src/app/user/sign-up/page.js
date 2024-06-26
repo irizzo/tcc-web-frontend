@@ -3,7 +3,7 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { UserAccessStateContext } from '@/hooks';
 
-import { signUpService, } from '@/services/userAccessServices';
+import { signUpService } from '@/services/userAccessServices';
 import messagesDictionary from '@/resources/messages';
 
 import { DefaultPageContainer } from '@/components/PageContainer';

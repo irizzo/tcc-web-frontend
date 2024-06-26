@@ -94,6 +94,7 @@ export async function signUpService(userSignUpData) {
  * @param {{email: String, password: String}} userLoginData
  */
 export async function loginService(userLoginData) {
+	console.log('[loginService]');
 
 }
 
