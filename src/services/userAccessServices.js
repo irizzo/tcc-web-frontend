@@ -18,7 +18,7 @@ export async function verifyUserAccessService() {
 	console.log('[verifyUserAccessService]');
 
 	const cookieStore = cookies();
-	const tokenCookie = cookieStore.has('token');
+	const tokenCookie = cookieStore.get('token');
 	console.log(`[verifyUserAccessService] tokenCookie = ${JSON.stringify(tokenCookie)}`);
 
 	const fetchUserAccessRes = await httpClient.get({ path: `${baseAccessPath}/`});
@@ -33,6 +33,27 @@ export async function verifyUserAccessService() {
 
 	return verifyUserAccessRes;
 }
+
+export async function verifyUserAuthService() {
+	console.log('[verifyUserAuthService]');
+
+	const cookieStore = cookies();
+	const tokenCookie = cookieStore.get('token');
+	console.log(`[verifyUserAuthService] path = ${baseAccessPath}/${tokenCookie.value}`);
+
+	const fetchUserAuthRes = await httpClient.get({ path: `${baseAccessPath}/${tokenCookie.value}` });
+
+	const verifyUserAuthRes = {
+		success: fetchUserAuthRes.success,
+		result: fetchUserAuthRes?.result,
+		message: messagesDictionary[fetchUserAuthRes.code] ? messagesDictionary[fetchUserAuthRes.code] : (
+			fetchUserAuthRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		)
+	};
+
+	return verifyUserAuthRes;
+}
+
 
 /** Sign Up Service
  *
@@ -56,7 +77,7 @@ export async function signUpService(userSignUpData) {
 	};
 
 	if(signUpServiceRes.success) {
-		console.log('[signUpService] sucesso; setar cookies');
+		console.log('[signUpService] sucesso - setar cookie');
 
 		cookies().set({
 			name: signUpServiceRes.result.tokenCookieData.name,

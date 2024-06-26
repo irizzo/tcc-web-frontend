@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useCallback, useEffect } from 'react';
 import { UserAccessStateContext } from '@/hooks';
 
-import { signUpService, verifyUserAccessService } from '@/services/userAccessServices';
-import { navigateTo } from '@/services/general';
+import { signUpService, } from '@/services/userAccessServices';
 import messagesDictionary from '@/resources/messages';
 
 import { DefaultPageContainer } from '@/components/PageContainer';
@@ -13,21 +12,19 @@ import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection, FormInfo } from '@/components/Form';
 
 import * as locale from '@/resources/locale';
+import _verifyUserAuth from '@/utils/verifyUserAuth';
 
 export default function SignUp() {
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
 
-	useEffect(() => {
-		if (userAccessState) {
-			console.log(`logged in (userAccessState = ${userAccessState})`);
-			const isUserAuthorized = verifyUserAccessService();
+	const verifyUserAuth = useCallback(
+		async () => { _verifyUserAuth(userAccessState, setUserAccessState); },
+		[ userAccessState, setUserAccessState ]
+	);
 
-			if (isUserAuthorized.success) {
-				console.log('logged in (AUTHORIZED)');
-				navigateTo({ path: '/dashboard'});
-			} else setUserAccessState(false);
-		}
-	}, [ setUserAccessState, userAccessState ]);
+	useEffect(() => {
+		verifyUserAuth();
+	}, [ verifyUserAuth ]);
 
 	async function handleSignUp(e, data) {
 		console.log('[handleSignUp]');
@@ -47,7 +44,7 @@ export default function SignUp() {
 
 		const fetchRes = await signUpService(data);
 
-		if(fetchRes.success) {
+		if (fetchRes.success) {
 			console.log('usuário criado!');
 			setUserAccessState(true);
 		} else {
@@ -74,19 +71,19 @@ export default function SignUp() {
 						<input type='text' name="firstName" required placeholder={locale.entitiesProperties.user.firstName} onChange={(e) => { setFirstName(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='lastName' sectionTitle={ locale.entitiesProperties.user.lastName }>
+					<FormSection labelFor='lastName' sectionTitle={locale.entitiesProperties.user.lastName}>
 						<input type='text' name="lastName" required placeholder={locale.entitiesProperties.user.lastName} onChange={(e) => { setLastName(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='email' sectionTitle={ locale.entitiesProperties.user.email }>
+					<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
 						<input type='email' name="email" required placeholder={locale.entitiesProperties.user.email} onChange={(e) => { setEmail(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='password' sectionTitle={ locale.entitiesProperties.user.password }>
+					<FormSection labelFor='password' sectionTitle={locale.entitiesProperties.user.password}>
 						<input type='password' name="password" required placeholder={locale.entitiesProperties.user.password} onChange={(e) => { setPassword(e.target.value); }} />
 					</FormSection>
 
-					<FormSection labelFor='confirmPassword' sectionTitle={ locale.entitiesProperties.user.confirmPassword }>
+					<FormSection labelFor='confirmPassword' sectionTitle={locale.entitiesProperties.user.confirmPassword}>
 						<input type='password' name="confirmPassword" required placeholder={locale.entitiesProperties.user.confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value); }} />
 					</FormSection>
 

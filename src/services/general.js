@@ -2,5 +2,5 @@
 
 import { redirect } from 'next/navigation';
 export async function navigateTo({ path }) {
-	redirect(path);
+	return redirect(path);
 }
