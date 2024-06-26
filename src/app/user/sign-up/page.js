@@ -12,19 +12,19 @@ import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection, FormInfo } from '@/components/Form';
 
 import * as locale from '@/resources/locale';
-import _verifyUserAuth from '@/utils/verifyUserAuth';
+import verifyUserAuth from '@/utils/verifyUserAuth';
 
 export default function SignUp() {
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
 
-	const verifyUserAuth = useCallback(
-		async () => { _verifyUserAuth(userAccessState, setUserAccessState); },
+	const isUserLogged = useCallback(
+		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
 		[ userAccessState, setUserAccessState ]
 	);
 
 	useEffect(() => {
-		verifyUserAuth();
-	}, [ verifyUserAuth ]);
+		isUserLogged();
+	}, [ isUserLogged ]);
 
 	async function handleSignUp(e, data) {
 		console.log('[handleSignUp]');
