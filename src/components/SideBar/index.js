@@ -1,14 +1,34 @@
+'use client';
+
 import Link from 'next/link';
 
-import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus } from 'react-icons/fa6';
+import { useContext, useCallback, useEffect } from 'react';
+import { UserAccessStateContext } from '@/hooks';
+
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket } from 'react-icons/fa6';
 
 import './sideBar.scss';
 import * as locale from '@/resources/locale';
+
+import { clearTokenCookie, navigateTo } from '@/utils';
+import verifyUserAuth from '@/utils/verifyUserAuth';
+import { DefaultButton } from '../Buttons';
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
 	const today = `${locale.weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
+
+	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+
+	const isUserLogged = useCallback(
+		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+		[ userAccessState, setUserAccessState ]
+	);
+
+	useEffect(() => {
+		isUserLogged();
+	}, [ isUserLogged ]);
 
 	return (
 		<aside>
@@ -38,15 +58,21 @@ export default function SideBar() {
 					<NavListItem path='/settings' customIcon={<FaGear className='nav__item__icon' />} >{locale.pageTitles.settings}</NavListItem>
 					<NavListItem path='/contents' customIcon={<FaBook className='nav__item__icon' />} >{locale.pageTitles.contents}</NavListItem>
 					<NavListItem path='/about' customIcon={<FaCircleInfo className='nav__item__icon' />} >{locale.pageTitles.about}</NavListItem>
+					{/* <NavListItem path='' onClickFunction={() => handleLogOut(setUserAccessState)} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />} >{locale.actionsTitles.logout}</NavListItem> */}
+					<DefaultButton
+						title={locale.actionsTitles.logout}
+						variant='outlined'
+						onClickFunction={() => handleLogOut(setUserAccessState)}
+					/>
 				</ul>
 			</nav>
 		</aside>
 	);
 }
 
-function NavListItem({children, path='/', customIcon=null}) {
+function NavListItem({children, path='/', customIcon=null, onClickFunction=null}) {
 	return (
-		<Link className='flex flex--row flex--row nav__item' href={path}>
+		<Link onClick={onClickFunction} className='flex flex--row flex--row nav__item' href={path}>
 			{customIcon ?
 				customIcon :
 				<FaArrowRight className='nav__item__icon' />
@@ -54,4 +80,10 @@ function NavListItem({children, path='/', customIcon=null}) {
 			<li>{children}</li>
 		</Link>
 	);
+}
+
+async function handleLogOut(setUserAuth) {
+	await clearTokenCookie();
+	setUserAuth(false);
+	navigateTo({ path: '/user/login' });
 }

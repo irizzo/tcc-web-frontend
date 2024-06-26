@@ -8,8 +8,6 @@ import Menu from '@/components/Menu';
 import { appInfo, actionsTitles } from '@/resources/locale';
 
 export default function Home() {
-	// TODO: check if user's logged in, if so, redirect to dashboard
-
 	return (
 		<div className='flex home__container'>
 			<Menu buttonsShown />

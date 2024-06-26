@@ -11,12 +11,14 @@ export default async function verifyUserAuth(userAuthState, setUserAuthState) {
 
 		if (isUserAuthorized.success) {
 			console.log('[verifyUserAuth] logged in (AUTHORIZED)');
+
 			setUserAuthState(true);
 			navigateTo({ path: '/dashboard' });
 		} else {
 			console.log('[verifyUserAuth] NOT logged in (UNAUTHORIZED)');
+
 			setUserAuthState(false);
-			return;
+			navigateTo({ path: '/user/login' });
 		}
 	}
 }

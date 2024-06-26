@@ -48,9 +48,7 @@ export async function signUpService(userSignUpData) {
 		)
 	};
 
-	if(signUpServiceRes.success) {
-		setCookieData(signUpServiceRes.result.tokenCookieData);
-	}
+	if(signUpServiceRes.success) { setCookieData(signUpServiceRes.result.tokenCookieData); }
 
 	return signUpServiceRes;
 }
@@ -75,9 +73,7 @@ export async function loginService(userLoginData) {
 		)
 	};
 
-	if(loginServiceRes.success) {
-		setCookieData(loginServiceRes.result.tokenCookieData);
-	}
+	if(loginServiceRes.success) { setCookieData(loginServiceRes.result.tokenCookieData); }
 
 	return loginServiceRes;
 }

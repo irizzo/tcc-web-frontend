@@ -4,7 +4,6 @@ export const formDefaults = {
 	passwordRequirements: 'A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços'
 };
 
-// userInfoTitles -> entitiesProperties.user ...
 export const entitiesProperties = {
 	general: {
 		dueDate: 'Prazo',
@@ -61,7 +60,6 @@ export const entitiesProperties = {
 	}
 };
 
-// weekday -> weekdaysMap
 export const weekdaysMap = {
 	0: 'Dom',
 	1: 'Seg',
@@ -125,7 +123,8 @@ export const actionsTitles = {
 	edit: 'Editar',
 	cancel: 'Cancelar',
 	start: 'Começar',
-	login: 'Login'
+	login: 'Login',
+	logout: 'Logout'
 };
 
 export const appInfo = {
@@ -146,5 +145,4 @@ export const groupDataByTitle = {
 	all: 'Todos',
 	dueSoon: 'Prazo Próximo',
 	pastDue: 'Prazo esgotado'
-}
-
+};

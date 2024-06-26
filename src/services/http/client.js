@@ -8,7 +8,6 @@ const httpClient = ({ baseURL }) => {
 	});
 
 	return {
-		// TODO: implement custom headers in all methods
 		get: async({ path, customHeaders = null }) => {
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'GET',
