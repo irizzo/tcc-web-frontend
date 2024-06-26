@@ -35,17 +35,17 @@ export async function getCategoriesList(userToken) {
 
 	return { // mock data
 		status: 200,
-		result: [{
-				title: "Category Title 1",
-				description: "Category description"
+		result: [ {
+				title: 'Category Title 1',
+				description: 'Category description'
 			},
 			{
-				title: "Category Title2",
-				description: "Category description"
+				title: 'Category Title2',
+				description: 'Category description'
 			},
 			{
-				title: "Category Title3",
-				description: "Category description"
+				title: 'Category Title3',
+				description: 'Category description'
 			}
 		],
 		message: 'ok'

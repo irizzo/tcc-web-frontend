@@ -5,6 +5,7 @@ import './events.scss';
 import { ListBoard, TaskCard } from '@/components/Card';
 import { GeneralMessage } from '@/components/Messages';
 import * as locale from '@/resources/locale';
+import routesMap from '@/resources/routesMap';
 
 const eventList = [];
 
@@ -27,7 +28,7 @@ export default function EventsPage() {
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
-							return <TaskCard key={t.id} path={`/events/:${t.id}`} eventInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
@@ -38,7 +39,7 @@ export default function EventsPage() {
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
-							return <TaskCard key={t.id} path={`/events/:${t.id}`} eventInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
@@ -49,7 +50,7 @@ export default function EventsPage() {
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
-							return <TaskCard key={t.id} path={`/events/:${t.id}`} eventInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />

@@ -3,7 +3,7 @@ import './menu.scss';
 import { LinkButton } from '@/components/Buttons';
 
 import * as locale from '@/resources/locale';
-import routesMap from '@/resources/map.routes';
+import routesMap from '@/resources/routesMap';
 
 export default function Menu({ buttonsShown=false }) {
 	return (

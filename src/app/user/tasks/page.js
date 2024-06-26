@@ -6,6 +6,7 @@ import { GeneralMessage } from '@/components/Messages';
 import * as locale from '@/resources/locale';
 
 import { taskList } from '@/resources/mockData';
+import routesMap from '@/resources/routesMap';
 // const taskList = [];
 
 export default function AllTasks() {
@@ -28,7 +29,7 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.tasks} />
@@ -39,7 +40,7 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.tasks} />
@@ -50,7 +51,7 @@ export default function AllTasks() {
 				{
 					taskList.length > 0 ?
 						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`/tasks/:${t.id}`} taskInfo={t} />;
+							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
 						})
 						:
 						<GeneralMessage content={locale.notFoundDefaults.tasks} />

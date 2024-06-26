@@ -3,6 +3,8 @@ import './card.scss';
 import Link from 'next/link';
 import { FaEllipsisVertical, FaTag, FaRegCalendar } from 'react-icons/fa6';
 
+import routesMap from '@/resources/routesMap';
+
 export function ListBoard({ title, children }) {
 	return (
 		<div className='listBoard'>
@@ -32,7 +34,7 @@ export function CardContainer({ children, path = '', title, _query=null }) {
 
 export function TaskCard({ taskInfo }) {
 	// TODO: treat dates
-	const taskPath = `/tasks/${taskInfo.id}`;
+	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
 
 	return (
 		<CardContainer path={taskPath} title={taskInfo.title} _query={taskInfo}>
@@ -43,7 +45,7 @@ export function TaskCard({ taskInfo }) {
 }
 
 export function FeedCard({ contentInfo }) {
-	const contentPath = `/contents/${contentInfo.id}`;
+	const contentPath = `${routesMap.contents}/${contentInfo.id}`;
 	const abstract = contentInfo.content.slice(0, 200) + '...';
 
 	return (
@@ -54,7 +56,7 @@ export function FeedCard({ contentInfo }) {
 }
 
 export function CategoryCard ({ categoryInfo }) {
-	const categoryPath = `/categories/${categoryInfo.id}`;
+	const categoryPath = `${routesMap.categories.base}/${categoryInfo.id}`;
 
 	return (
 		<CardContainer path={categoryPath} title={categoryInfo.title} _query={categoryInfo}>
