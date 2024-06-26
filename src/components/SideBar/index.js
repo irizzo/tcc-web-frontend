@@ -13,6 +13,7 @@ import * as locale from '@/resources/locale';
 import { clearTokenCookie, navigateTo } from '@/utils';
 import verifyUserAuth from '@/utils/verifyUserAuth';
 import { DefaultButton } from '../Buttons';
+import routesMap from '@/resources/map.routes';
 
 export default function SideBar() {
 	const currentDate = new Date();
@@ -48,7 +49,7 @@ export default function SideBar() {
 				</ul>
 
 				<ul className='nav__list'>
-					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/categories/new'>{locale.pageTitles.categories.new}</NavListItem>
+					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{locale.pageTitles.categories.new}</NavListItem>
 					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/events/new'>{locale.pageTitles.events.new}</NavListItem>
 					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/tasks/new'>{locale.pageTitles.tasks.new}</NavListItem>
 					<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path='/habits/new'>{locale.pageTitles.habits.new}</NavListItem>

@@ -3,6 +3,7 @@ import './menu.scss';
 import { LinkButton } from '@/components/Buttons';
 
 import * as locale from '@/resources/locale';
+import routesMap from '@/resources/map.routes';
 
 export default function Menu({ buttonsShown=false }) {
 	return (
@@ -12,8 +13,8 @@ export default function Menu({ buttonsShown=false }) {
 			{
 				buttonsShown ?
 					(<div className='flex flex--row menu__buttons'>
-						<LinkButton path='/user/login' title={locale.pageTitles.user.login} variant='filled' small />
-						<LinkButton path='/user/sign-up' title={locale.pageTitles.user.signUp} variant='outlined' small />
+						<LinkButton path={routesMap.login} title={locale.pageTitles.user.login} variant='filled' small />
+						<LinkButton path={routesMap.signUp} title={locale.pageTitles.user.signUp} variant='outlined' small />
 					</div>)
 				:
 				null
