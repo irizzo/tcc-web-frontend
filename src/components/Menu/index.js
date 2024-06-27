@@ -4,11 +4,14 @@ import { LinkButton } from '@/components/Buttons';
 
 import * as locale from '@/resources/locale';
 import routesMap from '@/resources/routesMap';
+import Link from 'next/link';
 
 export default function Menu({ buttonsShown=false }) {
 	return (
 		<nav className='menu'>
-			<h2 className='menu__title'>{locale.appInfo.name}</h2> {/*  TODO: Link to home */}
+			<Link href={routesMap.home} className='menu__title'>
+				<h2>{locale.appInfo.name}</h2>
+			</Link>
 
 			{
 				buttonsShown ?

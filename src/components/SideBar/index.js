@@ -38,7 +38,6 @@ export default function SideBar() {
 				<p className='header__subtitle'>{today}</p>
 			</header>
 
-			{/* TODO: colocar as rotas para as páginas */}
 			<nav className='sidebar__nav'>
 				<ul className='nav__list'>
 					<NavListItem path={routesMap.dashboard}>{locale.pageTitles.dashboard}</NavListItem>

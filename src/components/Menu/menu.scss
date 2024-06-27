@@ -18,6 +18,12 @@
 .menu__title {
 	height: fit-content;
 	justify-self: flex-start;
+
+	text-decoration: none;
+}
+
+.menu__title:hover {
+	h2 { color: variables.$primary-color-light; }
 }
 
 .menu__buttons {

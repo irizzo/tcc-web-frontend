@@ -24,6 +24,6 @@ export function LinkButton({ path, title, variant, isDisabled=false, small = fal
 	small ? variantClasses += ' button--small' : null;
 
 	return (
-		<Link href={path} disabled={isDisabled} className={`button button--link ${variantClasses}`} >{title}</Link>
+		<Link href={path} disabled={isDisabled} className={`button button--link ${variantClasses}`}>{title}</Link>
 	);
 }
