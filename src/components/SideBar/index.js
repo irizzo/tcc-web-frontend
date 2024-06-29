@@ -20,16 +20,16 @@ export default function SideBar() {
 	const weekday = currentDate.getDay();
 	const today = `${locale.weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
 
-	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
 
-	const isUserLogged = useCallback(
-		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-		[ userAccessState, setUserAccessState ]
-	);
+	// const isUserLogged = useCallback(
+	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+	// 	[ userAccessState, setUserAccessState ]
+	// );
 
-	useEffect(() => {
-		isUserLogged();
-	}, [ isUserLogged ]);
+	// useEffect(() => {
+	// 	isUserLogged();
+	// }, [ isUserLogged ]);
 
 	return (
 		<aside>
@@ -62,6 +62,7 @@ export default function SideBar() {
 					<DefaultButton
 						title={locale.actionsTitles.logout}
 						variant='outlined'
+						small
 						onClickFunction={() => handleLogOut(setUserAccessState)}
 					/>
 				</ul>

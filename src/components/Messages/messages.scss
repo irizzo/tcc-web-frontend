@@ -1,18 +1,47 @@
 @use '../../styles/variables.scss';
 
-.message__container {
+%container {
 	width: 100%;
-	height: 100%;
+	min-height: fit-content;
+	height: fit-content;
+	max-height: 100%;
 	padding: 2%;
-	flex: 1;
-
-	background-color: rgba(0, 0, 0, 0.2);
 	border-radius: variables.$radius;
 }
 
-.message__content {
+%text {
 	width: 100%;
 	text-align: center;
 	vertical-align: middle;
-	color: variables.$placeholder-font-color;
+	color: variables.$primary-color-dark;
+}
+
+.message__container--info {
+	@extend %container;
+
+	background-color: #80b3ffb3;
+}
+
+.message__container--warn {
+	@extend %container;
+
+	background-color: #ffd480b3;
+}
+
+.message__container--error {
+	@extend %container;
+
+	background-color: #ff9980b3;
+}
+
+.message__title {
+	@extend %text;
+	border-top-left-radius: variables.$radius;
+	border-top-right-radius: variables.$radius;
+	font-size: medium;
+}
+
+.message__content {
+	@extend %text;
+	flex: 1;
 }

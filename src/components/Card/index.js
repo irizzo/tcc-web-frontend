@@ -38,8 +38,10 @@ export function TaskCard({ taskInfo }) {
 
 	return (
 		<CardContainer path={taskPath} title={taskInfo.title} _query={taskInfo}>
-			{taskInfo.dueDate && <p>{taskInfo.dueDate.toString()}</p>}
-			{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />}
+			{/* {taskInfo.dueDate && <p>{taskInfo.dueDate.toString()}</p>}
+			{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />} */}
+
+			{taskInfo.description && <p>{taskInfo.description}</p>}
 		</CardContainer>
 	);
 }

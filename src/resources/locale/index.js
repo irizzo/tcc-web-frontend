@@ -146,3 +146,10 @@ export const groupDataByTitle = {
 	dueSoon: 'Prazo Próximo',
 	pastDue: 'Prazo esgotado'
 };
+
+
+export const messagesTitles = {
+	infoTitle: 'Informação',
+	warnTitle: 'Aviso',
+	errorTitle: 'Algo Deu Errado'
+}

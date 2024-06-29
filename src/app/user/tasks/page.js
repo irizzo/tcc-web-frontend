@@ -1,61 +1,46 @@
 'use client';
-import './tasks.scss';
+
+import { Suspense, useCallback, useEffect, useState } from 'react';
+import PartialLoading from '@/components/Loading/PartialLoading';
 
 import { ListBoard, TaskCard } from '@/components/Card';
-import { GeneralMessage } from '@/components/Messages';
+import { GeneralInfo } from '@/components/Messages';
+
 import * as locale from '@/resources/locale';
+import { listAllTasksService } from '@/services/taskServices';
+import './tasks.scss';
 
-import { taskList } from '@/resources/mockData';
-import routesMap from '@/resources/routesMap';
-// const taskList = [];
+// import TasksBoard from '@/components/TasksBoard';
 
-export default function AllTasks() {
+export default function AllTasksPage() {
+	// const taskList = [];
+	const [ taskList, setTaskList ] = useState([]);
+
+	useEffect(() => {
+		async function loadTasks() {
+			const res = await listAllTasksService();
+			console.log('[loadTasks] 1 taskList: ', taskList);
+			setTaskList([ ...res.result ]);
+			console.log('[loadTasks] 2 taskList: ', taskList);
+		}
+
+		loadTasks();
+	}, [ taskList ]);
 
 	return (
 		<main className='flex flex--row tasks__main'>
-
+			<h1>Tarefas</h1>
 			<ListBoard title={locale.groupDataByTitle.all}>
-				{
-					taskList.length > 0 ?
-						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />;
-						})
-						:
-						<GeneralMessage content={locale.notFoundDefaults.tasks} />
-				}
-			</ListBoard>
-
-			<ListBoard title={locale.groupDataByTitle.dueSoon}>
-				{
-					taskList.length > 0 ?
-						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
-						})
-						:
-						<GeneralMessage content={locale.notFoundDefaults.tasks} />
-				}
-			</ListBoard>
-
-			<ListBoard title={locale.groupDataByTitle.pastDue}>
-				{
-					taskList.length > 0 ?
-						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
-						})
-						:
-						<GeneralMessage content={locale.notFoundDefaults.tasks} />
-				}
-			</ListBoard>
-
-			<ListBoard title={locale.groupDataByTitle.dueSoon}>
-				{
-					taskList.length > 0 ?
-						taskList.map((t) => {
-							return <TaskCard key={t.id} path={`${routesMap.tasks.base}/:${t.id}`} taskInfo={t} />;
-						})
-						:
-						<GeneralMessage content={locale.notFoundDefaults.tasks} />
-				}
+				<Suspense fallback={<PartialLoading />}>
+					{
+						taskList && taskList.length > 0 ?
+							taskList.map((task) => {
+								return <TaskCard key={task.id} taskInfo={task} />;
+							})
+							:
+							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+					}
+				</Suspense>
 			</ListBoard>
 		</main>
 	);

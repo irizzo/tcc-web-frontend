@@ -12,19 +12,22 @@ export async function verifyUserAuthService() {
 
 	const tokenCookie = await getTokenCookie();
 
-	const fetchRes = await httpClient.get({ path: `${baseAccessPath}/verify`, customHeaders: {
+	const res = await httpClient.get({ path: `${baseAccessPath}/verify`, customHeaders: {
 		'Authorization': tokenCookie.value
 	}});
 
-	const verifyUserAuthRes = {
-		success: fetchRes.success,
-		result: fetchRes?.result,
-		message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+	const serviceRes = {
+		success: res.success,
+		result: res?.result,
+		tokenCookieData: res?.tokenCookieData,
+		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
+			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
 
-	return verifyUserAuthRes;
+	serviceRes.tokenCookieData && await setCookieData(serviceRes.tokenCookieData);
+
+	return serviceRes;
 }
 
 /** Sign Up Service
@@ -40,17 +43,18 @@ export async function signUpService(userSignUpData) {
 		payload: userSignUpData
 	});
 
-	const signUpServiceRes = {
+	const serviceRes = {
 		success: res.success,
 		result: res?.result,
+		tokenCookieData: res?.tokenCookieData,
 		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
 			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
 
-	if(signUpServiceRes.success) { setCookieData(signUpServiceRes.result.tokenCookieData); }
+	serviceRes.tokenCookieData && await setCookieData(serviceRes.tokenCookieData);
 
-	return signUpServiceRes;
+	return serviceRes;
 }
 
 /** Login Service
@@ -65,19 +69,22 @@ export async function loginService(userLoginData) {
 		payload: userLoginData
 	});
 
-	const loginServiceRes = {
+	const serviceRes = {
 		success: res.success,
 		result: res?.result,
+		tokenCookieData: res?.tokenCookieData,
 		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
 			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
 
-	if(loginServiceRes.success) { setCookieData(loginServiceRes.result.tokenCookieData); }
+	serviceRes.tokenCookieData && await setCookieData(serviceRes.tokenCookieData);
 
-	return loginServiceRes;
+	console.log(`[loginService] res.result = ${JSON.stringify(res.result)}`);
+
+	return serviceRes;
 }
 
 export async function logoutService() {
-	clearTokenCookie();
+	await clearTokenCookie();
 }

@@ -32,7 +32,6 @@ const httpClient = ({ baseURL }) => {
 
 		put: async ({ path, payload, customHeaders = null }) => {
 			console.log('[httpClient] [put]');
-
 			console.log(`[httpClient] [put] headers = ${JSON.stringify(customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders)}`);
 
 			const res = await fetch(`${baseURL}${path}`, {
