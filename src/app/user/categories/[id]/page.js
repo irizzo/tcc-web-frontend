@@ -30,7 +30,7 @@ export default function CategoryPage({ searchParams }) {
 
 	return (
 		<FormContainer
-			title={ editing ? locale.pageTitles.categories.edit : searchParams.title }
+			title={ editing ? locale.pagesTitles.categories.edit : searchParams.title }
 			submitCallback={(e) => handleEditCategoryForm(e)}
 		>
 			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>

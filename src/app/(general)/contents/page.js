@@ -10,7 +10,7 @@ const contentsList = [];
 export default function ContentsFeed() {
 	return (
 		<main className='flex contents__main'>
-			<h1 className='contents__page-title'>{locale.pageTitles.contents}</h1>
+			<h1 className='contents__page-title'>{locale.pagesTitles.contents}</h1>
 			<div className='contents__feed'>
 				{
 					contentsList.length > 0 ?

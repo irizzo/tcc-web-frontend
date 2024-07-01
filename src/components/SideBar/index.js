@@ -12,12 +12,12 @@ import verifyUserAuth from '@/utils/verifyUserAuth';
 import { clearTokenCookie, navigateTo } from '@/utils';
 
 import routesMap from '@/resources/routesMap';
-import * as locale from '@/resources/locale';
+import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale';
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
-	const today = `${locale.weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
+	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
 
 	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
 
@@ -38,32 +38,34 @@ export default function SideBar() {
 			</header>
 
 			<ul className='flex nav__list'>
-				<h3 className='nav__list__title'>{locale.pageTitles.sideBar.pages}</h3>
-				<NavListItem customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{locale.pageTitles.dashboard}</NavListItem>
-				<NavListItem customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{locale.pageTitles.categories.all}</NavListItem>
-				<NavListItem customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{locale.pageTitles.events.all}</NavListItem>
-				<NavListItem customIcon={<FaSquareCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{locale.pageTitles.tasks.all}</NavListItem>
-				<NavListItem customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{locale.pageTitles.notes.all}</NavListItem>
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.pages}</h3>
+				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{pagesTitles.dashboard}</NavListItem>
+				<NavListItem itemId={pagesKeys.categories.all} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.events.all} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.tasks.all} customIcon={<FaSquareCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.notes.all} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.all}</NavListItem>
 
-				<h3 className='nav__list__title'>{locale.pageTitles.sideBar.actions}</h3>
-				<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{locale.pageTitles.categories.new}</NavListItem>
-				<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{locale.pageTitles.events.new}</NavListItem>
-				<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{locale.pageTitles.tasks.new}</NavListItem>
-				<NavListItem customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{locale.pageTitles.notes.new}</NavListItem>
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
+				<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.events.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{pagesTitles.events.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.notes.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{pagesTitles.notes.new}</NavListItem>
 
-				<h3 className='nav__list__title'>{locale.pageTitles.sideBar.options}</h3>
-				<NavListItem path={routesMap.settings} customIcon={<FaGear className='nav__item__icon' />} >{locale.pageTitles.settings}</NavListItem>
-				<NavListItem path={routesMap.contents} customIcon={<FaBook className='nav__item__icon' />} >{locale.pageTitles.contents}</NavListItem>
-				<NavListItem path={routesMap.about} customIcon={<FaCircleInfo className='nav__item__icon' />} >{locale.pageTitles.about}</NavListItem>
-				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{locale.actionsTitles.logout}</NavListButton>
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
+				<NavListItem itemId={pagesKeys.settings} path={routesMap.settings} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings}</NavListItem>
+				<NavListItem itemId={pagesKeys.contents} path={routesMap.contents} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem>
+				<NavListItem itemId={pagesKeys.about} path={routesMap.about} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem>
+				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{actionsTitles.logout}</NavListButton>
 			</ul>
 		</nav>
 	);
 };
 
-function NavListItem({ children, path = '/', customIcon = null }) {
+function NavListItem({ children, path = '/', customIcon = null, selected=false, itemId }) {
+	const selectedClass = selected ? 'selected' : '';
+
 	return (
-		<li className='flex flex--row nav__item'>
+		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
 			<Link className='flex flex--row nav__item__link' href={path}>
 				{customIcon ?
 					customIcon :

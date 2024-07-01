@@ -10,28 +10,32 @@ const baseAccessPath = '/tasks';
 export async function listAllTasksService() {
 	console.log('[listAllTasksService]');
 
-	const tokenCookie = await getTokenCookie();
+	try {
+		const tokenCookie = await getTokenCookie();
 
-	const fetchRes = await httpClient.get({
-		path: `${baseAccessPath}`, customHeaders: {
-			'Authorization': tokenCookie.value
+		const fetchRes = await httpClient.get({
+			path: `${baseAccessPath}`, customHeaders: {
+				'Authorization': tokenCookie.value
+			}
+		});
+
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+
+		if (!fetchRes.success) {
+			throw new Error(fetchRes.message);
 		}
-	});
 
-	fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+		console.log(`[listAllTasksService] fetchRes.result = ${JSON.stringify(fetchRes.result)}`);
 
-	if (!fetchRes.success) {
-		throw new Error(fetchRes.message);
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			tokenCookieData: fetchRes?.tokenCookieData,
+			message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+				fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+			)
+		};
+	} catch (error) {
+		throw error;
 	}
-
-	console.log(`[listAllTasksService] fetchRes.result = ${JSON.stringify(fetchRes.result)}`);
-
-	return {
-		success: fetchRes.success,
-		result: fetchRes?.result,
-		tokenCookieData: fetchRes?.tokenCookieData,
-		message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		)
-	};
 };

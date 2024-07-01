@@ -11,7 +11,7 @@ export default function Loading() {
 				</div>
 			</div>
 
-			<h1 className='loading__title'>{locale.pageTitles.loading}</h1>
+			<h1 className='loading__title'>{locale.pagesTitles.loading}</h1>
 		</div>
 	);
 }

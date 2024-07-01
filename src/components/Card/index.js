@@ -1,26 +1,11 @@
+'use client';
+
 import './card.scss';
-
 import Link from 'next/link';
-import { FaEllipsisVertical, FaTag, FaRegCalendar } from 'react-icons/fa6';
-
+import { FaRegCalendar, FaHashtag } from 'react-icons/fa6';
 import routesMap from '@/resources/routesMap';
 
-export function ListBoard({ title, children }) {
-	return (
-		<div className='listBoard'>
-			<header className='flex flex--row flex--space-between listBoard__header'>
-				<h2 className='header__title'>{title}</h2>
-				<FaEllipsisVertical className='header__icon' />
-			</header>
-
-			<div className='listBoard__content'>
-					{children}
-			</div>
-		</div>
-	);
-}
-
-export function CardContainer({ children, path = '', title, _query=null }) {
+export function CardContainer({ children, path = '', title, _query = null }) {
 	return (
 		<div className='flex card__container'>
 			<Link className='card__title' href={{ pathname: path, query: _query }} >
@@ -33,15 +18,28 @@ export function CardContainer({ children, path = '', title, _query=null }) {
 }
 
 export function TaskCard({ taskInfo }) {
-	// TODO: treat dates
+	// TODO: tratar datas
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
+	const showTagsContainer = (taskInfo.description || taskInfo.dueDate) ? true : false;
 
+	// console.log('taskInfo.dueDate = ', taskInfo.dueDate)
+	// console.log(' new Date(taskInfo.dueDate) = ', new Date(taskInfo.dueDate))
+
+	// const testDueDate = '2024-07-18T10:00';
+
+	// console.log('testDueDate = ', testDueDate)
+	// console.log(' new Date(testDueDate) = ', new Date(testDueDate))
 	return (
 		<CardContainer path={taskPath} title={taskInfo.title} _query={taskInfo}>
-			{/* {taskInfo.dueDate && <p>{taskInfo.dueDate.toString()}</p>}
-			{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />} */}
+			{taskInfo.description && <p>{taskInfo.description.length > 55 ? taskInfo.description.slice(0, 55) + '...' : taskInfo.description}</p>}
 
-			{taskInfo.description && <p>{taskInfo.description}</p>}
+			{
+				showTagsContainer && <TagsContainer>
+					{/* {taskInfo.dueDate && <ScheduleTag scheduledDate={JSON.stringify(taskInfo.dueDate)} />} // todo: tratar data!!!*/} 
+					{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />}
+				</TagsContainer>
+			}
+
 		</CardContainer>
 	);
 }
@@ -57,7 +55,7 @@ export function FeedCard({ contentInfo }) {
 	);
 }
 
-export function CategoryCard ({ categoryInfo }) {
+export function CategoryCard({ categoryInfo  }) {
 	const categoryPath = `${routesMap.categories.base}/${categoryInfo.id}`;
 
 	return (
@@ -69,10 +67,9 @@ export function CategoryCard ({ categoryInfo }) {
 
 export function ScheduleTag({ scheduledDate }) {
 	return (
-		<div className='tag__container'>
+		<TagContainer	content={scheduledDate}	>
 			<FaRegCalendar className='tag__icon' />
-			<p className='tag__title'>{categoryInfo.title}</p>
-		</div>
+		</TagContainer>
 	);
 }
 
@@ -82,9 +79,26 @@ export function CategoryTag({ categoryCode }) {
 	const categoryInfo = { code: 'ACADEMIC', title: 'Acadêmico', description: '' };
 
 	return (
-		<div className='tag__container'>
-			<FaTag className='tag__icon' />
-			<p className='tag__title'>{categoryInfo.title}</p>
+		<div className='flex flex--row flex--center tag__container'>
+			<FaHashtag className='tag__icon' />
+			<p className='tag__content'>{categoryInfo.title}</p>
+		</div>
+	);
+}
+
+function TagsContainer({ children }) {
+	return (
+		<div className='flex flex--row flex--sp-between tags__container'>
+			{children}
+		</div>
+	);
+}
+
+function TagContainer({ content, children }) {
+	return (
+		<div className='flex flex--row flex--center tag__container'>
+			{children}
+			<p className='tag__content'>{content}</p>
 		</div>
 	);
 }

@@ -18,7 +18,7 @@ export default function NewCategory() {
 
 	return (
 		<FormContainer
-			title={locale.pageTitles.categories.new}
+			title={locale.pagesTitles.categories.new}
 			submitCallback={(e) => handleNewCategoryForm(e)}
 		>
 			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>

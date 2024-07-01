@@ -31,7 +31,7 @@ export const taskList = [
 	{
 		id: 'random4',
 		title: 'Título 4',
-		description: 'Descrição MFPOMPMADFMAWOP ampd amakdmp ',
+		description: 'Lembrar de mandar link do uiverse pro Thalles cabeludo',
 		dueDate: '10/05/2024', // new Date('2024-05-01T14:48:00.000-03:00'),
 		categoryCode: 'A',
 		priorityCode: 'QUADRANT_TWO',

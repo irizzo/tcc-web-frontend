@@ -70,7 +70,7 @@ export const weekdaysMap = {
 	6: 'Sáb'
 };
 
-export const pageTitles = {
+export const pagesTitles = {
 	home: 'Início',
 
 	contents: 'Conteúdos',
@@ -87,15 +87,15 @@ export const pageTitles = {
 	events: {
 		new: 'Novo Evento',
 		all: 'Eventos',
-		view: 'Visualizar Evento'
-
+		view: 'Visualizar Evento',
+		edit: 'Editar Evento'
 	},
 
 	notes: {
 		all: 'Anotações',
 		new: 'Nova Anotação',
-		view: 'Visualizar Anotação'
-
+		view: 'Visualizar Anotação',
+		edit: 'Editar Anotação'
 	},
 
 	settings: 'Configurações',
@@ -105,7 +105,6 @@ export const pageTitles = {
 		all: 'Tarefas',
 		edit: 'Editar Tarefa',
 		view: 'Visualizar Tarefa'
-
 	},
 
 	sideBar: {
@@ -122,6 +121,53 @@ export const pageTitles = {
 	about: 'Sobre',
 
 	loading: 'Carregando'
+};
+
+export const pagesKeys = {
+	home: 'HOME',
+
+	contents: 'CONTENTS',
+
+	categories: {
+		all: 'ALL_CATEGORIES',
+		new: 'NEW_CATEGORY',
+		edit: 'EDIT_CATEGORY',
+		view: 'VIEW_CATEGORY'
+	},
+
+	dashboard: 'DASHBOARD',
+
+	events: {
+		all: 'ALL_EVENTS',
+		new: 'NEW_EVENTS',
+		edit: 'EDIT_EVENTS',
+		view: 'VIEW_EVENTS'
+	},
+
+	notes: {
+		all: 'ALL_NOTES',
+		new: 'NEW_NOTES',
+		edit: 'EDIT_NOTES',
+		view: 'VIEW_NOTES'
+	},
+
+	settings: 'SETTINGS',
+
+	tasks: {
+		all: 'ALL_TASKS',
+		new: 'NEW_TASKS',
+		edit: 'EDIT_TASKS',
+		view: 'VIEW_TASKS'
+	},
+
+	user: {
+		login: 'LOGIN',
+		signUp: 'SIGN_UP'
+	},
+
+	about: 'ABOUT',
+
+	loading: 'LOADING'
 };
 
 export const actionsTitles = {

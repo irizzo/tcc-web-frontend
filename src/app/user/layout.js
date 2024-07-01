@@ -1,11 +1,15 @@
 import SideBar from '@/components/SideBar';
 import { DashboardPageContainer } from '@/components/PageContainer';
 
+import './userPages.scss';
+
 export default function UserPagesLayout({ children }) {
 	return (
 		<DashboardPageContainer>
 			<SideBar />
-			{children}
+			<main className='flex flex--row user-pages__main'>
+				{children}
+			</main>
 		</DashboardPageContainer>
 	);
 }

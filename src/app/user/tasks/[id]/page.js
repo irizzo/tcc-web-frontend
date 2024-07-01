@@ -46,7 +46,7 @@ export default function TaskPage({ params, searchParams }) {
 
 	return (
 		<FormContainer
-			title={locale.pageTitles.tasks.view}
+			title={locale.pagesTitles.tasks.view}
 			submitCallback={(e) => handleEditTaskForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>

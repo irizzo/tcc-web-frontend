@@ -1,0 +1,36 @@
+@use '../../styles/variables.scss';
+
+.board__container {
+	height: 100%;
+	width: 24%;
+	min-width: 240px;
+
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+
+	justify-content: flex-start;
+}
+
+.board__header {
+	height: 50px;
+	width: 100%;
+	background-color: variables.$primary-color-dark;
+
+	border-top-right-radius: variables.$radius;
+	border-top-left-radius: variables.$radius;
+
+	h2 {
+		border-top-right-radius: variables.$radius;
+		border-top-left-radius: variables.$radius;
+		text-align: left;
+	}
+}
+
+.board__list {
+	flex: 1;
+	width: 100%;
+	min-height: fit-content;
+	padding: 2%;
+
+	overflow-x: scroll;
+}

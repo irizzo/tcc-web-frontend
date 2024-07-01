@@ -1,10 +1,11 @@
-import { ListBoard, TaskCard } from '@/components/Card';
+import { TaskCard } from '@/components/Card';
+import { Board } from '../Board';
 import { GeneralInfo } from '@/components/Messages';
 import * as locale from '@/resources/locale';
 
 export default async function TasksBoard({ tasks }) {
 	<>
-		<ListBoard title={locale.groupDataByTitle.all}>
+		<Board title={locale.groupDataByTitle.all}>
 			{
 				tasks && tasks.length > 0 ?
 					tasks.map((task) => {
@@ -13,8 +14,8 @@ export default async function TasksBoard({ tasks }) {
 					:
 					<GeneralInfo content={locale.notFoundDefaults.tasks} />
 			}
-		</ListBoard>
-		<ListBoard title={locale.groupDataByTitle.all}>
+		</Board>
+		<Board title={locale.groupDataByTitle.all}>
 			{
 				tasks && tasks.length > 0 ?
 					tasks.map((task) => {
@@ -23,6 +24,6 @@ export default async function TasksBoard({ tasks }) {
 					:
 					<GeneralInfo content={locale.notFoundDefaults.tasks} />
 			}
-		</ListBoard>
+		</Board>
 	</>
 }

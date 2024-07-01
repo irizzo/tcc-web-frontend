@@ -53,7 +53,7 @@ export default function Login() {
 			<Menu buttonsShown />
 			<main className='flex flex--center' style={{ flex: 1, width: '100vw'}}>
 				<FormContainer
-					title={locale.pageTitles.user.login}
+					title={locale.pagesTitles.user.login}
 					variantClasses='form__container--login'
 					submitCallback={(e) => handleLogin(e, { email: userEmail, password: userPassword })}
 				>

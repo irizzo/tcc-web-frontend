@@ -1,8 +1,5 @@
-'use client';
-
-import './events.scss';
-
-import { ListBoard, TaskCard } from '@/components/Card';
+import { Board } from '@/components/Board';
+import { TaskCard } from '@/components/Card';
 import { GeneralMessage } from '@/components/Messages';
 import * as locale from '@/resources/locale';
 import routesMap from '@/resources/routesMap';
@@ -11,9 +8,8 @@ const eventList = [];
 
 export default function EventsPage() {
 	return (
-		<main className='flex flex--row events__main'>
-
-			<ListBoard title={locale.groupDataByTitle.all}>
+		<>
+			<Board title={locale.groupDataByTitle.all}>
 				{
 					eventList.length > 0 ?
 						eventList.map((event) => {
@@ -22,9 +18,9 @@ export default function EventsPage() {
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
 				}
-			</ListBoard>
+			</Board>
 
-			<ListBoard title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.all}>
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
@@ -33,9 +29,9 @@ export default function EventsPage() {
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
 				}
-			</ListBoard>
+			</Board>
 
-			<ListBoard title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.all}>
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
@@ -44,9 +40,9 @@ export default function EventsPage() {
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
 				}
-			</ListBoard>
+			</Board>
 
-			<ListBoard title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.all}>
 				{
 					eventList.length > 0 ?
 						eventList.map((t) => {
@@ -55,7 +51,7 @@ export default function EventsPage() {
 						:
 						<GeneralMessage content={locale.notFoundDefaults.events} />
 				}
-			</ListBoard>
-		</main>
+			</Board>
+			</>
 	);
 }

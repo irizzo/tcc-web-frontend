@@ -22,25 +22,29 @@ export default function NewTask() {
 
 	const [ categoriesList, setCategoriesList ] = useState(false);
 
-	async function loadCategories() {
-		setCategoriesList(_categoriesList);
 
-		/* const c = await categoryServices.getCategoriesList();
-
-		if (c.result.length === 0 || c.status === false) {
-			setCategoriesList(false);
-		} else {
-			setCategoriesList(c.result);
-		}*/
-
-	}
 
 	useEffect(() => {
+		async function loadCategories() {
+			setCategoriesList(_categoriesList);
+
+			/* const c = await categoryServices.getCategoriesList();
+	
+			if (c.result.length === 0 || c.status === false) {
+				setCategoriesList(false);
+			} else {
+				setCategoriesList(c.result);
+			}*/
+
+		}
 		loadCategories();
 	}, []);
 
 	async function handleNewTaskForm(e) {
 		e.preventDefault();
+		// console.log('dueDate = ', dueDate)
+		// console.log('typeof(dueDate) = ', typeof(dueDate))
+		// console.log('new Date(dueDate) = ', new Date(dueDate))
 		return;
 	}
 
@@ -91,22 +95,22 @@ export default function NewTask() {
 
 	return (
 		<FormContainer
-			title={locale.pageTitles.tasks.new}
+			title={locale.pagesTitles.tasks.new}
 			submitCallback={(e) => handleNewTaskForm(e)}
 		>
-			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
+			{/* <FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
 				<input name='title' type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
 			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.tasks.description}>
 				<textarea name='description' placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
-			</FormSection>
+			</FormSection> */}
 
 			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
 				<input name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
+			{/* <FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
 				<select name='priority' onChange={ (e) => setPriorityCode(e.target.value) }>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 					<option key={1} value={1}>{locale.entitiesProperties.general.quadrantOne}</option>
@@ -134,7 +138,7 @@ export default function NewTask() {
 
 			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
 				<input name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
-			</FormSection>
+			</FormSection> */}
 
 			<DefaultButton title={locale.formDefaults.submitButtonTitle} variant='filled' buttonType='submit' />
 		</FormContainer>

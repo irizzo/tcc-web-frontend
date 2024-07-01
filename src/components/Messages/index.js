@@ -8,13 +8,11 @@ function MessagesContainer({ children, title, content, variant }) {
 
 	return (
 		<div className={`flex flex--center message__container ${variantClass}`}>
-			{/* <p className='message__title'>{title}</p> */}
 			<p className="message__content">
 				<b>{title}</b>
 				{': '}
 				{content}
 			</p>
-			{/* {children} */}
 		</div>
 	)
 }
@@ -22,7 +20,6 @@ function MessagesContainer({ children, title, content, variant }) {
 export function GeneralInfo({ infoContent, children }) {
 	return (
 		<MessagesContainer title={locale.messagesTitles.infoTitle} content={infoContent} variant='info'>
-			{/* {children} */}
 		</MessagesContainer>
 	);
 }
@@ -30,7 +27,6 @@ export function GeneralInfo({ infoContent, children }) {
 export function GeneralWarn({ warnContent, children }) {
 	return (
 		<MessagesContainer title={locale.messagesTitles.warnTitle} content={warnContent} variant='warn'>
-			{/* {children} */}
 		</MessagesContainer>
 	);
 }
@@ -42,7 +38,6 @@ export function GeneralError({ errorContent, children }) {
 			content={errorContent}
 			variant='error'
 		>
-			{/* {children} */}
 		</MessagesContainer>
 	);
 }

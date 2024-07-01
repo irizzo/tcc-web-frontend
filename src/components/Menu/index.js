@@ -16,8 +16,8 @@ export default function Menu({ buttonsShown=false }) {
 			{
 				buttonsShown ?
 					(<div className='flex flex--row menu__buttons'>
-						<LinkButton path={routesMap.login} title={locale.pageTitles.user.login} variant='filled' small />
-						<LinkButton path={routesMap.signUp} title={locale.pageTitles.user.signUp} variant='outlined' small />
+						<LinkButton path={routesMap.login} title={locale.pagesTitles.user.login} variant='filled' small />
+						<LinkButton path={routesMap.signUp} title={locale.pagesTitles.user.signUp} variant='outlined' small />
 					</div>)
 				:
 				null

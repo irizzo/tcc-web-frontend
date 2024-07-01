@@ -6,7 +6,9 @@ nav {
 
 	width: 15vw;
 	height: 100vh;
-	border-right: 2px solid variables.$primary-color-dark--30op;
+	max-height: 100vh;
+	overflow-y: scroll;
+	border-right: 2px solid variables.$primary-color-light--30op;
 	z-index: 10;
 
 	padding: 5px;
@@ -17,8 +19,6 @@ nav {
 	min-height: 8%;
 	text-align: center;
 	width: 100%;
-
-	// border-bottom: 1px solid variables.$primary-color-light;
 
 	.header__title {
 		width: 100%;
@@ -52,7 +52,6 @@ nav {
 		color: variables.$placeholder-font-color;
 		margin-top: 2%;
 		margin-bottom: 1%;
-
 	}
 }
 
@@ -62,11 +61,11 @@ nav {
 	height: 50px;
 	margin-bottom: 5px;
 	padding: 0% 2%;
-	
+
 	color: variables.$primary-font-color;
 	text-decoration: none;
 	list-style: none;
-	
+
 	cursor: pointer;
 
 	justify-content: flex-start;
@@ -86,9 +85,10 @@ nav {
 	}
 }
 
-.nav__item:hover {
-	background-color: rgba(0, 0, 0, 0.15);
+.nav__item:hover, .selected {
+	background-color: variables.$foreground-color;
 	border-right: 2px solid variables.$primary-color-light;
+	color: variables.$primary-color-light;
 
 	.nav__item__icon {
 		color: variables.$primary-color-light;

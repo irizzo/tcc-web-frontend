@@ -1,42 +1,42 @@
 @use '../../styles/variables.scss';
 
-.listBoard {
-	width: 24%;
-	height: 95vh;
-	min-width: 240px;
-	background-color: variables.$foreground-color;
-	border-radius: variables.$radius;
-	box-shadow: variables.$box-shadow--light--small--offset;
+// .listBoard {
+// 	width: 24%;
+// 	height: 95vh;
+// 	min-width: 240px;
+// 	background-color: variables.$foreground-color;
+// 	border-radius: variables.$radius;
+// 	box-shadow: variables.$box-shadow--light--small--offset;
 
-	overflow-x: scroll;
+// 	overflow-x: scroll;
 
-	header {
-		color: variables.$primary-font-color;
-		padding: 1% 2%;
-		margin-bottom: 1%;
-		box-shadow: variables.$box-shadow--light--small--offset;
-	}
+// 	header {
+// 		color: variables.$primary-font-color;
+// 		padding: 1% 2%;
+// 		margin-bottom: 1%;
+// 		box-shadow: variables.$box-shadow--light--small--offset;
+// 	}
 
-	header .header__title {
-		text-align: left;
-		font-size: 1.3rem;
-	}
+// 	header .header__title {
+// 		text-align: left;
+// 		font-size: 1.3rem;
+// 	}
 
-	header .header__icon {
-		cursor: pointer;
-		color: variables.$placeholder-font-color;
-	}
+// 	header .header__icon {
+// 		cursor: pointer;
+// 		color: variables.$placeholder-font-color;
+// 	}
 
-	header .header__icon:hover {
-		color: variables.$primary-color-light;
-	}
+// 	header .header__icon:hover {
+// 		color: variables.$primary-color-light;
+// 	}
 
-	.listBoard__content {
-		flex: 1;
-		width: 100%;
-		padding: 0 1.5%;
-	}
-}
+// 	.listBoard__content {
+// 		flex: 1;
+// 		width: 100%;
+// 		padding: 0 1.5%;
+// 	}
+// }
 
 .card__container {
 	align-items: flex-start;
@@ -60,7 +60,7 @@
 		margin-bottom: 1%;
 		cursor: pointer;
 	}
-	
+
 	p {
 		font-size: smaller;
 		color: variables.$placeholder-font-color;
@@ -74,28 +74,26 @@
 
 .card__container:hover {
 	box-shadow: variables.$box-shadow--light--small--offset;
-	background-color: variables.$primary-color-light--15op;
+	background-color: variables.$primary-color-dark--15op;
+}
+
+.tags__container {
+	width: 100%;
+	flex-wrap: wrap;
 }
 
 .tag__container {
-	margin-top: 1%;
-	margin-bottom: 1%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-
-	width: 100%;
-	height: 100%;
-
+	margin: 1%;
 	padding: 1% 2%;
 
-	width: 30%;
+	width: 40%;
+	height: 100%;
 	min-width: fit-content;
 	height: fit-content;
 
-	border-radius: 15px;
-	border: solid 1.5px variables.$primary-color-light;
+	border-radius: variables.$radius;
+	// border: solid 1px variables.$primary-color-light;
+	background-color: variables.$foreground-color;
 
 	.tag__icon {
 		color: variables.$primary-color-light;
@@ -103,9 +101,9 @@
 		font-size: small;
 	}
 
-	.tag__title {
+	.tag__content {
 		color: variables.$primary-color-light;
-		text-align: center;
+		text-align: left;
 		vertical-align: middle;
 		font-size: small;
 	}

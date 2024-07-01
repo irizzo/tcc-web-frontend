@@ -14,15 +14,13 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-
-	flex-wrap: wrap;
 }
 
 .flex--row {
 	flex-direction: row;
 }
 
-.flex--space-between {
+.flex--sp-between {
 	justify-content: space-between;
 }
 
