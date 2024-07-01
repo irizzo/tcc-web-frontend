@@ -16,9 +16,9 @@ const routesMap = {
 		new: '/user/events/new'
 	},
 
-	habits: {
-		base: '/user/habits',
-		new: '/user/habits/new'
+	notes: {
+		base: '/user/notes',
+		new: '/user/notes/new'
 	},
 
 	settings: '/user/settings',

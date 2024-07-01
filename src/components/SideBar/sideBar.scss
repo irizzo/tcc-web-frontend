@@ -1,75 +1,100 @@
 @use '../../styles/variables.scss';
 
-aside {
+nav {
+	align-items: flex-start;
+	justify-content: space-around;
+
 	width: 15vw;
 	height: 100vh;
 	border-right: 2px solid variables.$primary-color-dark--30op;
 	z-index: 10;
-	align-items: flex-start;
-	justify-content: flex-start
+
+	padding: 5px;
 }
 
 .sidebar__header {
 	height: fit-content;
 	min-height: 8%;
-	padding: 5px 2px;
 	text-align: center;
-	background-color: variables.$primary-color-dark--30op;
 	width: 100%;
+
+	// border-bottom: 1px solid variables.$primary-color-light;
 
 	.header__title {
 		width: 100%;
-		font-size: 1.4rem;
-		margin-bottom: 1%;
+		font-size: 1.2rem;
+		margin: 1% 0%;
 		text-align: center;
 	}
 
 	.header__subtitle {
 		width: 100%;
+		font-size: 0.9rem;
 		text-align: center;
+		color: variables.$placeholder-font-color;
 	}
 }
 
-.sidebar__nav {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: space-between;
-
-	padding: 5%;
-	text-align: left;
-	height: 90%;
+.nav__list {
+	border-radius: variables.$radius;
+	list-style: none inside;
+	padding: auto 2%;
+	flex: 1;
 	width: 100%;
+	justify-content: flex-start;
+	background-color: #00000020;
 
-	.nav__list {
-		list-style: none inside;
-		text-decoration: none;
+	text-decoration: none;
+
+	.nav__list__title {
 		width: 100%;
+		font-size: small;
+		color: variables.$placeholder-font-color;
+		margin-top: 2%;
+		margin-bottom: 1%;
+
 	}
 }
 
 .nav__item {
+	border-radius: variables.$radius;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 5px;
+	padding: 0% 2%;
+	
 	color: variables.$primary-font-color;
 	text-decoration: none;
-	width: 100%;
+	list-style: none;
+	
 	cursor: pointer;
-	margin-bottom: 5px;
+
+	justify-content: flex-start;
 
 	.nav__item__icon {
 		margin-right: 10px;
+		color: variables.$primary-font-color;
 	}
 
-	li {
+	.nav__item__link {
+		justify-content: flex-start;
+		color: variables.$primary-font-color;
+		text-decoration: none;
+
 		flex: 1;
+		height: 100%;
 	}
 }
 
-.nav__item:hover .nav__item__icon {
-	transform: translateX(3px);
-	transition: 0.3s;
-	color: variables.$primary-color-light;
-}
+.nav__item:hover {
+	background-color: rgba(0, 0, 0, 0.15);
+	border-right: 2px solid variables.$primary-color-light;
 
-.nav__item:hover li {
-	color: variables.$primary-color-light;
+	.nav__item__icon {
+		color: variables.$primary-color-light;
+	}
+
+	a {
+		color: variables.$primary-color-light;
+	}
 }

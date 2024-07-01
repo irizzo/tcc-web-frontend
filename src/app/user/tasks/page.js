@@ -36,13 +36,16 @@ export default function AllTasksPage() {
 	useEffect(() => {
 		async function loadTasks() {
 			const res = await listAllTasksService();
-			console.log('[loadTasks] 1 taskList: ', taskList);
 			setTaskList([ ...res.result ]);
 			console.log('[loadTasks] 2 taskList: ', taskList);
 		}
 
 		loadTasks();
-	}, [ taskList ]);
+
+		setTimeout(() => {
+			console.log('[loadTasks] 2 taskList: ', taskList);
+		}, 2000);
+	}, []);
 
 	return (
 		<main className='flex flex--row tasks__main'>

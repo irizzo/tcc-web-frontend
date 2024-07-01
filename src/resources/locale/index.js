@@ -38,9 +38,9 @@ export const entitiesProperties = {
 		description: 'Descrição do Evento'
 	},
 
-	habits: {
-		title: 'Título Do Hábito',
-		description: 'Descrição Do Hábito',
+	notes: {
+		title: 'Título Do Anotação',
+		description: 'Descrição Do Anotação',
 		high: 'Alto',
 		medium: 'Médio',
 		low: 'Baixo'
@@ -91,10 +91,10 @@ export const pageTitles = {
 
 	},
 
-	habits: {
-		all: 'Hábitos',
-		new: 'Novo Hábito',
-		view: 'Visualizar Hábito'
+	notes: {
+		all: 'Anotações',
+		new: 'Nova Anotação',
+		view: 'Visualizar Anotação'
 
 	},
 
@@ -106,6 +106,12 @@ export const pageTitles = {
 		edit: 'Editar Tarefa',
 		view: 'Visualizar Tarefa'
 
+	},
+
+	sideBar: {
+		pages: 'Páginas',
+		actions: 'Ações',
+		options: 'Opções'
 	},
 
 	user: {
@@ -137,7 +143,7 @@ export const notFoundDefaults = {
 	categories: 'Nenhuma categoria encontrada',
 	contents: 'Nenhum conteúdo disponível',
 	events: 'Nenhum evento encontrado',
-	habits: 'Nenhum hábito encontrado',
+	notes: 'Nenhuma anotação encontrada',
 	tasks: 'Nenhuma tarefa encontrada'
 };
 
@@ -147,9 +153,8 @@ export const groupDataByTitle = {
 	pastDue: 'Prazo esgotado'
 };
 
-
 export const messagesTitles = {
 	infoTitle: 'Informação',
 	warnTitle: 'Aviso',
 	errorTitle: 'Algo Deu Errado'
-}
+};
