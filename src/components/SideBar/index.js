@@ -19,17 +19,6 @@ export default function SideBar() {
 	const weekday = currentDate.getDay();
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
 
-	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
-
-	// const isUserLogged = useCallback(
-	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-	// 	[ userAccessState, setUserAccessState ]
-	// );
-
-	// useEffect(() => {
-	// 	isUserLogged();
-	// }, [ isUserLogged ]);
-
 	return (
 		<nav className='flex'>
 			<header className='sidebar__header'>
@@ -67,11 +56,8 @@ function NavListItem({ children, path = '/', customIcon = null, selected=false, 
 	return (
 		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
 			<Link className='flex flex--row nav__item__link' href={path}>
-				{customIcon ?
-					customIcon :
-					<FaArrowRight className='nav__item__icon' />
-				}
-				{children}
+				{ customIcon ? customIcon : <FaArrowRight className='nav__item__icon' /> }
+				{ children }
 			</Link>
 		</li>
 	);
@@ -81,11 +67,8 @@ function NavListButton({ children, onClickFunction, customIcon }) {
 	return (
 		<li onClick={onClickFunction} className='flex flex--row nav__item'>
 			<div className='flex flex--row nav__item__link'>
-				{customIcon ?
-					customIcon :
-					<FaArrowRight className='nav__item__icon' />
-				}
-				{children}
+				{ customIcon ? customIcon : <FaArrowRight className='nav__item__icon' /> }
+				{ children }
 			</div>
 		</li>
 	);

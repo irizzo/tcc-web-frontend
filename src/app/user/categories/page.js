@@ -3,7 +3,7 @@
 import './categoriesPage.scss';
 import * as locale from '@/resources/locale';
 
-import { GeneralMessage } from '@/components/Messages';
+import { GeneralInfo } from '@/components/Messages';
 import { CategoryCard } from '@/components/Card';
 
 const categoriesList = [];
@@ -19,7 +19,7 @@ export default function ContentsFeed() {
 							return <CategoryCard key={category.id} categoryInfo={category} />;
 						})
 						:
-						<GeneralMessage content={locale.notFoundDefaults.categories} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.categories} />
 				} */}
 			</div>
 		</main>

@@ -1,10 +1,10 @@
-import './menu.scss';
-
-import { LinkButton } from '@/components/Buttons';
-
 import * as locale from '@/resources/locale';
 import routesMap from '@/resources/routesMap';
+
+import './menu.scss';
+
 import Link from 'next/link';
+import { LinkButton } from '@/components/Buttons';
 
 export default function Menu({ buttonsShown=false }) {
 	return (

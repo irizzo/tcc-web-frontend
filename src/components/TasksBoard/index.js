@@ -12,7 +12,7 @@ export default async function TasksBoard({ tasks }) {
 						return <TaskCard key={task.id} taskInfo={task} />;
 					})
 					:
-					<GeneralInfo content={locale.notFoundDefaults.tasks} />
+					<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 			}
 		</Board>
 		<Board title={locale.groupDataByTitle.all}>
@@ -22,7 +22,7 @@ export default async function TasksBoard({ tasks }) {
 						return <TaskCard key={task.id} taskInfo={task} />;
 					})
 					:
-					<GeneralInfo content={locale.notFoundDefaults.tasks} />
+					<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 			}
 		</Board>
 	</>
