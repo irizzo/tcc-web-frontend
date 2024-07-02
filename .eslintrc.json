@@ -1,3 +1,26 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "camelcase": "warn",
+    "eqeqeq": "error",
+    "array-bracket-spacing": [
+      "warn",
+      "always"
+    ],
+    "arrow-spacing": "warn",
+    "comma-dangle": [
+      "warn",
+      "never"
+    ],
+    // "indent": [
+    //   "error",
+    //   "tab"
+    // ],
+    "no-trailing-spaces": "warn",
+    "semi": "warn"
+  }
 }

@@ -1,25 +1,28 @@
-import '@/styles/global.scss';
-import './menu.scss'
+import './menu.scss';
 
 import { LinkButton } from '@/components/Buttons';
 
-import * as locale from '@/resources/locale'
+import * as locale from '@/resources/locale';
+import routesMap from '@/resources/routesMap';
+import Link from 'next/link';
 
 export default function Menu({ buttonsShown=false }) {
-	return ( 
+	return (
 		<nav className='menu'>
-			<h2 className='menu__title'>{"locale.general.productName"}</h2>
+			<Link href={routesMap.home} className='menu__title'>
+				<h2>{locale.appInfo.name}</h2>
+			</Link>
 
 			{
 				buttonsShown ?
 					(<div className='flex flex--row menu__buttons'>
-						<LinkButton path='/user/login' title={locale.pageTitles.user.login} variant='filled' small />
-						<LinkButton path='/user/sign-up' title={locale.pageTitles.user.signUp} variant='outlined' small /> 
-					</div>) 
-				: 
+						<LinkButton path={routesMap.login} title={locale.pagesTitles.user.login} variant='filled' small />
+						<LinkButton path={routesMap.signUp} title={locale.pagesTitles.user.signUp} variant='outlined' small />
+					</div>)
+				:
 				null
 			}
 
 		</nav>
-	)
+	);
 }

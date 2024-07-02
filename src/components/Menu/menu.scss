@@ -1,4 +1,4 @@
-@use '../../styles/global.scss';
+@use '../../styles/variables.scss';
 
 .menu {
 	display: flex;
@@ -10,14 +10,20 @@
 	height: 8%;
 	padding: 1%;
 
-	background-color: global.$foreground-color;
-	border-bottom: 0.8px solid global.$primary-color-light--30op;
+	background-color: variables.$foreground-color;
+	border-bottom: 0.8px solid variables.$primary-color-light--30op;
 
 }
 
 .menu__title {
 	height: fit-content;
 	justify-self: flex-start;
+
+	text-decoration: none;
+}
+
+.menu__title:hover {
+	h2 { color: variables.$primary-color-light; }
 }
 
 .menu__buttons {

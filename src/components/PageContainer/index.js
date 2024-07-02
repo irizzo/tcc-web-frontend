@@ -1,4 +1,3 @@
-import '@/styles/global.scss';
 import './pageContainer.scss';
 
 export function DashboardPageContainer({ children }) {

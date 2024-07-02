@@ -1,4 +1,4 @@
-@use '../../styles/global.scss';
+@use '../../styles/variables.scss';
 
 .button {
 	height: 40px;
@@ -11,14 +11,27 @@
 	cursor: pointer;
 }
 
-.button:hover {
-	color: global.$primary-color-light;
-	background-color: global.$primary-color-light--30op;
-	border: global.$primary-color-light 1px solid;
-	box-shadow: global.$box-shadow--light--small;
-	outline: 1px solid global.$primary-color-light;
+%button-hover {
 	outline-offset: none;
-	transition: 150ms;
+	transition: 300ms;
+	color: variables.$primary-font-color;
+}
+
+.button:disabled {
+	cursor: not-allowed;
+	background-color: variables.$disabled-background-color;
+	color: variables.$placeholder-font-color;
+	border: none;
+}
+
+.button:disabled:hover {
+	cursor: not-allowed;
+	background-color: variables.$disabled-background-color;
+	border: none;
+	box-shadow: none;
+	outline: none;
+	outline-offset: none;
+	transition: none;
 }
 
 .button--small {
@@ -28,13 +41,37 @@
 }
 
 .button--filled {
-	color: global.$primary-color-dark;
-	background-color: global.$primary-color-light;
-	border: global.$primary-color-light 1px solid;
+	color: variables.$primary-font-color;
+	background-color: variables.$primary-color-light;
+	border: variables.$primary-color-light 1px solid;
+}
+
+.button--filled:hover {
+	@extend %button-hover;
+
+	background-color: variables.$primary-color-light--30op;
+	border: variables.$primary-color-light 1px solid;
+	box-shadow: variables.$box-shadow--light--small;
 }
 
 .button--outlined {
-	color: global.$primary-color-light;
+	color: variables.$primary-color-light;
 	background-color: initial;
-	border: global.$primary-color-light 1px solid;
+	border: variables.$primary-color-light 1px solid;
+}
+
+.button--outlined:hover {
+	@extend %button-hover;
+	background-color: variables.$primary-color-light--15op;
+	border: variables.$primary-color-light 1px solid;
+	box-shadow: variables.$box-shadow--light--small;
+}
+
+.button--link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	text-decoration: none;
 }

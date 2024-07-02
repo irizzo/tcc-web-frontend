@@ -1,46 +1,98 @@
-import '@/styles/global.scss';
-import '@/components/SideBar/sideBar.scss'
+'use client';
 
-import { pageTitles } from "@/resources/locale"
+import './sideBar.scss';
 
-// Todo: mover para recursos (@/resources)
-const daysDictionary = {
-	0: "Dom",
-	1: "Seg",
-	2: "Ter",
-	3: "Qua", 
-	4: "Qui",
-	5: "Sex",
-	6: "Sáb"
-}
+import { useContext, useCallback, useEffect } from 'react';
+import { UserAccessStateContext } from '@/hooks';
+import Link from 'next/link';
+
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaSquareCheck } from 'react-icons/fa6';
+
+import verifyUserAuth from '@/utils/verifyUserAuth';
+import { clearTokenCookie, navigateTo } from '@/utils';
+
+import routesMap from '@/resources/routesMap';
+import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale';
 
 export default function SideBar() {
 	const currentDate = new Date();
 	const weekday = currentDate.getDay();
-	const today = `${daysDictionary[weekday]}, ${currentDate.toLocaleDateString()}`
+	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
 
-	return(
-		<aside>
+	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+
+	// const isUserLogged = useCallback(
+	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+	// 	[ userAccessState, setUserAccessState ]
+	// );
+
+	// useEffect(() => {
+	// 	isUserLogged();
+	// }, [ isUserLogged ]);
+
+	return (
+		<nav className='flex'>
 			<header className='sidebar__header'>
-				<h1 className='header__title'>{`Isabelle Rizzo`}</h1>
+				<h1 className='header__title'>{'Isabelle Rizzo'}</h1>
 				<p className='header__subtitle'>{today}</p>
 			</header>
 
-			{/* TODO: colocar as rotas para as páginas */}
-			{/* TODO: colocar div com as opções da página atual */}
-			<nav className='sidebar__nav'>
-				<ul className='nav__list'>
-					<li className='nav__list__item'>{pageTitles.event.all}</li>
-					<li className='nav__list__item'>{pageTitles.tasks.all}</li>
-					<li className='nav__list__item'>{pageTitles.routines.all}</li>
-				</ul>
+			<ul className='flex nav__list'>
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.pages}</h3>
+				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{pagesTitles.dashboard}</NavListItem>
+				<NavListItem itemId={pagesKeys.categories.all} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.events.all} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.tasks.all} customIcon={<FaSquareCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.all}</NavListItem>
+				<NavListItem itemId={pagesKeys.notes.all} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.all}</NavListItem>
 
-				<ul className='nav__list'>
-					<li className='nav__list__item'>{pageTitles.settings}</li>
-					<li className='nav__list__item'>{pageTitles.contents}</li>
-					<li className='nav__list__item'>{pageTitles.about}</li>
-				</ul>
-			</nav>
-		</aside>
-	)
-}
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
+				<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.events.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{pagesTitles.events.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem>
+				<NavListItem itemId={pagesKeys.notes.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{pagesTitles.notes.new}</NavListItem>
+
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
+				<NavListItem itemId={pagesKeys.settings} path={routesMap.settings} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings}</NavListItem>
+				<NavListItem itemId={pagesKeys.contents} path={routesMap.contents} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem>
+				<NavListItem itemId={pagesKeys.about} path={routesMap.about} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem>
+				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{actionsTitles.logout}</NavListButton>
+			</ul>
+		</nav>
+	);
+};
+
+function NavListItem({ children, path = '/', customIcon = null, selected=false, itemId }) {
+	const selectedClass = selected ? 'selected' : '';
+
+	return (
+		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
+			<Link className='flex flex--row nav__item__link' href={path}>
+				{customIcon ?
+					customIcon :
+					<FaArrowRight className='nav__item__icon' />
+				}
+				{children}
+			</Link>
+		</li>
+	);
+};
+
+function NavListButton({ children, onClickFunction, customIcon }) {
+	return (
+		<li onClick={onClickFunction} className='flex flex--row nav__item'>
+			<div className='flex flex--row nav__item__link'>
+				{customIcon ?
+					customIcon :
+					<FaArrowRight className='nav__item__icon' />
+				}
+				{children}
+			</div>
+		</li>
+	);
+};
+
+async function handleLogOut(setUserAuth) {
+	await clearTokenCookie();
+	setUserAuth(false);
+	navigateTo({ path: routesMap.login });
+};

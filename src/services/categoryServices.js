@@ -1,6 +1,6 @@
 import httpClient from './http/client';
 
-import resDictionary from '@/resources/resDictionary';
+import messagesDictionary from '@/resources/messages';
 
 const basePath = '/categories';
 
@@ -25,7 +25,7 @@ export async function createCategory(categoryData, userToken) {
 
 	return {
 		status: createCategoryResponse.success,
-		message: resDictionary?.[createCategoryResponse.code]
+		message: messagesDictionary?.[createCategoryResponse.code]
 	};
 }
 
@@ -35,17 +35,17 @@ export async function getCategoriesList(userToken) {
 
 	return { // mock data
 		status: 200,
-		result: [{
-				title: "Category Title 1",
-				description: "Category description"
+		result: [ {
+				title: 'Category Title 1',
+				description: 'Category description'
 			},
 			{
-				title: "Category Title2",
-				description: "Category description"
+				title: 'Category Title2',
+				description: 'Category description'
 			},
 			{
-				title: "Category Title3",
-				description: "Category description"
+				title: 'Category Title3',
+				description: 'Category description'
 			}
 		],
 		message: 'ok'
@@ -58,15 +58,10 @@ export async function getCategoriesList(userToken) {
 	// return {
 	// 	status: getCategoriesListResponse.success,
 	// 	result: getCategoriesListResponse.result,
-	// 	message: resDictionary?.[getCategoriesListResponse.code]
+	// 	message: messagesDictionary?.[getCategoriesListResponse.code]
 	// };
 }
 
 // alter category
 
 // delete category
-
-module.exports = {
-	createCategory,
-	getCategoriesList
-}

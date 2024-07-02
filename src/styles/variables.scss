@@ -1,0 +1,20 @@
+$page-background-color: #3E3B39;
+$foreground-color: #00000020;
+$primary-font-color: #ffffff;
+$placeholder-font-color: rgba(255, 255, 255, 0.6);
+$disabled-background-color: rgb(101, 101, 101);
+
+$primary-color-light: #BE95C4;
+$primary-color-light--30op: #BE95C44d;
+$primary-color-light--15op: #be95c426;
+$primary-color-dark: #231942;
+$primary-color-dark--15op: #23194226;
+$primary-color-dark--30op: #2319424d;
+
+$box-shadow--light: 0px 0px 5px 3px $primary-color-light;
+$box-shadow--light--small: 0px 0px 2px 1px $primary-color-light;
+$box-shadow--light--small--offset: 1px 1px 2px 1px $primary-color-light;
+$box-shadow--dark: 0px 0px 5px 3px $primary-color-dark;
+$box-shadow--dark--small: 0px 0px 2px 1px $primary-color-dark;
+
+$radius: 10px;
