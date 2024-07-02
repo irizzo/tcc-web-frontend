@@ -30,7 +30,6 @@ export async function listAllTasksService() {
 		return {
 			success: fetchRes.success,
 			result: fetchRes?.result,
-			tokenCookieData: fetchRes?.tokenCookieData,
 			message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 				fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 			)

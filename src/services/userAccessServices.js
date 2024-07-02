@@ -12,15 +12,15 @@ export async function verifyUserAuthService() {
 
 	const tokenCookie = await getTokenCookie();
 
-	const res = await httpClient.get({ path: `${baseAccessPath}/verify`, customHeaders: {
+	const fetchRes = await httpClient.get({ path: `${baseAccessPath}/verify`, customHeaders: {
 		'Authorization': tokenCookie.value
 	}});
 
 	const serviceRes = {
-		success: res.success,
-		result: res?.result,
-		tokenCookieData: res?.tokenCookieData,
-		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
+		success: fetchRes.success,
+		result: fetchRes?.result,
+		tokenCookieData: fetchRes?.tokenCookieData,
+		message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
@@ -38,16 +38,16 @@ export async function verifyUserAuthService() {
 export async function signUpService(userSignUpData) {
 	console.log('[signUpService]');
 
-	const res = await httpClient.post({
+	const fetchRes = await httpClient.post({
 		path: `${baseAccessPath}/signUp`,
 		payload: userSignUpData
 	});
 
 	const serviceRes = {
-		success: res.success,
-		result: res?.result,
-		tokenCookieData: res?.tokenCookieData,
-		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
+		success: fetchRes.success,
+		result: fetchRes?.result,
+		tokenCookieData: fetchRes?.tokenCookieData,
+		message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
@@ -64,23 +64,21 @@ export async function signUpService(userSignUpData) {
 export async function loginService(userLoginData) {
 	console.log('[loginService]');
 
-	const res = await httpClient.post({
+	const fetchRes = await httpClient.post({
 		path: `${baseAccessPath}/login`,
 		payload: userLoginData
 	});
 
 	const serviceRes = {
-		success: res.success,
-		result: res?.result,
-		tokenCookieData: res?.tokenCookieData,
-		message: messagesDictionary[res.code] ? messagesDictionary[res.code] : (
+		success: fetchRes.success,
+		result: fetchRes?.result,
+		tokenCookieData: fetchRes?.tokenCookieData,
+		message: messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			res.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)
 	};
 
 	serviceRes.tokenCookieData && await setCookieData(serviceRes.tokenCookieData);
-
-	console.log(`[loginService] res.result = ${JSON.stringify(res.result)}`);
 
 	return serviceRes;
 }

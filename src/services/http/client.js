@@ -9,6 +9,8 @@ const httpClient = ({ baseURL }) => {
 
 	return {
 		get: async({ path, customHeaders = null }) => {
+			console.log('[httpClient] [get]');
+
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'GET',
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
@@ -19,8 +21,6 @@ const httpClient = ({ baseURL }) => {
 
 		post: async ({ path, payload, customHeaders = null }) => {
 			console.log('[httpClient] [post]');
-			console.log(`[httpClient] [post] headers = ${JSON.stringify(customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders)}`);
-
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'POST',
 				body: JSON.stringify(payload),
@@ -32,7 +32,6 @@ const httpClient = ({ baseURL }) => {
 
 		put: async ({ path, payload, customHeaders = null }) => {
 			console.log('[httpClient] [put]');
-			console.log(`[httpClient] [put] headers = ${JSON.stringify(customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders)}`);
 
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'PUT',
@@ -45,9 +44,6 @@ const httpClient = ({ baseURL }) => {
 
 		delete: async ({ path, customHeaders = null }) => {
 			console.log('[httpClient] [delete]');
-
-			console.log(`[httpClient] [delete] headers = ${JSON.stringify(customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders)}`);
-
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'DELETE',
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
