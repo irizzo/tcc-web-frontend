@@ -17,14 +17,19 @@ const BASEURL = 'http://localhost:3000';
 export default async function authMiddleware(req) {
 	console.log('[authMiddleware]');
 
+	let isUserLogged = false;
+	const tokenCookie = req.cookies.get('token');
+
 	const { pathname } = req.nextUrl;
 	const userBasePath = '/user';
 
 	console.log('[authMiddlewate] pathname: ', pathname);
 
-	const userAuthRes = await verifyUserAuthService();
-	req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value)
-	const isUserLogged = userAuthRes.success;
+	if (tokenCookie) {
+		const userAuthRes = await verifyUserAuthService();
+		isUserLogged = userAuthRes.success;
+		req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value);
+	}
 
 	console.log('[authMiddlewate] isUserLogged: ', isUserLogged);
 
