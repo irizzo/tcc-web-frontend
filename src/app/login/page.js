@@ -1,51 +1,53 @@
 'use client';
 
-import { useState, useContext, useCallback, useEffect } from 'react';
-import { UserAccessStateContext } from '@/hooks';
+import { useState } from 'react';
 
-import { DefaultPageContainer } from '@/components/PageContainer';
-import Menu from '@/components/Menu';
-import { DefaultButton } from '@/components/Buttons';
-import { FormContainer, FormSection } from '@/components/Form';
-
+import { navigateTo } from '@/utils';
 import { loginService } from '@/services/userAccessServices';
-import verifyUserAuth from '@/utils/verifyUserAuth';
 import messagesDictionary from '@/resources/messages';
 import * as locale from '@/resources/locale';
 
-export default function Login() {
-	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
-	// const isUserLogged = useCallback(
-	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-	// 	[ userAccessState, setUserAccessState ]
-	// );
+import Menu from '@/components/Menu';
+import { DefaultPageContainer } from '@/components/PageContainer';
+import { DefaultButton } from '@/components/Buttons';
+import { FormContainer, FormSection } from '@/components/Form';
 
-	// useEffect(() => {
-	// 	isUserLogged();
-	// }, [ isUserLogged ]);
-
-	const [ userEmail, setUserEmail ] = useState('');
-	const [ userPassword, setUserPassword ] = useState('');
-
-	async function handleLogin(e, data) {
-		console.log('[handleLogin]');
+async function handleLoginSubmit(e, formData) {
+	console.log('[handleLoginSubmit]');
+	try {
 		e.preventDefault();
 
-		// validations
-		if (!data.email || !data.password) {
+		if (!formData.email || !formData.password) {
 			alert(messagesDictionary.EMPTY_FIELD);
 			return;
 		}
 
-		const fetchRes = await loginService(data);
+		// TODO: sanitize
+		const cleanData = {
+			email: formData.email,
+			password: formData.password
+		};
 
-		if (fetchRes.success) {
-			console.log('[handleLogin] usuário logado!');
-			setUserAccessState(true);
+		const res = await loginService(cleanData);
+		console.log('[handleLoginSubmit] res: ', res);
+
+		if (!res.success) {
+			console.log('!success | message: ', res.message);
+			alert(res.message);
+			return;
+
 		} else {
-			alert(fetchRes.message);
+			navigateTo({ path: '/user/dashboard' });
 		}
+
+	} catch (error) {
+		alert(error);
 	}
+}
+
+export default function Login() {
+	const [ userEmail, setUserEmail ] = useState('');
+	const [ userPassword, setUserPassword ] = useState('');
 
 	return (
 		<DefaultPageContainer>
@@ -54,7 +56,7 @@ export default function Login() {
 				<FormContainer
 					title={locale.pagesTitles.user.login}
 					variantClasses='form__container--login'
-					submitCallback={(e) => handleLogin(e, { email: userEmail, password: userPassword })}
+					submitCallback={(e) => handleLoginSubmit(e, { email: userEmail, password: userPassword })}
 				>
 					<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
 						<input type='email' name="email" required placeholder={locale.entitiesProperties.user.email} onChange={(e) => { setUserEmail(e.target.value); }} />

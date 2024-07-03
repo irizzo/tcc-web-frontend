@@ -1,55 +1,59 @@
 'use client';
 
-import { useState, useContext, useCallback, useEffect } from 'react';
-import { UserAccessStateContext } from '@/hooks';
+import { useState } from 'react';
 
+import { navigateTo } from '@/utils';
 import { signUpService } from '@/services/userAccessServices';
 import messagesDictionary from '@/resources/messages';
+import * as locale from '@/resources/locale';
 
-import { DefaultPageContainer } from '@/components/PageContainer';
 import Menu from '@/components/Menu';
+import { DefaultPageContainer } from '@/components/PageContainer';
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection, FormInfo } from '@/components/Form';
 
-import * as locale from '@/resources/locale';
-import verifyUserAuth from '@/utils/verifyUserAuth';
-
-export default function SignUp() {
-	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
-	// const isUserLogged = useCallback(
-	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-	// 	[ userAccessState, setUserAccessState ]
-	// );
-
-	// useEffect(() => {
-	// 	isUserLogged();
-	// }, [ isUserLogged ]);
-
-	async function handleSignUp(e, data) {
-		console.log('[handleSignUp]');
-
+async function handleSignUpSubmit(e, formData) {
+	console.log('[handleSignUpSubmit]');
+	try {
 		e.preventDefault();
 
-		// validations
-		if (!data.firstName || !data.lastName || !data.email || !data.password || !data.confirmPassword) {
+		if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
 			alert(messagesDictionary.EMPTY_FIELD);
 			return;
 		}
 
-		if (data.password !== data.confirmPassword) {
+		if (formData.password !== formData.confirmPassword) {
 			alert(messagesDictionary.DIF_CONFIRM_PASS);
 			return;
 		}
 
-		const fetchRes = await signUpService(data);
+		// TODO: sanitize
+		const cleanData = {
+			firstName: formData.firstName,
+			lastName: formData.lastName,
+			email: formData.email,
+			password: formData.password,
+			confirmPassword: formData.confirmPassword
+		};
 
-		if (fetchRes.success) {
-			console.log('usuário criado!');
-			setUserAccessState(true);
+		const res = await signUpService(cleanData);
+		console.log('[handleSignUpSubmit] res: ', res);
+
+		if (!res.success) {
+			console.log('!success | message: ', res.message);
+			alert(res.message);
+			return;
+
 		} else {
-			alert(fetchRes.message);
+			navigateTo({ path: '/user/dashboard' });
 		}
+
+	} catch (error) {
+		alert(error);
 	}
+}
+
+export default function SignUp() {
 
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
@@ -64,7 +68,7 @@ export default function SignUp() {
 				<FormContainer
 					title={locale.pagesTitles.user.signUp}
 					variantClasses='form__container--sign-up'
-					submitCallback={(e) => handleSignUp(e, { firstName, lastName, email, password, confirmPassword })}
+					submitCallback={(e) => handleSignUpSubmit(e, { firstName, lastName, email, password, confirmPassword })}
 				>
 					<FormSection labelFor='firstName' sectionTitle={locale.entitiesProperties.user.firstName}>
 						<input type='text' name="firstName" required placeholder={locale.entitiesProperties.user.firstName} onChange={(e) => { setFirstName(e.target.value); }} />
