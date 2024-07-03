@@ -15,16 +15,15 @@ import * as locale from '@/resources/locale';
 import verifyUserAuth from '@/utils/verifyUserAuth';
 
 export default function SignUp() {
-	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+	// const isUserLogged = useCallback(
+	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+	// 	[ userAccessState, setUserAccessState ]
+	// );
 
-	const isUserLogged = useCallback(
-		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-		[ userAccessState, setUserAccessState ]
-	);
-
-	useEffect(() => {
-		isUserLogged();
-	}, [ isUserLogged ]);
+	// useEffect(() => {
+	// 	isUserLogged();
+	// }, [ isUserLogged ]);
 
 	async function handleSignUp(e, data) {
 		console.log('[handleSignUp]');

@@ -1,4 +1,4 @@
-const BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
+const _BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
 
 const httpClient = ({ baseURL }) => {
 	const defaultHeaders = new Headers({
@@ -53,4 +53,4 @@ const httpClient = ({ baseURL }) => {
 	};
 };
 
-export default httpClient({ baseURL: BASEURL });
+export default httpClient({ baseURL: _BASEURL });

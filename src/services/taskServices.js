@@ -5,7 +5,9 @@ import { getTokenCookie, setCookieData } from '@/utils';
 import httpClient from './http/client';
 import messagesDictionary from '@/resources/messages';
 
-const BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
+// const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
+const BASEURL = 'http://localhost:3000';
+
 const baseTasksPath = '/tasks';
 
 export async function listAllTasksService() {
@@ -91,6 +93,7 @@ export async function createTaskService(taskData) {
 		console.log('[createTaskService] taskData: ', taskData);
 
 		const tokenCookie = await getTokenCookie();
+
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value

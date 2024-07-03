@@ -2,13 +2,12 @@
 
 import './sideBar.scss';
 
-import { useContext, useCallback, useEffect } from 'react';
-import { UserAccessStateContext } from '@/hooks';
+import { useContext } from 'react';
+
 import Link from 'next/link';
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaSquareCheck } from 'react-icons/fa6';
 
-import verifyUserAuth from '@/utils/verifyUserAuth';
 import { clearTokenCookie, navigateTo } from '@/utils';
 
 import routesMap from '@/resources/routesMap';

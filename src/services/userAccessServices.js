@@ -12,7 +12,7 @@ export async function verifyUserAuthService() {
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.get({ 
+		const fetchRes = await httpClient.get({
 			path: `${baseAccessPath}/verify`,
 			customHeaders: {
 			'Authorization': tokenCookie.value
@@ -20,7 +20,7 @@ export async function verifyUserAuthService() {
 
 		console.log('[verifyUserAuthService] fetchRes: ', fetchRes);
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+		// fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
@@ -30,6 +30,7 @@ export async function verifyUserAuthService() {
 		};
 
 		return {
+			tokenCookieData: fetchRes.tokenCookieData,
 			success: fetchRes.success,
 			result: fetchRes?.result,
 			message

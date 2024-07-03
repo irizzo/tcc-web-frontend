@@ -14,16 +14,15 @@ import messagesDictionary from '@/resources/messages';
 import * as locale from '@/resources/locale';
 
 export default function Login() {
-	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+	// const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
+	// const isUserLogged = useCallback(
+	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+	// 	[ userAccessState, setUserAccessState ]
+	// );
 
-	const isUserLogged = useCallback(
-		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-		[ userAccessState, setUserAccessState ]
-	);
-
-	useEffect(() => {
-		isUserLogged();
-	}, [ isUserLogged ]);
+	// useEffect(() => {
+	// 	isUserLogged();
+	// }, [ isUserLogged ]);
 
 	const [ userEmail, setUserEmail ] = useState('');
 	const [ userPassword, setUserPassword ] = useState('');
