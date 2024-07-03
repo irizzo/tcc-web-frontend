@@ -3,6 +3,7 @@
 .loading__container {
 	width: 100%;
 	height: 100%;
+	border-radius: variables.$radius;
 
 	background-color: variables.$foreground-color;
 	box-shadow: variables.$box-shadow--light;

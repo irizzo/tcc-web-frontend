@@ -14,14 +14,14 @@ import { DashboardPageContainer, DefaultPageContainer } from '@/components/PageC
 export default function GeneralPagesLayout({ children }) {
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
 
-	const isUserLogged = useCallback(
-		async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-		[ setUserAccessState, userAccessState ]
-	);
+	// const isUserLogged = useCallback(
+	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
+	// 	[ setUserAccessState, userAccessState ]
+	// );
 
-	useEffect(() => {
-		isUserLogged();
-	}, [ isUserLogged ]);
+	// useEffect(() => {
+	// 	isUserLogged();
+	// }, [ isUserLogged ]);
 
 	if (userAccessState) {
 		return (

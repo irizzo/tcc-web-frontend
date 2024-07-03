@@ -1,16 +1,49 @@
 'use client';
 
-import { useEffect, useState } from 'react';;
-
-import { DefaultButton } from '@/components/Buttons';
-import { FormContainer, FormSection } from '@/components/Form';
+import { navigateTo } from '@/utils';
+import { getCategoriesListService } from '@/services/categoryServices';
+import { createTaskService } from '@/services/taskServices';
 
 import * as locale from '@/resources/locale';
 
-// TODO: fix dates and selects placeholders styles
+import { useEffect, useState } from 'react';
 
-// TODO: get categories from backend
-const _categoriesList = [];
+import Loading from '@/components/Loading';
+import { DefaultButton } from '@/components/Buttons';
+import { FormContainer, FormSection } from '@/components/Form';
+
+async function handleSubmit(e, formData) {
+	try {
+		e.preventDefault();
+
+		// TODO: sanitize
+		const cleanData = {
+			title: formData.title,
+			description: formData.description.length > 0 ? formData.description : null,
+			dueDate: formData.dueDate === '' ? null : formData.dueDate,
+			categoryCode: formData.categoryCode === '' ? null : formData.categoryCode,
+			priorityCode: formData.priorityCode === '' ? null : formData.priorityCode,
+			toDoDate: formData.toDoDate === '' ? null : formData.toDoDate
+		};
+
+		const res = await createTaskService(cleanData);
+
+		console.log('[createTask] res: ', res);
+
+		if (!res.success) {
+			console.log('!success | message: ', res.message);
+			alert(res.message);
+			return;
+
+		} else {
+			navigateTo({ path: '/user/tasks' });
+		}
+	} catch (error) {
+		alert(error);
+	}
+}
+
+// TODO: fix dates and selects placeholders styles
 
 export default function NewTask() {
 	const [ title, setTitle ] = useState('');
@@ -21,97 +54,45 @@ export default function NewTask() {
 	const [ toDoDate, setToDoDate ] = useState('');
 
 	const [ categoriesList, setCategoriesList ] = useState(false);
-
-
+	const [ isLoading, setIsLoading ] = useState(true);
 
 	useEffect(() => {
 		async function loadCategories() {
-			setCategoriesList(_categoriesList);
+			setIsLoading(true);
+			const res = await getCategoriesListService();
 
-			/* const c = await categoryServices.getCategoriesList();
-	
-			if (c.result.length === 0 || c.status === false) {
-				setCategoriesList(false);
-			} else {
-				setCategoriesList(c.result);
-			}*/
+			if (!res.success) {
+				throw new Error(res.message);
+			}
 
+			setCategoriesList([ ...res.result ]);
+			setIsLoading(false);
 		}
+
 		loadCategories();
 	}, []);
 
-	async function handleNewTaskForm(e) {
-		e.preventDefault();
-		// console.log('dueDate = ', dueDate)
-		// console.log('typeof(dueDate) = ', typeof(dueDate))
-		// console.log('new Date(dueDate) = ', new Date(dueDate))
-		return;
-	}
-
-	/*
-	async function handleSubmit(e) {
-		e.preventDefault();
-
-		const formattedDueDate = new Date(dueDate);
-
-		// sanitize
-		const cleanTitle = sanitizeString(title);
-		const cleanDescripiton = sanitizeString(description);
-		const cleanCategoryCode = sanitizeString(categoryCode);
-
-		// title validation
-		if (!titleValidation(cleanTitle)) {
-			window.alert('Invalid Title');
-			return;
-		}
-
-		// due date validation
-		if (!dueDateValidation(formattedDueDate)) {
-			window.alert('Invalid due date');
-			return;
-		}
-
-		const todoData = {
-			title: cleanTitle,
-			description: cleanDescripiton,
-			dueDate: formattedDueDate,
-			categoryCode: cleanCategoryCode
-		};
-
-		console.log(`todoData = ${JSON.stringify(todoData)}`);
-
-		const createTodoRes = await todoServices.createTodo(todoData);
-
-		if (createTodoRes.status === true) {
-			// TODO: redirect to home page
-			window.alert(createTodoRes.message || 'Success');
-			return;
-		};
-
-		window.alert(createTodoRes.message || 'Internal Error. try Again Later');
-		return;
-	}
-	*/
+	if (isLoading) return <Loading />;
 
 	return (
 		<FormContainer
 			title={locale.pagesTitles.tasks.new}
-			submitCallback={(e) => handleNewTaskForm(e)}
+			submitCallback={(e) => handleSubmit(e, { title, description, dueDate, categoryCode, priorityCode, toDoDate })}
 		>
-			{/* <FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
-				<input name='title' type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
+				<input id='title' name='title' type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
 			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.tasks.description}>
-				<textarea name='description' placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
-			</FormSection> */}
-
-			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
-				<input name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
+				<textarea id='description' name='description' placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
-			{/* <FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
-				<select name='priority' onChange={ (e) => setPriorityCode(e.target.value) }>
+			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
+				<input id='dueDate' name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
+			</FormSection>
+
+			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
+				<select id='priority' name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 					<option key={1} value={1}>{locale.entitiesProperties.general.quadrantOne}</option>
 					<option key={2} value={2}>{locale.entitiesProperties.general.quadrantTwo}</option>
@@ -121,7 +102,7 @@ export default function NewTask() {
 			</FormSection>
 
 			<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-				<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
+				<select id='category' name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 
 					{categoriesList.length > 0 ?
@@ -137,8 +118,8 @@ export default function NewTask() {
 			</FormSection>
 
 			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-				<input name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
-			</FormSection> */}
+				<input id='toDoDate' name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
+			</FormSection>
 
 			<DefaultButton title={locale.formDefaults.submitButtonTitle} variant='filled' buttonType='submit' />
 		</FormContainer>

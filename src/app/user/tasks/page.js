@@ -1,38 +1,22 @@
 'use client';
 
-import { Suspense, useCallback, useEffect, useState } from 'react';
-import PartialLoading from '@/components/Loading/PartialLoading';
+import * as locale from '@/resources/locale';
+import { listAllTasksService } from '@/services/taskServices';
+import Loading from '@/components/Loading';
+
+import { useEffect, useState } from 'react';
 
 import { Board } from '@/components/Board';
 import { TaskCard } from '@/components/Card';
 import { GeneralInfo } from '@/components/Messages';
 
-import * as locale from '@/resources/locale';
-import { listAllTasksService } from '@/services/taskServices';
-
 export default function AllTasksPage() {
-	// const taskList = [];
 	const [ taskList, setTaskList ] = useState([]);
-
-	// TESTAR DE NOVO ESSE USECALLBACK
-	// const loadTasks = useCallback(async () => {
-	// 	console.log('[loadTasks]');
-	// 	const tasksRes = await listAllTasksService();
-
-	// 	if (!tasksRes.success) {
-	// 		throw new Error(tasksRes.message);
-	// 	}
-
-	// 	if (taskList.length > 0) {
-	// 		console.log('[loadTasks] taskList: ', taskList);
-	// 		taskList.push(...tasksRes.result);
-	// 	}
-
-	// 	console.log('[loadTasks] taskList: ', taskList);
-	// }, [taskList]);
+	const [ isLoading, setIsLoading ] = useState(true);
 
 	useEffect(() => {
 		async function loadTasks() {
+			setIsLoading(true);
 			const res = await listAllTasksService();
 
 			if (!res.success) {
@@ -40,15 +24,18 @@ export default function AllTasksPage() {
 			}
 
 			setTaskList([ ...res.result ]);
+			setIsLoading(false);
 		}
 
 		loadTasks();
 	}, []);
 
+	if(isLoading) return <Loading />;
+
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.all}>
-				<Suspense fallback={<PartialLoading />}>
+				{/* <Suspense fallback={<PartialLoading />}> */}
 					{
 						taskList && taskList.length > 0 ?
 							taskList.map((task) => {
@@ -57,11 +44,11 @@ export default function AllTasksPage() {
 							:
 							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 					}
-				</Suspense>
+				{/* </Suspense> */}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				<Suspense fallback={<PartialLoading />}>
+				{/* <Suspense fallback={<PartialLoading />}> */}
 					{
 						taskList && taskList.length > 0 ?
 							taskList.map((task) => {
@@ -70,11 +57,11 @@ export default function AllTasksPage() {
 							:
 							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 					}
-				</Suspense>
+				{/* </Suspense> */}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				<Suspense fallback={<PartialLoading />}>
+				{/* <Suspense fallback={<PartialLoading />}> */}
 					{
 						taskList && taskList.length > 0 ?
 							taskList.map((task) => {
@@ -83,11 +70,11 @@ export default function AllTasksPage() {
 							:
 							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 					}
-				</Suspense>
+				{/* </Suspense> */}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				<Suspense fallback={<PartialLoading />}>
+				{/* <Suspense fallback={<PartialLoading />}> */}
 					{
 						taskList && taskList.length > 0 ?
 							taskList.map((task) => {
@@ -96,7 +83,7 @@ export default function AllTasksPage() {
 							:
 							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 					}
-				</Suspense>
+				{/* </Suspense> */}
 			</Board>
 		</>
 	);

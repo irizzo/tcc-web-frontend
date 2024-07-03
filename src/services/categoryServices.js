@@ -23,7 +23,7 @@ export async function createCategoryService(categoryData) {
 			}
 		});
 
-		console.log('[createCategoryService] fetchRes: ', fetchRes);
+		// console.log('[createCategoryService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
