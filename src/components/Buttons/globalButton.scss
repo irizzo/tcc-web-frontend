@@ -9,11 +9,12 @@
 	font-size: small;
 	border-radius: 10px;
 	cursor: pointer;
+	outline: none;
+	transition: 300ms;
 }
 
 %button-hover {
 	outline-offset: none;
-	transition: 300ms;
 	color: variables.$primary-font-color;
 }
 
@@ -72,6 +73,35 @@
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-
 	text-decoration: none;
+}
+
+.button--danger {
+	transition: 300ms;
+
+	background-color: #ff9980b3;
+	border: 1px solid #ff9980b3;
+
+	width: 50px;
+
+	color: variables.$primary-font-color;
+
+	span {
+		display: none;
+	}
+
+	.button__icon {
+		color: variables.$primary-font-color;
+	}
+}
+
+.button--danger:hover {
+	span {
+		display: inline;
+		margin-left: 2%;
+	}
+
+	background-color: #cd4937;
+	border: 1px solid #cd4937;
+	width: 250px;
 }

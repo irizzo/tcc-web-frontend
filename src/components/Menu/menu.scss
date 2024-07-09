@@ -7,12 +7,14 @@
 	justify-content: space-between;
 
 	width: 100vw;
-	height: 8%;
 	padding: 1%;
+	height: 7%;
+	min-height: 40px;
 
 	background-color: variables.$foreground-color;
 	border-bottom: 0.8px solid variables.$primary-color-light--30op;
 
+	overflow-y: hidden;
 }
 
 .menu__title {

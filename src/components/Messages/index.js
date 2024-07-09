@@ -3,41 +3,47 @@ import './messages.scss';
 
 import * as locale from '@/resources/locale';
 
-function MessagesContainer({ children, title, content, variant }) {
+import { FaCircleInfo, FaTriangleExclamation, FaCircleExclamation } from 'react-icons/fa6';
+
+function MessagesContainer({ title, content, variant }) {
 	const variantClass = `message__container--${variant}`;
 
 	return (
-		<div className={`flex flex--center message__container ${variantClass}`}>
+		<div className={`flex flex--row flex--center message__container ${variantClass}`}>
 			<p className="message__content">
-				<b>{title}</b>
-				{': '}
+				<b className='message__title'>{title}</b>
 				{content}
 			</p>
 		</div>
-	)
-}
-
-export function GeneralInfo({ infoContent, children }) {
-	return (
-		<MessagesContainer title={locale.messagesTitles.infoTitle} content={infoContent} variant='info'>
-		</MessagesContainer>
 	);
 }
 
-export function GeneralWarn({ warnContent, children }) {
-	return (
-		<MessagesContainer title={locale.messagesTitles.warnTitle} content={warnContent} variant='warn'>
-		</MessagesContainer>
-	);
-}
-
-export function GeneralError({ errorContent, children }) {
+export function GeneralInfo({ infoContent }) {
 	return (
 		<MessagesContainer
-			title={locale.messagesTitles.errorTitle}
+			title={<FaCircleInfo />}
+			content={infoContent}
+			variant='info'
+		/>
+	);
+}
+
+export function GeneralWarn({ warnContent }) {
+	return (
+		<MessagesContainer
+			title={<FaTriangleExclamation />}
+			content={warnContent}
+			variant='warn'
+		/>
+	);
+}
+
+export function GeneralError({ errorContent }) {
+	return (
+		<MessagesContainer
+			title={<FaCircleExclamation />}
 			content={errorContent}
 			variant='error'
-		>
-		</MessagesContainer>
+		/>
 	);
 }

@@ -8,10 +8,22 @@ export const entitiesProperties = {
 	general: {
 		dueDate: 'Prazo',
 		priority: 'Prioridade',
-		quadrantOne: 'Urgente e Difícil',
-		quadrantTwo: 'Não Urgente e Difícil',
-		quadrantThree: 'Urgente e Fácil',
-		quadrantFour: 'Não Urgente e Fácil',
+		quadrantOne: {
+			title: 'Urgente e Difícil',
+			value: 'QUADRANT_ONE'
+		},
+		quadrantTwo: {
+			title: 'Não Urgente e Difícil',
+			value: 'QUADRANT_TWO'
+		},
+		quadrantThree: {
+			title: 'Urgente e Fácil',
+			value: 'QUADRANT_THREE'
+		},
+		quadrantFour: {
+			title: 'Não Urgente e Fácil',
+			value: 'QUADRANT_FOUR'
+		},
 		category: 'Categoria',
 		toDoDate: 'Quando fazer?'
 	},
@@ -172,6 +184,7 @@ export const pagesKeys = {
 
 export const actionsTitles = {
 	save: 'Salvar',
+	delete: 'Excluir',
 	edit: 'Editar',
 	cancel: 'Cancelar',
 	start: 'Começar',

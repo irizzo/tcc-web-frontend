@@ -1,6 +1,6 @@
 import { Board } from '@/components/Board';
 import { TaskCard } from '@/components/Card';
-import { GeneralMessage } from '@/components/Messages';
+import { GeneralInfo } from '@/components/Messages';
 import * as locale from '@/resources/locale';
 import routesMap from '@/resources/routesMap';
 
@@ -16,7 +16,7 @@ export default function EventsPage() {
 							return <TaskCard key={event.id} eventInfo={event} />;
 						})
 						:
-						<GeneralMessage content={locale.notFoundDefaults.events} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
@@ -27,7 +27,7 @@ export default function EventsPage() {
 							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
-						<GeneralMessage content={locale.notFoundDefaults.events} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
@@ -38,7 +38,7 @@ export default function EventsPage() {
 							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
-						<GeneralMessage content={locale.notFoundDefaults.events} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
@@ -49,7 +49,7 @@ export default function EventsPage() {
 							return <TaskCard key={t.id} path={`${routesMap.events.base}/:${t.id}`} eventInfo={t} />;
 						})
 						:
-						<GeneralMessage content={locale.notFoundDefaults.events} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 			</>

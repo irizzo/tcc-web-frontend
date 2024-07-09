@@ -12,7 +12,7 @@
 }
 
 .board__header {
-	height: 50px;
+	height: 40px;
 	width: 100%;
 	background-color: variables.$primary-color-dark;
 
@@ -23,6 +23,7 @@
 		border-top-right-radius: variables.$radius;
 		border-top-left-radius: variables.$radius;
 		text-align: left;
+		font-size: 1.3rem;
 	}
 }
 
@@ -31,6 +32,5 @@
 	width: 100%;
 	min-height: fit-content;
 	padding: 2%;
-
 	overflow-x: scroll;
 }

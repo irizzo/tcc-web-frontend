@@ -1,43 +1,5 @@
 @use '../../styles/variables.scss';
 
-// .listBoard {
-// 	width: 24%;
-// 	height: 95vh;
-// 	min-width: 240px;
-// 	background-color: variables.$foreground-color;
-// 	border-radius: variables.$radius;
-// 	box-shadow: variables.$box-shadow--light--small--offset;
-
-// 	overflow-x: scroll;
-
-// 	header {
-// 		color: variables.$primary-font-color;
-// 		padding: 1% 2%;
-// 		margin-bottom: 1%;
-// 		box-shadow: variables.$box-shadow--light--small--offset;
-// 	}
-
-// 	header .header__title {
-// 		text-align: left;
-// 		font-size: 1.3rem;
-// 	}
-
-// 	header .header__icon {
-// 		cursor: pointer;
-// 		color: variables.$placeholder-font-color;
-// 	}
-
-// 	header .header__icon:hover {
-// 		color: variables.$primary-color-light;
-// 	}
-
-// 	.listBoard__content {
-// 		flex: 1;
-// 		width: 100%;
-// 		padding: 0 1.5%;
-// 	}
-// }
-
 .card__container {
 	align-items: flex-start;
 	justify-content: space-around;
@@ -51,6 +13,8 @@
 	border-radius: variables.$radius;
 
 	.card__title {
+		justify-content: flex-start;
+
 		text-align: left;
 		color: variables.$primary-font-color;
 		text-decoration: none;
@@ -59,6 +23,10 @@
 		font-size: 1rem;
 		margin-bottom: 1%;
 		cursor: pointer;
+
+		.card__title__icon {
+			margin-right: 10px;
+		}
 	}
 
 	p {
@@ -66,8 +34,12 @@
 		color: variables.$placeholder-font-color;
 		margin-bottom: 1%;
 	}
+}
 
-	.card__title:hover h3 {
+.card__title:hover {
+
+	h4,
+	.card__title__icon {
 		color: variables.$primary-color-light;
 	}
 }
@@ -83,6 +55,8 @@
 }
 
 .tag__container {
+	justify-content: flex-start;
+
 	margin: 1%;
 	padding: 1% 2%;
 
@@ -92,17 +66,15 @@
 	height: fit-content;
 
 	border-radius: variables.$radius;
-	// border: solid 1px variables.$primary-color-light;
-	background-color: variables.$foreground-color;
 
 	.tag__icon {
-		color: variables.$primary-color-light;
-		margin-right: 2%;
+		color: variables.$placeholder-font-color;
+		margin-right: 8px;
 		font-size: small;
 	}
 
 	.tag__content {
-		color: variables.$primary-color-light;
+		color: variables.$placeholder-font-color;
 		text-align: left;
 		vertical-align: middle;
 		font-size: small;
