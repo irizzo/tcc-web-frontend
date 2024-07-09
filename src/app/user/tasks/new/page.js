@@ -12,39 +12,6 @@ import Loading from '@/components/Loading';
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection } from '@/components/Form';
 
-async function handleSubmit(e, formData) {
-	try {
-		e.preventDefault();
-
-		// TODO: sanitize
-		const cleanData = {
-			title: formData.title,
-			description: formData.description.length > 0 ? formData.description : null,
-			dueDate: formData.dueDate === '' ? null : formData.dueDate,
-			categoryCode: formData.categoryCode === '' ? null : formData.categoryCode,
-			priorityCode: formData.priorityCode === '' ? null : formData.priorityCode,
-			toDoDate: formData.toDoDate === '' ? null : formData.toDoDate
-		};
-
-		const res = await createTaskService(cleanData);
-
-		console.log('[createTask] res: ', res);
-
-		if (!res.success) {
-			console.log('!success | message: ', res.message);
-			alert(res.message);
-			return;
-
-		} else {
-			navigateTo({ path: '/user/tasks' });
-		}
-	} catch (error) {
-		alert(error);
-	}
-}
-
-// TODO: fix dates and selects placeholders styles
-
 export default function NewTask() {
 	const [ title, setTitle ] = useState('');
 	const [ description, setDescription ] = useState('');
@@ -57,7 +24,7 @@ export default function NewTask() {
 	const [ isLoading, setIsLoading ] = useState(true);
 
 	useEffect(() => {
-		async function loadCategories() {
+		async function loadResources() {
 			setIsLoading(true);
 			const res = await getCategoriesListService();
 
@@ -69,8 +36,40 @@ export default function NewTask() {
 			setIsLoading(false);
 		}
 
-		loadCategories();
+		loadResources();
 	}, []);
+
+	async function handleSubmit(e, formData) {
+		try {
+			e.preventDefault();
+			setIsLoading(true);
+
+			// TODO: sanitize
+			const cleanData = {
+				title: formData.title,
+				description: formData.description.length > 0 ? formData.description : null,
+				dueDate: formData.dueDate === '' ? null : formData.dueDate,
+				categoryCode: formData.categoryCode === '' ? null : formData.categoryCode,
+				priorityCode: formData.priorityCode === '' ? null : formData.priorityCode,
+				toDoDate: formData.toDoDate === '' ? null : formData.toDoDate
+			};
+
+			const res = await createTaskService(cleanData);
+
+			if (!res.success) {
+				setIsLoading(false);
+				console.log('!success | message: ', res.message);
+				alert(res.message);
+				return;
+
+			} else {
+				setIsLoading(false);
+				navigateTo({ path: '/user/tasks' });
+			}
+		} catch (error) {
+			alert(error);
+		}
+	}
 
 	if (isLoading) return <Loading />;
 
@@ -94,10 +93,10 @@ export default function NewTask() {
 			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
 				<select id='priority' name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
-					<option key={1} value={1}>{locale.entitiesProperties.general.quadrantOne}</option>
-					<option key={2} value={2}>{locale.entitiesProperties.general.quadrantTwo}</option>
-					<option key={3} value={3}>{locale.entitiesProperties.general.quadrantThree}</option>
-					<option key={4} value={4}>{locale.entitiesProperties.general.quadrantFour}</option>
+					<option key={1} value={locale.entitiesProperties.general.quadrantOne.value}>{locale.entitiesProperties.general.quadrantOne.title}</option>
+					<option key={2} value={locale.entitiesProperties.general.quadrantTwo.value}>{locale.entitiesProperties.general.quadrantTwo.title}</option>
+					<option key={3} value={locale.entitiesProperties.general.quadrantThree.value}>{locale.entitiesProperties.general.quadrantThree.title}</option>
+					<option key={4} value={locale.entitiesProperties.general.quadrantFour.value}>{locale.entitiesProperties.general.quadrantFour.title}</option>
 				</select>
 			</FormSection>
 

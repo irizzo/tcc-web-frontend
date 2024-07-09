@@ -18,8 +18,6 @@ export async function verifyUserAuthService() {
 			'Authorization': tokenCookie.value
 		}});
 
-		console.log('[verifyUserAuthService] fetchRes: ', fetchRes);
-
 		// fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -56,8 +54,6 @@ export async function signUpService(userSignUpData) {
 			payload: userSignUpData
 		});
 
-		console.log('[signUpService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -93,8 +89,6 @@ export async function loginService(userLoginData) {
 			payload: userLoginData
 		});
 
-		console.log('[loginService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -118,5 +112,7 @@ export async function loginService(userLoginData) {
 }
 
 export async function logoutService() {
+	console.log('[logoutService]');
+
 	await clearTokenCookie();
 }

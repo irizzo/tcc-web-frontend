@@ -34,12 +34,13 @@
 		color: variables.$placeholder-font-color;
 		margin-bottom: 1%;
 	}
+}
 
-	.card__title:hover {
-		h3,
-		.card__title__icon {
-			color: variables.$primary-color-light;
-		}
+.card__title:hover {
+
+	h4,
+	.card__title__icon {
+		color: variables.$primary-color-light;
 	}
 }
 

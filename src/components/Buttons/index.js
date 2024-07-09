@@ -1,6 +1,7 @@
 import './globalButton.scss';
 
 import Link from 'next/link';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 export function DefaultButton({ title, variant, small = false, buttonType = 'button', onClickFunction = null, isDisabled=false, customStyles=null }) {
 	const buttonVariant = variant === 'outlined' ? 'outlined' : 'filled';
@@ -15,6 +16,20 @@ export function DefaultButton({ title, variant, small = false, buttonType = 'but
 			onClick={onClickFunction}
 			disabled={isDisabled}
 		>{title}</button>
+	);
+}
+
+export function DangerButton({ title, onClickFunction, isDisabled=false}) {
+	return (
+		<button
+			className='button button--danger'
+			type='button'
+			onClick={onClickFunction}
+			disabled={isDisabled}
+		>
+			<FaRegTrashAlt className='button__icon' />
+			<span>{title}</span>
+		</button>
 	);
 }
 

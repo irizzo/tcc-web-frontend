@@ -2,8 +2,6 @@
 
 import './sideBar.scss';
 
-import { useContext } from 'react';
-
 import Link from 'next/link';
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaSquareCheck } from 'react-icons/fa6';
@@ -75,6 +73,5 @@ function NavListButton({ children, onClickFunction, customIcon }) {
 
 async function handleLogOut(setUserAuth) {
 	await clearTokenCookie();
-	setUserAuth(false);
 	navigateTo({ path: routesMap.login });
 };

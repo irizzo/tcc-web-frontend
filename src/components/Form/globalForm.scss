@@ -11,15 +11,18 @@ $input__border: 2px solid variables.$primary-color-light--30op;
 	justify-content: flex-start;
 
 	min-height: fit-content;
-	max-height: fit-content;
 
-	min-width: fit-content;
-	max-width: 100%;
+	// min-width: fit-content;
+	// max-width: 100%;
 
-	margin: 0% 1%;
-	padding: 0 0 1%;
+	flex: 1;
+	// height: 100%;
+	width: 90%;
 
-	box-shadow: variables.$box-shadow--light;
+	// margin: 0% 1%;
+	// padding: 0 0 1%;
+
+	// box-shadow: variables.$box-shadow--light;
 	border-radius: variables.$radius;
 
 	color: variables.$primary-font-color;
@@ -30,15 +33,16 @@ $input__border: 2px solid variables.$primary-color-light--30op;
 }
 
 .form__title {
-	font-size: 1.3rem;
+	font-size: 1.4rem;
 	height: fit-content;
 	max-height: 50px;
-	width: 100%;
+	width: 80%;
 	padding: 0.5% 0%;
 	text-align: center;
 	border-radius: variables.$radius variables.$radius 0 0;
-	color: variables.$primary-color-dark;
-	background-color: variables.$primary-color-light;
+	border-bottom: 1px solid variables.$primary-color-light--30op;
+	color: variables.$primary-font-color;
+	text-shadow: 1px 1px 2px variables.$primary-color-light--30op 1px;
 }
 
 .form__content {

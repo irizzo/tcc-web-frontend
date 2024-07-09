@@ -44,7 +44,7 @@ export function NoteCard({ noteInfo }) {
 		<GeneralCardContainer path={notePath} title={noteInfo.title} _query={noteInfo}>
 			<p>{abstract}</p>
 		</GeneralCardContainer>
-	)
+	);
 }
 
 /* User Specifc Cards */
@@ -55,7 +55,7 @@ export function UserCardContainer({ path = '', _query = null, title, dueDate, ca
 		<div className='flex card__container'>
 			<Link className='flex flex--row card__title' href={{ pathname: path, query: _query }} >
 				{icon ? icon : <FaAsterisk className='card__title__icon' />}
-				<h3>{title}</h3>
+				<h4>{title}</h4>
 			</Link>
 
 			{showTagsContainer && <div className='flex flex--row flex--sp-between tags__container'>
@@ -66,17 +66,9 @@ export function UserCardContainer({ path = '', _query = null, title, dueDate, ca
 	);
 }
 
+// TODO: Implementar botão para marcar tarefa como feita
 export function TaskCard({ taskInfo }) {
-	// TODO: tratar datas
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
-
-	// console.log('taskInfo.dueDate = ', taskInfo.dueDate)
-	// console.log(' new Date(taskInfo.dueDate) = ', new Date(taskInfo.dueDate))
-
-	// const testDueDate = '2024-07-18T10:00';
-
-	// console.log('testDueDate = ', testDueDate)
-	// console.log(' new Date(testDueDate) = ', new Date(testDueDate))
 	return (
 		<UserCardContainer
 			path={taskPath}
@@ -128,11 +120,10 @@ function TagContainer({ content, children }) {
 }
 
 export function ScheduleTag({ scheduledDate }) {
-	// TODO: treat dates
+	const formatted = scheduledDate.slice(0, (scheduledDate.length - 3));
 
 	return (
-		// <TagContainer	content={scheduledDate}	>
-		<TagContainer content={'10/06/2024'}	>
+		<TagContainer content={formatted}	>
 			<FaRegCalendarDays className='tag__icon' />
 		</TagContainer>
 	);

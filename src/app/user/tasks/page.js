@@ -30,60 +30,52 @@ export default function AllTasksPage() {
 		loadTasks();
 	}, []);
 
-	if(isLoading) return <Loading />;
+	if (isLoading) return <Loading />;
 
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.all}>
-				{/* <Suspense fallback={<PartialLoading />}> */}
-					{
-						taskList && taskList.length > 0 ?
-							taskList.map((task) => {
-								return <TaskCard key={task.id} taskInfo={task} />;
-							})
-							:
-							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
-					}
-				{/* </Suspense> */}
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} />;
+						})
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				{/* <Suspense fallback={<PartialLoading />}> */}
-					{
-						taskList && taskList.length > 0 ?
-							taskList.map((task) => {
-								return <TaskCard key={task.id} taskInfo={task} />;
-							})
-							:
-							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
-					}
-				{/* </Suspense> */}
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} />;
+						})
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				{/* <Suspense fallback={<PartialLoading />}> */}
-					{
-						taskList && taskList.length > 0 ?
-							taskList.map((task) => {
-								return <TaskCard key={task.id} taskInfo={task} />;
-							})
-							:
-							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
-					}
-				{/* </Suspense> */}
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} />;
+						})
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
 			</Board>
 
 			<Board title={locale.groupDataByTitle.all}>
-				{/* <Suspense fallback={<PartialLoading />}> */}
-					{
-						taskList && taskList.length > 0 ?
-							taskList.map((task) => {
-								return <TaskCard key={task.id} taskInfo={task} />;
-							})
-							:
-							<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
-					}
-				{/* </Suspense> */}
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} />;
+						})
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
 			</Board>
 		</>
 	);

@@ -14,7 +14,8 @@ const nextConfig = {
 		currentEnv: process.env.CURRENT_ENV,
 		prodBaseURL: process.env.PROD_BASEURL,
 		devBaseURL: process.env.DEV_BASEURL
-	}
+	},
+	reactStrictMode: false
 };
 
 export default nextConfig;

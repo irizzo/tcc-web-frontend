@@ -7,38 +7,44 @@
 	max-height: 100%;
 	padding: 2%;
 	border-radius: variables.$radius;
+	background-color: variables.$foreground-color;
 }
 
 %text {
 	width: 100%;
 	text-align: center;
 	vertical-align: middle;
-	color: variables.$primary-color-dark;
+	color: variables.$placeholder-font-color;
+}
+
+.message__title {
+	@extend %text;
+	font-size: medium;
+	margin-right: 2%;
 }
 
 .message__container--info {
 	@extend %container;
 
-	background-color: #80b3ffb3;
+	.message__title {
+		color: #6ca7fe;
+	}
 }
 
 .message__container--warn {
 	@extend %container;
 
-	background-color: #ffd480b3;
+	.message__title {
+		color: #ffc655;
+	}
 }
 
 .message__container--error {
 	@extend %container;
 
-	background-color: #ff9980b3;
-}
-
-.message__title {
-	@extend %text;
-	border-top-left-radius: variables.$radius;
-	border-top-right-radius: variables.$radius;
-	font-size: medium;
+	.message__title {
+		color: #ff5748;
+	}
 }
 
 .message__content {

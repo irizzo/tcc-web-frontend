@@ -23,7 +23,6 @@ export default async function authMiddleware(req) {
 	const { pathname } = req.nextUrl;
 	const userBasePath = '/user';
 
-	console.log('[authMiddlewate] pathname: ', pathname);
 
 	if (tokenCookie) {
 		const userAuthRes = await verifyUserAuthService();
@@ -31,25 +30,19 @@ export default async function authMiddleware(req) {
 		req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value);
 	}
 
-	console.log('[authMiddlewate] isUserLogged: ', isUserLogged);
+	// console.log('[authMiddlewate] isUserLogged: ', isUserLogged);
 
 	if (pathname.includes(userBasePath)) {
-		console.log('[authMiddlewate] pathname.includes(userBasePath)');
-
 		return isUserLogged ? NextResponse.next() : NextResponse.redirect(`${BASEURL}/login`, req.url);
 	};
 
 	if (pathname === routesMap.login || pathname === routesMap.signUp) {
-		console.log('[authMiddlewate] pathname === routesMap.login || pathname === routesMap.signUp');
-
 		return isUserLogged ? NextResponse.redirect(`${BASEURL}/user/dashboard`, req.url) : NextResponse.next();
 	}
-
-	console.log('[authMiddlewate] no if');
 
 	return NextResponse.next();
 }
 
-// export const config = {
-// 	matcher: '/:path*'
-// }
+export const config = {
+	matcher: [ '/user/:path*', '/login/:path', '/sign-up/:path' ]
+};

@@ -63,8 +63,6 @@ export async function getCategoriesListService() {
 			}
 		});
 
-		console.log('[getCategoriesListService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
