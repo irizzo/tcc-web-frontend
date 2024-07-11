@@ -3,6 +3,8 @@ import httpClient from './http/client';
 
 import messagesDictionary from '@/resources/messages';
 
+// const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
+const BASEURL = 'http://localhost:8080';
 const baseCategoriesPath = '/categories';
 
 /** Create Category
@@ -46,12 +48,12 @@ export async function createCategoryService(categoryData) {
 	}
 }
 
-/** Get Categories List
+/** Get All Categories
  *
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
-export async function getCategoriesListService() {
-	console.log('[getCategoriesListService]');
+export async function getAllCategoriesService() {
+	console.log('[getAllCategoriesService]');
 
 	try {
 		const tokenCookie = await getTokenCookie();
@@ -65,12 +67,13 @@ export async function getCategoriesListService() {
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
-
 		if (!fetchRes.success) {
-			throw new Error(message);
-		};
+			throw new Error(fetchRes.message);
+		}
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		return {
 			success: fetchRes.success,
@@ -79,7 +82,7 @@ export async function getCategoriesListService() {
 		};
 
 	} catch (error) {
-		console.log('[getCategoriesListService] error: ', error);
+		console.log('[getAllCategoriesService] error: ', error);
 		throw (error);
 	}
 }
@@ -126,22 +129,29 @@ export async function getCategoryDetailsService(categoryId) {
 }
 
 /** Update Category
- * @param {{ title: String | null, description: String | null }} updatedData
  * @param {String} categoryId
+ * @param {{ title: String | null, description: String | null }} updatedData
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
-export async function updateCategoryService(updatedData, categoryId) {
+export async function updateCategoryService(categoryId, updatedData) {
 	console.log('[updateCategoryService]');
 
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.put({
-			path: `${baseCategoriesPath}/${categoryId}`,
-			payload: updatedData,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		console.log('categoryId = ', categoryId);
+
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		});
+
+		const fetchRes = await fetch(`${BASEURL}${baseCategoriesPath}/${categoryId}`, {
+			method: 'PUT',
+			body: JSON.stringify(updatedData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json();
 		});
 
 		console.log('[updateCategoryService] fetchRes: ', fetchRes);
@@ -149,7 +159,8 @@ export async function updateCategoryService(updatedData, categoryId) {
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -189,7 +200,8 @@ export async function deleteCategoryService(categoryId) {
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);

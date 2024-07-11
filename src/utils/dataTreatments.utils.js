@@ -34,3 +34,24 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 
 	return treatedData;
 };
+
+exports.treatUpdatedCategoriesData = (initialData, newData) => {
+	console.log('[treatUpdatedCategoriesData]');
+
+	const treatedData = {
+		title: null,
+		description: null
+	};
+
+	if (initialData.title !== newData.title) {
+		treatedData.title = newData.title;
+	}
+
+	if (initialData.description !== newData.description) {
+		treatedData.description = newData.description;
+	}
+
+	console.log('[treatUpdatedCategoriesData] treatedData: ', treatedData);
+
+	return treatedData;
+};

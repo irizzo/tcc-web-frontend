@@ -5,6 +5,7 @@
 	height: 100%;
 
 	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
 
 	.categories__page-title {
 		width: 95%;
@@ -14,7 +15,6 @@
 	}
 
 	.categories__feed {
-		// background-color: variables.$foreground-color;
 		padding: 1%;
 		width: 95%;
 		flex: 1;

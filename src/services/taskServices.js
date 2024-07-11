@@ -113,7 +113,7 @@ export async function updateTaskService(taskId, updatedData) {
 			return res.json();
 		});
 
-		console.log('[createTaskService] fetchRes: ', fetchRes);
+		console.log('[updateTaskService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
