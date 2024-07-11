@@ -13,14 +13,14 @@ export default function ContentsFeed() {
 		<main className='flex flex--center categories__main'>
 			<h1 className='categories__page-title'>{locale.pagesTitles.categories.all}</h1>
 			<div className='categories__feed'>
-				{/* {
+				{
 					categoriesList.length > 0 ?
 						categoriesList.map((category) => {
 							return <CategoryCard key={category.id} categoryInfo={category} />;
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.categories} />
-				} */}
+				}
 			</div>
 		</main>
 	);

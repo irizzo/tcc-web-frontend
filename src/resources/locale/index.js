@@ -25,14 +25,55 @@ export const entitiesProperties = {
 			value: 'QUADRANT_FOUR'
 		},
 		category: 'Categoria',
-		toDoDate: 'Quando fazer?'
-	},
+		toDoDate: 'Quando fazer?',
 
-	generalDefaults: {
-		dueDate: 'Nenhum Prazo Selecionado',
-		priority: 'Nenhuma Prioridade Selecionada',
-		category: 'Nenhuma Categoria Selecionada',
-		toDoDate: 'Nenhuma Data Selecionada'
+		status: {
+			NOT_STARTED: {
+				title: 'A fazer',
+				value: 'NOT_STARTED'
+			},
+			IN_PROGRESS: {
+				title: 'Em andamento',
+				value: 'IN_PROGRESS'
+			},
+			DONE: {
+				title: 'Finalizado',
+				value: 'DONE'
+			}
+		},
+
+		priorities: {
+			QUADRANT_ONE: {
+				title: 'Urgente e Difícil',
+				value: 'QUADRANT_ONE',
+				priorityLevel: 1
+			},
+
+			QUADRANT_TWO: {
+				title: 'Não Urgente e Difícil',
+				value: 'QUADRANT_TWO',
+				priorityLevel: 2
+			},
+
+			QUADRANT_THREE: {
+				title: 'Urgente e Fácil',
+				value: 'QUADRANT_THREE',
+				priorityLevel: 3
+			},
+
+			QUADRANT_FOUR: {
+				title: 'Não Urgente e Fácil',
+				value: 'QUADRANT_FOUR',
+				priorityLevel: 4
+			},
+		},
+
+		generalDefaults: {
+			dueDate: 'Nenhum Prazo Selecionado',
+			priority: 'Nenhuma Prioridade Selecionada',
+			category: 'Nenhuma Categoria Selecionada',
+			toDoDate: 'Nenhuma Data Selecionada'
+		}
 	},
 
 	categories: {

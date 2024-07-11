@@ -86,7 +86,7 @@ export default function TaskPage({ params, searchParams }) {
 		setIsLoading(true);
 		setEditing(false);
 
-		res = await deleteTaskService(searchParams.id);
+		const res = await deleteTaskService(searchParams.id);
 
 		if (!res.success) {
 			throw new Error(res.message);

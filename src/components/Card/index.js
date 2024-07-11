@@ -1,7 +1,9 @@
-import { FaAsterisk, FaRegCalendar, FaHashtag, FaSquareCheck, FaRegCalendarDays, FaRegCalendarCheck } from 'react-icons/fa6';
+import { FaAsterisk, FaRegCalendar, FaHashtag, FaSquareCheck, FaRegCalendarDays, FaRegCalendarCheck, FaChartSimple } from 'react-icons/fa6';
 
 import Link from 'next/link';
 import routesMap from '@/resources/routesMap';
+
+import { entitiesProperties } from '@/resources/locale'; 
 
 import './card.scss';
 
@@ -140,3 +142,22 @@ export function CategoryTag({ categoryCode }) {
 	);
 }
 
+export function ProgressTag({ statusCode }) {
+	const tagContent = entitiesProperties.general.status[statusCode].title;
+
+	return (
+		<TagContainer content={tagContent}	>
+			<FaChartSimple className='tag__icon' />
+		</TagContainer>
+	);
+}
+
+export function PriorityTag({ priorityCode }) {
+	const tagContent = `${entitiesProperties.general.priorities[priorityCode].title} (${entitiesProperties.general.priorities[priorityCode].priorityLevel})`;
+
+	return (
+		<TagContainer content={tagContent}>
+			<FaChartSimple className='tag__icon' />
+		</TagContainer>
+	);
+}
