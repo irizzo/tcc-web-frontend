@@ -1,37 +1,80 @@
 'use client';
 
-import { useState } from 'react';
-
-import './category.scss';
+import { navigateTo } from '@/utils';
+import { treatUpdatedCategoriesData } from '@/utils/dataTreatments.utils';
+import { deleteCategoryService, updateCategoryService } from '@/services/categoryServices';
 
 import * as locale from '@/resources/locale';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { FormContainer, FormSection } from '@/components/Form';
-import { DefaultButton } from '@/components/Buttons';
+import { DefaultButton, DangerButton } from '@/components/Buttons';
+import Loading from '@/components/Loading';
+
+import './category.scss';
+import routesMap from '@/resources/routesMap';
 
 export default function CategoryPage({ searchParams }) {
+	const router = useRouter();
+
 	const [ editing, setEditing ] = useState(false);
+	const [ isLoading, setIsLoading ] = useState(false);
+
 	const [ categoryTitle, setCategoryTitle ] = useState(searchParams.title);
 	const [ categoryDescription, setCategoryDescription ] = useState(searchParams.description);
 
-	async function handleEditCategoryForm(e) {
-		e.preventDefault();
-		return;
-	}
-
-	function handleEdit() {
+	function handleEditing() {
 		if (editing) {
 			setCategoryTitle(searchParams.title);
 			setCategoryDescription(searchParams.description);
 		}
-
 		setEditing(!editing);
 	}
 
+	async function handleEditCategoryForm(e) {
+		e.preventDefault();
+		console.log('[handleEditCategoryForm]');
+
+		setIsLoading(true);
+		setEditing(false);
+
+		const updatedData = treatUpdatedCategoriesData(searchParams, { title: categoryTitle, description: categoryDescription });
+		const res = await updateCategoryService(searchParams.id, updatedData);
+
+		setIsLoading(false);
+
+		if (!res.success) {
+			throw new Error(res.message);
+		} else {
+			alert(res.message);
+		}
+
+		return;
+	}
+
+	async function handleDeleteCategory() {
+		setIsLoading(true);
+		setEditing(false);
+
+		const res = await deleteCategoryService(searchParams.id);
+
+		if (!res.success) {
+			throw new Error(res.message);
+		}
+
+		setIsLoading(false);
+
+		await navigateTo({ path: routesMap.categories.base });
+	}
+
+	if (isLoading) return <Loading />;
+
 	return (
 		<FormContainer
-			title={ editing ? locale.pagesTitles.categories.edit : searchParams.title }
-			submitCallback={(e) => handleEditCategoryForm(e)}
+			title={ locale.pagesTitles.categories.view }
+			submitCallback={(e) => handleEditCategoryForm(e).then(router.refresh())}
 		>
 			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>
 				<input name='categoryTitle' value={categoryTitle} readOnly={!editing} type='text' onChange={(e) => { setCategoryTitle(e.target.value);}} />
@@ -47,7 +90,7 @@ export default function CategoryPage({ searchParams }) {
 					title={editing ? locale.actionsTitles.cancel : locale.actionsTitles.edit}
 					variant='outlined'
 					buttonType='button'
-					onClickFunction={handleEdit}
+					onClickFunction={handleEditing}
 				/>
 
 				<DefaultButton
@@ -55,6 +98,11 @@ export default function CategoryPage({ searchParams }) {
 					variant='filled'
 					buttonType='submit'
 					isDisabled={editing ? false : true}
+				/>
+
+				<DangerButton
+					title={locale.actionsTitles.delete}
+					onClickFunction={() => { handleDeleteCategory(); }}
 				/>
 			</div>
 		</FormContainer>

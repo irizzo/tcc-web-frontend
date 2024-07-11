@@ -12,6 +12,7 @@ import { FormContainer, FormSection } from '@/components/Form';
 import { DefaultButton, DangerButton } from '@/components/Buttons';
 import * as locale from '@/resources/locale';
 import { treatUpdatedTaskData } from '@/utils/dataTreatments.utils';
+import routesMap from '@/resources/routesMap';
 
 export default function TaskPage({ params, searchParams }) {
 	const router = useRouter();
@@ -94,7 +95,7 @@ export default function TaskPage({ params, searchParams }) {
 
 		setIsLoading(false);
 
-		await navigateTo({ path: '/user/tasks'});
+		await navigateTo({ path: routesMap.tasks.base });
 	}
 
 	return (
