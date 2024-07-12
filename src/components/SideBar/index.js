@@ -34,7 +34,7 @@ export default function SideBar() {
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
 				<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
 				{/* <NavListItem itemId={pagesKeys.events.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{pagesTitles.events.new}</NavListItem> */}
-				{/* <NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem> */}
+				<NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem>
 				{/* <NavListItem itemId={pagesKeys.notes.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{pagesTitles.notes.new}</NavListItem> */}
 
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>

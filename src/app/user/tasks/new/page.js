@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import Loading from '@/components/Loading';
 import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection } from '@/components/Form';
+import routesMap from '@/resources/routesMap';
 
 export default function NewTask() {
 	const [ title, setTitle ] = useState('');
@@ -58,15 +59,15 @@ export default function NewTask() {
 
 			if (!res.success) {
 				setIsLoading(false);
-				console.log('!success | message: ', res.message);
 				alert(res.message);
 				return;
 
 			} else {
 				setIsLoading(false);
-				navigateTo({ path: '/user/tasks' });
+				navigateTo({ path: routesMap.tasks.base });
 			}
 		} catch (error) {
+			setIsLoading(false);
 			alert(error);
 		}
 	}
