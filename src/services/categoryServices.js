@@ -8,7 +8,7 @@ const BASEURL = 'http://localhost:8080';
 const baseCategoriesPath = '/categories';
 
 /** Create Category
- * @param {{ name: String, description: String | null }} categoryData
+ * @param {{ title: String, description: String | null }} categoryData
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function createCategoryService(categoryData) {
@@ -17,20 +17,26 @@ export async function createCategoryService(categoryData) {
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.post({
-			path: `${baseCategoriesPath}`,
-			payload: categoryData,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		});
 
-		// console.log('[createCategoryService] fetchRes: ', fetchRes);
+		const fetchRes = await fetch(`${BASEURL}${baseCategoriesPath}`, {
+			method: 'POST',
+			body: JSON.stringify(categoryData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json();
+		});
+
+		console.log('[createCategoryService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
