@@ -1,7 +1,7 @@
 'use client';
 
 import { deleteTaskService, updateTaskService } from '@/services/taskServices';
-import { getCategoriesListService } from '@/services/categoryServices';
+import { getAllCategoriesService } from '@/services/categoryServices';
 import { navigateTo } from '@/utils';
 
 import { useEffect, useState } from 'react';
@@ -31,7 +31,7 @@ export default function TaskPage({ params, searchParams }) {
 	useEffect(() => {
 		async function loadResources() {
 			setIsLoading(true);
-			const res = await getCategoriesListService();
+			const res = await getAllCategoriesService();
 
 			if (!res.success) {
 				throw new Error(res.message);
