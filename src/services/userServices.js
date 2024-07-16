@@ -3,17 +3,48 @@
 	* delete user
 	* alter user info
 */
-const { cookies } = require('next/headers');
+
+import { getTokenCookie, setCookieData } from '@/utils';
+import httpClient from './http/client';
+import messagesDictionary from '@/resources/messages';
+import { decodeToken } from '@/utils/jwt.utils';
+
 const baseUserPath = '/user';
 
-exports.listUserInfo = async () => {
+export async function listUserInfo() {
+	console.log('[listUserInfo]');
 
-};
+	try {
+		const tokenCookie = await getTokenCookie();
+		const userId = decodeToken(tokenCookie.value).data.userId;
 
-exports.updateUserInfo = async () => {
+		const fetchRes = await httpClient.get({
+			path: `${baseUserPath}/${userId}`,
+			customHeaders: {
+				'Authorization': tokenCookie.value
+			}
+		});
 
-};
+		console.log('[listUserInfo] fetchRes: ', fetchRes);
 
-exports.deleteUser = async () => {
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
+		if (!fetchRes.success) {
+			throw new Error(fetchRes.message);
+		}
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
+
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			message
+		};
+
+	} catch (error) {
+		console.log('[listUserInfo] error: ', error);
+		throw error;
+	}
 };
