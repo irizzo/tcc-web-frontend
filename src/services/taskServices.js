@@ -1,7 +1,6 @@
 'use server';
 
 import { getTokenCookie, setCookieData } from '@/utils';
-
 import httpClient from './http/client';
 import messagesDictionary from '@/resources/messages';
 

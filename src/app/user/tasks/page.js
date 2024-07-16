@@ -12,7 +12,7 @@ import { GeneralInfo } from '@/components/Messages';
 
 export default function AllTasksPage() {
 	const [ taskList, setTaskList ] = useState([]);
-	const [ isLoading, setIsLoading ] = useState(true);
+	const [ isLoading, setIsLoading ] = useState(false);
 
 	useEffect(() => {
 		async function loadTasks() {
