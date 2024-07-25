@@ -88,7 +88,9 @@ export const entitiesProperties = {
 
 	events: {
 		title: 'Título do Evento',
-		description: 'Descrição do Evento'
+		description: 'Descrição do Evento',
+		startDate: 'Início',
+		endDate: 'Fim'
 	},
 
 	notes: {
