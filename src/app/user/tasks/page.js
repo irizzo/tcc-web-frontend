@@ -45,7 +45,7 @@ export default function AllTasksPage() {
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.dueSoon}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
@@ -56,7 +56,7 @@ export default function AllTasksPage() {
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.pastDue}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
