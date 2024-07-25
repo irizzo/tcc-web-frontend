@@ -1,7 +1,7 @@
 'use client';
 
 import { navigateTo } from '@/utils';
-import { getCategoriesListService } from '@/services/categoryServices';
+import { getAllCategoriesService } from '@/services/categoryServices';
 import { createTaskService } from '@/services/taskServices';
 
 import * as locale from '@/resources/locale';
@@ -27,7 +27,7 @@ export default function NewTask() {
 	useEffect(() => {
 		async function loadResources() {
 			setIsLoading(true);
-			const res = await getCategoriesListService();
+			const res = await getAllCategoriesService();
 
 			if (!res.success) {
 				throw new Error(res.message);

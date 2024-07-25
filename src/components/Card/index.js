@@ -71,6 +71,8 @@ export function UserCardContainer({ path = '', _query = null, title, dueDate, ca
 // TODO: Implementar botão para marcar tarefa como feita
 export function TaskCard({ taskInfo }) {
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
+
+	console.log('taskInfo: ', taskInfo)
 	return (
 		<UserCardContainer
 			path={taskPath}
@@ -86,14 +88,17 @@ export function TaskCard({ taskInfo }) {
 export function EventCard({ eventInfo }) {
 	const eventPath = `${routesMap.events.base}/${eventInfo.id}`;
 	return (
-		<UserCardContainer
-			path={eventPath}
-			_query={eventInfo}
-			title={eventInfo.title}
-			dueDate={eventInfo.dueDate}
-			categoryCode={eventInfo.categoryCode}
-			icon={<FaRegCalendar className='card__title__icon' />}
-		/>
+		<div className='flex card__container'>
+			<Link className='flex flex--row card__title' href={{ pathname: eventPath, query: eventInfo }} >
+				<FaRegCalendar className='card__title__icon' />
+				<h4>{eventInfo.title}</h4>
+			</Link>
+
+			<div className='flex flex--row flex--sp-between tags__container'>
+				<ScheduleTag scheduledDate={eventInfo.startDate} />
+				{eventInfo.categoryCode && <CategoryTag categoryCode={eventInfo.categoryCode} />}
+			</div>
+		</div>
 	);
 }
 

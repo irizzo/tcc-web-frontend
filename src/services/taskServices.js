@@ -152,8 +152,6 @@ export async function deleteTaskService(taskId) {
 			throw new Error(fetchRes.message);
 		}
 
-		console.log(`[deleteTaskService] fetchRes.result = ${JSON.stringify(fetchRes.result)}`);
-
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		);
