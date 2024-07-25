@@ -13,7 +13,7 @@ import { DefaultButton } from '@/components/Buttons';
 import { FormContainer, FormSection } from '@/components/Form';
 import routesMap from '@/resources/routesMap';
 
-export default function NewTask() {
+export default function NewEvent() {
 	const [ title, setTitle ] = useState('');
 	const [ description, setDescription ] = useState('');
 	const [ startDate, setStartDate ] = useState('');

@@ -55,3 +55,8 @@ exports.treatUpdatedCategoriesData = (initialData, newData) => {
 
 	return treatedData;
 };
+
+exports.treatUpdatedEventData = (initialData, newData) => {
+	console.log('[treatUpdatedEventData]');
+
+}
