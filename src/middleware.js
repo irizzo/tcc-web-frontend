@@ -8,11 +8,10 @@ import { verifyUserAuthService } from '@/services/userAccessServices';
 // const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
 const BASEURL = 'http://localhost:3000';
 
-
 /**
- * 
+ * authMiddleware
  * @param { NextRequest } req
- * @returns 
+ * @returns
  */
 export default async function authMiddleware(req) {
 	console.log('[authMiddleware]');
@@ -29,8 +28,6 @@ export default async function authMiddleware(req) {
 		isUserLogged = userAuthRes.success;
 		req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value);
 	}
-
-	// console.log('[authMiddlewate] isUserLogged: ', isUserLogged);
 
 	if (pathname.includes(userBasePath)) {
 		return isUserLogged ? NextResponse.next() : NextResponse.redirect(`${BASEURL}/login`, req.url);

@@ -10,6 +10,7 @@ import httpClient from './http/client';
 
 import messagesDictionary from '@/resources/messages';
 
+const BASEURL = 'http://localhost:8080';
 const baseEventsPath = '/events';
 
 export async function createEventService(eventData) {
@@ -18,20 +19,26 @@ export async function createEventService(eventData) {
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.post({
-			path: `${baseEventsPath}`,
-			payload: eventData,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		});
 
-		console.log('[createEventService] fetchRes: ', fetchRes);
+		const fetchRes = await fetch(`${BASEURL}${baseEventsPath}`, {
+			method: 'POST',
+			body: JSON.stringify(eventData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json();
+		});
+
+		// console.log('[createEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -45,12 +52,12 @@ export async function createEventService(eventData) {
 
 	} catch (error) {
 		console.log('[createEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
-export async function getEventsListService() {
-	console.log('[getEventsListService]');
+export async function getAllEventsService() {
+	console.log('[getAllEventsService]');
 
 	try {
 		const tokenCookie = await getTokenCookie();
@@ -62,12 +69,13 @@ export async function getEventsListService() {
 			}
 		});
 
-		console.log('[getEventsListService] fetchRes: ', fetchRes);
+		// console.log('[getAllEventsService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -80,8 +88,8 @@ export async function getEventsListService() {
 		};
 
 	} catch (error) {
-		console.log('[getEventsListService] error: ', error);
-		throw (error);
+		console.log('[getAllEventsService] error: ', error);
+		throw error;
 	}
 }
 
@@ -98,12 +106,13 @@ export async function getEventDetailsService(eventId) {
 			}
 		});
 
-		console.log('[getEventDetailsService] fetchRes: ', fetchRes);
+		// console.log('[getEventDetailsService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -117,30 +126,38 @@ export async function getEventDetailsService(eventId) {
 
 	} catch (error) {
 		console.log('[getEventDetailsService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
-export async function updateEventService(updatedData, eventId) {
+export async function updateEventService(eventId, updatedData) {
 	console.log('[updateEventService]');
 
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.put({
-			path: `${baseEventsPath}/${eventId}`,
-			payload: updatedData,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		console.log('[updateEventService] updatedData: ', updatedData);
+
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		});
 
-		console.log('[updateEventService] fetchRes: ', fetchRes);
+		const fetchRes = await fetch(`${BASEURL}${baseEventsPath}/${eventId}`, {
+			method: 'PUT',
+			body: JSON.stringify(updatedData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json();
+		});
+
+		// console.log('[updateEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -154,7 +171,7 @@ export async function updateEventService(updatedData, eventId) {
 
 	} catch (error) {
 		console.log('[updateEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
@@ -171,12 +188,11 @@ export async function deleteEventService(eventId) {
 			}
 		});
 
-		console.log('[deleteEventService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);
@@ -190,6 +206,6 @@ export async function deleteEventService(eventId) {
 
 	} catch (error) {
 		console.log('[deleteEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }

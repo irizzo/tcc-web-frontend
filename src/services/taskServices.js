@@ -69,7 +69,7 @@ export async function createTaskService(taskData) {
 			return res.json();
 		});
 
-		console.log('[createTaskService] fetchRes: ', fetchRes);
+		// console.log('[createTaskService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -111,7 +111,7 @@ export async function updateTaskService(taskId, updatedData) {
 			return res.json();
 		});
 
-		console.log('[updateTaskService] fetchRes: ', fetchRes);
+		// console.log('[updateTaskService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -148,15 +148,13 @@ export async function deleteTaskService(taskId) {
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
-		if (!fetchRes.success) {
-			throw new Error(fetchRes.message);
-		}
-
-		console.log(`[deleteTaskService] fetchRes.result = ${JSON.stringify(fetchRes.result)}`);
-
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		);
+
+		if (!fetchRes.success) {
+			throw new Error(fetchRes.message);
+		}
 
 		return {
 			success: fetchRes.success,

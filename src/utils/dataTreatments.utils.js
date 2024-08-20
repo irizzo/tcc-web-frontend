@@ -1,36 +1,17 @@
+function formatDateString(dateString) {
+	const splitDateTime = dateString.split(', ');
+	const splitDate = splitDateTime[0].split('/');
+	return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}T${splitDateTime[1]}`;
+}
+
 exports.treatUpdatedTaskData = (initialData, newData) => {
-	const treatedData = {
-		title: null,
-		description: null,
-		toDoDate: null,
-		dueDate: null,
-		categoryCode: null,
-		priorityCode: null
-	};
-
-	if(initialData.title !== newData.title) {
-		treatedData.title = newData.title;
-	}
-
-	if (initialData.description !== newData.description) {
-		treatedData.description = newData.description;
-	}
-
-	if (initialData.toDoDate !== newData.toDoDate) {
-		treatedData.toDoDate = newData.toDoDate;
-	}
-
-	if (initialData.dueDate !== newData.dueDate) {
-		treatedData.dueDate = newData.dueDate;
-	}
-
-	if (initialData.categoryCode !== newData.categoryCode) {
-		treatedData.categoryCode = newData.categoryCode;
-	}
-
-	if (initialData.priorityCode !== newData.priorityCode) {
-		treatedData.priorityCode = newData.priorityCode;
-	}
+	const treatedData = {};
+	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null;
+	treatedData.description = (newData.description && initialData.description !== newData.description) ? newData.description : null;
+	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null;
+	treatedData.priorityCode = (newData.priorityCode && initialData.priorityCode !== newData.priorityCode) ? newData.priorityCode : null;
+	treatedData.toDoDate = (newData.toDoDate && new Date(formatDateString(initialData.toDoDate)) !== new Date(newData.toDoDate)) ? newData.startDate : null;
+	treatedData.dueDate = (newData.dueDate && new Date(formatDateString(initialData.dueDate)) !== new Date(newData.dueDate)) ? newData.dueDate : null;
 
 	return treatedData;
 };
@@ -38,20 +19,22 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 exports.treatUpdatedCategoriesData = (initialData, newData) => {
 	console.log('[treatUpdatedCategoriesData]');
 
-	const treatedData = {
-		title: null,
-		description: null
-	};
+	const treatedData = {};
+	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null;
+	treatedData.description = (newData.description && initialData.description !== newData.description) ? newData.description : null;
 
-	if (initialData.title !== newData.title) {
-		treatedData.title = newData.title;
-	}
+	return treatedData;
+};
 
-	if (initialData.description !== newData.description) {
-		treatedData.description = newData.description;
-	}
+exports.treatUpdatedEventData = (initialData, newData) => {
+	console.log('[treatUpdatedEventData]');
 
-	console.log('[treatUpdatedCategoriesData] treatedData: ', treatedData);
+	const treatedData = {};
+	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null;
+	treatedData.description = (newData.description && initialData.description !== newData.description) ? newData.description : null;
+	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null;
+	treatedData.startDate = (newData.startDate && new Date(formatDateString(initialData.startDate)) !== new Date(newData.startDate)) ? newData.startDate : null;
+	treatedData.endDate = (newData.endDate && new Date(formatDateString(initialData.endDate)) !== new Date(newData.endDate)) ? newData.endDate : null;
 
 	return treatedData;
 };
