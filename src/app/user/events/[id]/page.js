@@ -102,18 +102,23 @@ export default function EventPage({ params, searchParams }) {
 	};
 
 	async function handleDeleteEvent() {
-		setIsLoading(true);
-		setEditing(false);
+		try {
+			setIsLoading(true);
+			setEditing(false);
 
-		const res = await deleteEventService(searchParams.id);
+			const res = await deleteEventService(searchParams.id);
 
-		if (!res.success) {
-			throw new Error(res.message);
+			if (!res.success) {
+				throw new Error(res.message);
+			}
+
+			setIsLoading(false);
+
+			await navigateTo({ path: routesMap.events.base });
+		} catch (error) {
+			setIsLoading(false);
+			alert(error);
 		}
-
-		setIsLoading(false);
-
-		await navigateTo({ path: routesMap.events.base });
 	}
 
 	return (
