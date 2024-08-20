@@ -27,6 +27,19 @@ export default function EventPage({ params, searchParams }) {
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ categoriesList, setCategoriesList ] = useState([]);
 
+	function getCategoryTitle(categoryCode) {
+		let categoryTitle = '';
+
+		categoriesList.forEach((category) => {
+			if (categoryTitle === '' && category.code === categoryCode) {
+				categoryTitle = category.title;
+				return;
+			}
+		});
+
+		return categoryTitle;
+	}
+
 	useEffect(() => {
 		async function loadResources() {
 			setIsLoading(true);
@@ -40,11 +53,12 @@ export default function EventPage({ params, searchParams }) {
 			setIsLoading(false);
 		}
 
+		loadResources();
+
 		if (editing) {
 			loadResources();
 		}
 	}, [ editing ]);
-
 
 	if (isLoading) return <Loading />;
 
@@ -56,7 +70,7 @@ export default function EventPage({ params, searchParams }) {
 			setEndDate(searchParams.endDate);
 			setCategoryCode(searchParams.categoryCode);
 
-			document.getElementById('category').value = categoryCode;
+			document.getElementById('category').value = getCategoryTitle(searchParams.categoryCode);
 		}
 
 		setEditing(!editing);
@@ -65,39 +79,51 @@ export default function EventPage({ params, searchParams }) {
 	async function handleEditEventForm(e) {
 		e.preventDefault();
 
-		setIsLoading(true);
-		setEditing(false);
+		try {
+			setIsLoading(true);
+			setEditing(false);
 
-		const updatedData = treatUpdatedEventData(searchParams, { title, description, startDate, endDate, categoryCode });
-		const res = await updateEventService(searchParams.id, updatedData);
+			const updatedData = treatUpdatedEventData(searchParams, { title, description, startDate, endDate, categoryCode });
+			const res = await updateEventService(searchParams.id, updatedData);
 
-		setIsLoading(false);
+			if (!res.success) {
+				throw new Error(res.message);
+			} else {
+				setIsLoading(false);
+				navigateTo({ path: routesMap.events.base });
+			}
 
-		if (!res.success) {
-			throw new Error(res.message);
-		} else {
-			alert(res.message);
+			return;
+
+		} catch (error) {
+			setIsLoading(false);
+			alert(error);
 		}
 	};
 
 	async function handleDeleteEvent() {
-		setIsLoading(true);
-		setEditing(false);
+		try {
+			setIsLoading(true);
+			setEditing(false);
 
-		const res = await deleteEventService(searchParams.id);
+			const res = await deleteEventService(searchParams.id);
 
-		if (!res.success) {
-			throw new Error(res.message);
+			if (!res.success) {
+				throw new Error(res.message);
+			}
+
+			setIsLoading(false);
+
+			await navigateTo({ path: routesMap.events.base });
+		} catch (error) {
+			setIsLoading(false);
+			alert(error);
 		}
-
-		setIsLoading(false);
-
-		await navigateTo({ path: routesMap.events.base });
 	}
 
 	return (
 		<FormContainer
-			title={locale.pagesTitles.events.view}
+			title={ locale.pagesTitles.events.view }
 			submitCallback={(e) => handleEditEventForm(e).then(router.refresh())}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.events.title}>
@@ -108,29 +134,48 @@ export default function EventPage({ params, searchParams }) {
 				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.events.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
-			<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-				<input name='startDate' readOnly={!editing} value={startDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
-			</FormSection>
+			{
+				editing ?
+					<>
+						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
+							<input name='startDate' required value={startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value); }}></input>
+						</FormSection>
 
-			<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-				<input name='endDate' readOnly={!editing} value={endDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
-			</FormSection>
+						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
+							<input name='endDate' required value={endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value); }}></input>
+						</FormSection>
 
-			<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-				<select id='category' name='category' disabled={!editing} onChange={(e) => { setCategoryCode(e.target.value); }}>
-					<option defaultValue=''>{categoryCode}</option>
+						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
+							<select id='category' name='category' disabled={!editing} onChange={(e) => { setCategoryCode(e.target.value); }}>
+								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
-					{categoriesList.length > 0 ?
-						categoriesList.map((category) => {
-							return (
-								<option key={category.code} value={category.code}>{category.title}</option>
-							);
-						})
-						:
-						<option disabled value=''>{locale.notFoundDefaults.categories}</option>
-					}
-				</select>
-			</FormSection>
+								{categoriesList.length > 0 ?
+									categoriesList.map((category) => {
+										return (
+											<option key={category.code} value={category.code}>{category.title}</option>
+										);
+									})
+									:
+									<option disabled value=''>{locale.notFoundDefaults.categories}</option>
+								}
+							</select>
+						</FormSection>
+					</>
+					:
+					<>
+						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
+							<input name='startDate' readOnly value={startDate} type='text'></input>
+						</FormSection>
+
+						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
+							<input name='endDate' readOnly value={endDate} type='text' ></input>
+						</FormSection>
+
+						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode)} type='text'></input>
+						</FormSection>
+					</>
+			}
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton

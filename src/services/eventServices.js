@@ -32,7 +32,7 @@ export async function createEventService(eventData) {
 			return res.json();
 		});
 
-		console.log('[createEventService] fetchRes: ', fetchRes);
+		// console.log('[createEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -52,7 +52,7 @@ export async function createEventService(eventData) {
 
 	} catch (error) {
 		console.log('[createEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
@@ -69,7 +69,7 @@ export async function getAllEventsService() {
 			}
 		});
 
-		console.log('[getAllEventsService] fetchRes: ', fetchRes);
+		// console.log('[getAllEventsService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -89,7 +89,7 @@ export async function getAllEventsService() {
 
 	} catch (error) {
 		console.log('[getAllEventsService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
@@ -106,7 +106,7 @@ export async function getEventDetailsService(eventId) {
 			}
 		});
 
-		console.log('[getEventDetailsService] fetchRes: ', fetchRes);
+		// console.log('[getEventDetailsService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -126,15 +126,17 @@ export async function getEventDetailsService(eventId) {
 
 	} catch (error) {
 		console.log('[getEventDetailsService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
-export async function updateEventService(updatedData, eventId) {
+export async function updateEventService(eventId, updatedData) {
 	console.log('[updateEventService]');
 
 	try {
 		const tokenCookie = await getTokenCookie();
+
+		console.log('[updateEventService] updatedData: ', updatedData);
 
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
@@ -149,7 +151,7 @@ export async function updateEventService(updatedData, eventId) {
 			return res.json();
 		});
 
-		console.log('[updateEventService] fetchRes: ', fetchRes);
+		// console.log('[updateEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -169,7 +171,7 @@ export async function updateEventService(updatedData, eventId) {
 
 	} catch (error) {
 		console.log('[updateEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
 
@@ -185,8 +187,6 @@ export async function deleteEventService(eventId) {
 				'Authorization': tokenCookie.value
 			}
 		});
-
-		console.log('[deleteEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -206,6 +206,6 @@ export async function deleteEventService(eventId) {
 
 	} catch (error) {
 		console.log('[deleteEventService] error: ', error);
-		throw (error);
+		throw error;
 	}
 }
