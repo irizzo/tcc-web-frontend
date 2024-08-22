@@ -75,11 +75,12 @@ export default function EventPage({ params, searchParams }) {
 				throw new Error(res.message);
 			} else {
 				setIsLoading(false);
-				navigateTo({ path: routesMap.events.base });
+				await navigateTo({ path: routesMap.events.base });
 			}
 
 		} catch (error) {
 			setIsLoading(false);
+			console.log(error);
 			alert(error);
 		}
 	};
@@ -100,6 +101,7 @@ export default function EventPage({ params, searchParams }) {
 
 		} catch (error) {
 			setIsLoading(false);
+			console.log(error);
 			alert(error);
 		}
 	}
