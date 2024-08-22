@@ -75,13 +75,12 @@ export default function EventPage({ params, searchParams }) {
 				throw new Error(res.message);
 			} else {
 				setIsLoading(false);
-				navigateTo({ path: routesMap.events.base });
+				await navigateTo({ path: routesMap.events.base });
 			}
-
-			return;
 
 		} catch (error) {
 			setIsLoading(false);
+			console.log(error);
 			alert(error);
 		}
 	};
@@ -102,6 +101,7 @@ export default function EventPage({ params, searchParams }) {
 			await navigateTo({ path: routesMap.events.base });
 		} catch (error) {
 			setIsLoading(false);
+			console.log(error);
 			alert(error);
 		}
 	}
@@ -157,7 +157,7 @@ export default function EventPage({ params, searchParams }) {
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode)} type='text'></input>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList)} type='text'></input>
 						</FormSection>
 					</>
 			}
