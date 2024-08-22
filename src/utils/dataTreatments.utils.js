@@ -10,6 +10,7 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 	treatedData.description = (newData.description && initialData.description !== newData.description) ? newData.description : null;
 	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null;
 	treatedData.priorityCode = (newData.priorityCode && initialData.priorityCode !== newData.priorityCode) ? newData.priorityCode : null;
+	treatedData.statusCode = (newData.statusCode && initialData.statusCode !== newData.statusCode) ? newData.statusCode : null;
 	treatedData.toDoDate = (newData.toDoDate && new Date(formatDateString(initialData.toDoDate)) !== new Date(newData.toDoDate)) ? newData.startDate : null;
 	treatedData.dueDate = (newData.dueDate && new Date(formatDateString(initialData.dueDate)) !== new Date(newData.dueDate)) ? newData.dueDate : null;
 
@@ -37,4 +38,17 @@ exports.treatUpdatedEventData = (initialData, newData) => {
 	treatedData.endDate = (newData.endDate && new Date(formatDateString(initialData.endDate)) !== new Date(newData.endDate)) ? newData.endDate : null;
 
 	return treatedData;
+};
+
+exports.getCategoryTitle = (categoryCode, categoriesList) => {
+	let categoryTitle = '';
+
+	categoriesList.forEach((category) => {
+		if (categoryTitle === '' && category.code === categoryCode) {
+			categoryTitle = category.title;
+			return;
+		}
+	});
+
+	return categoryTitle;
 };

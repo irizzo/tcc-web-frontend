@@ -148,7 +148,7 @@ export function CategoryTag({ categoryCode }) {
 }
 
 export function ProgressTag({ statusCode }) {
-	const tagContent = entitiesProperties.general.status[statusCode].title;
+	const tagContent = statusInfo[statusCode].title;
 
 	return (
 		<TagContainer content={tagContent}	>
@@ -158,7 +158,7 @@ export function ProgressTag({ statusCode }) {
 }
 
 export function PriorityTag({ priorityCode }) {
-	const tagContent = `${entitiesProperties.general.priorities[priorityCode].title} (${entitiesProperties.general.priorities[priorityCode].priorityLevel})`;
+	const tagContent = `${prioritiesInfo[priorityCode].title} (${prioritiesInfo[priorityCode].priorityLevel})`;
 
 	return (
 		<TagContainer content={tagContent}>

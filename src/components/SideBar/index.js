@@ -27,7 +27,7 @@ export default function SideBar() {
 
 			const res = await listUserInfo();
 
-			console.log('[loadUserInfo] res: ', res);
+			// console.log('[loadUserInfo] res: ', res);
 
 			if (!res.success) {
 				throw new Error(res.message);

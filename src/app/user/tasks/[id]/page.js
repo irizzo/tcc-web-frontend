@@ -11,7 +11,7 @@ import Loading from '@/components/Loading';
 import { FormContainer, FormSection } from '@/components/Form';
 import { DefaultButton, DangerButton } from '@/components/Buttons';
 import * as locale from '@/resources/locale';
-import { treatUpdatedTaskData } from '@/utils/dataTreatments.utils';
+import { treatUpdatedTaskData, getCategoryTitle } from '@/utils/dataTreatments.utils';
 import routesMap from '@/resources/routesMap';
 
 export default function TaskPage({ params, searchParams }) {
@@ -20,9 +20,10 @@ export default function TaskPage({ params, searchParams }) {
 	const [ title, setTitle ] = useState(searchParams.title);
 	const [ description, setDescription ] = useState(searchParams.description);
 	const [ dueDate, setDueDate ] = useState(searchParams.dueDate);
-	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode);
-	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode);
 	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate);
+	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode);
+	const [ statusCode, setStatusCode ] = useState(searchParams.statusCode);
+	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode);
 
 	const [ editing, setEditing ] = useState(false);
 	const [ isLoading, setIsLoading ] = useState(false);
@@ -41,13 +42,20 @@ export default function TaskPage({ params, searchParams }) {
 			setIsLoading(false);
 		}
 
+		loadResources();
+
 		if (editing) {
 			loadResources();
 		}
 	}, [ editing ]);
 
-
 	if (isLoading) return <Loading />;
+
+	const statusList = [];
+	for (let key in locale.statusInfo) statusList.push(locale.statusInfo[key]);
+
+	const prioritiesList = [];
+	for (let key in locale.prioritiesInfo) prioritiesList.push(locale.prioritiesInfo[key]);
 
 	function handleEditing() {
 		if (editing) {
@@ -56,10 +64,8 @@ export default function TaskPage({ params, searchParams }) {
 			setDueDate(searchParams.dueDate);
 			setCategoryCode(searchParams.categoryCode);
 			setPriorityCode(searchParams.priorityCode);
+			setStatusCode(searchParams.statusCode);
 			setToDoDate(searchParams.toDoDate);
-
-			document.getElementById('priority').value = priorityCode;
-			document.getElementById('category').value = categoryCode;
 		}
 
 		setEditing(!editing);
@@ -72,7 +78,7 @@ export default function TaskPage({ params, searchParams }) {
 			setIsLoading(true);
 			setEditing(false);
 
-			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, toDoDate });
+			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, toDoDate });
 			const res = await updateTaskService(searchParams.id, updatedData);
 
 			if (!res.success) {
@@ -113,48 +119,83 @@ export default function TaskPage({ params, searchParams }) {
 			title={locale.pagesTitles.tasks.view}
 			submitCallback={(e) => handleEditTaskForm(e).then(router.refresh())}
 		>
-			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
-				<input name='title' value={title} readOnly={!editing} type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
+				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.tasks.description}>
-				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
+			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
+				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
-			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
-				<input name='dueDate' readOnly={!editing} value={dueDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
-			</FormSection>
+			{
+				editing ?
+					<>
+						<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
+							<input name='dueDate' value={dueDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
+						</FormSection>
 
-			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
-				<select id='priority' name='priority' disabled={!editing} onChange={(e) => setPriorityCode(e.target.value)}>
-					<option defaultValue='' >{priorityCode}</option>
-					<option key={1} value={locale.entitiesProperties.general.quadrantOne.value}>{locale.entitiesProperties.general.quadrantOne.title}</option>
-					<option key={2} value={locale.entitiesProperties.general.quadrantTwo.value}>{locale.entitiesProperties.general.quadrantTwo.title}</option>
-					<option key={3} value={locale.entitiesProperties.general.quadrantThree.value}>{locale.entitiesProperties.general.quadrantThree.title}</option>
-					<option key={4} value={locale.entitiesProperties.general.quadrantFour.value}>{locale.entitiesProperties.general.quadrantFour.title}</option>
-				</select>
-			</FormSection>
+						<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
+							<input name='toDoDate' value={toDoDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
+						</FormSection>
 
-			<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-				<select id='category' name='category' disabled={!editing} onChange={(e) => { setCategoryCode(e.target.value); }}>
-					<option defaultValue=''>{categoryCode}</option>
+						<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>
+							<select name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
+								<option defaultValue='' >{locale.formDefaults.priority}</option>
+								{
+									prioritiesList.map((priority) => {
+										return <option key={priority.value} value={priority.value}>{priority.title}</option>;
+									})
+								}
+							</select>
+						</FormSection>
 
-					{categoriesList.length > 0 ?
-						categoriesList.map((category) => {
-							return (
-								<option key={category.code} value={category.code}>{category.title}</option>
-							);
-						})
-						:
-						<option disabled value=''>{locale.notFoundDefaults.categories}</option>
-					}
-				</select>
-			</FormSection>
+						<FormSection labelFor='status' sectionTitle={locale.entitiesProperties.tasks.status}>
+							<select name='status' onChange={(e) => setStatusCode(e.target.value)}>
+								<option defaultValue='' >{locale.formDefaults.staus}</option>
+								{
+									statusList.map((status) => {
+										console.log('status: ', status);
+										return <option key={status.value} value={status.value}>{status.title}</option>;
+									})
+								}
+							</select>
+						</FormSection>
 
-			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-				<input name='toDoDate' readOnly={!editing} value={toDoDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
-			</FormSection>
+						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
+							<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
+								<option defaultValue='' >{locale.formDefaults.category}</option>
 
+								{categoriesList.length > 0 ?
+									categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option>; })
+									:
+									<option disabled value=''>{locale.notFoundDefaults.categories}</option>
+								}
+							</select>
+						</FormSection>
+					</>
+					:
+					<>
+						<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
+							<input name='dueDate' readOnly value={dueDate} type='text'></input>
+						</FormSection>
+
+						<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
+							<input name='toDoDate' readOnly value={toDoDate} type='text'></input>
+						</FormSection>
+
+						<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>
+							<input name='priority' readOnly value={searchParams.priorityCode ? locale.prioritiesInfo[searchParams.priorityCode].title : ''} type='text'></input>
+						</FormSection>
+
+						<FormSection labelFor='status' sectionTitle={locale.entitiesProperties.tasks.status}>
+							<input name='status' readOnly value={searchParams.statusCode ? locale.statusInfo[searchParams.statusCode].title : ''} type='text'></input>
+						</FormSection>
+
+						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
+							<input name='category' readOnly value={categoryCode ? getCategoryTitle(categoryCode, categoriesList) : ''} type='text'></input>
+						</FormSection>
+					</>
+			}
 			<div className='flex flex--row flex--center'>
 				<DefaultButton
 					title={editing ? locale.actionsTitles.cancel : locale.actionsTitles.edit}

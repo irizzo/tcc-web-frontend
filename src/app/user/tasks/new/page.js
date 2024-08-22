@@ -79,19 +79,19 @@ export default function NewTask() {
 			title={locale.pagesTitles.tasks.new}
 			submitCallback={(e) => handleSubmit(e, { title, description, dueDate, categoryCode, priorityCode, toDoDate })}
 		>
-			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.tasks.title}>
-				<input id='title' name='title' type='text' required placeholder={locale.entitiesProperties.tasks.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
+				<input id='title' name='title' type='text' required placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.tasks.description}>
-				<textarea id='description' name='description' placeholder={locale.entitiesProperties.tasks.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
+			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
+				<textarea id='description' name='description' placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
 			<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
 				<input id='dueDate' name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.general.priority}>
+			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.task.priority}>
 				<select id='priority' name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
 					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
 					<option key={1} value={locale.entitiesProperties.general.quadrantOne.value}>{locale.entitiesProperties.general.quadrantOne.title}</option>
