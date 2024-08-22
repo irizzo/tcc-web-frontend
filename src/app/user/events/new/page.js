@@ -77,7 +77,7 @@ export default function NewEvent() {
 			title={pagesTitles.events.new}
 			submitCallback={(e) => handleSubmit(e, { title, description, startDate, endDate, categoryCode })}
 		>
-			<FormSection labelFor='title' sectionTitle={entitiesProperties.general.title + ' *'}>
+			<FormSection labelFor='title' sectionTitle={entitiesProperties.general.title}>
 				<input id='title' name='title' type='text' required placeholder={entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 

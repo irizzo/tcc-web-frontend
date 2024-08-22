@@ -64,14 +64,6 @@ export default function TaskPage({ params, searchParams }) {
 			setPriorityCode(searchParams.priorityCode);
 			setStatusCode(searchParams.statusCode);
 			setToDoDate(searchParams.toDoDate);
-		} else {
-			setTitle('');
-			setDescription('');
-			setDueDate('');
-			setCategoryCode('');
-			setPriorityCode('');
-			setStatusCode('');
-			setToDoDate('');
 		}
 
 		setEditing(!editing);
@@ -158,6 +150,7 @@ export default function TaskPage({ params, searchParams }) {
 								<option defaultValue='' >{locale.formDefaults.staus}</option>
 								{
 									statusList.map((status) => {
+										console.log('status: ', status);
 										return <option key={status.value} value={status.value}>{status.title}</option>;
 									})
 								}

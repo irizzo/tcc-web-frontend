@@ -18,6 +18,8 @@ export async function listUserInfo() {
 			}
 		});
 
+		// console.log('[listUserInfo] fetchRes: ', fetchRes);
+
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		if (!fetchRes.success) {
