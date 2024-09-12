@@ -1,109 +1,77 @@
 export const formDefaults = {
 	defaultOption: 'Por favor escolha uma opção',
 	submitButtonTitle: 'Enviar',
-	passwordRequirements: 'A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços'
+	passwordRequirements: 'A senha deve seguir as seguintes regras: conter entre 8 e 20 caracteres, pelo menos 1 letra maiúscula pelo menos 1 letra minúscula, pelo menos 1 dígito [0-9], pelo menos 1 caractere especial; Não conter espaços',
+	dueDate: 'Nenhum Prazo Selecionado',
+	defaultDate: 'Nenhuma Data Selecionada',
+	priority: 'Nenhuma Prioridade Selecionada',
+	category: 'Nenhuma Categoria Selecionada',
+	staus: 'Nenhum Progresso Selecionado',
+};
+
+export const statusInfo = {
+	NOT_STARTED: {
+		title: 'A fazer',
+		value: 'NOT_STARTED'
+	},
+	IN_PROGRESS: {
+		title: 'Em andamento',
+		value: 'IN_PROGRESS'
+	},
+	DONE: {
+		title: 'Finalizado',
+		value: 'DONE'
+	}
+};
+
+export const prioritiesInfo = {
+	QUADRANT_ONE: {
+		title: 'Urgente e Difícil',
+		value: 'QUADRANT_ONE',
+		priorityLevel: 1
+	},
+
+	QUADRANT_TWO: {
+		title: 'Não Urgente e Difícil',
+		value: 'QUADRANT_TWO',
+		priorityLevel: 2
+	},
+
+	QUADRANT_THREE: {
+		title: 'Urgente e Fácil',
+		value: 'QUADRANT_THREE',
+		priorityLevel: 3
+	},
+
+	QUADRANT_FOUR: {
+		title: 'Não Urgente e Fácil',
+		value: 'QUADRANT_FOUR',
+		priorityLevel: 4
+	}
 };
 
 export const entitiesProperties = {
 	general: {
 		dueDate: 'Prazo',
-		priority: 'Prioridade',
-		quadrantOne: {
-			title: 'Urgente e Difícil',
-			value: 'QUADRANT_ONE'
-		},
-		quadrantTwo: {
-			title: 'Não Urgente e Difícil',
-			value: 'QUADRANT_TWO'
-		},
-		quadrantThree: {
-			title: 'Urgente e Fácil',
-			value: 'QUADRANT_THREE'
-		},
-		quadrantFour: {
-			title: 'Não Urgente e Fácil',
-			value: 'QUADRANT_FOUR'
-		},
 		category: 'Categoria',
-		toDoDate: 'Quando fazer?',
-
-		status: {
-			NOT_STARTED: {
-				title: 'A fazer',
-				value: 'NOT_STARTED'
-			},
-			IN_PROGRESS: {
-				title: 'Em andamento',
-				value: 'IN_PROGRESS'
-			},
-			DONE: {
-				title: 'Finalizado',
-				value: 'DONE'
-			}
-		},
-
-		priorities: {
-			QUADRANT_ONE: {
-				title: 'Urgente e Difícil',
-				value: 'QUADRANT_ONE',
-				priorityLevel: 1
-			},
-
-			QUADRANT_TWO: {
-				title: 'Não Urgente e Difícil',
-				value: 'QUADRANT_TWO',
-				priorityLevel: 2
-			},
-
-			QUADRANT_THREE: {
-				title: 'Urgente e Fácil',
-				value: 'QUADRANT_THREE',
-				priorityLevel: 3
-			},
-
-			QUADRANT_FOUR: {
-				title: 'Não Urgente e Fácil',
-				value: 'QUADRANT_FOUR',
-				priorityLevel: 4
-			},
-		},
-
-		generalDefaults: {
-			dueDate: 'Nenhum Prazo Selecionado',
-			priority: 'Nenhuma Prioridade Selecionada',
-			category: 'Nenhuma Categoria Selecionada',
-			toDoDate: 'Nenhuma Data Selecionada'
-		}
+		toDoDate: 'Agendar Para',
+		title: 'Título',
+		description: 'Descrição'
 	},
 
-	categories: {
-		title: 'Título da Categoria',
-		description: 'Descrição da Categoria'
-	},
-
-	contents: {
-		title: 'Título da Conteúdo',
-		content: 'Conteúdo'
-	},
+	// contents: {
+	// 	title: 'Título da Conteúdo',
+	// 	content: 'Conteúdo'
+	// },
 
 	events: {
-		title: 'Título do Evento',
-		description: 'Descrição do Evento',
 		startDate: 'Início',
 		endDate: 'Fim'
 	},
 
-	notes: {
-		title: 'Título Do Anotação',
-		description: 'Descrição Do Anotação',
-		high: 'Alto',
-		medium: 'Médio',
-		low: 'Baixo'
-	},
-
 	tasks: {
-		title: 'Título da Tarefa',
-		description: 'Descrição da Tarefa'
+		status: 'Progresso',
+		priority: 'Prioridade'
 	},
 
 	user: {

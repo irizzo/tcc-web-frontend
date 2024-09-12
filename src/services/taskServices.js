@@ -52,8 +52,6 @@ export async function createTaskService(taskData) {
 	console.log('[createTaskService]');
 
 	try {
-		console.log('[createTaskService] taskData: ', taskData);
-
 		const tokenCookie = await getTokenCookie();
 
 		const customHeaders = new Headers({
@@ -116,7 +114,8 @@ export async function updateTaskService(taskId, updatedData) {
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);

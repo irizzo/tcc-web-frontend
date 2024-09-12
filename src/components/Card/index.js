@@ -1,11 +1,12 @@
-import { FaAsterisk, FaRegCalendar, FaHashtag, FaSquareCheck, FaRegCalendarDays, FaRegCalendarCheck, FaChartSimple } from 'react-icons/fa6';
+import { FaRegCalendar, FaHashtag, FaCircleCheck, FaRegCalendarDays, FaRegCalendarCheck, FaArrowUp19, FaChartSimple } from 'react-icons/fa6';
 
 import Link from 'next/link';
 import routesMap from '@/resources/routesMap';
 
-import { entitiesProperties } from '@/resources/locale'; 
+import { statusInfo, prioritiesInfo } from '@/resources/locale';
 
 import './card.scss';
+import { getCategoryByCode } from '@/services/categoryServices';
 
 export function GeneralCardContainer({ children, path = '', title, _query = null }) {
 	return (
@@ -49,39 +50,27 @@ export function NoteCard({ noteInfo }) {
 	);
 }
 
-/* User Specifc Cards */
-export function UserCardContainer({ path = '', _query = null, title, dueDate, categoryCode, icon = null }) {
-	const showTagsContainer = (categoryCode || dueDate) ? true : false;
+// TODO: Implementar botão para marcar tarefa como feita
+export function TaskCard({ taskInfo }) {
+	console.log('taskInfo: ', taskInfo);
+
+	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
+	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate) ? true : false;
 
 	return (
 		<div className='flex card__container'>
-			<Link className='flex flex--row card__title' href={{ pathname: path, query: _query }} >
-				{icon ? icon : <FaAsterisk className='card__title__icon' />}
-				<h4>{title}</h4>
+			<Link className='flex flex--row card__title' href={{ pathname: taskPath, query: taskInfo }} >
+				<FaCircleCheck className='card__title__icon' />
+				<h4>{taskInfo.title}</h4>
 			</Link>
 
 			{showTagsContainer && <div className='flex flex--row flex--sp-between tags__container'>
-				{dueDate && <ScheduleTag scheduledDate={dueDate} />}
-				{categoryCode && <CategoryTag categoryCode={categoryCode} />}
+				{taskInfo.priorityCode && <PriorityTag priorityCode={taskInfo.priorityCode} />}
+				{taskInfo.statusCode && <ProgressTag statusCode={taskInfo.statusCode} />}
+				{taskInfo.dueDate && <DueDateTag dueDate={taskInfo.dueDate} />}
+				{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />}
 			</div>}
 		</div>
-	);
-}
-
-// TODO: Implementar botão para marcar tarefa como feita
-export function TaskCard({ taskInfo }) {
-	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`;
-
-	console.log('taskInfo: ', taskInfo)
-	return (
-		<UserCardContainer
-			path={taskPath}
-			_query={taskInfo}
-			title={taskInfo.title}
-			dueDate={taskInfo.dueDate}
-			categoryCode={taskInfo.categoryCode}
-			icon={<FaSquareCheck className='card__title__icon' />}
-		/>
 	);
 }
 
@@ -95,24 +84,10 @@ export function EventCard({ eventInfo }) {
 			</Link>
 
 			<div className='flex flex--row flex--sp-between tags__container'>
-				<ScheduleTag scheduledDate={eventInfo.startDate} />
+				<DueDateTag dueDate={eventInfo.startDate} />
 				{eventInfo.categoryCode && <CategoryTag categoryCode={eventInfo.categoryCode} />}
 			</div>
 		</div>
-	);
-}
-
-export function HabitCard({ habitInfo }) {
-	const habitPath = `${routesMap.habits.base}/${habitInfo.id}`;
-	return (
-		<UserCardContainer
-			path={habitPath}
-			_query={habitInfo}
-			title={habitInfo.title}
-			dueDate={habitInfo.dueDate}
-			categoryCode={habitInfo.categoryCode}
-			icon={<FaRegCalendarCheck className='card__title__icon' />}
-		/>
 	);
 }
 
@@ -126,19 +101,18 @@ function TagContainer({ content, children }) {
 	);
 }
 
-export function ScheduleTag({ scheduledDate }) {
-	const formatted = scheduledDate.slice(0, (scheduledDate.length - 3));
-
+export function DueDateTag({ dueDate }) {
+	const formatted = dueDate.slice(0, (dueDate.length - 3));
 	return (
 		<TagContainer content={formatted}	>
-			<FaRegCalendarDays className='tag__icon' />
+			<FaRegCalendarCheck className='tag__icon' />
 		</TagContainer>
 	);
 }
 
 export function CategoryTag({ categoryCode }) {
 	// TODO: get the category info from backend
-	const categoryInfo = { code: 'ACADEMIC', title: 'Acadêmico', description: '' };
+	// const categoryInfo = { code: 'ACADEMIC', title: 'Acadêmico', description: '' };
 
 	return (
 		<TagContainer content={categoryInfo.title}	>
@@ -148,8 +122,7 @@ export function CategoryTag({ categoryCode }) {
 }
 
 export function ProgressTag({ statusCode }) {
-	const tagContent = entitiesProperties.general.status[statusCode].title;
-
+	const tagContent = statusInfo[statusCode].title;
 	return (
 		<TagContainer content={tagContent}	>
 			<FaChartSimple className='tag__icon' />
@@ -158,11 +131,10 @@ export function ProgressTag({ statusCode }) {
 }
 
 export function PriorityTag({ priorityCode }) {
-	const tagContent = `${entitiesProperties.general.priorities[priorityCode].title} (${entitiesProperties.general.priorities[priorityCode].priorityLevel})`;
-
+	const tagContent = `${prioritiesInfo[priorityCode].title} (${prioritiesInfo[priorityCode].priorityLevel})`;
 	return (
 		<TagContainer content={tagContent}>
-			<FaChartSimple className='tag__icon' />
+			<FaArrowUp19 className='tag__icon' />
 		</TagContainer>
 	);
 }

@@ -66,7 +66,7 @@ export default function CategoryPage({ searchParams }) {
 
 		setIsLoading(false);
 
-		await navigateTo({ path: routesMap.categories.base });
+		navigateTo({ path: routesMap.categories.base });
 	}
 
 	if (isLoading) return <Loading />;
@@ -76,11 +76,11 @@ export default function CategoryPage({ searchParams }) {
 			title={ locale.pagesTitles.categories.view }
 			submitCallback={(e) => handleEditCategoryForm(e).then(router.refresh())}
 		>
-			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.categories.title}>
+			<FormSection labelFor='categoryTitle' sectionTitle={locale.entitiesProperties.general.title}>
 				<input name='categoryTitle' value={categoryTitle} readOnly={!editing} type='text' onChange={(e) => { setCategoryTitle(e.target.value);}} />
 			</FormSection>
 
-			<FormSection labelFor='categoryDescription' sectionTitle={locale.entitiesProperties.categories.description}>
+			<FormSection labelFor='categoryDescription' sectionTitle={locale.entitiesProperties.general.description}>
 				<textarea name='categoryDescription' value={categoryDescription} readOnly={!editing} type='text' onChange={(e) => { setCategoryDescription(e.target.value);}} />
 			</FormSection>
 

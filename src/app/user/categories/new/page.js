@@ -33,17 +33,17 @@ export default function NewCategory() {
 			const res = await createCategoryService(cleanData);
 
 			if (!res.success) {
-				console.log('[handleNewCategoryForm] !success | message: ', res.message);
+				// console.log('[handleNewCategoryForm] !success | message: ', res.message);
 				setIsLoading(false);
 				alert(res.message);
 
 			} else {
-				console.log('[handleNewCategoryForm] sucesso');
+				// console.log('[handleNewCategoryForm] sucesso');
 				setIsLoading(false);
 				navigateTo({ path: routesMap.categories.base });
 			}
 		} catch (error) {
-			console.log('[handleNewCategoryForm] error: ', error);
+			// console.log('[handleNewCategoryForm] error: ', error);
 			setIsLoading(false);
 			alert(error);
 		}
@@ -56,11 +56,11 @@ export default function NewCategory() {
 			title={pagesTitles.categories.new}
 			submitCallback={(e) => handleNewCategoryForm(e, { title: categoryTitle, description: categoryDescription })}
 		>
-			<FormSection labelFor='categoryTitle' sectionTitle={entitiesProperties.categories.title}>
+			<FormSection labelFor='categoryTitle' sectionTitle={entitiesProperties.general.title}>
 				<input name='categoryTitle' value={categoryTitle} type='text' onChange={(e) => { setCategoryTitle(e.target.value); }} />
 			</FormSection>
 
-			<FormSection labelFor='categoryDescription' sectionTitle={entitiesProperties.categories.description}>
+			<FormSection labelFor='categoryDescription' sectionTitle={entitiesProperties.general.description}>
 				<textarea name='categoryDescription' value={categoryDescription} type='text' onChange={(e) => { setCategoryDescription(e.target.value); }} />
 			</FormSection>
 

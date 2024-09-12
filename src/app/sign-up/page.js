@@ -37,10 +37,10 @@ async function handleSignUpSubmit(e, formData) {
 		};
 
 		const res = await signUpService(cleanData);
-		console.log('[handleSignUpSubmit] res: ', res);
+		// console.log('[handleSignUpSubmit] res: ', res);
 
 		if (!res.success) {
-			console.log('!success | message: ', res.message);
+			// console.log('!success | message: ', res.message);
 			alert(res.message);
 			return;
 
