@@ -8,10 +8,6 @@ function formatDateString(dateString) {
 exports.treatUpdatedTaskData = (initialData, newData) => {
 	const treatedData = {};
 
-	console.log('newData: ', newData);
-	console.log('comparar datas (===): ', new Date(formatDateString(initialData.toDoDate)).getTime() === new Date(newData.toDoDate).getTime());
-	console.log('comparar datas (===): ', new Date(formatDateString(initialData.dueDate)).getTime() === new Date(newData.dueDate).getTime());
-
 	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null;
 	treatedData.description = (newData.description && initialData.description !== newData.description) ? newData.description : null;
 	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null;

@@ -92,11 +92,9 @@ export default function TaskPage({ params, searchParams }) {
 			}
 
 			setIsLoading(false);
-			await navigateTo({ path: routesMap.tasks.base });
 
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			alert(error);
 		}
 	};

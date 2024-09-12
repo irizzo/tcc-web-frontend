@@ -80,7 +80,7 @@ export default function NewTask() {
 			title={locale.pagesTitles.tasks.new}
 			submitCallback={(e) => handleSubmit(e, { title, description, dueDate, categoryCode, priorityCode, toDoDate })}
 		>
-			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
+			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title + ' *'}>
 				<input id='title' name='title' type='text' required placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
@@ -92,13 +92,18 @@ export default function NewTask() {
 				<input id='dueDate' name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='priotity' sectionTitle={locale.entitiesProperties.task.priority}>
-				<select id='priority' name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
-					<option defaultValue=''>--{locale.formDefaults.defaultOption}--</option>
-					<option key={1} value={locale.entitiesProperties.general.quadrantOne.value}>{locale.entitiesProperties.general.quadrantOne.title}</option>
-					<option key={2} value={locale.entitiesProperties.general.quadrantTwo.value}>{locale.entitiesProperties.general.quadrantTwo.title}</option>
-					<option key={3} value={locale.entitiesProperties.general.quadrantThree.value}>{locale.entitiesProperties.general.quadrantThree.title}</option>
-					<option key={4} value={locale.entitiesProperties.general.quadrantFour.value}>{locale.entitiesProperties.general.quadrantFour.title}</option>
+			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
+				<input id='toDoDate' name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
+			</FormSection>
+
+			<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>
+				<select name='priority' onChange={(e) => setPriorityCode(e.target.value)}>
+					<option defaultValue='' >{locale.formDefaults.priority}</option>
+					{
+						prioritiesList.map((priority) => {
+							return <option key={priority.value} value={priority.value}>{priority.title}</option>;
+						})
+					}
 				</select>
 			</FormSection>
 
