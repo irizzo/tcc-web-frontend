@@ -5,7 +5,6 @@ import { getAllCategoriesService } from '@/services/categoryServices';
 import { navigateTo } from '@/utils';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import Loading from '@/components/Loading';
 import { FormContainer, FormSection } from '@/components/Form';
@@ -15,7 +14,6 @@ import { treatUpdatedTaskData, getCategoryTitle } from '@/utils/dataTreatments.u
 import routesMap from '@/resources/routesMap';
 
 export default function TaskPage({ params, searchParams }) {
-	const router = useRouter();
 
 	const [ title, setTitle ] = useState(searchParams.title);
 	const [ description, setDescription ] = useState(searchParams.description);
@@ -94,11 +92,9 @@ export default function TaskPage({ params, searchParams }) {
 			}
 
 			setIsLoading(false);
-			await navigateTo({ path: routesMap.tasks.base });
 
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			alert(error);
 		}
 	};
@@ -116,7 +112,6 @@ export default function TaskPage({ params, searchParams }) {
 
 			setIsLoading(false);
 
-			await navigateTo({ path: routesMap.tasks.base });
 		} catch (error) {
 			setIsLoading(false);
 			alert(error);
@@ -126,7 +121,7 @@ export default function TaskPage({ params, searchParams }) {
 	return (
 		<FormContainer
 			title={locale.pagesTitles.tasks.view}
-			submitCallback={(e) => handleEditTaskForm(e).then(router.refresh())}
+			submitCallback={(e) => handleEditTaskForm(e).then(navigateTo({ path: routesMap.tasks.base }))}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
 				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
@@ -221,7 +216,7 @@ export default function TaskPage({ params, searchParams }) {
 
 				<DangerButton
 					title={locale.actionsTitles.delete}
-					onClickFunction={() => { handleDeleteTask(); }}
+					onClickFunction={() => { handleDeleteTask().then(navigateTo({ path: routesMap.tasks.base })); }}
 				/>
 			</div>
 		</FormContainer>

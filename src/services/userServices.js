@@ -1,9 +1,3 @@
-/* User Services
-	* list user info
-	* delete user
-	* alter user info
-*/
-
 import { getTokenCookie, setCookieData } from '@/utils';
 import httpClient from './http/client';
 import messagesDictionary from '@/resources/messages';
@@ -16,16 +10,13 @@ export async function listUserInfo() {
 
 	try {
 		const tokenCookie = await getTokenCookie();
-		const userId = decodeToken(tokenCookie.value).data.userId;
 
 		const fetchRes = await httpClient.get({
-			path: `${baseUserPath}/${userId}`,
+			path: `${baseUserPath}`,
 			customHeaders: {
 				'Authorization': tokenCookie.value
 			}
 		});
-
-		// console.log('[listUserInfo] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 

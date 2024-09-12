@@ -66,7 +66,7 @@ export default function CategoryPage({ searchParams }) {
 
 		setIsLoading(false);
 
-		await navigateTo({ path: routesMap.categories.base });
+		navigateTo({ path: routesMap.categories.base });
 	}
 
 	if (isLoading) return <Loading />;

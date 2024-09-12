@@ -33,17 +33,17 @@ export default function NewCategory() {
 			const res = await createCategoryService(cleanData);
 
 			if (!res.success) {
-				console.log('[handleNewCategoryForm] !success | message: ', res.message);
+				// console.log('[handleNewCategoryForm] !success | message: ', res.message);
 				setIsLoading(false);
 				alert(res.message);
 
 			} else {
-				console.log('[handleNewCategoryForm] sucesso');
+				// console.log('[handleNewCategoryForm] sucesso');
 				setIsLoading(false);
 				navigateTo({ path: routesMap.categories.base });
 			}
 		} catch (error) {
-			console.log('[handleNewCategoryForm] error: ', error);
+			// console.log('[handleNewCategoryForm] error: ', error);
 			setIsLoading(false);
 			alert(error);
 		}

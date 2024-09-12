@@ -32,7 +32,7 @@ async function handleLoginSubmit(e, formData) {
 		console.log('[handleLoginSubmit] res: ', res);
 
 		if (!res.success) {
-			console.log('!success | message: ', res.message);
+			// console.log('!success | message: ', res.message);
 			alert(res.message);
 			return;
 

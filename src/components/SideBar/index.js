@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaSquareCheck } from 'react-icons/fa6';
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck } from 'react-icons/fa6';
 
 import { clearTokenCookie, navigateTo } from '@/utils';
 import routesMap from '@/resources/routesMap';
@@ -26,8 +26,6 @@ export default function SideBar() {
 			setIsLoading(true);
 
 			const res = await listUserInfo();
-
-			// console.log('[loadUserInfo] res: ', res);
 
 			if (!res.success) {
 				throw new Error(res.message);
@@ -59,7 +57,7 @@ export default function SideBar() {
 							<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{pagesTitles.dashboard}</NavListItem>
 							<NavListItem itemId={pagesKeys.categories.all} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.all}</NavListItem>
 							<NavListItem itemId={pagesKeys.events.all} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.all}</NavListItem>
-							<NavListItem itemId={pagesKeys.tasks.all} customIcon={<FaSquareCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.all}</NavListItem>
+							<NavListItem itemId={pagesKeys.tasks.all} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.all}</NavListItem>
 							{/* <NavListItem itemId={pagesKeys.notes.all} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.all}</NavListItem> */}
 
 							<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
@@ -82,7 +80,6 @@ export default function SideBar() {
 
 function NavListItem({ children, path = '/', customIcon = null, selected = false, itemId }) {
 	const selectedClass = selected ? 'selected' : '';
-
 	return (
 		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
 			<Link className='flex flex--row nav__item__link' href={path}>

@@ -77,7 +77,7 @@ export default function NewEvent() {
 			title={pagesTitles.events.new}
 			submitCallback={(e) => handleSubmit(e, { title, description, startDate, endDate, categoryCode })}
 		>
-			<FormSection labelFor='title' sectionTitle={entitiesProperties.general.title}>
+			<FormSection labelFor='title' sectionTitle={entitiesProperties.general.title + ' *'}>
 				<input id='title' name='title' type='text' required placeholder={entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
@@ -85,11 +85,11 @@ export default function NewEvent() {
 				<textarea id='description' name='description' placeholder={entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
 			</FormSection>
 
-			<FormSection labelFor='startDate' sectionTitle={entitiesProperties.events.startDate}>
+			<FormSection labelFor='startDate' sectionTitle={entitiesProperties.events.startDate + ' *'}>
 				<input id='startDate' name='startDate' required type='datetime-local' onChange={(e) => { setStartDate(e.target.value); }}></input>
 			</FormSection>
 
-			<FormSection labelFor='endDate' sectionTitle={entitiesProperties.events.endDate}>
+			<FormSection labelFor='endDate' sectionTitle={entitiesProperties.events.endDate + ' *'}>
 				<input id='endDate' name='endDate' required type='datetime-local' onChange={(e) => { setEndDate(e.target.value); }}></input>
 			</FormSection>
 

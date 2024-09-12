@@ -52,8 +52,6 @@ export async function createTaskService(taskData) {
 	console.log('[createTaskService]');
 
 	try {
-		console.log('[createTaskService] taskData: ', taskData);
-
 		const tokenCookie = await getTokenCookie();
 
 		const customHeaders = new Headers({

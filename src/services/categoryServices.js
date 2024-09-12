@@ -30,7 +30,7 @@ export async function createCategoryService(categoryData) {
 			return res.json();
 		});
 
-		console.log('[createCategoryService] fetchRes: ', fetchRes);
+		// console.log('[createCategoryService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
 
@@ -93,7 +93,7 @@ export async function getAllCategoriesService() {
 	}
 }
 
-/** Get Category Details
+/** Get Category Details By Id
  *
  * @param {String} categoryId
  * @returns {{ success: Boolean, result: any | null, message: String }}
@@ -117,6 +117,42 @@ export async function getCategoryDetailsService(categoryId) {
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+
+		if (!fetchRes.success) {
+			throw new Error(message);
+		};
+
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			message
+		};
+
+	} catch (error) {
+		console.log('[getCategoryDetailsService] error: ', error);
+		throw (error);
+	}
+}
+
+export async function getCategoryByCode(categoryCode) {
+	console.log('[getCategoryByCode]');
+	try {
+		const tokenCookie = await getTokenCookie();
+
+		const fetchRes = await httpClient.get({
+			path: `${baseCategoriesPath}/${categoryCode}`,
+			customHeaders: {
+				'Authorization': tokenCookie.value
+			}
+		});
+
+		console.log('[getCategoryDetailsService] fetchRes: ', fetchRes);
+
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);

@@ -56,6 +56,12 @@ export default function EventPage({ params, searchParams }) {
 			setStartDate(searchParams.startDate);
 			setEndDate(searchParams.endDate);
 			setCategoryCode(searchParams.categoryCode);
+		} else {
+			setTitle('');
+			setDescription('');
+			setStartDate('');
+			setEndDate('');
+			setCategoryCode('');
 		}
 
 		setEditing(!editing);
@@ -75,12 +81,11 @@ export default function EventPage({ params, searchParams }) {
 				throw new Error(res.message);
 			} else {
 				setIsLoading(false);
-				await navigateTo({ path: routesMap.events.base });
+				navigateTo({ path: routesMap.events.base });
 			}
 
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			alert(error);
 		}
 	};
@@ -97,11 +102,10 @@ export default function EventPage({ params, searchParams }) {
 			}
 
 			setIsLoading(false);
+			navigateTo({ path: routesMap.events.base });
 
-			await navigateTo({ path: routesMap.events.base });
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			alert(error);
 		}
 	}
@@ -112,7 +116,7 @@ export default function EventPage({ params, searchParams }) {
 			submitCallback={(e) => handleEditEventForm(e).then(router.refresh())}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
-				<input name='title' value={title} readOnly={!editing} type='text' required placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
 			</FormSection>
 
 			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
@@ -123,15 +127,15 @@ export default function EventPage({ params, searchParams }) {
 				editing ?
 					<>
 						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-							<input name='startDate' required value={startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value); }}></input>
+							<input name='startDate' value={startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value); }}></input>
 						</FormSection>
 
 						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-							<input name='endDate' required value={endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value); }}></input>
+							<input name='endDate' value={endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value); }}></input>
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<select name='category' disabled={!editing} onChange={(e) => { setCategoryCode(e.target.value); }}>
+							<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
 								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
 								{categoriesList.length > 0 ?
