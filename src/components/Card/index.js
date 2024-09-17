@@ -1,4 +1,4 @@
-import { FaRegCalendar, FaHashtag, FaCircleCheck, FaRegCalendarDays, FaRegCalendarCheck, FaArrowUp19, FaChartSimple } from 'react-icons/fa6'
+import { FaRegCalendar, FaHashtag, FaCircleCheck, FaRegCalendarCheck, FaArrowUp19, FaChartSimple } from 'react-icons/fa6'
 import Link from 'next/link'
 
 import routesMap from '@/resources/routesMap'

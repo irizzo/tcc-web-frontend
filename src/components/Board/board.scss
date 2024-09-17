@@ -14,17 +14,37 @@
 .board__header {
 	height: 40px;
 	width: 100%;
+	padding: auto 2%;
+
 	background-color: variables.$primary-color-dark;
 
 	border-top-right-radius: variables.$radius;
 	border-top-left-radius: variables.$radius;
 
+	// justify-content: space-between;
+
 	h2 {
+		margin: 0 10px;
 		border-top-right-radius: variables.$radius;
 		border-top-left-radius: variables.$radius;
 		text-align: left;
 		font-size: 1.3rem;
+
+		flex: 1;
 	}
+}
+
+.header__button {
+	height: 35px;
+	width: 35px;
+	text-decoration: none;
+	color: variables.$primary-font-color;
+}
+
+.header__button__icon {
+	color: variables.$primary-font-color;
+	height: 100%;
+	width: 100%;
 }
 
 .board__list {

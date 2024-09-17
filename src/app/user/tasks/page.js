@@ -1,82 +1,83 @@
-'use client';
+'use client'
 
-import * as locale from '@/resources/locale';
-import { listAllTasksService } from '@/services/taskServices';
-import Loading from '@/components/Loading';
+import * as locale from '@/resources/locale'
+import routesMap from '@/resources/routesMap'
+import { listAllTasksService } from '@/services/taskServices'
+import Loading from '@/components/Loading'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import { Board } from '@/components/Board';
-import { TaskCard } from '@/components/Card';
-import { GeneralInfo } from '@/components/Messages';
+import { Board } from '@/components/Board'
+import { TaskCard } from '@/components/Card'
+import { GeneralInfo } from '@/components/Messages'
 
 export default function AllTasksPage() {
-	const [ taskList, setTaskList ] = useState([]);
-	const [ isLoading, setIsLoading ] = useState(false);
+	const [ taskList, setTaskList ] = useState([])
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	useEffect(() => {
 		async function loadTasks() {
-			setIsLoading(true);
-			const res = await listAllTasksService();
+			setIsLoading(true)
+			const res = await listAllTasksService()
 
 			if (!res.success) {
-				throw new Error(res.message);
+				throw new Error(res.message)
 			}
 
-			setTaskList([ ...res.result ]);
-			setIsLoading(false);
+			setTaskList([ ...res.result ])
+			setIsLoading(false)
 		}
 
-		loadTasks();
-	}, []);
+		loadTasks()
+	}, [])
 
-	if (isLoading) return <Loading />;
+	if (isLoading) return <Loading />
 
 	return (
 		<>
-			<Board title={locale.groupDataByTitle.all}>
+			<Board title={locale.groupDataByTitle.all} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />;
+							return <TaskCard key={task.id} taskInfo={task} />
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.dueSoon}>
+			<Board title={locale.groupDataByTitle.dueSoon} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />;
+							return <TaskCard key={task.id} taskInfo={task} />
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.pastDue}>
+			<Board path={routesMap.tasks.new} title={locale.groupDataByTitle.pastDue}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />;
+							return <TaskCard key={task.id} taskInfo={task} />
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.all}>
+			<Board path={routesMap.tasks.new} title={locale.groupDataByTitle.all}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />;
+							return <TaskCard key={task.id} taskInfo={task} />
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
 		</>
-	);
+	)
 }
