@@ -16,11 +16,7 @@
       "warn",
       "never"
     ],
-    // "indent": [
-    //   "error",
-    //   "tab"
-    // ],
     "no-trailing-spaces": "warn",
-    "semi": "warn"
+    "semi": ["warn", "never"]
   }
 }
