@@ -31,13 +31,12 @@ async function handleLoginSubmit(e, formData) {
 		const res = await loginService(cleanData);
 		console.log('[handleLoginSubmit] res: ', res);
 
-		if (!res.success) {
-			// console.log('!success | message: ', res.message);
+		if(res.success) {
+			navigateTo({ path: '/user/dashboard' });
+		} else {
+			console.log('!success | message: ', res.message);
 			alert(res.message);
 			return;
-
-		} else {
-			navigateTo({ path: '/user/dashboard' });
 		}
 
 	} catch (error) {

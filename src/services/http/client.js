@@ -1,6 +1,7 @@
 const _BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
 
 const httpClient = ({ baseURL }) => {
+
 	const defaultHeaders = new Headers({
 		'Content-type': 'application/json; charset=UTF-8'
 	});

@@ -5,6 +5,7 @@ import { clearTokenCookie, getTokenCookie, setCookieData } from '@/utils';
 import httpClient from './http/client';
 import messagesDictionary from '@/resources/messages';
 
+const BASEURL = 'http://localhost:8080';
 const baseAccessPath = '/user-access';
 
 export async function verifyUserAuthService() {
@@ -12,16 +13,21 @@ export async function verifyUserAuthService() {
 	try {
 		const tokenCookie = await getTokenCookie();
 
-		const fetchRes = await httpClient.get({
-			path: `${baseAccessPath}/verify`,
-			customHeaders: {
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
-		}});
+		});
 
-		// fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+		const fetchRes = await fetch(`${BASEURL}${baseAccessPath}/verify`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json();
+		});
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		);
 
 		if (!fetchRes.success) {
 			throw new Error(message);

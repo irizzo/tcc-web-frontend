@@ -22,7 +22,6 @@ export default async function authMiddleware(req) {
 	const { pathname } = req.nextUrl;
 	const userBasePath = '/user';
 
-
 	if (tokenCookie) {
 		const userAuthRes = await verifyUserAuthService();
 		isUserLogged = userAuthRes.success;

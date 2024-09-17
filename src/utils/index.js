@@ -23,6 +23,7 @@ export async function setCookieData(cookieData) {
 	cookies().set({
 		name: cookieData.name,
 		value: cookieData.value,
-		...cookieData.options
+		...cookieData.options,
+		sameSite: 'none'
 	});
 }

@@ -18,6 +18,7 @@ const messagesDictionary = {
 	EMPTY_FIELD: 'Por favor, preencha todos os campos obrigatórios.',
 	DIF_CONFIRM_PASS: 'Senha e Confirmação da Senha devem ser iguais.', // TODO: change to better name
 
+	EMAIL_NOT_REGISTERED: 'Email não cadastrado',
 	EMAIL_NOT_UNIQUE: 'Email já cadastrado',
 	INVALID_PASSWORD: 'Senha inválida',
 	INVALID_EMAIL: 'Email inválido',
@@ -25,7 +26,7 @@ const messagesDictionary = {
 	INVALID_START_DATE: 'Data de início inválida.',
 	INVALID_END_DATE: 'Data de fim inválida. Deve ser maior que a data de início.',
 	INVALID_DUE_DATE: 'Data de prazo inválido.',
-	INVALID_TODO_DATE: 'Data planejada inválida.',
+	INVALID_TODO_DATE: 'Data planejada inválida.'
 
 };
 
