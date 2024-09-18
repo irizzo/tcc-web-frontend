@@ -16,7 +16,7 @@ import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
 export default function Contents() {
-	const [ categoriesList, setCategoriesList ] = useState([])
+	const [ categories, setCategories ] = useState({})
 	const [ taskList, setTaskList ] = useState([])
 	const [ eventList, setEventList ] = useState([])
 	const [ isLoading, setIsLoading ] = useState(false)
@@ -27,7 +27,15 @@ export default function Contents() {
 			if (!res.success) {
 				throw new Error(res.message)
 			}
-			setCategoriesList([ ...res.result ])
+
+			const categoriesList = [ ...res.result ]
+			let aux = {}
+
+			categoriesList.forEach((category) => {
+				aux[category.code] = category.title
+			})
+
+			setCategories(aux)
 		})
 
 		async function loadTasks() {
@@ -67,13 +75,11 @@ export default function Contents() {
 
 	return (
 		<>
-			{/* <h1>{locale.pagesTitles.dashboard}</h1> */}
-
 			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} />
+							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
@@ -84,13 +90,13 @@ export default function Contents() {
 				{
 					eventList.length > 0 ?
 						eventList.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} />
+							console.log('eventInfo: ', event)
+							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>
 						})
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
-
 		</>
 	)
 }

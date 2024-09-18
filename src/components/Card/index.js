@@ -48,10 +48,11 @@ export function NoteCard({ noteInfo }) {
 	)
 }
 
-// TODO: Implementar botão para marcar tarefa como feita
-export function TaskCard({ taskInfo }) {
+export function TaskCard({ taskInfo, categoryTitle }) {
+	console.log('categoryTitle: ', categoryTitle)
+
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`
-	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate) ? true : false
+	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate || taskInfo.priorityCode || taskInfo.statusCode) ? true : false
 
 	return (
 		<div className='flex card__container'>
@@ -64,13 +65,15 @@ export function TaskCard({ taskInfo }) {
 				{taskInfo.priorityCode && <PriorityTag priorityCode={taskInfo.priorityCode} />}
 				{taskInfo.statusCode && <ProgressTag statusCode={taskInfo.statusCode} />}
 				{taskInfo.dueDate && <DueDateTag dueDate={taskInfo.dueDate} />}
-				{taskInfo.categoryCode && <CategoryTag categoryCode={taskInfo.categoryCode} />}
+				{taskInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} categoryCode={taskInfo.categoryCode} />}
 			</div>}
 		</div>
 	)
 }
 
-export function EventCard({ eventInfo }) {
+export function EventCard({ eventInfo, categoryTitle }) {
+	console.log('categoryTitle: ', categoryTitle)
+
 	const eventPath = `${routesMap.events.base}/${eventInfo.id}`
 	return (
 		<div className='flex card__container'>
@@ -81,7 +84,7 @@ export function EventCard({ eventInfo }) {
 
 			<div className='flex flex--row flex--sp-between tags__container'>
 				<DueDateTag dueDate={eventInfo.startDate} />
-				{eventInfo.categoryCode && <CategoryTag categoryCode={eventInfo.categoryCode} />}
+				{eventInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
 			</div>
 		</div>
 	)
@@ -106,12 +109,9 @@ export function DueDateTag({ dueDate }) {
 	)
 }
 
-export function CategoryTag({ categoryCode }) {
-	// TODO: get the category info from backend
-	const categoryInfo = { code: 'ACADEMIC', title: 'Acadêmico', description: '' }
-
+export function CategoryTag({ categoryTitle }) {
 	return (
-		<TagContainer content={categoryInfo.title}	>
+		<TagContainer content={categoryTitle}	>
 			<FaHashtag className='tag__icon' />
 		</TagContainer>
 	)
