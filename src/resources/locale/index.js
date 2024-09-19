@@ -6,8 +6,8 @@ export const formDefaults = {
 	defaultDate: 'Nenhuma Data Selecionada',
 	priority: 'Nenhuma Prioridade Selecionada',
 	category: 'Nenhuma Categoria Selecionada',
-	staus: 'Nenhum Progresso Selecionado',
-};
+	staus: 'Nenhum Progresso Selecionado'
+}
 
 export const statusInfo = {
 	NOT_STARTED: {
@@ -22,7 +22,7 @@ export const statusInfo = {
 		title: 'Finalizado',
 		value: 'DONE'
 	}
-};
+}
 
 export const prioritiesInfo = {
 	QUADRANT_ONE: {
@@ -48,7 +48,7 @@ export const prioritiesInfo = {
 		value: 'QUADRANT_FOUR',
 		priorityLevel: 4
 	}
-};
+}
 
 export const entitiesProperties = {
 	general: {
@@ -58,11 +58,6 @@ export const entitiesProperties = {
 		title: 'Título',
 		description: 'Descrição'
 	},
-
-	// contents: {
-	// 	title: 'Título da Conteúdo',
-	// 	content: 'Conteúdo'
-	// },
 
 	events: {
 		startDate: 'Início',
@@ -74,6 +69,10 @@ export const entitiesProperties = {
 		priority: 'Prioridade'
 	},
 
+	notes: {
+		innerContent: 'Anotação'
+	},
+
 	user: {
 		firstName: 'Primeiro Nome',
 		lastName: 'Sobrenome',
@@ -81,7 +80,7 @@ export const entitiesProperties = {
 		password: 'Senha',
 		confirmPassword: 'Confirme a Senha'
 	}
-};
+}
 
 export const weekdaysMap = {
 	0: 'Dom',
@@ -91,7 +90,7 @@ export const weekdaysMap = {
 	4: 'Qui',
 	5: 'Sex',
 	6: 'Sáb'
-};
+}
 
 export const pagesTitles = {
 	home: 'Início',
@@ -144,7 +143,7 @@ export const pagesTitles = {
 	about: 'Sobre',
 
 	loading: 'Carregando'
-};
+}
 
 export const pagesKeys = {
 	home: 'HOME',
@@ -191,7 +190,7 @@ export const pagesKeys = {
 	about: 'ABOUT',
 
 	loading: 'LOADING'
-};
+}
 
 export const actionsTitles = {
 	save: 'Salvar',
@@ -201,12 +200,12 @@ export const actionsTitles = {
 	start: 'Começar',
 	login: 'Login',
 	logout: 'Logout'
-};
+}
 
 export const appInfo = {
 	name: 'Daily Life',
 	description: 'Descrição do Produto'
-};
+}
 
 export const notFoundDefaults = {
 	general: 'Nenhum dado disponível',
@@ -215,16 +214,16 @@ export const notFoundDefaults = {
 	events: 'Nenhum evento encontrado',
 	notes: 'Nenhuma anotação encontrada',
 	tasks: 'Nenhuma tarefa encontrada'
-};
+}
 
 export const groupDataByTitle = {
 	all: 'Todos',
 	dueSoon: 'Prazo Próximo',
 	pastDue: 'Prazo esgotado'
-};
+}
 
 export const messagesTitles = {
 	infoTitle: 'Informação',
 	warnTitle: 'Aviso',
 	errorTitle: 'Algo Deu Errado'
-};
+}
