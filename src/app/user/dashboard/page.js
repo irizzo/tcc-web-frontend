@@ -18,8 +18,11 @@ import { GeneralInfo } from '@/components/Messages'
 export default function Contents() {
 	const [ categories, setCategories ] = useState({})
 	const [ taskList, setTaskList ] = useState([])
+	const [ filteredTaskList, setFilteredTaskList ] = useState([])
 	const [ eventList, setEventList ] = useState([])
+	const [ filteredEventList, setFilteredEventList ] = useState([])
 	const [ isLoading, setIsLoading ] = useState(false)
+
 
 	useEffect(() => {
 		const loadCategories = cache(async () => {
@@ -84,11 +87,27 @@ export default function Contents() {
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
+			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
+			</Board>
 
 			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
 					eventList.length > 0 ?
 						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
+				}
+			</Board>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+				{
+					eventList.length > 0 ?
+						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}

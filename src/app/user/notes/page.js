@@ -59,7 +59,7 @@ export default function NotesPage() {
 
 	return (
 		<>
-		<h1>{locale.pagesTitles.notes.all}</h1>
+		{/* <h1>{locale.pagesTitles.notes.all}</h1> */}
 			<div className='flex flex--row  flex--wrap'>
 				{
 					notesList.length > 0 ?
