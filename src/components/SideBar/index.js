@@ -1,44 +1,44 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
-import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck } from 'react-icons/fa6';
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck } from 'react-icons/fa6'
 
-import { clearTokenCookie, navigateTo } from '@/utils';
-import routesMap from '@/resources/routesMap';
-import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale';
-import { listUserInfo } from '@/services/userServices';
+import { clearTokenCookie, navigateTo } from '@/utils'
+import routesMap from '@/resources/routesMap'
+import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale'
+import { listUserInfo } from '@/services/userServices'
 
-import Loading from '@/components/Loading';
-import './sideBar.scss';
+import Loading from '@/components/Loading'
+import './sideBar.scss'
 
 export default function SideBar() {
-	const currentDate = new Date();
-	const weekday = currentDate.getDay();
-	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`;
+	const currentDate = new Date()
+	const weekday = currentDate.getDay()
+	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
 
-	const [ isLoading, setIsLoading ] = useState(false);
-	const [ userName, setUserName ] = useState('');
+	const [ isLoading, setIsLoading ] = useState(false)
+	const [ userName, setUserName ] = useState('')
 
 	useEffect(() => {
 		async function loadUserInfo() {
-			setIsLoading(true);
+			setIsLoading(true)
 
-			const res = await listUserInfo();
+			const res = await listUserInfo()
 
 			if (!res.success) {
-				throw new Error(res.message);
+				throw new Error(res.message)
 			}
 
-			const userFullName = `${res.result.firstName} ${res.result.lastName}`;
+			const userFullName = `${res.result.firstName} ${res.result.lastName}`
 
-			setUserName(userFullName);
-			setIsLoading(false);
+			setUserName(userFullName)
+			setIsLoading(false)
 		}
 
-		loadUserInfo();
-	}, []);
+		loadUserInfo()
+	}, [])
 
 	return (
 		<nav className='flex'>
@@ -58,13 +58,13 @@ export default function SideBar() {
 							<NavListItem itemId={pagesKeys.categories.all} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.all}</NavListItem>
 							<NavListItem itemId={pagesKeys.events.all} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.all}</NavListItem>
 							<NavListItem itemId={pagesKeys.tasks.all} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.all}</NavListItem>
-							{/* <NavListItem itemId={pagesKeys.notes.all} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.all}</NavListItem> */}
+							<NavListItem itemId={pagesKeys.notes.all} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.all}</NavListItem>
 
 							<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
 							<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
 							<NavListItem itemId={pagesKeys.events.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{pagesTitles.events.new}</NavListItem>
 							<NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem>
-							{/* <NavListItem itemId={pagesKeys.notes.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{pagesTitles.notes.new}</NavListItem> */}
+							<NavListItem itemId={pagesKeys.notes.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.notes.new}>{pagesTitles.notes.new}</NavListItem>
 
 							<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
 							{/* <NavListItem itemId={pagesKeys.settings} path={routesMap.settings} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings}</NavListItem> */}
@@ -75,11 +75,11 @@ export default function SideBar() {
 					</>)
 			}
 		</nav>
-	);
+	)
 };
 
 function NavListItem({ children, path = '/', customIcon = null, selected = false, itemId }) {
-	const selectedClass = selected ? 'selected' : '';
+	const selectedClass = selected ? 'selected' : ''
 	return (
 		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
 			<Link className='flex flex--row nav__item__link' href={path}>
@@ -87,7 +87,7 @@ function NavListItem({ children, path = '/', customIcon = null, selected = false
 				{children}
 			</Link>
 		</li>
-	);
+	)
 };
 
 function NavListButton({ children, onClickFunction, customIcon }) {
@@ -98,10 +98,10 @@ function NavListButton({ children, onClickFunction, customIcon }) {
 				{children}
 			</div>
 		</li>
-	);
+	)
 };
 
 async function handleLogOut() {
-	await clearTokenCookie();
-	navigateTo({ path: routesMap.login });
+	await clearTokenCookie()
+	navigateTo({ path: routesMap.login })
 };

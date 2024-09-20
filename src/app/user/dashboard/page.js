@@ -61,6 +61,7 @@ export default function Contents() {
 			setEventList([ ...res.result ])
 			setIsLoading(false)
 		}
+
 		try {
 			loadCategories()
 			loadTasks()
@@ -78,9 +79,7 @@ export default function Contents() {
 			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
-						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
-						})
+						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
@@ -89,10 +88,7 @@ export default function Contents() {
 			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
 					eventList.length > 0 ?
-						eventList.map((event) => {
-							console.log('eventInfo: ', event)
-							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>
-						})
+						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}

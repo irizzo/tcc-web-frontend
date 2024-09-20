@@ -1,24 +1,24 @@
-import '@/styles/global.scss';
+import '@/styles/global.scss'
 
-import { UserAccessStateProvider } from '@/hooks';
+import { UserAccessStateProvider } from '@/hooks'
 
-// import { Inter } from 'next/font/google';
+import { Raleway } from 'next/font/google'
 
-// const inter = Inter({ subsets: [ 'latin' ] });
+const raleway = Raleway({ subsets: [ 'latin' ], variable: 'raleway-font' })
 
 export const metadata = {
 	title: 'Todo List',
 	description: 'To-do List App created by Isabelle S. C. Rizzo '
-};
+}
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang="en">
-			<body>
+		<html lang="pt-br" className={raleway.className}>
+			<body className={raleway.className}>
 				<UserAccessStateProvider>
 					{children}
 				</UserAccessStateProvider>
 			</body>
 		</html>
-	);
+	)
 }

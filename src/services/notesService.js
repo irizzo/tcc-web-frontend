@@ -25,7 +25,7 @@ export async function createNoteService(noteData) {
 			return res.json()
 		})
 
-		// console.log('[createEventService] fetchRes: ', fetchRes);
+		// console.log('[createNoteService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -44,6 +44,43 @@ export async function createNoteService(noteData) {
 		}
 	} catch (error) {
 		console.log('[createNoteService] error: ', error)
+		throw error
+	}
+}
+
+export async function getAllNotesService() {
+	console.log('[getAllNotesService]')
+
+	try {
+		const tokenCookie = await getTokenCookie()
+
+		const fetchRes = await httpClient.get({
+			path: `${baseNotesPath}`,
+			customHeaders: {
+				'Authorization': tokenCookie.value
+			}
+		})
+
+		console.log('[getAllNotesService] fetchRes: ', fetchRes)
+
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		)
+
+		if (!fetchRes.success) {
+			throw new Error(message)
+		};
+
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			message
+		}
+
+	} catch (error) {
+		console.log('[getAllNotesService] error: ', error)
 		throw error
 	}
 }

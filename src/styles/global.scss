@@ -5,8 +5,7 @@
 	margin: 0%;
 
 	box-sizing: border-box;
-
-	font-family: Georgia, Times, 'Times New Roman', serif;
+	font-weight: 300;
 }
 
 .flex {
@@ -28,9 +27,29 @@
 	justify-content: center;
 }
 
-h1, h2, h3, h4, h5, h6, p, li {
+.flex--wrap {
+	flex-wrap: wrap;
+}
+
+%text {
 	color: variables.$primary-font-color;
 	text-align: unset;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@extend %text;
+	font-weight: 600
+}
+
+p,
+li {
+	@extend %text;
+	font-weight: 300
 }
 
 body {
