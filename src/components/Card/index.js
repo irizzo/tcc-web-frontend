@@ -1,5 +1,7 @@
-import { FaRegCalendar, FaHashtag, FaCircleCheck, FaRegCalendarCheck, FaArrowUp19, FaChartSimple } from 'react-icons/fa6'
+import { FaRegCalendar, FaCircleCheck } from 'react-icons/fa6'
 import Link from 'next/link'
+
+import { CategoryTag, DueDateTag, PriorityTag, ProgressTag } from './CardTags'
 
 import routesMap from '@/resources/routesMap'
 import { statusInfo, prioritiesInfo } from '@/resources/locale'
@@ -14,6 +16,19 @@ export function GeneralCardContainer({ children, path = '', title, _query = null
 			</Link>
 			{children}
 		</div>
+	)
+}
+
+export function _GeneralCard({ noteInfo, categoryTitle }) {
+	const notePath = `${routesMap.notes.base}/${noteInfo.id}`
+	const titleAbstract = noteInfo.title.length > 50 ? noteInfo.title.slice(0, 50) + '...' : noteInfo.title
+	const contentAbstract = noteInfo.innerContent.length > 150 ? noteInfo.innerContent.slice(0, 150) + '...' : noteInfo.innerContent
+	return (
+		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo }}>
+			<h3 className='note__title'>{noteInfo.title.length > 0 ? titleAbstract : 'Nota Sem Título'}</h3>
+			<p className='note__abstract'>{contentAbstract}</p>
+			{noteInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
+		</Link>
 	)
 }
 
@@ -33,17 +48,6 @@ export function CategoryCard({ categoryInfo }) {
 	return (
 		<GeneralCardContainer path={categoryPath} title={categoryInfo.title} _query={categoryInfo}>
 			{categoryInfo.description && <p>{categoryInfo.description.length > 55 ? categoryInfo.description.slice(0, 55) + '...' : categoryInfo.description}</p>}
-		</GeneralCardContainer>
-	)
-}
-
-export function NoteCard({ noteInfo }) {
-	const notePath = `${routesMap.notes}/${noteInfo.id}`
-	const abstract = noteInfo.content.length > 100 ? noteInfo.content.slice(0, 100) + '...' : noteInfo.content
-
-	return (
-		<GeneralCardContainer path={notePath} title={noteInfo.title} _query={noteInfo}>
-			<p>{abstract}</p>
 		</GeneralCardContainer>
 	)
 }
@@ -90,47 +94,15 @@ export function EventCard({ eventInfo, categoryTitle }) {
 	)
 }
 
-/* Tags */
-function TagContainer({ content, children }) {
+export function NoteCard({ noteInfo, categoryTitle }) {
+	const notePath = `${routesMap.notes.base}/${noteInfo.id}`
+	const titleAbstract = noteInfo.title.length > 50 ? noteInfo.title.slice(0, 50) + '...' : noteInfo.title
+	const contentAbstract = noteInfo.innerContent.length > 150 ? noteInfo.innerContent.slice(0, 150) + '...' : noteInfo.innerContent
 	return (
-		<div className='flex flex--row flex--center tag__container'>
-			{children}
-			<p className='tag__content'>{content}</p>
-		</div>
-	)
-}
-
-export function DueDateTag({ dueDate }) {
-	const formatted = dueDate.slice(0, (dueDate.length - 3))
-	return (
-		<TagContainer content={formatted}	>
-			<FaRegCalendarCheck className='tag__icon' />
-		</TagContainer>
-	)
-}
-
-export function CategoryTag({ categoryTitle }) {
-	return (
-		<TagContainer content={categoryTitle}	>
-			<FaHashtag className='tag__icon' />
-		</TagContainer>
-	)
-}
-
-export function ProgressTag({ statusCode }) {
-	const tagContent = statusInfo[statusCode].title
-	return (
-		<TagContainer content={tagContent}	>
-			<FaChartSimple className='tag__icon' />
-		</TagContainer>
-	)
-}
-
-export function PriorityTag({ priorityCode }) {
-	const tagContent = `${prioritiesInfo[priorityCode].title} (${prioritiesInfo[priorityCode].priorityLevel})`
-	return (
-		<TagContainer content={tagContent}>
-			<FaArrowUp19 className='tag__icon' />
-		</TagContainer>
+		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo}}>
+			<h3 className='note__title'>{noteInfo.title.length > 0 ? titleAbstract : 'Nota Sem Título'}</h3>
+			<p className='note__abstract'>{contentAbstract}</p>
+				{noteInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
+		</Link>
 	)
 }

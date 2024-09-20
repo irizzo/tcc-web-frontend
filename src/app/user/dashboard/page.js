@@ -18,9 +18,18 @@ import { GeneralInfo } from '@/components/Messages'
 export default function Contents() {
 	const [ categories, setCategories ] = useState({})
 	const [ taskList, setTaskList ] = useState([])
+<<<<<<< HEAD
 	const [ eventList, setEventList ] = useState([])
 	const [ isLoading, setIsLoading ] = useState(false)
 
+=======
+	const [ filteredTaskList, setFilteredTaskList ] = useState([])
+	const [ eventList, setEventList ] = useState([])
+	const [ filteredEventList, setFilteredEventList ] = useState([])
+	const [ isLoading, setIsLoading ] = useState(false)
+
+
+>>>>>>> f4732d2442797da7fb924aa5867765fa52699ef2
 	useEffect(() => {
 		const loadCategories = cache(async () => {
 			const res = await getAllCategoriesService()
@@ -78,9 +87,15 @@ export default function Contents() {
 			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
-						taskList.map((task) => {
-							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
-						})
+						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+				}
+			</Board>
+			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+				{
+					taskList && taskList.length > 0 ?
+						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
@@ -89,10 +104,15 @@ export default function Contents() {
 			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
 					eventList.length > 0 ?
-						eventList.map((event) => {
-							console.log('eventInfo: ', event)
-							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>
-						})
+						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
+				}
+			</Board>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+				{
+					eventList.length > 0 ?
+						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}

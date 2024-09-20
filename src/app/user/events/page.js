@@ -11,7 +11,7 @@ import { Board } from '@/components/Board'
 import { EventCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
-const eventList = []
+// const eventList = []
 
 export default function EventsPage() {
 	const [ eventList, setEventList ] = useState([])

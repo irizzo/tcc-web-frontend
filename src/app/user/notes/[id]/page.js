@@ -1,8 +1,11 @@
 'use client'
 
-import { updateEventService, deleteEventService } from '@/services/eventServices'
+import { updateNoteService, deleteNoteService } from '@/services/notesService'
 import { getAllCategoriesService } from '@/services/categoryServices'
 import { navigateTo } from '@/utils'
+import * as locale from '@/resources/locale'
+import { treatUpdatedNoteData, getCategoryTitle } from '@/utils/dataTreatments.utils'
+import routesMap from '@/resources/routesMap'
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -10,17 +13,12 @@ import { useRouter } from 'next/navigation'
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
-import * as locale from '@/resources/locale'
-import { treatUpdatedEventData, getCategoryTitle } from '@/utils/dataTreatments.utils'
-import routesMap from '@/resources/routesMap'
 
-export default function EventPage({ params, searchParams }) {
+export default function NotePage({ params, searchParams }) {
 	const router = useRouter()
 
 	const [ title, setTitle ] = useState(searchParams.title)
-	const [ description, setDescription ] = useState(searchParams.description)
-	const [ startDate, setStartDate ] = useState(searchParams.startDate)
-	const [ endDate, setEndDate ] = useState(searchParams.endDate)
+	const [ innerContent, setInnerContent ] = useState(searchParams.innerContent)
 	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
 
 	const [ editing, setEditing ] = useState(false)
@@ -28,6 +26,7 @@ export default function EventPage({ params, searchParams }) {
 	const [ categoriesList, setCategoriesList ] = useState([])
 
 	useEffect(() => {
+		// setEditing(false)
 		async function loadResources() {
 			setIsLoading(true)
 			const res = await getAllCategoriesService()
@@ -52,37 +51,31 @@ export default function EventPage({ params, searchParams }) {
 	function handleEditing() {
 		if (editing) {
 			setTitle(searchParams.title)
-			setDescription(searchParams.description)
-			setStartDate(searchParams.startDate)
-			setEndDate(searchParams.endDate)
+			setInnerContent(searchParams.innerContent)
 			setCategoryCode(searchParams.categoryCode)
-		} else {
-			setTitle('')
-			setDescription('')
-			setStartDate('')
-			setEndDate('')
-			setCategoryCode('')
-		} // TODO: tirar esse else para que as infos apareçam quando for editar
+		}
+		// } else {
+		// 	setTitle('')
+		// 	setInnerContent('')
+		// 	setCategoryCode('')
+		// }
 
 		setEditing(!editing)
 	}
 
-	async function handleEditEventForm(e) {
+	async function handleEditNoteForm(e) {
 		e.preventDefault()
 
 		try {
 			setIsLoading(true)
 			setEditing(false)
 
-			const updatedData = treatUpdatedEventData(searchParams, { title, description, startDate, endDate, categoryCode })
-			const res = await updateEventService(searchParams.id, updatedData)
+			const updatedData = treatUpdatedNoteData(searchParams, { title, innerContent, categoryCode })
+			const res = await updateNoteService(searchParams.id, updatedData)
 
-			if (!res.success) {
-				throw new Error(res.message)
-			} else {
-				setIsLoading(false)
-				navigateTo({ path: routesMap.events.base })
-			}
+			if (!res.success) throw new Error(res.message)
+
+			setIsLoading(false)
 
 		} catch (error) {
 			setIsLoading(false)
@@ -90,19 +83,19 @@ export default function EventPage({ params, searchParams }) {
 		}
 	};
 
-	async function handleDeleteEvent() {
+	async function handleDeleteNote() {
 		try {
 			setIsLoading(true)
 			setEditing(false)
 
-			const res = await deleteEventService(searchParams.id)
+			const res = await deleteNoteService(searchParams.id)
 
 			if (!res.success) {
 				throw new Error(res.message)
 			}
 
 			setIsLoading(false)
-			navigateTo({ path: routesMap.events.base })
+			navigateTo({ path: routesMap.notes.base })
 
 		} catch (error) {
 			setIsLoading(false)
@@ -112,30 +105,28 @@ export default function EventPage({ params, searchParams }) {
 
 	return (
 		<FormContainer
-			title={ locale.pagesTitles.events.view }
-			submitCallback={(e) => handleEditEventForm(e).then(router.refresh())}
+			title={locale.pagesTitles.notes.view}
+			submitCallback={(e) => handleEditNoteForm(e).then(router.refresh())}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
 				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
 			</FormSection>
 
-			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
-				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
+			<FormSection labelFor='inner-content' sectionTitle={locale.entitiesProperties.notes.innerContent}>
+				<textarea
+					name='inner-content'
+					readOnly={!editing}
+					value={innerContent}
+					placeholder={locale.entitiesProperties.notes.innerContent}
+					onChange={(e) => { setInnerContent(e.target.value) }}
+				/>
 			</FormSection>
 
 			{
 				editing ?
 					<>
-						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-							<input name='startDate' value={startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value) }}></input>
-						</FormSection>
-
-						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-							<input name='endDate' value={endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value) }}></input>
-						</FormSection>
-
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
+							<select name='category' value={categoryCode} onChange={(e) => { setCategoryCode(e.target.value) }}>
 								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
 								{categoriesList.length > 0 ?
@@ -149,19 +140,13 @@ export default function EventPage({ params, searchParams }) {
 								}
 							</select>
 						</FormSection>
+
+						<p>Obs: preencha apenas o que deseja alterar</p>
 					</>
 					:
 					<>
-						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-							<input name='startDate' readOnly value={startDate} type='text'></input>
-						</FormSection>
-
-						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-							<input name='endDate' readOnly value={endDate} type='text' ></input>
-						</FormSection>
-
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList)} type='text'></input>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList) ?? locale.formDefaults.category } type='text'></input>
 						</FormSection>
 					</>
 			}
@@ -183,7 +168,7 @@ export default function EventPage({ params, searchParams }) {
 
 				<DangerButton
 					title={locale.actionsTitles.delete}
-					onClickFunction={() => { handleDeleteEvent() }}
+					onClickFunction={() => { handleDeleteNote() }}
 				/>
 			</div>
 		</FormContainer>
