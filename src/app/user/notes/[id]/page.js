@@ -1,6 +1,6 @@
 'use client'
 
-import {  } from '@/services/notesService'
+import { updateNoteService, deleteNoteService } from '@/services/notesService'
 import { getAllCategoriesService } from '@/services/categoryServices'
 import { navigateTo } from '@/utils'
 import * as locale from '@/resources/locale'
@@ -17,14 +17,16 @@ import { DefaultButton, DangerButton } from '@/components/Buttons'
 export default function NotePage({ params, searchParams }) {
 	const router = useRouter()
 
-	const [ title, setTitle ] = useState('')
-	const [ innerContent, setInnerContent ] = useState('')
-	const [ categoryCode, setCategoryCode ] = useState('')
+	const [ title, setTitle ] = useState(searchParams.title)
+	const [ innerContent, setInnerContent ] = useState(searchParams.innerContent)
+	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
 
-	const [ categoriesList, setCategoriesList ] = useState(false)
-	const [ isLoading, setIsLoading ] = useState(true)
+	const [ editing, setEditing ] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(false)
+	const [ categoriesList, setCategoriesList ] = useState([])
 
 	useEffect(() => {
+		// setEditing(false)
 		async function loadResources() {
 			setIsLoading(true)
 			const res = await getAllCategoriesService()
@@ -51,13 +53,12 @@ export default function NotePage({ params, searchParams }) {
 			setTitle(searchParams.title)
 			setInnerContent(searchParams.innerContent)
 			setCategoryCode(searchParams.categoryCode)
-		} else {
-			setTitle('')
-			setInnerContent('')
-			setStartDate('')
-			setEndDate('')
-			setCategoryCode('')
 		}
+		// } else {
+		// 	setTitle('')
+		// 	setInnerContent('')
+		// 	setCategoryCode('')
+		// }
 
 		setEditing(!editing)
 	}
@@ -72,12 +73,9 @@ export default function NotePage({ params, searchParams }) {
 			const updatedData = treatUpdatedNoteData(searchParams, { title, innerContent, categoryCode })
 			const res = await updateNoteService(searchParams.id, updatedData)
 
-			if (!res.success) {
-				throw new Error(res.message)
-			} else {
-				setIsLoading(false)
-				navigateTo({ path: routesMap.notes.base })
-			}
+			if (!res.success) throw new Error(res.message)
+
+			setIsLoading(false)
 
 		} catch (error) {
 			setIsLoading(false)
@@ -111,18 +109,24 @@ export default function NotePage({ params, searchParams }) {
 			submitCallback={(e) => handleEditNoteForm(e).then(router.refresh())}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
-				<input id='title' name='title' type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
+				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
 			</FormSection>
 
-			<FormSection labelFor='inner-content' sectionTitle={locale.entitiesProperties.notes.innerContent + ' *'}>
-				<textarea id='inner-content' name='inner-content' required placeholder={locale.entitiesProperties.notes.innerContent} onChange={(e) => { setInnerContent(e.target.value) }}></textarea>
+			<FormSection labelFor='inner-content' sectionTitle={locale.entitiesProperties.notes.innerContent}>
+				<textarea
+					name='inner-content'
+					readOnly={!editing}
+					value={innerContent}
+					placeholder={locale.entitiesProperties.notes.innerContent}
+					onChange={(e) => { setInnerContent(e.target.value) }}
+				/>
 			</FormSection>
 
 			{
 				editing ?
 					<>
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
+							<select name='category' value={categoryCode} onChange={(e) => { setCategoryCode(e.target.value) }}>
 								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
 								{categoriesList.length > 0 ?
@@ -136,11 +140,13 @@ export default function NotePage({ params, searchParams }) {
 								}
 							</select>
 						</FormSection>
+
+						<p>Obs: preencha apenas o que deseja alterar</p>
 					</>
 					:
 					<>
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList)} type='text'></input>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList) ?? locale.formDefaults.category } type='text'></input>
 						</FormSection>
 					</>
 			}

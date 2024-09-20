@@ -62,7 +62,7 @@ export default function EventPage({ params, searchParams }) {
 			setStartDate('')
 			setEndDate('')
 			setCategoryCode('')
-		}
+		} // TODO: tirar esse else para que as infos apareçam quando for editar
 
 		setEditing(!editing)
 	}

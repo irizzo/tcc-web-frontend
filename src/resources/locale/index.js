@@ -204,7 +204,7 @@ export const actionsTitles = {
 
 export const appInfo = {
 	name: 'Daily Life',
-	description: 'Descrição do Produto'
+	description: 'Ferramenta de organização pessoal focada em estudantes do ensino superior para melhorar sua produtividade.'
 }
 
 export const notFoundDefaults = {

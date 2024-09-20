@@ -52,6 +52,8 @@ exports.getCategoryTitle = (categoryCode, categoriesList) => {
 		}
 	})
 
+	if (categoryTitle === '') return null
+
 	return categoryTitle
 }
 

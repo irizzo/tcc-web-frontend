@@ -4,7 +4,7 @@ import { UserAccessStateProvider } from '@/hooks'
 
 import { Raleway } from 'next/font/google'
 
-const raleway = Raleway({ subsets: [ 'latin' ], variable: 'raleway-font' })
+const raleway = Raleway({ subsets: [ 'latin' ], variable: '--raleway-font', display: 'swap' })
 
 export const metadata = {
 	title: 'Todo List',
