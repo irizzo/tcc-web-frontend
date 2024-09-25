@@ -18,12 +18,18 @@ import { GeneralInfo } from '@/components/Messages'
 export default function Contents() {
 	const [ categories, setCategories ] = useState({})
 	const [ taskList, setTaskList ] = useState([])
+<<<<<<< HEAD
+	const [ eventList, setEventList ] = useState([])
+	const [ isLoading, setIsLoading ] = useState(false)
+
+=======
 	const [ filteredTaskList, setFilteredTaskList ] = useState([])
 	const [ eventList, setEventList ] = useState([])
 	const [ filteredEventList, setFilteredEventList ] = useState([])
 	const [ isLoading, setIsLoading ] = useState(false)
 
 
+>>>>>>> f4732d2442797da7fb924aa5867765fa52699ef2
 	useEffect(() => {
 		const loadCategories = cache(async () => {
 			const res = await getAllCategoriesService()
