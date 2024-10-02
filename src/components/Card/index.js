@@ -53,7 +53,7 @@ export function CategoryCard({ categoryInfo }) {
 }
 
 export function TaskCard({ taskInfo, categoryTitle }) {
-	console.log('categoryTitle: ', categoryTitle)
+	// console.log('categoryTitle: ', categoryTitle)
 
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`
 	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate || taskInfo.priorityCode || taskInfo.statusCode) ? true : false
@@ -76,7 +76,7 @@ export function TaskCard({ taskInfo, categoryTitle }) {
 }
 
 export function EventCard({ eventInfo, categoryTitle }) {
-	console.log('categoryTitle: ', categoryTitle)
+	// console.log('categoryTitle: ', categoryTitle)
 
 	const eventPath = `${routesMap.events.base}/${eventInfo.id}`
 	return (

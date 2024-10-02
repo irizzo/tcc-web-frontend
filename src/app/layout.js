@@ -1,10 +1,9 @@
-import '@/styles/global.scss'
-
-import { UserAccessStateProvider } from '@/hooks'
+import { UserProviders } from '@/hooks'
 
 import { Raleway } from 'next/font/google'
-
 const raleway = Raleway({ subsets: [ 'latin' ], variable: '--raleway-font', display: 'swap' })
+
+import '@/styles/global.scss'
 
 export const metadata = {
 	title: 'Todo List',
@@ -15,9 +14,9 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="pt-br" className={raleway.className}>
 			<body className={raleway.className}>
-				<UserAccessStateProvider>
+				<UserProviders>
 					{children}
-				</UserAccessStateProvider>
+				</UserProviders>
 			</body>
 		</html>
 	)
