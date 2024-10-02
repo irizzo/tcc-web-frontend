@@ -1,14 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Link from 'next/link'
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck } from 'react-icons/fa6'
 
+import { UserInfoContext } from '@/hooks'
+
 import { clearTokenCookie, navigateTo } from '@/utils'
 import routesMap from '@/resources/routesMap'
 import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale'
-import { listUserInfo } from '@/services/userServices'
+import { getUserInfo } from '@/services/userServices'
 
 import Loading from '@/components/Loading'
 import './sideBar.scss'
@@ -18,27 +20,9 @@ export default function SideBar() {
 	const weekday = currentDate.getDay()
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
 
+	const { userInfo } = useContext(UserInfoContext)
+
 	const [ isLoading, setIsLoading ] = useState(false)
-	const [ userName, setUserName ] = useState('')
-
-	useEffect(() => {
-		async function loadUserInfo() {
-			setIsLoading(true)
-
-			const res = await listUserInfo()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			const userFullName = `${res.result.firstName} ${res.result.lastName}`
-
-			setUserName(userFullName)
-			setIsLoading(false)
-		}
-
-		loadUserInfo()
-	}, [])
 
 	return (
 		<nav className='flex'>
@@ -48,7 +32,7 @@ export default function SideBar() {
 					:
 					(<>
 						<header className='sidebar__header'>
-							<h1 className='header__title'>{userName}</h1>
+							<h1 className='header__title'>{`${userInfo.data.firstName} ${userInfo.data.lastName}`}</h1>
 							<p className='header__subtitle'>{today}</p>
 						</header>
 

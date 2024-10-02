@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-// import { unstable_cache } from 'next/cache'
+import { useEffect, useState, useContext } from 'react'
+import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext } from '@/hooks'
+
 import { cache } from 'react'
 
 import * as locale from '@/resources/locale'
@@ -21,8 +22,13 @@ export default function Contents() {
 	const [ filteredTaskList, setFilteredTaskList ] = useState([])
 	const [ eventList, setEventList ] = useState([])
 	const [ filteredEventList, setFilteredEventList ] = useState([])
-	const [ isLoading, setIsLoading ] = useState(false)
+	// const { userInfo, setUserInfo } = useContext(UserInfoContext)
+	// const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	// const { userTasks, setUserTasks } = useContext(UserTasksContext)
+	// const { userEvents, setUserEvents } = useContext(UserEventsContext)
+	// const { userNotes, setUserNotes } = useContext(UserNotesContext)
 
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	useEffect(() => {
 		const loadCategories = cache(async () => {

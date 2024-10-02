@@ -1,27 +1,18 @@
-'use client';
+'use client'
 
-import verifyUserAuth from '@/utils/verifyUserAuth';
+import verifyUserAuth from '@/utils/verifyUserAuth'
 
-import { useContext, useCallback, useEffect } from 'react';
-import { UserAccessStateContext } from '@/hooks';
+import { useContext, useCallback, useEffect } from 'react'
+import { UserAccessStateContext } from '@/hooks'
 
-import './generalPages.scss';
+import './generalPages.scss'
 
-import SideBar from '@/components/SideBar';
-import Menu from '@/components/Menu';
-import { DashboardPageContainer, DefaultPageContainer } from '@/components/PageContainer';
+import SideBar from '@/components/SideBar'
+import Menu from '@/components/Menu'
+import { DashboardPageContainer, DefaultPageContainer } from '@/components/PageContainer'
 
 export default function GeneralPagesLayout({ children }) {
-	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext);
-
-	// const isUserLogged = useCallback(
-	// 	async () => { verifyUserAuth(userAccessState, setUserAccessState); },
-	// 	[ setUserAccessState, userAccessState ]
-	// );
-
-	// useEffect(() => {
-	// 	isUserLogged();
-	// }, [ isUserLogged ]);
+	const { userAccessState } = useContext(UserAccessStateContext)
 
 	if (userAccessState) {
 		return (
@@ -31,7 +22,7 @@ export default function GeneralPagesLayout({ children }) {
 					{children}
 				</main>
 			</DashboardPageContainer>
-		);
+		)
 	} else {
 		return (
 			<DefaultPageContainer>
@@ -40,6 +31,6 @@ export default function GeneralPagesLayout({ children }) {
 					{children}
 				</main>
 			</DefaultPageContainer>
-		);
+		)
 	}
 }

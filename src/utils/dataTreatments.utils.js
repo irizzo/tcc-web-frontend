@@ -4,7 +4,6 @@ function formatDateString(dateString) {
 	return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}T${splitDateTime[1]}`
 }
 
-
 exports.treatUpdatedTaskData = (initialData, newData) => {
 	const treatedData = {}
 
