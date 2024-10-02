@@ -17,11 +17,11 @@ import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
 export default function Contents() {
-	const [ categories, setCategories ] = useState({})
-	const [ taskList, setTaskList ] = useState([])
-	const [ filteredTaskList, setFilteredTaskList ] = useState([])
-	const [ eventList, setEventList ] = useState([])
-	const [ filteredEventList, setFilteredEventList ] = useState([])
+	// const [ categories, setCategories ] = useState({})
+	// const [ taskList, setTaskList ] = useState([])
+	// const [ filteredTaskList, setFilteredTaskList ] = useState([])
+	// const [ eventList, setEventList ] = useState([])
+	// const [ filteredEventList, setFilteredEventList ] = useState([])
 	// const { userInfo, setUserInfo } = useContext(UserInfoContext)
 	// const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	// const { userTasks, setUserTasks } = useContext(UserTasksContext)
@@ -30,61 +30,62 @@ export default function Contents() {
 
 	const [ isLoading, setIsLoading ] = useState(false)
 
-	useEffect(() => {
-		const loadCategories = cache(async () => {
-			const res = await getAllCategoriesService()
-			if (!res.success) {
-				throw new Error(res.message)
-			}
+	// useEffect(() => {
+	// 	const loadCategories = cache(async () => {
+	// 		const res = await getAllCategoriesService()
+	// 		if (!res.success) {
+	// 			throw new Error(res.message)
+	// 		}
 
-			const categoriesList = [ ...res.result ]
-			let aux = {}
+	// 		const categoriesList = [ ...res.result ]
+	// 		let aux = {}
 
-			categoriesList.forEach((category) => {
-				aux[category.code] = category.title
-			})
+	// 		categoriesList.forEach((category) => {
+	// 			aux[category.code] = category.title
+	// 		})
 
-			setCategories(aux)
-		})
+	// 		setCategories(aux)
+	// 	})
 
-		async function loadTasks() {
-			setIsLoading(true)
-			const res = await listAllTasksService()
+	// 	async function loadTasks() {
+	// 		setIsLoading(true)
+	// 		const res = await listAllTasksService()
 
-			if (!res.success) {
-				throw new Error(res.message)
-			}
+	// 		if (!res.success) {
+	// 			throw new Error(res.message)
+	// 		}
 
-			setTaskList([ ...res.result ])
-			setIsLoading(false)
-		}
+	// 		setTaskList([ ...res.result ])
+	// 		setIsLoading(false)
+	// 	}
 
-		async function loadEvents() {
-			setIsLoading(true)
-			const res = await getAllEventsService()
+	// 	async function loadEvents() {
+	// 		setIsLoading(true)
+	// 		const res = await getAllEventsService()
 
-			if (!res.success) {
-				throw new Error(res.message)
-			}
+	// 		if (!res.success) {
+	// 			throw new Error(res.message)
+	// 		}
 
-			setEventList([ ...res.result ])
-			setIsLoading(false)
-		}
-		try {
-			loadCategories()
-			loadTasks()
-			loadEvents()
-		} catch (error) {
-			console.log('error useEffect: ', error)
-			alert(error)
-		}
-	}, [])
+	// 		setEventList([ ...res.result ])
+	// 		setIsLoading(false)
+	// 	}
+	// 	try {
+	// 		loadCategories()
+	// 		loadTasks()
+	// 		loadEvents()
+	// 	} catch (error) {
+	// 		console.log('error useEffect: ', error)
+	// 		alert(error)
+	// 	}
+	// }, [])
 
 	if (isLoading) return <Loading />
 
 	return (
 		<>
-			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+			<h1>dashboard</h1>
+			{/* <Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
 				{
 					taskList && taskList.length > 0 ?
 						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
@@ -116,7 +117,7 @@ export default function Contents() {
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
-			</Board>
+			</Board> */}
 		</>
 	)
 }
