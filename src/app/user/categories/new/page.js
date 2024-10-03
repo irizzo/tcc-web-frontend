@@ -1,17 +1,20 @@
 'use client'
 
 import { navigateTo } from '@/utils'
-import { createCategoryService } from '@/services/categoryServices'
+import { createCategoryService, getAllCategoriesService } from '@/services/categoryServices'
 import { pagesTitles, entitiesProperties, actionsTitles } from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserCategoriesContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton } from '@/components/Buttons'
 
 export default function NewCategory() {
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+
 	const [ categoryTitle, setCategoryTitle ] = useState('')
 	const [ categoryDescription, setCategoryDescription ] = useState('')
 
@@ -22,7 +25,7 @@ export default function NewCategory() {
 		try {
 			e.preventDefault()
 
-			// setIsLoading(true);
+			setIsLoading(true)
 
 			// TODO: sanitize
 			const cleanData = {
@@ -33,12 +36,12 @@ export default function NewCategory() {
 			const res = await createCategoryService(cleanData)
 
 			if (!res.success) {
-				// console.log('[handleNewCategoryForm] !success | message: ', res.message);
 				setIsLoading(false)
 				alert(res.message)
 
 			} else {
-				// console.log('[handleNewCategoryForm] sucesso');
+				const categoriesRes = await getAllCategoriesService()
+				setUserCategories({ categoriesList: categoriesRes.result, updatedAt: new Date() })
 				setIsLoading(false)
 				navigateTo({ path: routesMap.categories.base })
 			}

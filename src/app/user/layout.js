@@ -22,7 +22,7 @@ export default function UserPagesLayout({ children }) {
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 
-	const [ isLoading, setIsLoading ] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
 		async function loadUserInfo() {
@@ -72,7 +72,6 @@ export default function UserPagesLayout({ children }) {
 
 		try {
 			console.log('load resources')
-			setIsLoading(true)
 			loadUserInfo()
 			loadCategories()
 			loadTasks()
@@ -83,7 +82,7 @@ export default function UserPagesLayout({ children }) {
 			alert(error)
 		}
 
-	}, [ ])
+	}, [])
 
 	if (isLoading) return <Loading />
 
