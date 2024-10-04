@@ -54,7 +54,7 @@ export const entitiesProperties = {
 	general: {
 		dueDate: 'Prazo',
 		category: 'Categoria',
-		toDoDate: 'Agendar Para',
+		schedueledDate: 'Agendar Para',
 		title: 'Título',
 		description: 'Descrição'
 	},
@@ -213,13 +213,17 @@ export const notFoundDefaults = {
 	contents: 'Nenhum conteúdo disponível',
 	events: 'Nenhum evento encontrado',
 	notes: 'Nenhuma anotação encontrada',
-	tasks: 'Nenhuma tarefa encontrada'
+	tasks: 'Nenhuma tarefa encontrada',
+	today: 'Nada para hoje',
+	thisWeek: 'Nada nesta semana'
 }
 
 export const groupDataByTitle = {
 	all: 'Todos',
 	dueSoon: 'Prazo Próximo',
-	pastDue: 'Prazo esgotado'
+	pastDue: 'Prazo esgotado',
+	today: 'Hoje',
+	thisWeek: ' Nesta Semana'
 }
 
 export const messagesTitles = {

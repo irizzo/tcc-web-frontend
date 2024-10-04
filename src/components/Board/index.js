@@ -8,13 +8,14 @@ export function Board({ title, children, path }) {
 		<div className='flex board__container'>
 			<header className="flex flex--row board__header">
 				<h2 className='header__title'>{title}</h2>
-				<Link className='flex flex--center header__button' href={path}>
+				{path && <Link className='flex flex--center header__button' href={path}>
 					<i><FaPlus className='header__button__icon' /></i>
-				</Link>
+				</Link>}
+
 			</header>
 			<div className='board__list'>
 				{children}
 			</div>
 		</div>
-	);
+	)
 }
