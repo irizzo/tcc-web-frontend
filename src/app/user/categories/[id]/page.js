@@ -6,7 +6,6 @@ import { getAllCategoriesService, deleteCategoryService, updateCategoryService }
 
 import { useState, useContext } from 'react'
 import { UserCategoriesContext } from '@/hooks'
-import { useRouter } from 'next/navigation'
 
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
