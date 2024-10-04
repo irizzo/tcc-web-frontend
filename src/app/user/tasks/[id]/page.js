@@ -21,7 +21,7 @@ export default function TaskPage({ params, searchParams }) {
 	const [ title, setTitle ] = useState(searchParams.title)
 	const [ description, setDescription ] = useState(searchParams.description)
 	const [ dueDate, setDueDate ] = useState(searchParams.dueDate)
-	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate)
+	const [ schedueledDate, setSchedueledDate ] = useState(searchParams.schedueledDate)
 	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode)
 	const [ statusCode, setStatusCode ] = useState(searchParams.statusCode)
 	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
@@ -43,7 +43,7 @@ export default function TaskPage({ params, searchParams }) {
 			setCategoryCode(searchParams.categoryCode)
 			setPriorityCode(searchParams.priorityCode)
 			setStatusCode(searchParams.statusCode)
-			setToDoDate(searchParams.toDoDate)
+			setSchedueledDate(searchParams.schedueledDate)
 		}
 
 		setEditing(!editing)
@@ -56,7 +56,7 @@ export default function TaskPage({ params, searchParams }) {
 			setIsLoading(true)
 			setEditing(false)
 
-			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, toDoDate })
+			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, schedueledDate })
 			const res = await updateTaskService(searchParams.id, updatedData)
 
 			if (!res.success) {
@@ -118,8 +118,8 @@ export default function TaskPage({ params, searchParams }) {
 							<input name='dueDate' value={dueDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value) }}></input>
 						</FormSection>
 
-						<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-							<input name='toDoDate' value={toDoDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value) }}></input>
+						<FormSection labelFor='schedueledDate' sectionTitle={locale.entitiesProperties.general.schedueledDate}>
+							<input name='schedueledDate' value={schedueledDate} type='datetime-local' onChange={(e) => { setSchedueledDate(e.target.value) }}></input>
 						</FormSection>
 
 						<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>
@@ -162,8 +162,8 @@ export default function TaskPage({ params, searchParams }) {
 							<input name='dueDate' readOnly value={dueDate} type='text'></input>
 						</FormSection>
 
-						<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-							<input name='toDoDate' readOnly value={toDoDate} type='text'></input>
+						<FormSection labelFor='schedueledDate' sectionTitle={locale.entitiesProperties.general.schedueledDate}>
+							<input name='schedueledDate' readOnly value={schedueledDate} type='text'></input>
 						</FormSection>
 
 						<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>

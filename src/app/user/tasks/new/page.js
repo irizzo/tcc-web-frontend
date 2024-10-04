@@ -21,7 +21,7 @@ export default function NewTask() {
 	const [ dueDate, setDueDate ] = useState('')
 	const [ categoryCode, setCategoryCode ] = useState('')
 	const [ priorityCode, setPriorityCode ] = useState('')
-	const [ toDoDate, setToDoDate ] = useState('')
+	const [ schedueledDate, setSchedueledDate ] = useState('')
 
 	const [ isLoading, setIsLoading ] = useState(false)
 
@@ -37,7 +37,7 @@ export default function NewTask() {
 				dueDate: formData.dueDate === '' ? null : formData.dueDate,
 				categoryCode: formData.categoryCode === '' ? null : formData.categoryCode,
 				priorityCode: formData.priorityCode === '' ? null : formData.priorityCode,
-				toDoDate: formData.toDoDate === '' ? null : formData.toDoDate
+				schedueledDate: formData.schedueledDate === '' ? null : formData.schedueledDate
 			}
 
 			const res = await createTaskService(cleanData)
@@ -65,7 +65,7 @@ export default function NewTask() {
 	return (
 		<FormContainer
 			title={locale.pagesTitles.tasks.new}
-			submitCallback={(e) => handleSubmit(e, { title, description, dueDate, categoryCode, priorityCode, toDoDate })}
+			submitCallback={(e) => handleSubmit(e, { title, description, dueDate, categoryCode, priorityCode, schedueledDate })}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title + ' *'}>
 				<input id='title' name='title' type='text' required placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
@@ -79,8 +79,8 @@ export default function NewTask() {
 				<input id='dueDate' name='dueDate' type='datetime-local' onChange={(e) => { setDueDate(e.target.value) }}></input>
 			</FormSection>
 
-			<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-				<input id='toDoDate' name='toDoDate' type='datetime-local' onChange={(e) => { setToDoDate(e.target.value) }}></input>
+			<FormSection labelFor='schedueledDate' sectionTitle={locale.entitiesProperties.general.schedueledDate}>
+				<input id='schedueledDate' name='schedueledDate' type='datetime-local' onChange={(e) => { setSchedueledDate(e.target.value) }}></input>
 			</FormSection>
 
 			<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>

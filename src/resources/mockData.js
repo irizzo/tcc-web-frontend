@@ -6,7 +6,7 @@ export const taskList = [
 		dueDate: '10/05/2024', // new Date('2024-05-01T14:48:00.000-03:00'),
 		categoryCode: 'ACADEMIC',
 		priorityCode: 'QUADRANT_TWO',
-		toDoDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
+		schedueledDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
 	},
 
 	{
@@ -16,7 +16,7 @@ export const taskList = [
 		dueDate: '10/05/2024', // new Date('2024-05-01T14:48:00.000-03:00'),
 		categoryCode: '',
 		priorityCode: 'QUADRANT_TWO',
-		toDoDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
+		schedueledDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
 	},
 
 	{
@@ -26,7 +26,7 @@ export const taskList = [
 		dueDate: '10/05/2024', // new Date('2024-05-01T14:48:00.000-03:00'),
 		categoryCode: '',
 		priorityCode: 'QUADRANT_TWO',
-		toDoDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
+		schedueledDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
 	},
 	{
 		id: 'random4',
@@ -35,7 +35,7 @@ export const taskList = [
 		dueDate: '10/05/2024', // new Date('2024-05-01T14:48:00.000-03:00'),
 		categoryCode: 'A',
 		priorityCode: 'QUADRANT_TWO',
-		toDoDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
+		schedueledDate: '10/05/2024' // new Date('2024-05-01T14:48:00.000-03:00')
 	}
 ];
 

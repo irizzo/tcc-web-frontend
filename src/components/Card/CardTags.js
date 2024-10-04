@@ -13,7 +13,7 @@ function TagContainer({ content, children }) {
 }
 
 export function DueDateTag({ dueDate }) {
-	const formatted = dueDate.slice(0, (dueDate.length - 3))
+	const formatted = dueDate.toLocaleString().slice(0, (dueDate.length - 3))
 	return (
 		<TagContainer content={formatted}	>
 			<FaRegCalendarCheck className='tag__icon' />

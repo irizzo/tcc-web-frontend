@@ -1,123 +1,145 @@
 'use client'
 
-import { useEffect, useState, useContext } from 'react'
-import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext } from '@/hooks'
-
-import { cache } from 'react'
-
-import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
 import { getAllEventsService } from '@/services/eventServices'
 import { listAllTasksService } from '@/services/taskServices'
 import { getAllCategoriesService } from '@/services/categoryServices'
+
+import { useEffect, useState, useContext } from 'react'
+import { UserCategoriesContext, UserTasksContext, UserEventsContext } from '@/hooks'
+
+import * as locale from '@/resources/locale'
+import routesMap from '@/resources/routesMap'
 
 import Loading from '@/components/Loading'
 import { Board } from '@/components/Board'
 import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
+import { groupTasksByDate, groupEventsByDate } from '@/utils/groupData.utils'
 
 export default function Contents() {
-	// const [ categories, setCategories ] = useState({})
-	// const [ taskList, setTaskList ] = useState([])
-	// const [ filteredTaskList, setFilteredTaskList ] = useState([])
-	// const [ eventList, setEventList ] = useState([])
-	// const [ filteredEventList, setFilteredEventList ] = useState([])
-	// const { userInfo, setUserInfo } = useContext(UserInfoContext)
-	// const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
-	// const { userTasks, setUserTasks } = useContext(UserTasksContext)
-	// const { userEvents, setUserEvents } = useContext(UserEventsContext)
-	// const { userNotes, setUserNotes } = useContext(UserNotesContext)
+	const [categories, setCategories] = useState({})
+	const [today, setToday] = useState({ tasks: [], events: [] })
+	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
+	const [otherTasks, setOtherTasks] = useState([])
+	const [otherEvents, setOtherEvents] = useState([])
 
-	const [ isLoading, setIsLoading ] = useState(false)
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userTasks, setUserTasks } = useContext(UserTasksContext)
+	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
-	// useEffect(() => {
-	// 	const loadCategories = cache(async () => {
-	// 		const res = await getAllCategoriesService()
-	// 		if (!res.success) {
-	// 			throw new Error(res.message)
-	// 		}
+	const [isLoading, setIsLoading] = useState(false)
 
-	// 		const categoriesList = [ ...res.result ]
-	// 		let aux = {}
+	useEffect(() => {
+		if (userCategories.categoriesList === null || userTasks.tasksList === null || userEvents.eventsList === null) {
+			setIsLoading(true)
+			setTimeout(() => { }, 2000)
+		}
 
-	// 		categoriesList.forEach((category) => {
-	// 			aux[category.code] = category.title
-	// 		})
+		let aux = {}
+		userCategories.categoriesList.forEach((category) => {
+			aux[category.code] = category.title
+		})
+		setCategories(aux)
 
-	// 		setCategories(aux)
-	// 	})
+		const sortedTasks = groupTasksByDate(userTasks.tasksList)
+		const sortedEvents = groupEventsByDate(userEvents.eventsList)
 
-	// 	async function loadTasks() {
-	// 		setIsLoading(true)
-	// 		const res = await listAllTasksService()
+		setToday({ tasks: sortedTasks.todaysTasks, events: sortedEvents.todaysEvents })
+		setWithinAWeek({ tasks: sortedTasks.withinAWeekTasks, events: sortedEvents.withinAWeekEvents })
+		setOtherTasks([...sortedTasks.otherTasks])
+		setOtherEvents([...sortedEvents.otherEvents])
 
-	// 		if (!res.success) {
-	// 			throw new Error(res.message)
-	// 		}
-
-	// 		setTaskList([ ...res.result ])
-	// 		setIsLoading(false)
-	// 	}
-
-	// 	async function loadEvents() {
-	// 		setIsLoading(true)
-	// 		const res = await getAllEventsService()
-
-	// 		if (!res.success) {
-	// 			throw new Error(res.message)
-	// 		}
-
-	// 		setEventList([ ...res.result ])
-	// 		setIsLoading(false)
-	// 	}
-	// 	try {
-	// 		loadCategories()
-	// 		loadTasks()
-	// 		loadEvents()
-	// 	} catch (error) {
-	// 		console.log('error useEffect: ', error)
-	// 		alert(error)
-	// 	}
-	// }, [])
+		setIsLoading(false)
+	}, [])
 
 	if (isLoading) return <Loading />
 
+	function TodayBoardContent() {
+		return (
+			<>
+				{
+					today.events && today.events.length > 0 ?
+						today.events.map((event) => {
+							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />
+						})
+						:
+						null
+				}
+				{
+					today.tasks && today.tasks.length > 0 ?
+						today.tasks.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
+						})
+						:
+						null
+				}
+			</>
+		)
+	}
+
+	function ThisWeekBoardContent() {
+		return (
+			<>
+				{
+					withinAWeek.events && withinAWeek.events.length > 0 ?
+						withinAWeek.events.map((event) => {
+							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />
+						})
+						:
+						null
+				}
+				{
+					withinAWeek.tasks && withinAWeek.tasks.length > 0 ?
+						withinAWeek.tasks.map((task) => {
+							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
+						})
+						:
+						null
+				}
+			</>
+		)
+	}
+
 	return (
 		<>
-			<h1>dashboard</h1>
-			{/* <Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+			{console.log('today: ', today)}
+			{console.log('withinAWeek: ', withinAWeek)}
+
+			<Board title={locale.groupDataByTitle.today} path={null}>
 				{
-					taskList && taskList.length > 0 ?
-						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+					today.events && today.events.length > 0 || today.tasks && today.tasks.length > 0 ?
+						<TodayBoardContent />
 						:
-						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.today} />
 				}
 			</Board>
-			<Board title={locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+
+			<Board title={locale.groupDataByTitle.thisWeek} path={null}>
 				{
-					taskList && taskList.length > 0 ?
-						taskList.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+					withinAWeek.events && withinAWeek.events.length > 0 || withinAWeek.tasks && withinAWeek.tasks.length > 0 ?
+						<ThisWeekBoardContent />
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.thisWeek} />
+				}
+			</Board>
+
+			<Board title={'Mais ' + locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+				{
+					otherTasks && otherTasks.length > 0 ?
+						otherTasks.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}
 			</Board>
 
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={'Mais ' + locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					eventList.length > 0 ?
-						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]}/>)
+					otherEvents && otherEvents.length > 0 ?
+						otherEvents.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
-				{
-					eventList.length > 0 ?
-						eventList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
-						:
-						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
-				}
-			</Board> */}
 		</>
 	)
 }

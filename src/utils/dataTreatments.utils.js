@@ -1,8 +1,4 @@
-function formatDateString(dateString) {
-	const splitDateTime = dateString.split(', ')
-	const splitDate = splitDateTime[0].split('/')
-	return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}T${splitDateTime[1]}`
-}
+import { formatDateString } from './date.utils'
 
 exports.treatUpdatedTaskData = (initialData, newData) => {
 	const treatedData = {}
@@ -12,7 +8,7 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null
 	treatedData.priorityCode = (newData.priorityCode && initialData.priorityCode !== newData.priorityCode) ? newData.priorityCode : null
 	treatedData.statusCode = (newData.statusCode && initialData.statusCode !== newData.statusCode) ? newData.statusCode : null
-	treatedData.toDoDate = (newData.toDoDate && new Date(formatDateString(initialData.toDoDate)).getTime() !== new Date(newData.toDoDate).getTime()) ? newData.toDoDate : null
+	treatedData.schedueledDate = (newData.schedueledDate && new Date(formatDateString(initialData.schedueledDate)).getTime() !== new Date(newData.schedueledDate).getTime()) ? newData.schedueledDate : null
 	treatedData.dueDate = (newData.dueDate && new Date(formatDateString(initialData.dueDate)).getTime() !== new Date(newData.dueDate).getTime()) ? newData.dueDate : null
 
 	return treatedData
