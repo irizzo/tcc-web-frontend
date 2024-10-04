@@ -1,21 +1,22 @@
 'use client'
 
-import { updateEventService, deleteEventService } from '@/services/eventServices'
-import { getAllCategoriesService } from '@/services/categoryServices'
+import { getAllEventsService, updateEventService, deleteEventService } from '@/services/eventServices'
 import { navigateTo } from '@/utils'
+import { treatUpdatedEventData, getCategoryTitle } from '@/utils/dataTreatments.utils'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useContext } from 'react'
+import { UserCategoriesContext, UserEventsContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
+
 import * as locale from '@/resources/locale'
-import { treatUpdatedEventData, getCategoryTitle } from '@/utils/dataTreatments.utils'
 import routesMap from '@/resources/routesMap'
 
 export default function EventPage({ params, searchParams }) {
-	const router = useRouter()
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
 	const [ title, setTitle ] = useState(searchParams.title)
 	const [ description, setDescription ] = useState(searchParams.description)
@@ -25,29 +26,6 @@ export default function EventPage({ params, searchParams }) {
 
 	const [ editing, setEditing ] = useState(false)
 	const [ isLoading, setIsLoading ] = useState(false)
-	const [ categoriesList, setCategoriesList ] = useState([])
-
-	useEffect(() => {
-		async function loadResources() {
-			setIsLoading(true)
-			const res = await getAllCategoriesService()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setCategoriesList([ ...res.result ])
-			setIsLoading(false)
-		}
-
-		loadResources()
-
-		if (editing) {
-			loadResources()
-		}
-	}, [ editing ])
-
-	if (isLoading) return <Loading />
 
 	function handleEditing() {
 		if (editing) {
@@ -56,13 +34,7 @@ export default function EventPage({ params, searchParams }) {
 			setStartDate(searchParams.startDate)
 			setEndDate(searchParams.endDate)
 			setCategoryCode(searchParams.categoryCode)
-		} else {
-			setTitle('')
-			setDescription('')
-			setStartDate('')
-			setEndDate('')
-			setCategoryCode('')
-		} // TODO: tirar esse else para que as infos apareçam quando for editar
+		}
 
 		setEditing(!editing)
 	}
@@ -79,16 +51,18 @@ export default function EventPage({ params, searchParams }) {
 
 			if (!res.success) {
 				throw new Error(res.message)
-			} else {
-				setIsLoading(false)
-				navigateTo({ path: routesMap.events.base })
 			}
+
+			const eventsRes = await getAllEventsService()
+			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
+			setIsLoading(false)
+			navigateTo({ path: routesMap.events.base })
 
 		} catch (error) {
 			setIsLoading(false)
 			alert(error)
 		}
-	};
+	}
 
 	async function handleDeleteEvent() {
 		try {
@@ -101,6 +75,8 @@ export default function EventPage({ params, searchParams }) {
 				throw new Error(res.message)
 			}
 
+			const eventsRes = await getAllEventsService()
+			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.events.base })
 
@@ -110,10 +86,12 @@ export default function EventPage({ params, searchParams }) {
 		}
 	}
 
+	if (isLoading) return <Loading />
+
 	return (
 		<FormContainer
 			title={ locale.pagesTitles.events.view }
-			submitCallback={(e) => handleEditEventForm(e).then(router.refresh())}
+			submitCallback={(e) => handleEditEventForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
 				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
@@ -138,8 +116,8 @@ export default function EventPage({ params, searchParams }) {
 							<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
 								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
-								{categoriesList.length > 0 ?
-									categoriesList.map((category) => {
+								{userCategories.categoriesList.length > 0 ?
+									userCategories.categoriesList.map((category) => {
 										return (
 											<option key={category.code} value={category.code}>{category.title}</option>
 										)
@@ -161,7 +139,7 @@ export default function EventPage({ params, searchParams }) {
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList)} type='text'></input>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode, userCategories.categoriesList)} type='text'></input>
 						</FormSection>
 					</>
 			}

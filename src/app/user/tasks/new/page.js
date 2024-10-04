@@ -1,12 +1,11 @@
 'use client'
 
 import { navigateTo } from '@/utils'
-import { getAllCategoriesService } from '@/services/categoryServices'
-import { createTaskService } from '@/services/taskServices'
-
+import { listAllTasksService, createTaskService } from '@/services/taskServices'
 import * as locale from '@/resources/locale'
 
-import { useEffect, useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserCategoriesContext, UserTasksContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
@@ -14,6 +13,9 @@ import { FormContainer, FormSection } from '@/components/Form'
 import routesMap from '@/resources/routesMap'
 
 export default function NewTask() {
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userTasks, setUserTasks } = useContext(UserTasksContext)
+
 	const [ title, setTitle ] = useState('')
 	const [ description, setDescription ] = useState('')
 	const [ dueDate, setDueDate ] = useState('')
@@ -21,24 +23,7 @@ export default function NewTask() {
 	const [ priorityCode, setPriorityCode ] = useState('')
 	const [ toDoDate, setToDoDate ] = useState('')
 
-	const [ categoriesList, setCategoriesList ] = useState(false)
-	const [ isLoading, setIsLoading ] = useState(true)
-
-	useEffect(() => {
-		async function loadResources() {
-			setIsLoading(true)
-			const res = await getAllCategoriesService()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setCategoriesList([ ...res.result ])
-			setIsLoading(false)
-		}
-
-		loadResources()
-	}, [])
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	async function handleSubmit(e, formData) {
 		try {
@@ -61,6 +46,8 @@ export default function NewTask() {
 				throw new Error(res.message)
 			}
 
+			const tasksRes = await listAllTasksService()
+			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.tasks.base })
 
@@ -111,8 +98,8 @@ export default function NewTask() {
 				<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
 					<option defaultValue='' >{locale.formDefaults.category}</option>
 
-					{categoriesList.length > 0 ?
-						categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option> })
+					{userCategories.categoriesList.length > 0 ?
+						userCategories.categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option> })
 						:
 						<option disabled value=''>{locale.notFoundDefaults.categories}</option>
 					}
@@ -122,4 +109,4 @@ export default function NewTask() {
 			<DefaultButton title={locale.formDefaults.submitButtonTitle} variant='filled' buttonType='submit' />
 		</FormContainer>
 	)
-};
+}

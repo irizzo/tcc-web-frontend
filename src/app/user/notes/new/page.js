@@ -1,41 +1,26 @@
 'use client'
 
 import { navigateTo } from '@/utils'
-import { getAllCategoriesService } from '@/services/categoryServices'
-import { createNoteService } from '@/services/notesService'
-
+import { getAllNotesService, createNoteService } from '@/services/notesService'
+import routesMap from '@/resources/routesMap'
 import * as locale from '@/resources/locale'
 
-import { useEffect, useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserNotesContext, UserCategoriesContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
-import routesMap from '@/resources/routesMap'
 
 export default function NewNote() {
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userNotes, setUserNotes } = useContext(UserNotesContext)
+
 	const [ title, setTitle ] = useState('')
 	const [ innerContent, setInnerContent ] = useState('')
 	const [ categoryCode, setCategoryCode ] = useState('')
 
-	const [ categoriesList, setCategoriesList ] = useState(false)
-	const [ isLoading, setIsLoading ] = useState(true)
-
-	useEffect(() => {
-		async function loadResources() {
-			setIsLoading(true)
-			const res = await getAllCategoriesService()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setCategoriesList([ ...res.result ])
-			setIsLoading(false)
-		}
-
-		loadResources()
-	}, [])
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	async function handleSubmit(e, formData) {
 		try {
@@ -54,6 +39,8 @@ export default function NewNote() {
 				throw new Error(res.message)
 			}
 
+			const notesRes = await getAllNotesService()
+			setUserNotes({ notesList: notesRes.result, updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.notes.base })
 
@@ -82,8 +69,8 @@ export default function NewNote() {
 				<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
 					<option defaultValue='' >{locale.formDefaults.category}</option>
 
-					{categoriesList.length > 0 ?
-						categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option> })
+					{userCategories.categoriesList.length > 0 ?
+						userCategories.categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option> })
 						:
 						<option disabled value=''>{locale.notFoundDefaults.categories}</option>
 					}

@@ -1,43 +1,29 @@
 'use client'
 
 import { navigateTo } from '@/utils'
-import { getAllCategoriesService } from '@/services/categoryServices'
-import { createEventService } from '@/services/eventServices'
+import { createEventService, getAllEventsService } from '@/services/eventServices'
 
 import { pagesTitles, entitiesProperties, formDefaults, notFoundDefaults } from '@/resources/locale'
+import routesMap from '@/resources/routesMap'
 
-import { useEffect, useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserCategoriesContext, UserEventsContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
-import routesMap from '@/resources/routesMap'
 
 export default function NewEvent() {
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userEvents, setUserEvents } = useContext(UserEventsContext)
+
 	const [ title, setTitle ] = useState('')
 	const [ description, setDescription ] = useState('')
 	const [ startDate, setStartDate ] = useState('')
 	const [ endDate, setEndDate ] = useState('')
 	const [ categoryCode, setCategoryCode ] = useState('')
 
-	const [ categoriesList, setCategoriesList ] = useState(false)
-	const [ isLoading, setIsLoading ] = useState(true)
-
-	useEffect(() => {
-		async function loadResources() {
-			setIsLoading(true)
-			const res = await getAllCategoriesService()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setCategoriesList([ ...res.result ])
-			setIsLoading(false)
-		}
-
-		loadResources()
-	}, [])
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	async function handleSubmit(e, formData) {
 		try {
@@ -54,15 +40,15 @@ export default function NewEvent() {
 			}
 
 			const res = await createEventService(cleanData)
-			setIsLoading(false)
 
-			if(res.success) {
-				navigateTo({ path: routesMap.events.base })
-
-			} else {
-				alert(res.message)
-				return
+			if (!res.success) {
+				throw new Error(res.message)
 			}
+
+			const eventsRes = await getAllEventsService()
+			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
+			setIsLoading(false)
+			navigateTo({ path: routesMap.events.base })
 
 		} catch (error) {
 			setIsLoading(false)
@@ -97,8 +83,8 @@ export default function NewEvent() {
 				<select id='category' name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
 					<option defaultValue=''>--{formDefaults.defaultOption}--</option>
 
-					{categoriesList.length > 0 ?
-						categoriesList.map((category) => {
+					{userCategories.categoriesList.length > 0 ?
+						userCategories.categoriesList.map((category) => {
 							return (
 								<option key={category.code} value={category.code}>{category.title}</option>
 							)

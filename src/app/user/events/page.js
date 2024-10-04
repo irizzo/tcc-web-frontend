@@ -2,94 +2,77 @@
 
 import * as locale from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
-import { getAllEventsService } from '@/services/eventServices'
+
+import { useEffect, useState, useContext } from 'react'
+import { UserCategoriesContext, UserEventsContext } from '@/hooks'
+
 import Loading from '@/components/Loading'
-
-import { useEffect, useState } from 'react'
-
 import { Board } from '@/components/Board'
 import { EventCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
-// const eventList = []
-
 export default function EventsPage() {
-	const [ eventList, setEventList ] = useState([])
+	const [ categories, setCategories ] = useState({})
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userEvents, setUserEvents } = useContext(UserEventsContext)
+
 	const [ isLoading, setIsLoading ] = useState(false)
 
 	const pastDueEvents = []
 	const dueSoonEvents = []
 
 	useEffect(() => {
-		async function loadEvents() {
+		if (userCategories.categoriesList === null || userEvents.eventsList === null) {
 			setIsLoading(true)
-			const res = await getAllEventsService()
 
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setEventList([ ...res.result ])
-
-			// const now = new Date(Date.now());
-
-			// const pastDue = eventList.filter((event) => {
-			// 	return event.endDate < now ? event : null;
-			// });
-
-			// const dueSoon = eventList.filter((event) => {
-			// 	return (now <= event.endDate && event.endDate < (now + 7)) ? event : null;
-			// });
-
-			// pastDue.length > 0 && pastDueEvents.push(...pastDue);
-			// dueSoon.length > 0 && dueSoonEvents.push(...dueSoon);
-
-			// console.log('pastDue: ', pastDue);
-			// console.log('dueSoon: ', dueSoon);
-
-			// console.log('pastDueEvents: ', pastDueEvents);
-			// console.log('dueSoonEvents: ', dueSoonEvents);
-
-			setIsLoading(false)
+			setTimeout(() => {
+				setIsLoading(false)
+			}, 2000)
 		}
 
-		loadEvents()
+		let aux = {}
+		userCategories.categoriesList.forEach((category) => {
+			aux[category.code] = category.title
+		})
+		setCategories(aux)
 
-	}, [])
-
+	}, [ userCategories.categoriesList, userEvents.eventsList ])
 
 	if (isLoading) return <Loading />
 
 	return (
 		<>
-			<Board title={locale.groupDataByTitle.all} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					eventList.length > 0 ?
-						eventList.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} />
-						})
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.dueSoon} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					dueSoonEvents.length > 0 ?
-						dueSoonEvents.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} />
-						})
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.pastDue} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					pastDueEvents.length > 0 ?
-						pastDueEvents.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} />
-						})
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
+				}
+			</Board>
+
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+				{
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
