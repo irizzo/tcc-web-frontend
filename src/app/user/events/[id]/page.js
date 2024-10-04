@@ -42,7 +42,7 @@ export default function EventPage({ params, searchParams }) {
 	async function handleEditEventForm(e) {
 		e.preventDefault()
 
-		// try {
+		try {
 			setIsLoading(true)
 			setEditing(false)
 
@@ -58,14 +58,14 @@ export default function EventPage({ params, searchParams }) {
 			setIsLoading(false)
 			navigateTo({ path: routesMap.events.base })
 
-		// } catch (error) {
-		// 	setIsLoading(false)
-		// 	alert(error)
-		// }
-	};
+		} catch (error) {
+			setIsLoading(false)
+			alert(error)
+		}
+	}
 
 	async function handleDeleteEvent() {
-		// try {
+		try {
 			setIsLoading(true)
 			setEditing(false)
 
@@ -80,10 +80,10 @@ export default function EventPage({ params, searchParams }) {
 			setIsLoading(false)
 			navigateTo({ path: routesMap.events.base })
 
-		// } catch (error) {
-		// 	setIsLoading(false)
-		// 	alert(error)
-		// }
+		} catch (error) {
+			setIsLoading(false)
+			alert(error)
+		}
 	}
 
 	if (isLoading) return <Loading />

@@ -1,21 +1,22 @@
 'use client'
 
-import { updateNoteService, deleteNoteService } from '@/services/notesService'
-import { getAllCategoriesService } from '@/services/categoryServices'
+import { getAllNotesService, updateNoteService, deleteNoteService } from '@/services/notesService'
 import { navigateTo } from '@/utils'
-import * as locale from '@/resources/locale'
 import { treatUpdatedNoteData, getCategoryTitle } from '@/utils/dataTreatments.utils'
+
+import * as locale from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useContext, useState } from 'react'
+import { UserNotesContext, UserCategoriesContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 export default function NotePage({ params, searchParams }) {
-	const router = useRouter()
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 
 	const [ title, setTitle ] = useState(searchParams.title)
 	const [ innerContent, setInnerContent ] = useState(searchParams.innerContent)
@@ -23,30 +24,6 @@ export default function NotePage({ params, searchParams }) {
 
 	const [ editing, setEditing ] = useState(false)
 	const [ isLoading, setIsLoading ] = useState(false)
-	const [ categoriesList, setCategoriesList ] = useState([])
-
-	useEffect(() => {
-		// setEditing(false)
-		async function loadResources() {
-			setIsLoading(true)
-			const res = await getAllCategoriesService()
-
-			if (!res.success) {
-				throw new Error(res.message)
-			}
-
-			setCategoriesList([ ...res.result ])
-			setIsLoading(false)
-		}
-
-		loadResources()
-
-		if (editing) {
-			loadResources()
-		}
-	}, [ editing ])
-
-	if (isLoading) return <Loading />
 
 	function handleEditing() {
 		if (editing) {
@@ -54,11 +31,6 @@ export default function NotePage({ params, searchParams }) {
 			setInnerContent(searchParams.innerContent)
 			setCategoryCode(searchParams.categoryCode)
 		}
-		// } else {
-		// 	setTitle('')
-		// 	setInnerContent('')
-		// 	setCategoryCode('')
-		// }
 
 		setEditing(!editing)
 	}
@@ -73,15 +45,20 @@ export default function NotePage({ params, searchParams }) {
 			const updatedData = treatUpdatedNoteData(searchParams, { title, innerContent, categoryCode })
 			const res = await updateNoteService(searchParams.id, updatedData)
 
-			if (!res.success) throw new Error(res.message)
+			if (!res.success) {
+				throw new Error(res.message)
+			}
 
+			const notesRes = await getAllNotesService()
+			setUserNotes({ notesList: notesRes.result, updatedAt: new Date() })
 			setIsLoading(false)
+			navigateTo({ path: routesMap.notes.base })
 
 		} catch (error) {
 			setIsLoading(false)
 			alert(error)
 		}
-	};
+	}
 
 	async function handleDeleteNote() {
 		try {
@@ -94,6 +71,8 @@ export default function NotePage({ params, searchParams }) {
 				throw new Error(res.message)
 			}
 
+			const notesRes = await getAllNotesService()
+			setUserNotes({ notesList: notesRes.result, updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.notes.base })
 
@@ -103,10 +82,12 @@ export default function NotePage({ params, searchParams }) {
 		}
 	}
 
+	if (isLoading) return <Loading />
+
 	return (
 		<FormContainer
 			title={locale.pagesTitles.notes.view}
-			submitCallback={(e) => handleEditNoteForm(e).then(router.refresh())}
+			submitCallback={(e) => handleEditNoteForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
 				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
@@ -129,8 +110,8 @@ export default function NotePage({ params, searchParams }) {
 							<select name='category' value={categoryCode} onChange={(e) => { setCategoryCode(e.target.value) }}>
 								<option defaultValue=''>{locale.formDefaults.defaultOption}</option>
 
-								{categoriesList.length > 0 ?
-									categoriesList.map((category) => {
+								{userCategories.categoriesList.length > 0 ?
+									userCategories.categoriesList.map((category) => {
 										return (
 											<option key={category.code} value={category.code}>{category.title}</option>
 										)
@@ -146,7 +127,7 @@ export default function NotePage({ params, searchParams }) {
 					:
 					<>
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode, categoriesList) ?? locale.formDefaults.category } type='text'></input>
+							<input name='category' readOnly value={getCategoryTitle(categoryCode, userCategories.categoriesList) ?? locale.formDefaults.category } type='text'></input>
 						</FormSection>
 					</>
 			}

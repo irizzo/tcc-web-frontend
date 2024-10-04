@@ -1,145 +1,125 @@
-'use client';
+'use client'
 
-import { deleteTaskService, updateTaskService } from '@/services/taskServices';
-import { getAllCategoriesService } from '@/services/categoryServices';
-import { navigateTo } from '@/utils';
+import { deleteTaskService, updateTaskService } from '@/services/taskServices'
+import { treatUpdatedTaskData, getCategoryTitle } from '@/utils/dataTreatments.utils'
+import { navigateTo } from '@/utils'
 
-import { useEffect, useState } from 'react';
+import { useState, useContext } from 'react'
+import { UserCategoriesContext, UserTasksContext } from '@/hooks'
 
-import Loading from '@/components/Loading';
-import { FormContainer, FormSection } from '@/components/Form';
-import { DefaultButton, DangerButton } from '@/components/Buttons';
-import * as locale from '@/resources/locale';
-import { treatUpdatedTaskData, getCategoryTitle } from '@/utils/dataTreatments.utils';
-import routesMap from '@/resources/routesMap';
+import Loading from '@/components/Loading'
+import { FormContainer, FormSection } from '@/components/Form'
+import { DefaultButton, DangerButton } from '@/components/Buttons'
+
+import * as locale from '@/resources/locale'
+import routesMap from '@/resources/routesMap'
 
 export default function TaskPage({ params, searchParams }) {
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
+	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 
-	const [ title, setTitle ] = useState(searchParams.title);
-	const [ description, setDescription ] = useState(searchParams.description);
-	const [ dueDate, setDueDate ] = useState(searchParams.dueDate);
-	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate);
-	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode);
-	const [ statusCode, setStatusCode ] = useState(searchParams.statusCode);
-	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode);
+	const [ title, setTitle ] = useState(searchParams.title)
+	const [ description, setDescription ] = useState(searchParams.description)
+	const [ dueDate, setDueDate ] = useState(searchParams.dueDate)
+	const [ toDoDate, setToDoDate ] = useState(searchParams.toDoDate)
+	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode)
+	const [ statusCode, setStatusCode ] = useState(searchParams.statusCode)
+	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
 
-	const [ editing, setEditing ] = useState(false);
-	const [ isLoading, setIsLoading ] = useState(false);
-	const [ categoriesList, setCategoriesList ] = useState([]);
+	const [ editing, setEditing ] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(false)
 
-	useEffect(() => {
-		async function loadResources() {
-			setIsLoading(true);
-			const res = await getAllCategoriesService();
+	const statusList = []
+	for (let key in locale.statusInfo) statusList.push(locale.statusInfo[key])
 
-			if (!res.success) {
-				throw new Error(res.message);
-			}
-
-			setCategoriesList([ ...res.result ]);
-			setIsLoading(false);
-		}
-
-		loadResources();
-
-		if (editing) {
-			loadResources();
-		}
-	}, [ editing ]);
-
-	if (isLoading) return <Loading />;
-
-	const statusList = [];
-	for (let key in locale.statusInfo) statusList.push(locale.statusInfo[key]);
-
-	const prioritiesList = [];
-	for (let key in locale.prioritiesInfo) prioritiesList.push(locale.prioritiesInfo[key]);
+	const prioritiesList = []
+	for (let key in locale.prioritiesInfo) prioritiesList.push(locale.prioritiesInfo[key])
 
 	function handleEditing() {
 		if (editing) {
-			setTitle(searchParams.title);
-			setDescription(searchParams.description);
-			setDueDate(searchParams.dueDate);
-			setCategoryCode(searchParams.categoryCode);
-			setPriorityCode(searchParams.priorityCode);
-			setStatusCode(searchParams.statusCode);
-			setToDoDate(searchParams.toDoDate);
-		} else {
-			setTitle('');
-			setDescription('');
-			setDueDate('');
-			setCategoryCode('');
-			setPriorityCode('');
-			setStatusCode('');
-			setToDoDate('');
+			setTitle(searchParams.title)
+			setDescription(searchParams.description)
+			setDueDate(searchParams.dueDate)
+			setCategoryCode(searchParams.categoryCode)
+			setPriorityCode(searchParams.priorityCode)
+			setStatusCode(searchParams.statusCode)
+			setToDoDate(searchParams.toDoDate)
 		}
 
-		setEditing(!editing);
+		setEditing(!editing)
 	}
 
 	async function handleEditTaskForm(e) {
-		e.preventDefault();
+		e.preventDefault()
 
 		try {
-			setIsLoading(true);
-			setEditing(false);
+			setIsLoading(true)
+			setEditing(false)
 
-			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, toDoDate });
-			const res = await updateTaskService(searchParams.id, updatedData);
+			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, toDoDate })
+			const res = await updateTaskService(searchParams.id, updatedData)
 
 			if (!res.success) {
-				throw new Error(res.message);
+				throw new Error(res.message)
 			}
 
-			setIsLoading(false);
+			const tasksRes = await listAllTasksService()
+			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
+			setIsLoading(false)
+			navigateTo({ path: routesMap.tasks.base })
 
 		} catch (error) {
-			setIsLoading(false);
-			alert(error);
+			setIsLoading(false)
+			alert(error)
 		}
 	};
 
 	async function handleDeleteTask() {
 		try {
-			setIsLoading(true);
-			setEditing(false);
+			setIsLoading(true)
+			setEditing(false)
 
-			const res = await deleteTaskService(searchParams.id);
+			const res = await deleteTaskService(searchParams.id)
 
 			if (!res.success) {
-				throw new Error(res.message);
+				throw new Error(res.message)
 			}
 
-			setIsLoading(false);
+			const tasksRes = await listAllTasksService()
+			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
+			setIsLoading(false)
+			navigateTo({ path: routesMap.tasks.base })
 
 		} catch (error) {
-			setIsLoading(false);
-			alert(error);
+			setIsLoading(false)
+			alert(error)
 		}
 	}
+
+	if (isLoading) return <Loading />
 
 	return (
 		<FormContainer
 			title={locale.pagesTitles.tasks.view}
-			submitCallback={(e) => handleEditTaskForm(e).then(navigateTo({ path: routesMap.tasks.base }))}
+			submitCallback={(e) => handleEditTaskForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
-				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value); }}></input>
+				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
 			</FormSection>
 
 			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
-				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value); }}></textarea>
+				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
 			</FormSection>
 
 			{
 				editing ?
 					<>
 						<FormSection labelFor='dueDate' sectionTitle={locale.entitiesProperties.general.dueDate}>
-							<input name='dueDate' value={dueDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value); }}></input>
+							<input name='dueDate' value={dueDate} type='datetime-local' onChange={(e) => { setDueDate(e.target.value) }}></input>
 						</FormSection>
 
 						<FormSection labelFor='toDoDate' sectionTitle={locale.entitiesProperties.general.toDoDate}>
-							<input name='toDoDate' value={toDoDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value); }}></input>
+							<input name='toDoDate' value={toDoDate} type='datetime-local' onChange={(e) => { setToDoDate(e.target.value) }}></input>
 						</FormSection>
 
 						<FormSection labelFor='priority' sectionTitle={locale.entitiesProperties.tasks.priority}>
@@ -147,7 +127,7 @@ export default function TaskPage({ params, searchParams }) {
 								<option defaultValue='' >{locale.formDefaults.priority}</option>
 								{
 									prioritiesList.map((priority) => {
-										return <option key={priority.value} value={priority.value}>{priority.title}</option>;
+										return <option key={priority.value} value={priority.value}>{priority.title}</option>
 									})
 								}
 							</select>
@@ -158,18 +138,18 @@ export default function TaskPage({ params, searchParams }) {
 								<option defaultValue='' >{locale.formDefaults.staus}</option>
 								{
 									statusList.map((status) => {
-										return <option key={status.value} value={status.value}>{status.title}</option>;
+										return <option key={status.value} value={status.value}>{status.title}</option>
 									})
 								}
 							</select>
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<select name='category' onChange={(e) => { setCategoryCode(e.target.value); }}>
+							<select name='category' onChange={(e) => { setCategoryCode(e.target.value) }}>
 								<option defaultValue='' >{locale.formDefaults.category}</option>
 
-								{categoriesList.length > 0 ?
-									categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option>; })
+								{userCategories.categoriesList.length > 0 ?
+									userCategories.categoriesList.map((category) => { return <option key={category.code} value={category.code}>{category.title}</option> })
 									:
 									<option disabled value=''>{locale.notFoundDefaults.categories}</option>
 								}
@@ -195,7 +175,7 @@ export default function TaskPage({ params, searchParams }) {
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={categoryCode ? getCategoryTitle(categoryCode, categoriesList) : ''} type='text'></input>
+							<input name='category' readOnly value={categoryCode ? getCategoryTitle(categoryCode, userCategories.categoriesList) : ''} type='text'></input>
 						</FormSection>
 					</>
 			}
@@ -204,7 +184,7 @@ export default function TaskPage({ params, searchParams }) {
 					title={editing ? locale.actionsTitles.cancel : locale.actionsTitles.edit}
 					variant='outlined'
 					buttonType='button'
-					onClickFunction={() => { handleEditing(); }}
+					onClickFunction={() => { handleEditing() }}
 				/>
 
 				<DefaultButton
@@ -216,9 +196,9 @@ export default function TaskPage({ params, searchParams }) {
 
 				<DangerButton
 					title={locale.actionsTitles.delete}
-					onClickFunction={() => { handleDeleteTask().then(navigateTo({ path: routesMap.tasks.base })); }}
+					onClickFunction={() => { handleDeleteTask() }}
 				/>
 			</div>
 		</FormContainer>
-	);
+	)
 }

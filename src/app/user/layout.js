@@ -48,7 +48,7 @@ export default function UserPagesLayout({ children }) {
 				console.log('revalidate userTasks')
 				const res = await listAllTasksService()
 
-				setUserTasks({ taskList: res.result, updatedAt: new Date() })
+				setUserTasks({ tasksList: res.result, updatedAt: new Date() })
 			}
 		}
 

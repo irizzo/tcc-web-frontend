@@ -13,7 +13,7 @@ import { GeneralInfo } from '@/components/Messages'
 
 export default function EventsPage() {
 	const [ categories, setCategories ] = useState({})
-	const { userCategories } = useContext(UserCategoriesContext)
+	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
 	const [ isLoading, setIsLoading ] = useState(false)
@@ -51,23 +51,28 @@ export default function EventsPage() {
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.dueSoon} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					dueSoonEvents.length > 0 ?
-						dueSoonEvents.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />
-						})
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.pastDue} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
 				{
-					pastDueEvents.length > 0 ?
-						pastDueEvents.map((event) => {
-							return <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />
-						})
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
+						:
+						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
+				}
+			</Board>
+
+			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+				{
+					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
+						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.events} />
 				}
