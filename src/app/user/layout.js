@@ -29,8 +29,7 @@ export default function UserPagesLayout({ children }) {
 			if (!userInfo.data || needsRevalidation(userInfo.updatedAt)) {
 				console.log('revalidate userInfo')
 				const res = await getUserInfo()
-
-				setUserInfo({ data: res.result, updatedAt: new Date() })
+				setUserInfo({ data: { email: res.result.email, firstName: res.result.firstName, lastName: res.result.lastName }, updatedAt: new Date() })
 			}
 		}
 
