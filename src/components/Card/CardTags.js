@@ -1,5 +1,6 @@
 import { FaHashtag, FaRegCalendarCheck, FaArrowUp19, FaChartSimple } from 'react-icons/fa6'
 import { statusInfo, prioritiesInfo } from '@/resources/locale'
+import { convertStampToDate } from '@/utils/date.utils'
 import './card.scss'
 
 /* Tags */
@@ -13,7 +14,22 @@ function TagContainer({ content, children }) {
 }
 
 export function DueDateTag({ dueDate }) {
-	const formatted = dueDate.toLocaleString().slice(0, (dueDate.length - 3))
+	let formatted = ''
+
+	if (typeof dueDate !== typeof '') {
+		formatted = convertStampToDate(dueDate)
+	} else {
+		const [ date, time ] = dueDate.split('T')
+		const formattedDate = date.split('-').reverse().join('/')
+		const formattedTime = time.split('.')[0]
+
+		console.log('[DueDateTag] formattedDate:', formattedDate)
+		console.log('[DueDateTag] formattedTime:', formattedTime)
+		formatted = formattedDate + ', ' + formattedTime
+	}
+
+	console.log('[DueDateTag] dueDate:', dueDate, 'formatted:', formatted)
+
 	return (
 		<TagContainer content={formatted}	>
 			<FaRegCalendarCheck className='tag__icon' />

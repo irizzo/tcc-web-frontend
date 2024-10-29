@@ -57,6 +57,7 @@ export function formatEventDates(event) {
 }
 
 export function formatEventsListDates(events) {
+	// TODO: testar se não funciona chamar a função acima
 	const formatted = events.map((event) => {
 		const aux = event
 
