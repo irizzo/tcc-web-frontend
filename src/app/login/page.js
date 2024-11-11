@@ -10,7 +10,7 @@ import * as locale from '@/resources/locale'
 import Menu from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 import { DefaultButton } from '@/components/Buttons'
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormSection, PasswordInput } from '@/components/Form'
 
 async function handleLoginSubmit(e, formData) {
 	console.log('[handleLoginSubmit]')
@@ -62,10 +62,19 @@ export default function Login() {
 					</FormSection>
 
 					<FormSection labelFor='password' sectionTitle={locale.entitiesProperties.user.password}>
-						<input type='password' name="password" required placeholder={locale.entitiesProperties.user.password} onChange={(e) => { setUserPassword(e.target.value) }} />
+						<PasswordInput
+							inputName='password'
+							inputValue={userPassword}
+							onChangeFn={(e) => { setUserPassword(e.target.value) }}
+						/>
 					</FormSection>
 
-					<DefaultButton title={locale.formDefaults.submitButtonTitle} variant="filled" buttonType='submit' />
+					<DefaultButton
+						title={locale.formDefaults.submitButtonTitle}
+						variant='filled'
+						buttonType='submit'
+						isDisabled={userEmail === '' || userPassword === ''}
+					/>
 				</FormContainer>
 			</main>
 		</DefaultPageContainer>

@@ -10,7 +10,7 @@ import * as locale from '@/resources/locale'
 import Menu from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 import { DefaultButton } from '@/components/Buttons'
-import { FormContainer, FormSection, FormInfo } from '@/components/Form'
+import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'
 
 async function handleSignUpSubmit(e, formData) {
 	console.log('[handleSignUpSubmit]')
@@ -54,7 +54,6 @@ async function handleSignUpSubmit(e, formData) {
 }
 
 export default function SignUp() {
-
 	const [ firstName, setFirstName ] = useState('')
 	const [ lastName, setLastName ] = useState('')
 	const [ email, setEmail ] = useState('')
@@ -83,16 +82,28 @@ export default function SignUp() {
 					</FormSection>
 
 					<FormSection labelFor='password' sectionTitle={locale.entitiesProperties.user.password}>
-						<input type='password' name="password" required placeholder={locale.entitiesProperties.user.password} onChange={(e) => { setPassword(e.target.value) }} />
+						<PasswordInput
+							inputName='password'
+							inputValue={password}
+							onChangeFn={(e) => { setPassword(e.target.value) }}
+						/>
 					</FormSection>
-
 					<FormSection labelFor='confirmPassword' sectionTitle={locale.entitiesProperties.user.confirmPassword}>
-						<input type='password' name="confirmPassword" required placeholder={locale.entitiesProperties.user.confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value) }} />
+						<PasswordInput
+							inputName='confirmPassword'
+							inputValue={confirmPassword}
+							onChangeFn={(e) => { setConfirmPassword(e.target.value) }}
+						/>
 					</FormSection>
 
 					<FormInfo>{locale.formDefaults.passwordRequirements}</FormInfo>
 
-					<DefaultButton title={locale.formDefaults.submitButtonTitle} variant="filled" buttonType='submit' />
+					<DefaultButton
+						title={locale.formDefaults.submitButtonTitle}
+						variant='filled'
+						buttonType='submit'
+						isDisabled={firstName === '' || lastName === '' || email === ''|| password === '' || password !== confirmPassword}
+					/>
 
 				</FormContainer>
 			</main>

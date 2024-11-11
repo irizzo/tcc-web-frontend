@@ -77,7 +77,9 @@ export default function UserPagesLayout({ children }) {
 			loadEvents()
 			loadNotes()
 			setIsLoading(false)
+
 		} catch (error) {
+			console.log('[USER/LAYOUT] error: ', error)
 			alert(error)
 		}
 

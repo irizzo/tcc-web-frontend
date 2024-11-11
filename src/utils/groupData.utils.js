@@ -3,7 +3,7 @@ export function groupTasksByDate(tasksList) {
 	const withinAWeek = new Date()
 	withinAWeek.setDate(today.getDate() + 7)
 
-	console.log('withinAWeek: ', withinAWeek)
+	// console.log('withinAWeek: ', withinAWeek)
 
 	const todaysTasks = []
 	const withinAWeekTasks = []
@@ -26,7 +26,7 @@ export function groupTasksByDate(tasksList) {
 		otherTasks.push(task)
 	})
 
-	console.log('groupedTasks: ', { todaysTasks, withinAWeekTasks, otherTasks })
+	// console.log('groupedTasks: ', { todaysTasks, withinAWeekTasks, otherTasks })
 
 	return {
 		todaysTasks,
@@ -40,7 +40,7 @@ export function groupEventsByDate(eventsList) {
 	const withinAWeek = new Date()
 	withinAWeek.setDate(today.getDate() + 7)
 
-	console.log('withinAWeek: ', withinAWeek)
+	// console.log('withinAWeek: ', withinAWeek)
 
 	const todaysEvents = []
 	const withinAWeekEvents = []
@@ -60,7 +60,7 @@ export function groupEventsByDate(eventsList) {
 		otherEvents.push(event)
 	})
 
-	console.log('groupedEvents: ', { todaysEvents, withinAWeekEvents, otherEvents })
+	// console.log('groupedEvents: ', { todaysEvents, withinAWeekEvents, otherEvents })
 
 	return {
 		todaysEvents,

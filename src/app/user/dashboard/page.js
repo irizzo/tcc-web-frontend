@@ -1,9 +1,5 @@
 'use client'
 
-import { getAllEventsService } from '@/services/eventServices'
-import { listAllTasksService } from '@/services/taskServices'
-import { getAllCategoriesService } from '@/services/categoryServices'
-
 import { useEffect, useState, useContext } from 'react'
 import { UserCategoriesContext, UserTasksContext, UserEventsContext } from '@/hooks'
 
@@ -16,23 +12,23 @@ import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 import { groupTasksByDate, groupEventsByDate } from '@/utils/groupData.utils'
 
-export default function Contents() {
-	const [categories, setCategories] = useState({})
-	const [today, setToday] = useState({ tasks: [], events: [] })
-	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
-	const [otherTasks, setOtherTasks] = useState([])
-	const [otherEvents, setOtherEvents] = useState([])
+export default function Dashboard() {
+	console.log('[DASHBOARD]')
+	const [ categories, setCategories ] = useState({})
+	const [ today, setToday ] = useState({ tasks: [], events: [] })
+	const [ withinAWeek, setWithinAWeek ] = useState({ tasks: [], events: [] })
+	const [ otherTasks, setOtherTasks ] = useState([])
+	const [ otherEvents, setOtherEvents ] = useState([])
 
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
-	const [isLoading, setIsLoading] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
-		if (userCategories.categoriesList === null || userTasks.tasksList === null || userEvents.eventsList === null) {
-			setIsLoading(true)
-			setTimeout(() => { }, 2000)
+		if (userCategories?.categoriesList === null || userTasks?.tasksList === null || userEvents.eventsList === null) {
+			setTimeout(() => { }, 3000)
 		}
 
 		let aux = {}
@@ -46,8 +42,8 @@ export default function Contents() {
 
 		setToday({ tasks: sortedTasks.todaysTasks, events: sortedEvents.todaysEvents })
 		setWithinAWeek({ tasks: sortedTasks.withinAWeekTasks, events: sortedEvents.withinAWeekEvents })
-		setOtherTasks([...sortedTasks.otherTasks])
-		setOtherEvents([...sortedEvents.otherEvents])
+		setOtherTasks([ ...sortedTasks.otherTasks ])
+		setOtherEvents([ ...sortedEvents.otherEvents ])
 
 		setIsLoading(false)
 	}, [])
@@ -102,9 +98,6 @@ export default function Contents() {
 
 	return (
 		<>
-			{console.log('today: ', today)}
-			{console.log('withinAWeek: ', withinAWeek)}
-
 			<Board title={locale.groupDataByTitle.today} path={null}>
 				{
 					today.events && today.events.length > 0 || today.tasks && today.tasks.length > 0 ?

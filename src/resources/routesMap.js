@@ -21,7 +21,10 @@ const routesMap = {
 		new: '/user/notes/new'
 	},
 
-	settings: '/user/settings',
+	settings: {
+		base: '/user/settings',
+		updatePassword: '/user/settings/update-password'
+	},
 
 	tasks: {
 		base: '/user/tasks',
