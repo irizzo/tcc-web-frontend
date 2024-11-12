@@ -36,6 +36,8 @@ export default function SettingsPage() {
 
 		try {
 			setIsLoading(true)
+			// TODO
+			console.log('UPDATE PASSWORD: NOT IMPLEMENTED YET')
 
 			setEditing(false)
 		} catch (error) {

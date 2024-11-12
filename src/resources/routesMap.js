@@ -16,6 +16,10 @@ const routesMap = {
 		new: '/user/events/new'
 	},
 
+	focus: {
+		base: '/focus'
+	},
+
 	notes: {
 		base: '/user/notes',
 		new: '/user/notes/new'

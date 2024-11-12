@@ -113,6 +113,10 @@ export const pagesTitles = {
 		edit: 'Editar Evento'
 	},
 
+	focus: {
+		base: 'Foco'
+	},
+
 	notes: {
 		base: 'Anotações',
 		new: 'Nova Anotação',
@@ -167,6 +171,10 @@ export const pagesKeys = {
 		new: 'NEW_EVENTS',
 		edit: 'EDIT_EVENTS',
 		view: 'VIEW_EVENTS'
+	},
+
+	focus: {
+		base: 'FOCUS'
 	},
 
 	notes: {

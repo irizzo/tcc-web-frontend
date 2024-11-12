@@ -54,6 +54,8 @@ export default function SettingsPage() {
 
 		try {
 			setIsLoading(true)
+			// TODO
+			console.log('UPDATE USER: NOT IMPLEMENTED YET')
 
 			setEditing(false)
 		} catch (error) {
@@ -65,7 +67,8 @@ export default function SettingsPage() {
 	async function handleDeleteUser() {
 		try {
 			setIsLoading(true)
-
+			// TODO
+			console.log('DELETE USER : NOT IMPLEMENTED YET')
 			setEditing(false)
 		} catch (error) {
 			setIsLoading(false)
@@ -75,10 +78,7 @@ export default function SettingsPage() {
 
 	if (isLoading) return <Loading />
 
-	// visualizar informações da conta
-	// deletar conta
 	return (
-
 		<FormContainer
 			title={locale.pagesTitles.settings.base}
 			submitCallback={(e) => handleUpdateUserInfo(e)}

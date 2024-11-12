@@ -3,7 +3,7 @@
 import { useContext } from 'react'
 import Link from 'next/link'
 
-import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck } from 'react-icons/fa6'
+import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck, FaClock, FaRegClock } from 'react-icons/fa6'
 
 import { UserInfoContext } from '@/hooks'
 
@@ -34,6 +34,7 @@ export default function SideBar() {
 				<NavListItem itemId={pagesKeys.events.base} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.tasks.base} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.notes.base} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.base}</NavListItem>
+				<NavListItem itemId={pagesKeys.focus.base} customIcon={<FaRegClock className='nav__item__icon' />} path={routesMap.focus.base}>{pagesTitles.focus.base}</NavListItem>
 
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
 				<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
