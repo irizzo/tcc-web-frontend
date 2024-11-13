@@ -42,7 +42,7 @@ export default function EventsPage() {
 
 	return (
 		<>
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.base} path={routesMap.events.new}>
 				{
 					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
 						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
@@ -51,7 +51,7 @@ export default function EventsPage() {
 				}
 			</Board>
 
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.base} path={routesMap.events.new}>
 				{
 					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
 						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
@@ -60,7 +60,7 @@ export default function EventsPage() {
 				}
 			</Board>
 
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.base} path={routesMap.events.new}>
 				{
 					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
 						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
@@ -69,7 +69,7 @@ export default function EventsPage() {
 				}
 			</Board>
 
-			<Board title={locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={locale.pagesTitles.events.base} path={routesMap.events.new}>
 				{
 					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
 						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)

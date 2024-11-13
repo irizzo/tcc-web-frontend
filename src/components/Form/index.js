@@ -56,6 +56,7 @@ export function PasswordInput({ inputName, inputValue, onChangeFn }) {
 			<input
 				className='password__input'
 				type={showPass ? 'text' : 'password'}
+				placeholder='Senha'
 				name={inputName}
 				value={inputValue}
 				onChange={onChangeFn}
