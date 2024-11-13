@@ -1,22 +1,26 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import { UserInfoContext } from '@/hooks'
 
 import * as locale from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
-import { navigateTo } from '@/utils'
+import { clearTokenCookie, navigateTo } from '@/utils'
+import { treatUpdatedUserData } from '@/utils/dataTreatments.utils'
+import { deleteUserService, getUserInfo, updateUserService } from '@/services/userServices'
 
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 export default function SettingsPage() {
-	const { userInfo } = useContext(UserInfoContext)
+	const router = useRouter()
+	const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
-	const [updatedUserInfo, setUpdatedUserInfo] = useState({ firstName: '', lastName: '', email: '' })
-	const [editing, setEditing] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
+	const [ updatedUserInfo, setUpdatedUserInfo ] = useState({ firstName: '', lastName: '', email: '' })
+	const [ editing, setEditing ] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	useEffect(() => {
 		if (userInfo.data === null) {
@@ -33,6 +37,8 @@ export default function SettingsPage() {
 			lastName: userInfo.data.lastName,
 			email: userInfo.data.email
 		})
+		setIsLoading(false)
+
 	}, [])
 
 	function handleEditing() {
@@ -54,23 +60,51 @@ export default function SettingsPage() {
 
 		try {
 			setIsLoading(true)
-			// TODO
-			console.log('UPDATE USER: NOT IMPLEMENTED YET')
-
 			setEditing(false)
+
+			const updatedData = treatUpdatedUserData(userInfo, updatedUserInfo)
+			const res = await updateUserService(updatedData)
+
+			if (!res.success) {
+				throw new Error(res.message)
+			}
+
+			const userInfoRes = await getUserInfo()
+			setUserInfo({ data: { email: userInfoRes.result.email, firstName: userInfoRes.result.firstName, lastName: userInfoRes.result.lastName }, updatedAt: new Date() })
+			setIsLoading(false)
+
 		} catch (error) {
+			console.log('error: ', error)
 			setIsLoading(false)
 			alert(error)
 		}
 	}
 
-	async function handleDeleteUser() {
+	async function handleDeleteUser(e) {
 		try {
+			e.preventDefault()
 			setIsLoading(true)
-			// TODO
-			console.log('DELETE USER : NOT IMPLEMENTED YET')
 			setEditing(false)
+
+			const res = await deleteUserService()
+
+			console.log('res: ', res)
+
+			if (!res.success) {
+				throw new Error(res.message)
+			}
+
+			console.log('1')
+			await clearTokenCookie()
+			console.log('2')
+			setIsLoading(false)
+			console.log('3')
+
+			router.push(routesMap.home)
+
 		} catch (error) {
+			console.log('error: ', error)
+
 			setIsLoading(false)
 			alert(error)
 		}
@@ -110,7 +144,7 @@ export default function SettingsPage() {
 
 				<DangerButton
 					title={locale.actionsTitles.deleteUser}
-					onClickFunction={() => { handleDeleteUser() }}
+					onClickFunction={(e) => { handleDeleteUser(e) }}
 				/>
 			</div>
 

@@ -61,3 +61,14 @@ exports.treatUpdatedNoteData = (initialData, newData) => {
 	treatedData.categoryCode = (newData.categoryCode && initialData.categoryCode !== newData.categoryCode) ? newData.categoryCode : null
 	return treatedData
 }
+
+exports.treatUpdatedUserData = (initialData, newData) => {
+	console.log('[treatUpdatedUserData]')
+
+	const treatedData = {}
+	treatedData.firstName = (newData.firstName && initialData.firstName !== newData.firstName) ? newData.firstName : null
+	treatedData.lastName = (newData.lastName && initialData.lastName !== newData.lastName) ? newData.lastName : null
+	treatedData.email = (newData.email && initialData.email !== newData.email) ? newData.email : null
+	treatedData.password = (newData.password && initialData.password !== newData.password) ? newData.password : null
+	return treatedData
+}

@@ -6,6 +6,8 @@ import { UserInfoContext } from '@/hooks'
 import * as locale from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
 import { navigateTo } from '@/utils'
+import { updateUserService } from '@/services/userServices'
+import { treatUpdatedUserData } from '@/utils/dataTreatments.utils'
 
 import Loading from '@/components/Loading'
 import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'
@@ -36,11 +38,20 @@ export default function SettingsPage() {
 
 		try {
 			setIsLoading(true)
-			// TODO
-			console.log('UPDATE PASSWORD: NOT IMPLEMENTED YET')
 
-			setEditing(false)
+			const updatedData = treatUpdatedUserData(userInfo, { password: newPassword.password })
+			console.log('updatedData: ', updatedData)
+			const res = await updateUserService(updatedData)
+
+			if (!res.success) {
+				throw new Error(res.message)
+			}
+
+			setIsLoading(false)
+			navigateTo({ path: routesMap.settings.base })
+			return
 		} catch (error) {
+			console.log('error: ', error)
 			setIsLoading(false)
 			alert(error)
 		}

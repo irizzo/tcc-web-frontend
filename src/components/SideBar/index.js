@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck, FaClock, FaRegClock } from 'react-icons/fa6'
 
-import { UserInfoContext } from '@/hooks'
+import { UserInfoContext, UserAccessStateContext, UserNotesContext, UserTasksContext, UserEventsContext, UserTimersContext, UserCategoriesContext } from '@/hooks'
 
 import { clearTokenCookie, navigateTo } from '@/utils'
 import routesMap from '@/resources/routesMap'
@@ -18,7 +18,12 @@ export default function SideBar() {
 	const weekday = currentDate.getDay()
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
 
-	const { userInfo } = useContext(UserInfoContext)
+	const { userInfo, setUserInfo } = useContext(UserInfoContext)
+
+	async function handleLogOut() {
+		await clearTokenCookie()
+		navigateTo({ path: routesMap.home })
+	}
 
 	return (
 		<nav className='flex'>
@@ -73,9 +78,4 @@ function NavListButton({ children, onClickFunction, customIcon }) {
 			</div>
 		</li>
 	)
-}
-
-async function handleLogOut() {
-	await clearTokenCookie()
-	navigateTo({ path: routesMap.login })
 }
