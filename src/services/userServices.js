@@ -3,6 +3,7 @@ import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
 import { decodeToken } from '@/utils/jwt.utils'
 
+const BASEURL = 'http://localhost:8080'
 const baseUserPath = '/user'
 
 export async function getUserInfo() {
@@ -39,3 +40,86 @@ export async function getUserInfo() {
 		throw error
 	}
 };
+
+export async function updateUserService(updatedData) {
+	console.log('[updateUserService]')
+
+	try {
+		const tokenCookie = await getTokenCookie()
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${BASEURL}${baseUserPath}`, {
+			method: 'PUT',
+			body: JSON.stringify(updatedData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
+
+		console.log('[updateUserService] fetchRes: ', fetchRes)
+
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		)
+
+		if (!fetchRes.success) {
+			throw new Error(message)
+		}
+
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			message
+		}
+	} catch (error) {
+		console.log('[updateUserService] error: ', error)
+		throw error
+	}
+}
+
+export async function deleteUserService() {
+	console.log('[deleteUserService]')
+
+	try {
+		const tokenCookie = await getTokenCookie()
+
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${BASEURL}${baseUserPath}`, {
+			method: 'DELETE',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
+
+		console.log('[deleteUserService] fetchRes: ', fetchRes)
+
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+
+		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+		)
+
+		if (!fetchRes.success) {
+			throw new Error(message)
+		}
+
+		return {
+			success: fetchRes.success,
+			result: fetchRes?.result,
+			message
+		}
+
+	} catch (error) {
+		console.log('[deleteUserService] error: ', error)
+		throw error
+	}
+}
