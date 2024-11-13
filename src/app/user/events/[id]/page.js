@@ -8,7 +8,7 @@ import { useState, useContext } from 'react'
 import { UserCategoriesContext, UserEventsContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormSection, FormInfo } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 import * as locale from '@/resources/locale'
@@ -18,14 +18,14 @@ export default function EventPage({ params, searchParams }) {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
-	const [ title, setTitle ] = useState(searchParams.title)
-	const [ description, setDescription ] = useState(searchParams.description)
-	const [ startDate, setStartDate ] = useState(searchParams.startDate)
-	const [ endDate, setEndDate ] = useState(searchParams.endDate)
-	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
+	const [title, setTitle] = useState(searchParams.title)
+	const [description, setDescription] = useState(searchParams.description)
+	const [startDate, setStartDate] = useState(searchParams.startDate)
+	const [endDate, setEndDate] = useState(searchParams.endDate)
+	const [categoryCode, setCategoryCode] = useState(searchParams.categoryCode)
 
-	const [ editing, setEditing ] = useState(false)
-	const [ isLoading, setIsLoading ] = useState(false)
+	const [editing, setEditing] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
 
 	function handleEditing() {
 		if (editing) {
@@ -90,7 +90,7 @@ export default function EventPage({ params, searchParams }) {
 
 	return (
 		<FormContainer
-			title={ locale.pagesTitles.events.view }
+			title={locale.pagesTitles.events.view}
 			submitCallback={(e) => handleEditEventForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
@@ -141,6 +141,8 @@ export default function EventPage({ params, searchParams }) {
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
 							<input name='category' readOnly value={getCategoryTitle(categoryCode, userCategories.categoriesList)} type='text'></input>
 						</FormSection>
+
+						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 			}
 

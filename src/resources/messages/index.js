@@ -24,10 +24,12 @@ const messagesDictionary = {
 	INVALID_EMAIL: 'Email inválido',
 	INCORRECT_PASSWORD: 'Senha incorreta',
 
+	CATEGORY_ALREADY_EXISTS: 'Categoria já existe',
+
 	INVALID_START_DATE: 'Data de início inválida.',
 	INVALID_END_DATE: 'Data de fim inválida. Deve ser maior que a data de início.',
 	INVALID_DUE_DATE: 'Data de prazo inválido.',
-	INVALID_TODO_DATE: 'Data planejada inválida.'
+	INVALID_SCHEDUELED_DATE: 'Data planejada inválida.'
 }
 
 module.exports = messagesDictionary

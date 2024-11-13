@@ -138,7 +138,7 @@ export const pagesTitles = {
 
 	sideBar: {
 		pages: 'Páginas',
-		actions: 'Ações',
+		shortcuts: 'Atalhos',
 		options: 'Opções'
 	},
 
@@ -213,7 +213,7 @@ export const actionsTitles = {
 	cancel: 'Cancelar',
 	start: 'Começar',
 	login: 'Login',
-	logout: 'Logout',
+	logout: 'Desconectar',
 	deleteUser: 'Excluir conta'
 }
 
@@ -230,7 +230,7 @@ export const notFoundDefaults = {
 	notes: 'Nenhuma anotação encontrada',
 	tasks: 'Nenhuma tarefa encontrada',
 	today: 'Nada para hoje',
-	thisWeek: 'Nada nesta semana'
+	withinAWeek: 'Nada nesta semana'
 }
 
 export const groupDataByTitle = {
@@ -238,11 +238,17 @@ export const groupDataByTitle = {
 	dueSoon: 'Prazo Próximo',
 	pastDue: 'Prazo esgotado',
 	today: 'Hoje',
-	thisWeek: ' Nesta Semana'
+	withinAWeek: ' Nesta Semana'
 }
 
 export const messagesTitles = {
 	infoTitle: 'Informação',
 	warnTitle: 'Aviso',
 	errorTitle: 'Algo Deu Errado'
+}
+
+export const timerTitles = {
+	focus: 'Foco',
+	shortBreak: 'Descanso Curto',
+	longBreak: 'Descanso Longo',
 }

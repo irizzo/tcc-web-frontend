@@ -2,7 +2,7 @@
 
 import verifyUserAuth from '@/utils/verifyUserAuth'
 
-import { useContext, useCallback, useEffect } from 'react'
+import { useContext } from 'react'
 import { UserAccessStateContext } from '@/hooks'
 
 import './generalPages.scss'

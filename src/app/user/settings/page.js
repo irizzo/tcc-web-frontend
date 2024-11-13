@@ -11,7 +11,7 @@ import { treatUpdatedUserData } from '@/utils/dataTreatments.utils'
 import { deleteUserService, getUserInfo, updateUserService } from '@/services/userServices'
 
 import Loading from '@/components/Loading'
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormSection, FormInfo } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 export default function SettingsPage() {
@@ -126,6 +126,8 @@ export default function SettingsPage() {
 			<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
 				<input name='email' value={updatedUserInfo.email} readOnly={!editing} type='email' onChange={(e) => { setUpdatedUserInfo({ ...updatedUserInfo, email: e.target.value }) }} />
 			</FormSection>
+
+			<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton

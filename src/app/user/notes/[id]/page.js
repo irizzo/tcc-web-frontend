@@ -11,7 +11,7 @@ import { useContext, useState } from 'react'
 import { UserNotesContext, UserCategoriesContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormInfo, FormSection } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 export default function NotePage({ params, searchParams }) {
@@ -122,7 +122,6 @@ export default function NotePage({ params, searchParams }) {
 							</select>
 						</FormSection>
 
-						<p>Obs: preencha apenas o que deseja alterar</p>
 					</>
 					:
 					<>
@@ -131,6 +130,8 @@ export default function NotePage({ params, searchParams }) {
 						</FormSection>
 					</>
 			}
+
+			<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton

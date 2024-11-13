@@ -87,10 +87,14 @@ nav {
 	}
 }
 
-.nav__item:hover, .selected {
+.nav__item:hover {
 	background-color: variables.$foreground-color;
 	border-right: 2px solid variables.$primary-color-light;
 	color: variables.$primary-color-light;
+
+	div { 
+		color: variables.$primary-color-light;
+	}
 
 	.nav__item__icon {
 		color: variables.$primary-color-light;

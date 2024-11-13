@@ -24,7 +24,7 @@ export default function ContentsFeed() {
 
 	return (
 		<main className='flex flex--center categories__main'>
-			<h1 className='categories__page-title'>{locale.pagesTitles.categories.all}</h1>
+			<h1 className='categories__page-title'>{locale.pagesTitles.categories.base}</h1>
 			<div className='categories__feed'>
 				{
 					userCategories.categoriesList.length > 0 ?

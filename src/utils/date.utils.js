@@ -1,13 +1,13 @@
 export function needsRevalidation(updatedAt) {
 	console.log('[needsRevalidation]')
 
-	const now = new Date()
+	if (!updatedAt) return true
 
 	const maxDiff = 3600000
 	const dateInTime = updatedAt.getTime()
-	const nowInTime = now.getTime()
+	const now = new Date().getTime()
 
-	if ((nowInTime - dateInTime) > maxDiff) return true
+	if ((now - dateInTime) > maxDiff) return true
 
 	return false
 }
