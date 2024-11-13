@@ -24,9 +24,7 @@ export default function Focus() {
 	const [ editTimers, setEditTimers ] = useState({ focus: userTimers['focus'], shortBreak: userTimers['shortBreak'], longBreak: userTimers['longBreak'] })
 	const [ currentTimer, setCurrentTimer ] = useState('focus')
 	const [ deadline, setDeadline ] = useState(new Date().getTime() + (userTimers[currentTimer]) * 60000)
-	// const [editing, setEditing] = useState(false)
-	const [editing, setEditing] = useState(true)
-	const [isLoading, setIsLoading] = useState(false)
+	const [editing, setEditing] = useState(false)
 
 	const _handleEdit = {
 		handleState: () => {
@@ -130,8 +128,6 @@ export default function Focus() {
 			</section>
 		)
 	}
-
-	if (isLoading) return <Loading />
 
 	return (
 		<main className='flex focus__main'>

@@ -1,25 +1,26 @@
-'use client'; // Error components must be Client Components
+'use client'
 
-import { GeneralError } from '@/components/Messages';
-import { useEffect } from 'react';
+import { GeneralError } from '@/components/Messages'
+import { useEffect } from 'react'
+import { navigateTo } from '@/utils'
 
 export default function Error({ error, reset }) {
 	useEffect(() => {
 		// Log the error to an error reporting service
-		console.error(error);
-	}, [ error ]);
+		console.error(error)
+	}, [ error ])
 
 	return (
-		<div>
+		<div className='flex' style={{ width: '50vw', height: '50vh', borderRadius: '10px', backgroundColor: '#00000020'}}>
 			<GeneralError errorContent={JSON.stringify(error)} />
 			<button
 				onClick={
 					// Attempt to recover by trying to re-render the segment
-					() => reset()
+					() => reset() && navigateTo({ path: '/' })
 				}
 			>
 				Try again
 			</button>
 		</div>
-	);
+	)
 }

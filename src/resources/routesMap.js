@@ -2,7 +2,10 @@ const routesMap = {
 	home: '/',
 
 	about: '/about',
-	contents: '/contents',
+	contents: {
+		base: '/contents',
+		pomo: '/contents/' // TODO: colocar link pro Pomo
+	},
 
 	categories: {
 		base: '/user/categories',
