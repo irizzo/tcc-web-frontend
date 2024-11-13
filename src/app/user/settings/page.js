@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
-import { UserInfoContext, UserAccessStateContext, UserNotesContext, UserTasksContext, UserEventsContext, UserTimersContext, UserCategoriesContext } from '@/hooks'
+import { UserInfoContext } from '@/hooks'
 
 import * as locale from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
