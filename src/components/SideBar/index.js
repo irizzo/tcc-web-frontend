@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck, FaClock, FaRegClock } from 'react-icons/fa6'
 
-import { UserInfoContext, UserAccessStateContext, UserNotesContext, UserTasksContext, UserEventsContext, UserTimersContext, UserCategoriesContext } from '@/hooks'
+import { UserInfoContext } from '@/hooks'
 
 import { clearTokenCookie, navigateTo } from '@/utils'
 import routesMap from '@/resources/routesMap'
@@ -18,7 +18,7 @@ export default function SideBar() {
 	const weekday = currentDate.getDay()
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
 
-	const { userInfo, setUserInfo } = useContext(UserInfoContext)
+	const { userInfo } = useContext(UserInfoContext)
 
 	async function handleLogOut() {
 		await clearTokenCookie()
@@ -41,7 +41,7 @@ export default function SideBar() {
 				<NavListItem itemId={pagesKeys.notes.base} customIcon={<FaRegFile className='nav__item__icon' />} path={routesMap.notes.base}>{pagesTitles.notes.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.focus.base} customIcon={<FaRegClock className='nav__item__icon' />} path={routesMap.focus.base}>{pagesTitles.focus.base}</NavListItem>
 
-				<h3 className='nav__list__title'>{pagesTitles.sideBar.actions}</h3>
+				<h3 className='nav__list__title'>{pagesTitles.sideBar.shortcuts}</h3>
 				<NavListItem itemId={pagesKeys.categories.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.categories.new}>{pagesTitles.categories.new}</NavListItem>
 				<NavListItem itemId={pagesKeys.events.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.events.new}>{pagesTitles.events.new}</NavListItem>
 				<NavListItem itemId={pagesKeys.tasks.new} customIcon={<FaPlus className='nav__item__icon' />} path={routesMap.tasks.new}>{pagesTitles.tasks.new}</NavListItem>

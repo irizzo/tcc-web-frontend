@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteTaskService, updateTaskService } from '@/services/taskServices'
+import { deleteTaskService, updateTaskService, listAllTasksService } from '@/services/taskServices'
 import { treatUpdatedTaskData, getCategoryTitle } from '@/utils/dataTreatments.utils'
 import { navigateTo } from '@/utils'
 
@@ -8,7 +8,7 @@ import { useState, useContext } from 'react'
 import { UserCategoriesContext, UserTasksContext } from '@/hooks'
 
 import Loading from '@/components/Loading'
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormSection, FormInfo } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 import * as locale from '@/resources/locale'
@@ -66,7 +66,7 @@ export default function TaskPage({ params, searchParams }) {
 			const tasksRes = await listAllTasksService()
 			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
 			setIsLoading(false)
-			navigateTo({ path: routesMap.tasks.base })
+			navigateTo({ path: routesMap.dashboard })
 
 		} catch (error) {
 			setIsLoading(false)
@@ -177,6 +177,8 @@ export default function TaskPage({ params, searchParams }) {
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
 							<input name='category' readOnly value={categoryCode ? getCategoryTitle(categoryCode, userCategories.categoriesList) : ''} type='text'></input>
 						</FormSection>
+
+						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 			}
 			<div className='flex flex--row flex--center'>

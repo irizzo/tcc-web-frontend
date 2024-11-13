@@ -49,7 +49,7 @@ export default function NewTask() {
 			const tasksRes = await listAllTasksService()
 			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
 			setIsLoading(false)
-			navigateTo({ path: routesMap.tasks.base })
+			navigateTo({ path: routesMap.dashboard })
 
 		} catch (error) {
 			setIsLoading(false)

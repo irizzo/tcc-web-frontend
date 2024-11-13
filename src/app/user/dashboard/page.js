@@ -14,38 +14,38 @@ import { groupTasksByDate, groupEventsByDate } from '@/utils/groupData.utils'
 
 export default function Dashboard() {
 	console.log('[DASHBOARD]')
-	const [ categories, setCategories ] = useState({})
-	const [ today, setToday ] = useState({ tasks: [], events: [] })
-	const [ withinAWeek, setWithinAWeek ] = useState({ tasks: [], events: [] })
-	const [ otherTasks, setOtherTasks ] = useState([])
-	const [ otherEvents, setOtherEvents ] = useState([])
+	const [categories, setCategories] = useState({})
+	const [today, setToday] = useState({ tasks: [], events: [] })
+	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
+	const [otherTasks, setOtherTasks] = useState([])
+	const [otherEvents, setOtherEvents] = useState([])
+
 
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
-	const [ isLoading, setIsLoading ] = useState(true)
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		if (userCategories?.categoriesList === null || userTasks?.tasksList === null || userEvents.eventsList === null) {
-			setTimeout(() => { }, 3000)
-		}
+		setTimeout(() => {
+			let aux = {}
+			userCategories.categoriesList.forEach((category) => {
+				aux[category.code] = category.title
+			})
+			setCategories(aux)
 
-		let aux = {}
-		userCategories.categoriesList.forEach((category) => {
-			aux[category.code] = category.title
-		})
-		setCategories(aux)
+			const sortedTasks = groupTasksByDate(userTasks.tasksList)
+			const sortedEvents = groupEventsByDate(userEvents.eventsList)
 
-		const sortedTasks = groupTasksByDate(userTasks.tasksList)
-		const sortedEvents = groupEventsByDate(userEvents.eventsList)
+			setToday({ tasks: sortedTasks.todaysTasks, events: sortedEvents.todaysEvents })
+			setWithinAWeek({ tasks: sortedTasks.withinAWeekTasks, events: sortedEvents.withinAWeekEvents })
+			setOtherTasks([...sortedTasks.otherTasks])
+			setOtherEvents([...sortedEvents.otherEvents])
 
-		setToday({ tasks: sortedTasks.todaysTasks, events: sortedEvents.todaysEvents })
-		setWithinAWeek({ tasks: sortedTasks.withinAWeekTasks, events: sortedEvents.withinAWeekEvents })
-		setOtherTasks([ ...sortedTasks.otherTasks ])
-		setOtherEvents([ ...sortedEvents.otherEvents ])
+			setIsLoading(false)
+		}, 1000)
 
-		setIsLoading(false)
 	}, [])
 
 	if (isLoading) return <Loading />
@@ -99,6 +99,10 @@ export default function Dashboard() {
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.today} path={null}>
+				{console.log('categories: ', categories)}
+				{console.log('userCategories: ', userCategories)}
+				{console.log('userTasks: ', userTasks)}
+				{console.log('userEvents: ', userEvents)}
 				{
 					today.events && today.events.length > 0 || today.tasks && today.tasks.length > 0 ?
 						<TodayBoardContent />
@@ -107,16 +111,16 @@ export default function Dashboard() {
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.thisWeek} path={null}>
+			<Board title={locale.groupDataByTitle.withinAWeek} path={null}>
 				{
 					withinAWeek.events && withinAWeek.events.length > 0 || withinAWeek.tasks && withinAWeek.tasks.length > 0 ?
 						<ThisWeekBoardContent />
 						:
-						<GeneralInfo infoContent={locale.notFoundDefaults.thisWeek} />
+						<GeneralInfo infoContent={locale.notFoundDefaults.withinAWeek} />
 				}
 			</Board>
 
-			<Board title={'Mais ' + locale.pagesTitles.tasks.all} path={routesMap.tasks.new}>
+			<Board title={'Mais ' + locale.pagesTitles.tasks.base} path={routesMap.tasks.new}>
 				{
 					otherTasks && otherTasks.length > 0 ?
 						otherTasks.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
@@ -125,7 +129,7 @@ export default function Dashboard() {
 				}
 			</Board>
 
-			<Board title={'Mais ' + locale.pagesTitles.events.all} path={routesMap.events.new}>
+			<Board title={'Mais ' + locale.pagesTitles.events.base} path={routesMap.events.new}>
 				{
 					otherEvents && otherEvents.length > 0 ?
 						otherEvents.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)

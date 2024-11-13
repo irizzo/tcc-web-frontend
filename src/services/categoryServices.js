@@ -77,6 +77,8 @@ export async function getAllCategoriesService() {
 			throw new Error(fetchRes.message)
 		}
 
+		console.log('[getAllCategoriesService] fetchRes: ', fetchRes)
+
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 		)

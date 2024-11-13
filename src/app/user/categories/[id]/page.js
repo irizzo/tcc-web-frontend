@@ -7,7 +7,7 @@ import { getAllCategoriesService, deleteCategoryService, updateCategoryService }
 import { useState, useContext } from 'react'
 import { UserCategoriesContext } from '@/hooks'
 
-import { FormContainer, FormSection } from '@/components/Form'
+import { FormContainer, FormSection, FormInfo } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 import Loading from '@/components/Loading'
 
@@ -86,6 +86,7 @@ export default function CategoryPage({ searchParams }) {
 				<textarea name='categoryDescription' value={categoryDescription} readOnly={!editing} type='text' onChange={(e) => { setCategoryDescription(e.target.value)}} />
 			</FormSection>
 
+			<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton

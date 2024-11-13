@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useContext, useEffect } from 'react'
-import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext } from '@/hooks'
+import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext, UserAccessStateContext } from '@/hooks'
 
 import { needsRevalidation } from '@/utils/date.utils'
 import { getUserInfo } from '@/services/userServices'
@@ -21,6 +21,7 @@ export default function UserPagesLayout({ children }) {
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
+	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext)
 
 	const [ isLoading, setIsLoading ] = useState(true)
 
@@ -34,7 +35,7 @@ export default function UserPagesLayout({ children }) {
 		}
 
 		async function loadCategories() {
-			if (!userCategories.categoriesList || needsRevalidation(userCategories.updatedAt)) {
+			if (!userCategories?.categoriesList || needsRevalidation(userCategories.updatedAt)) {
 				console.log('revalidate userCategories')
 				const res = await getAllCategoriesService()
 
@@ -76,7 +77,11 @@ export default function UserPagesLayout({ children }) {
 			loadTasks()
 			loadEvents()
 			loadNotes()
-			setIsLoading(false)
+			setUserAccessState({ loggedIn: true, updatedAt: new Date()})
+
+			setTimeout(() => {
+				setIsLoading(false)
+			}, 2000)
 
 		} catch (error) {
 			console.log('[USER/LAYOUT] error: ', error)

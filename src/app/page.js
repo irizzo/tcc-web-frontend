@@ -9,13 +9,14 @@ import Menu from '@/components/Menu'
 
 import { appInfo, actionsTitles } from '@/resources/locale'
 import routesMap from '@/resources/routesMap'
+import defaultContextData from '@/resources/defaultContextData'
 import { clearTokenCookie } from '@/utils'
 
 import './home.scss'
 
 export default function Home() {
 	const { userInfo, setUserInfo } = useContext(UserInfoContext)
-	const { UserAccessState, setUserAccessState } = useContext(UserAccessStateContext)
+	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext)
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
@@ -26,13 +27,13 @@ export default function Home() {
 
 	async function reset() {
 		await clearTokenCookie()
-		setUserInfo(null) // TODO: reset com os valores certos
-		setUserAccessState(null)
-		setUserNotes(null)
-		setUserTasks(null)
-		setUserEvents(null)
-		setUserTimers(null)
-		setUserCategories(null)
+		setUserInfo(defaultContextData.userInfo)
+		setUserAccessState(defaultContextData.userAccess)
+		setUserNotes(defaultContextData.userNotes)
+		setUserTasks(defaultContextData.userTasks)
+		setUserEvents(defaultContextData.userEvents)
+		setUserTimers(defaultContextData.userTimers)
+		setUserCategories(defaultContextData.userCategories)
 		setIsLoading(false)
 	}
 
@@ -44,14 +45,6 @@ export default function Home() {
 
 	return (
 		<div className='flex home__container'>
-			{console.log('userInfo: ', userInfo)}
-			{console.log('UserAccessState: ', UserAccessState)}
-			{console.log('userNotes: ', userNotes)}
-			{console.log('userTasks: ', userTasks)}
-			{console.log('userEvents: ', userEvents)}
-			{console.log('userTimers: ', userTimers)}
-			{console.log('userCategories: ', userCategories)}
-
 			<Menu buttonsShown />
 			<main className='home__main'>
 				<h1 className='home__main__title'>{appInfo.name}</h1>

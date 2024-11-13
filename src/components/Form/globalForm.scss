@@ -9,20 +9,11 @@ $input__border: 2px solid variables.$primary-color-light--30op;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-
+	
 	min-height: fit-content;
-
-	// min-width: fit-content;
-	// max-width: 100%;
-
 	flex: 1;
-	// height: 100%;
 	width: 90%;
 
-	// margin: 0% 1%;
-	// padding: 0 0 1%;
-
-	// box-shadow: variables.$box-shadow--light;
 	border-radius: variables.$radius;
 
 	color: variables.$primary-font-color;

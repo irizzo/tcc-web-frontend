@@ -43,14 +43,21 @@
 	border-radius: variables.$radius;
 	width: 55vw;
 	height: 70vh;
+
+	color: variables.$primary-color-light;
 }
 
-.clock__text {
+.clock {
 	padding: 10px;
 	font-weight: bold;
 	font-size: 8rem;
 	width: 100%;
 	text-align: center;
+}
+
+.clock__text {
+	font-weight: bold;
+
 }
 
 .button__icon {
