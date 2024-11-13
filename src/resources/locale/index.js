@@ -98,7 +98,7 @@ export const pagesTitles = {
 	contents: 'Conteúdos',
 
 	categories: {
-		all: 'Categorias',
+		base: 'Categorias',
 		new: 'Nova Categoria',
 		edit: 'Editar Categoria',
 		view: 'Visualizar Categoria'
@@ -108,23 +108,30 @@ export const pagesTitles = {
 
 	events: {
 		new: 'Novo Evento',
-		all: 'Eventos',
+		base: 'Eventos',
 		view: 'Visualizar Evento',
 		edit: 'Editar Evento'
 	},
 
+	focus: {
+		base: 'Foco'
+	},
+
 	notes: {
-		all: 'Anotações',
+		base: 'Anotações',
 		new: 'Nova Anotação',
 		view: 'Visualizar Anotação',
 		edit: 'Editar Anotação'
 	},
 
-	settings: 'Configurações',
+	settings: {
+		base: 'Configurações',
+		updatePassword: 'Configurações - Alterar Senha'
+	},
 
 	tasks: {
 		new: 'Nova Tarefa',
-		all: 'Tarefas',
+		base: 'Tarefas',
 		edit: 'Editar Tarefa',
 		view: 'Visualizar Tarefa'
 	},
@@ -151,7 +158,7 @@ export const pagesKeys = {
 	contents: 'CONTENTS',
 
 	categories: {
-		all: 'ALL_CATEGORIES',
+		base: 'CATEGORIES',
 		new: 'NEW_CATEGORY',
 		edit: 'EDIT_CATEGORY',
 		view: 'VIEW_CATEGORY'
@@ -160,23 +167,30 @@ export const pagesKeys = {
 	dashboard: 'DASHBOARD',
 
 	events: {
-		all: 'ALL_EVENTS',
+		base: 'EVENTS',
 		new: 'NEW_EVENTS',
 		edit: 'EDIT_EVENTS',
 		view: 'VIEW_EVENTS'
 	},
 
+	focus: {
+		base: 'FOCUS'
+	},
+
 	notes: {
-		all: 'ALL_NOTES',
+		base: 'NOTES',
 		new: 'NEW_NOTES',
 		edit: 'EDIT_NOTES',
 		view: 'VIEW_NOTES'
 	},
 
-	settings: 'SETTINGS',
+	settings: {
+		base: 'SETTINGS',
+		updatePassword: 'UPDATE_PASSWORD'
+	},
 
 	tasks: {
-		all: 'ALL_TASKS',
+		base: 'TASKS',
 		new: 'NEW_TASKS',
 		edit: 'EDIT_TASKS',
 		view: 'VIEW_TASKS'
@@ -199,7 +213,8 @@ export const actionsTitles = {
 	cancel: 'Cancelar',
 	start: 'Começar',
 	login: 'Login',
-	logout: 'Logout'
+	logout: 'Logout',
+	deleteUser: 'Excluir conta'
 }
 
 export const appInfo = {

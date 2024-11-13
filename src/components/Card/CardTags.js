@@ -18,17 +18,14 @@ export function DueDateTag({ dueDate }) {
 
 	if (typeof dueDate !== typeof '') {
 		formatted = convertStampToDate(dueDate)
+		formatted = formatted.slice(0, formatted.length - 3)
 	} else {
 		const [ date, time ] = dueDate.split('T')
 		const formattedDate = date.split('-').reverse().join('/')
-		const formattedTime = time.split('.')[0]
+		const formattedTime = time.split('.')[0].slice(0, 5)
 
-		console.log('[DueDateTag] formattedDate:', formattedDate)
-		console.log('[DueDateTag] formattedTime:', formattedTime)
 		formatted = formattedDate + ', ' + formattedTime
 	}
-
-	console.log('[DueDateTag] dueDate:', dueDate, 'formatted:', formatted)
 
 	return (
 		<TagContainer content={formatted}	>

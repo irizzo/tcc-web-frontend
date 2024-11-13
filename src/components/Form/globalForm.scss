@@ -148,6 +148,18 @@ select:disabled {
 	border: none;
 }
 
+.password__container {
+	width: 100%;
+	justify-content: flex-start;
+}
+
+.password__input {
+	flex: 1;
+	min-width: 90%;
+
+	margin-right: 1%;
+}
+
 .form__info {
 	width: 75%;
 	max-width: 75%;
@@ -156,7 +168,6 @@ select:disabled {
 	height: fit-content;
 
 	p {
-		font-size: small;
 		width: $input__width;
 		max-width: $input__width;
 
@@ -186,4 +197,13 @@ select:disabled {
 	max-height: 100%;
 	flex: 1;
 	max-width: 100%;
+}
+
+.form__container--fullW {
+	height: 100%;
+	max-height: 100%;
+	max-width: 100%;
+	min-width: 100%;
+	width: 100%;
+	flex: 1;
 }

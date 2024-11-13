@@ -73,3 +73,9 @@ body {
 .hidden {
 	display: none;
 }
+
+.link {
+	@extend .text--highlight;
+	cursor: pointer;
+	font-weight: bold;
+}

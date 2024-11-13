@@ -10,7 +10,7 @@ export function UserAccessStateProvider({ children }) {
 
 export const UserInfoContext = createContext(null)
 export function UserInfoProvider({ children }) {
-	const [ userInfo, setUserInfo ] = useState({ data: null, updatedAt: new Date()})
+	const [ userInfo, setUserInfo ] = useState({ data: null, updatedAt: new Date() })
 	return <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>{children}</UserInfoContext.Provider>
 }
 
@@ -38,6 +38,12 @@ export function UserNotesProvider({ children }) {
 	return <UserNotesContext.Provider value={{ userNotes, setUserNotes }}>{children}</UserNotesContext.Provider>
 }
 
+export const UserTimersContext = createContext(null)
+export function UserTimersProvider({children}) {
+	const [ userTimers, setUserTimers ] = useState({ focus: 25, shortBreak: 5, longBreak: 15 })
+	return <UserTimersContext.Provider value={{ userTimers, setUserTimers}}>{children}</UserTimersContext.Provider>
+}
+
 export function UserProviders({ children }) {
 	return (
 		<UserAccessStateProvider>
@@ -46,7 +52,9 @@ export function UserProviders({ children }) {
 					<UserEventsProvider>
 						<UserNotesProvider>
 							<UserTasksProvider>
-								{children}
+								<UserTimersProvider>
+									{children}
+								</UserTimersProvider>
 							</UserTasksProvider>
 						</UserNotesProvider>
 					</UserEventsProvider>
