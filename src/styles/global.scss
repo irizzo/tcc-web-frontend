@@ -55,7 +55,6 @@ li {
 body {
 	background-color: variables.$page-background-color;
 	box-sizing: border-box;
-	display: flex;
 	flex-wrap: wrap;
 
 	width: 100vw;
@@ -85,4 +84,9 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
+	transition: 300ms;
+}
+
+.icon:hover {
+	color: variables.$primary-color-light;
 }

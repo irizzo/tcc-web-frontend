@@ -219,7 +219,9 @@ export const actionsTitles = {
 
 export const appInfo = {
 	name: 'Daily Life',
-	description: 'Ferramenta de organização pessoal focada em estudantes do ensino superior para melhorar sua produtividade.'
+	description: 'Ferramenta de organização pessoal focada em estudantes do ensino superior para melhorar sua produtividade.',
+	aboutTheApp: 'Esta ferramenta foi criada para auxiliar as pessoas em geral, mas focada nos alunos de ensino superior, a melhorarem sua organização pessoal por meio da centralização de suas informações e da aplicação dos conceitos de Gestão de Tempo e de Planejamento Estratégico. A ferramenta ainda está em desenvolvimento, com o objetivo de cada vez ser mais útil e mais completa.',
+	aboutTheCreator: 'Olá! Sou Isabelle Rizzo, formada em Sistemas de Informação pela Universidade Federal do Rio de Janeiro.'
 }
 
 export const notFoundDefaults = {

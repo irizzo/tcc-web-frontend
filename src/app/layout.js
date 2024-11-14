@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="pt-br" className={raleway.className}>
-			<body className={raleway.className}>
+			<body className={`flex ${raleway.className}`}>
 				<UserProviders>
 					{children}
 				</UserProviders>
