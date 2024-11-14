@@ -52,10 +52,8 @@ export async function signUpService(userSignUpData) {
 	console.log('[signUpService]')
 
 	try {
-		const tokenCookie = await getTokenCookie()
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
-			'Authorization': tokenCookie.value
 		})
 
 		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
@@ -96,10 +94,8 @@ export async function loginService(userLoginData) {
 	try {
 		console.log('[loginService]')
 
-		const tokenCookie = await getTokenCookie()
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
-			'Authorization': tokenCookie.value
 		})
 
 		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {

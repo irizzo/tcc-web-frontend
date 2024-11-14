@@ -2,7 +2,10 @@
 export default {
 	home: '/',
 
-	about: '/public/about',
+	about: {
+		base: '/public/about'
+	},
+	
 	contents: {
 		base: '/public/contents',
 		pomo: '/public/contents/' // TODO: colocar link pro Pomo

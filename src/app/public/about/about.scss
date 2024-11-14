@@ -1,5 +1,9 @@
 @use '../../../styles/variables.scss';
 
+.about__container {
+	height: 80vh;
+	justify-content: flex-start;
+}
 .about__section {
 	width: 100%;
 	margin: 10px 0px;

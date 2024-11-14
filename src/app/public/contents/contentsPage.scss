@@ -1,15 +1,22 @@
 @use '../../../styles/variables.scss';
 
+.feed__container {
+	width: 90%;
+	max-width: 90vw;
+	flex: 1;
+
+	justify-content: flex-start;
+}
+
 .contents__page-title {
-	width: 90vw;
+	width: 100%;
 	text-align: center;
-	// border-bottom: 2px solid variables.$primary-color-light--30op;
 	margin-bottom: 1%;
 }
 
 .contents__feed {
 	padding: 1%;
-	width: 90vw;
+	width: 100%;
 	flex: 1;
 	max-height: 90vh;
 	overflow-x: scroll;
@@ -20,6 +27,7 @@
 	width: 100%;
 	border-radius: variables.$radius;
 	padding: 5px;
+	margin-bottom: 5px;
 
 	justify-content: space-between;
 

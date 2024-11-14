@@ -4,12 +4,13 @@ import Image from 'next/image'
 
 export default function AboutPage() {
 	return (
-		<>
+		<div className='flex about__container'>
 			<h1>{pagesTitles.about}</h1>
 
 			<section className='flex about__section'>
 				<h2>Sobre a Ferramenta</h2>
 				<p>{appInfo.aboutTheApp}</p>
+
 			</section>
 
 			<section className='flex about__section'>
@@ -25,6 +26,6 @@ export default function AboutPage() {
 					<p>{appInfo.aboutTheCreator}</p>
 				</div>
 			</section>
-		</>
+		</div>
 	)
 }

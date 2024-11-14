@@ -49,8 +49,8 @@ export default function SideBar() {
 
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
 				<NavListItem itemId={pagesKeys.settings.base} path={routesMap.settings.base} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings.base}</NavListItem>
-				{/* <NavListItem itemId={pagesKeys.contents} path={routesMap.contents} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem> */}
-				{/* <NavListItem itemId={pagesKeys.about} path={routesMap.about} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem> */}
+				<NavListItem itemId={pagesKeys.contents} path={routesMap.contents.base} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem>
+				<NavListItem itemId={pagesKeys.about} path={routesMap.about.base} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem>
 				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{actionsTitles.logout}</NavListButton>
 			</ul>
 		</nav>
