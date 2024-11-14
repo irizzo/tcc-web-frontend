@@ -3,8 +3,7 @@ import httpClient from './http/client'
 
 import messagesDictionary from '@/resources/messages'
 
-// const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
-const BASEURL = 'http://localhost:8080'
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseCategoriesPath = '/categories'
 
 /** Create Category
@@ -22,7 +21,7 @@ export async function createCategoryService(categoryData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseCategoriesPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}`, {
 			method: 'POST',
 			body: JSON.stringify(categoryData),
 			headers: customHeaders
@@ -190,7 +189,7 @@ export async function updateCategoryService(categoryId, updatedData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseCategoriesPath}/${categoryId}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}/${categoryId}`, {
 			method: 'PUT',
 			body: JSON.stringify(updatedData),
 			headers: customHeaders

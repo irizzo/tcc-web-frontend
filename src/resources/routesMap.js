@@ -5,7 +5,7 @@ export default {
 	about: '/public/about',
 	contents: {
 		base: '/public/contents',
-		pomo: '/public//contents/' // TODO: colocar link pro Pomo
+		pomo: '/public/contents/' // TODO: colocar link pro Pomo
 	},
 
 	categories: {
@@ -13,7 +13,9 @@ export default {
 		new: '/user/categories/new'
 	},
 
-	dashboard: '/user/dashboard',
+	dashboard: {
+		base: '/user/dashboard'
+	},
 
 	events: {
 		base: '/user/events',
@@ -45,8 +47,14 @@ export default {
 	test: '/test'
 }
 
+/*
+exports.routesBasePath = {
+	root: '/',
+	public: '/public',
+	user: '/user'
+}
 
-const reroute = {
+exports.routesMap = {
 	root: {
 		home: '/',
 		login: '/login',
@@ -98,3 +106,4 @@ const reroute = {
 		}
 	}
 }
+	*/

@@ -1,36 +1,36 @@
-'use server';
+'use server'
 
-import { clearTokenCookie, getTokenCookie, setCookieData } from '@/utils';
+import { getTokenCookie, setCookieData } from '@/utils'
 
-import httpClient from './http/client';
-import messagesDictionary from '@/resources/messages';
+import httpClient from './http/client'
+import messagesDictionary from '@/resources/messages'
 
-const BASEURL = 'http://localhost:8080';
-const baseAccessPath = '/user-access';
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
+const baseAccessPath = '/user-access'
 
 export async function verifyUserAuthService() {
-	console.log('[verifyUserAuthService]');
+	console.log('[verifyUserAuthService]')
 	try {
-		const tokenCookie = await getTokenCookie();
+		const tokenCookie = await getTokenCookie()
 
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
-		});
+		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseAccessPath}/verify`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/verify`, {
 			method: 'GET',
 			headers: customHeaders
 		}).then((res) => {
-			return res.json();
-		});
+			return res.json()
+		})
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		);
+		)
 
 		if (!fetchRes.success) {
-			throw new Error(message);
+			throw new Error(message)
 		};
 
 		return {
@@ -38,11 +38,11 @@ export async function verifyUserAuthService() {
 			success: fetchRes.success,
 			result: fetchRes?.result,
 			message
-		};
+		}
 
 	} catch (error) {
-		console.log('[verifyUserAuthService] error: ', error);
-		throw error;
+		console.log('[verifyUserAuthService] error: ', error)
+		throw error
 	}
 }
 
@@ -52,32 +52,32 @@ export async function verifyUserAuthService() {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function signUpService(userSignUpData) {
-	console.log('[signUpService]');
+	console.log('[signUpService]')
 
 	try {
 		const fetchRes = await httpClient.post({
 			path: `${baseAccessPath}/signUp`,
 			payload: userSignUpData
-		});
+		})
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL);
+			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL)
 
 		if (!fetchRes.success) {
-			throw new Error(message);
+			throw new Error(message)
 		};
 
 		return {
 			success: fetchRes.success,
 			result: fetchRes?.result,
 			message
-		};
+		}
 
 	} catch (error) {
-		console.log('[signUpService] error: ', error);
-		throw error;
+		console.log('[signUpService] error: ', error)
+		throw error
 	}
 }
 
@@ -88,37 +88,31 @@ export async function signUpService(userSignUpData) {
  */
 export async function loginService(userLoginData) {
 	try {
-		console.log('[loginService]');
+		console.log('[loginService]')
 
 		const fetchRes = await httpClient.post({
 			path: `${baseAccessPath}/login`,
 			payload: userLoginData
-		});
+		})
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData);
+		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		);
+		)
 
 		if (!fetchRes.success) {
-			throw new Error(message);
+			throw new Error(message)
 		};
 
 		return {
 			success: fetchRes.success,
 			result: fetchRes?.result,
 			message
-		};
+		}
 
 	} catch (error) {
-		console.log('[loginService] error: ', error);
-		throw error;
+		console.log('[loginService] error: ', error)
+		throw error
 	}
-}
-
-export async function logoutService() {
-	console.log('[logoutService]');
-
-	await clearTokenCookie();
 }

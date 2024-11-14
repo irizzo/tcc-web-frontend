@@ -3,7 +3,7 @@ import httpClient from './http/client'
 
 import messagesDictionary from '@/resources/messages'
 
-const BASEURL = 'http://localhost:8080'
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseNotesPath = '/notes'
 
 export async function createNoteService(noteData) {
@@ -17,15 +17,13 @@ export async function createNoteService(noteData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseNotesPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseNotesPath}`, {
 			method: 'POST',
 			body: JSON.stringify(noteData),
 			headers: customHeaders
 		}).then((res) => {
 			return res.json()
 		})
-
-		// console.log('[createNoteService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -61,8 +59,6 @@ export async function getAllNotesService() {
 			}
 		})
 
-		console.log('[getAllNotesService] fetchRes: ', fetchRes)
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -91,22 +87,18 @@ export async function updateNoteService(noteId, updatedData) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		console.log('[updateNoteService] updatedData: ', updatedData)
-
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseNotesPath}/${noteId}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseNotesPath}/${noteId}`, {
 			method: 'PUT',
 			body: JSON.stringify(updatedData),
 			headers: customHeaders
 		}).then((res) => {
 			return res.json()
 		})
-
-		console.log('[updateNoteService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 

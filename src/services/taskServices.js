@@ -4,14 +4,11 @@ import { getTokenCookie, setCookieData } from '@/utils'
 import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
 
-// const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
-const BASEURL = 'http://localhost:8080'
-
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseTasksPath = '/tasks'
 
 export async function listAllTasksService() {
 	console.log('[listAllTasksService]')
-
 	try {
 		const tokenCookie = await getTokenCookie()
 
@@ -59,7 +56,7 @@ export async function createTaskService(taskData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseTasksPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseTasksPath}`, {
 			method: 'POST',
 			body: JSON.stringify(taskData),
 			headers: customHeaders
@@ -101,7 +98,7 @@ export async function updateTaskService(taskId, updatedData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseTasksPath}/${taskId}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseTasksPath}/${taskId}`, {
 			method: 'PUT',
 			body: JSON.stringify(updatedData),
 			headers: customHeaders

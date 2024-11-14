@@ -1,57 +1,57 @@
-const _BASEURL = process.env.currentEnv === 'production' ? process.env.prodBaseURL : process.env.devBaseURL;
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 
 const httpClient = ({ baseURL }) => {
 
 	const defaultHeaders = new Headers({
 		'Content-type': 'application/json; charset=UTF-8'
-	});
+	})
 
 	return {
 		get: async({ path, customHeaders = null }) => {
-			console.log('[httpClient] [get]');
+			console.log('[httpClient] [get]')
 
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'GET',
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
-			});
+			})
 
-			return res.json();
+			return res.json()
 		},
 
 		post: async ({ path, payload, customHeaders = null }) => {
-			console.log('[httpClient] [post]');
+			console.log('[httpClient] [post]')
 
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'POST',
 				body: JSON.stringify(payload),
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
-			});
+			})
 
-			return res.json();
+			return res.json()
 		},
 
 		put: async ({ path, payload, customHeaders = null }) => {
-			console.log('[httpClient] [put]');
+			console.log('[httpClient] [put]')
 
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'PUT',
 				body: JSON.stringify(payload),
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
-			});
+			})
 
-			return res.json();
+			return res.json()
 		},
 
 		delete: async ({ path, customHeaders = null }) => {
-			console.log('[httpClient] [delete]');
+			console.log('[httpClient] [delete]')
 			const res = await fetch(`${baseURL}${path}`, {
 				method: 'DELETE',
 				headers: customHeaders ? { ...defaultHeaders, ...customHeaders } : defaultHeaders
-			});
+			})
 
-			return res.json();
+			return res.json()
 		}
-	};
-};
+	}
+}
 
-export default httpClient({ baseURL: _BASEURL });
+export default httpClient({ baseURL: API_BASEURL })

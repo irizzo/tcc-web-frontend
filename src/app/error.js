@@ -11,7 +11,7 @@ export default function Error({ error, reset }) {
 	}, [ error ])
 
 	return (
-		<div className='flex' style={{ width: '50vw', height: '50vh', borderRadius: '10px', backgroundColor: '#00000020'}}>
+		<div className='flex' style={{ width: '70vw', height: '70vh', borderRadius: '10px', backgroundColor: '#00000020'}}>
 			<GeneralError errorContent={JSON.stringify(error)} />
 			<button
 				onClick={

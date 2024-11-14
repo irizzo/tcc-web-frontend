@@ -34,7 +34,7 @@ export default function SideBar() {
 
 			<ul className='flex nav__list'>
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.pages}</h3>
-				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{pagesTitles.dashboard}</NavListItem>
+				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard.base}>{pagesTitles.dashboard}</NavListItem>
 				<NavListItem itemId={pagesKeys.categories.base} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.events.base} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.tasks.base} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.base}</NavListItem>

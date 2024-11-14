@@ -211,7 +211,7 @@ export const actionsTitles = {
 	delete: 'Excluir',
 	edit: 'Editar',
 	cancel: 'Cancelar',
-	start: 'Começar',
+	start: 'Saber Mais',
 	login: 'Login',
 	logout: 'Desconectar',
 	deleteUser: 'Excluir conta'

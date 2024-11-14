@@ -1,9 +1,8 @@
 import { getTokenCookie, setCookieData } from '@/utils'
 import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
-import { decodeToken } from '@/utils/jwt.utils'
 
-const BASEURL = 'http://localhost:8080'
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseUserPath = '/user'
 
 export async function getUserInfo() {
@@ -51,7 +50,7 @@ export async function updateUserService(updatedData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseUserPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseUserPath}`, {
 			method: 'PUT',
 			body: JSON.stringify(updatedData),
 			headers: customHeaders
@@ -93,7 +92,7 @@ export async function deleteUserService() {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseUserPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseUserPath}`, {
 			method: 'DELETE',
 			headers: customHeaders
 		}).then((res) => {

@@ -9,7 +9,7 @@ import { DashboardPageContainer, DefaultPageContainer } from '@/components/PageC
 
 import './publicPages.scss'
 
-export default function GeneralPagesLayout({ children }) {
+export default function PublicPagesLayout({ children }) {
 	const { userAccessState } = useContext(UserAccessStateContext)
 
 	if (userAccessState.loggedIn) {

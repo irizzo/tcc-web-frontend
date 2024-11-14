@@ -39,3 +39,4 @@ next-env.d.ts
 # my notes
 src/services/services.md
 src/services/testService.js
+.env

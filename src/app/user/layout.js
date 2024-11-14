@@ -10,8 +10,8 @@ import { listAllTasksService } from '@/services/taskServices'
 import { getAllEventsService } from '@/services/eventServices'
 import { getAllNotesService } from '@/services/notesService'
 
-import Loading from '@/components/Loading'
 import SideBar from '@/components/SideBar'
+import Loading from '@/components/Loading'
 import { DashboardPageContainer } from '@/components/PageContainer'
 import './userPages.scss'
 
@@ -23,7 +23,7 @@ export default function UserPagesLayout({ children }) {
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext)
 
-	const [ isLoading, setIsLoading ] = useState(true)
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		async function loadUserInfo() {
@@ -77,7 +77,7 @@ export default function UserPagesLayout({ children }) {
 			loadTasks()
 			loadEvents()
 			loadNotes()
-			setUserAccessState({ loggedIn: true, updatedAt: new Date()})
+			setUserAccessState({ loggedIn: true, updatedAt: new Date() })
 
 			setTimeout(() => {
 				setIsLoading(false)
@@ -93,11 +93,17 @@ export default function UserPagesLayout({ children }) {
 	if (isLoading) return <Loading />
 
 	return (
-		<DashboardPageContainer>
+		<>
+			{/* {children} */}
+			
+					<DashboardPageContainer>
 			<SideBar />
 			<main className='flex flex--row user-pages__main'>
 				{children}
 			</main>
 		</DashboardPageContainer>
+				
+		</>
+
 	)
 }
