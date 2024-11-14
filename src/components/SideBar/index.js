@@ -8,7 +8,7 @@ import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBra
 import { UserInfoContext } from '@/hooks'
 
 import { clearTokenCookie, navigateTo } from '@/utils'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale'
 
 import './sideBar.scss'
@@ -34,7 +34,7 @@ export default function SideBar() {
 
 			<ul className='flex nav__list'>
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.pages}</h3>
-				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard}>{pagesTitles.dashboard}</NavListItem>
+				<NavListItem itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard.base}>{pagesTitles.dashboard}</NavListItem>
 				<NavListItem itemId={pagesKeys.categories.base} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.events.base} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.base}</NavListItem>
 				<NavListItem itemId={pagesKeys.tasks.base} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.base}</NavListItem>
@@ -49,18 +49,17 @@ export default function SideBar() {
 
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
 				<NavListItem itemId={pagesKeys.settings.base} path={routesMap.settings.base} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings.base}</NavListItem>
-				{/* <NavListItem itemId={pagesKeys.contents} path={routesMap.contents} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem> */}
-				{/* <NavListItem itemId={pagesKeys.about} path={routesMap.about} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem> */}
+				<NavListItem itemId={pagesKeys.contents} path={routesMap.contents.base} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem>
+				<NavListItem itemId={pagesKeys.about} path={routesMap.about.base} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem>
 				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{actionsTitles.logout}</NavListButton>
 			</ul>
 		</nav>
 	)
 };
 
-function NavListItem({ children, path = '/', customIcon = null, selected = false, itemId }) {
-	const selectedClass = selected ? 'selected' : ''
+function NavListItem({ children, path = '/', customIcon = null, itemId }) {
 	return (
-		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
+		<li key={itemId} id={itemId} className='flex flex--row nav__item'>
 			<Link className='flex flex--row nav__item__link' href={path}>
 				{customIcon ? customIcon : <FaArrowRight className='nav__item__icon' />}
 				{children}

@@ -1,10 +1,21 @@
-const routesMap = {
-	home: '/',
+exports.routesBasePath = {
+	root: '/',
+	public: '/public',
+	user: '/user'
+}
 
-	about: '/about',
+exports.routesMap = {
+	home: '/',
+	login: '/login',
+	signUp: '/sign-up',
+	
+	about: {
+		base: '/public/about'
+	},
+
 	contents: {
-		base: '/contents',
-		pomo: '/contents/' // TODO: colocar link pro Pomo
+		base: '/public/contents',
+		pomo: '/public/contents/pomo'
 	},
 
 	categories: {
@@ -12,7 +23,9 @@ const routesMap = {
 		new: '/user/categories/new'
 	},
 
-	dashboard: '/user/dashboard',
+	dashboard: {
+		base: '/user/dashboard'
+	},
 
 	events: {
 		base: '/user/events',
@@ -20,7 +33,7 @@ const routesMap = {
 	},
 
 	focus: {
-		base: '/focus'
+		base: '/user/focus'
 	},
 
 	notes: {
@@ -36,12 +49,5 @@ const routesMap = {
 	tasks: {
 		base: '/user/tasks',
 		new: '/user/tasks/new'
-	},
-
-	login: '/login',
-	signUp: '/sign-up',
-
-	test: '/test'
-};
-
-export default routesMap;
+	}
+}

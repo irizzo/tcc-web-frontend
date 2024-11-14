@@ -1,9 +1,9 @@
-import { getTokenCookie, setCookieData } from '@/utils'
-import httpClient from './http/client'
+'use server'
 
+import { getTokenCookie, setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
 
-const BASEURL = 'http://localhost:8080'
+const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseEventsPath = '/events'
 
 export async function createEventService(eventData) {
@@ -17,15 +17,13 @@ export async function createEventService(eventData) {
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseEventsPath}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseEventsPath}`, {
 			method: 'POST',
 			body: JSON.stringify(eventData),
 			headers: customHeaders
 		}).then((res) => {
 			return res.json()
 		})
-
-		// console.log('[createEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -55,14 +53,17 @@ export async function getAllEventsService() {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseEventsPath}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		})
 
-		// console.log('[getAllEventsService] fetchRes: ', fetchRes);
+		const fetchRes = await fetch(`${API_BASEURL}${baseEventsPath}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -92,14 +93,17 @@ export async function getEventDetailsService(eventId) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseEventsPath}/${eventId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		})
 
-		// console.log('[getEventDetailsService] fetchRes: ', fetchRes);
+		const fetchRes = await fetch(`${API_BASEURL}${baseEventsPath}/${eventId}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -129,22 +133,18 @@ export async function updateEventService(eventId, updatedData) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		console.log('[updateEventService] updatedData: ', updatedData)
-
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
 		})
 
-		const fetchRes = await fetch(`${BASEURL}${baseEventsPath}/${eventId}`, {
+		const fetchRes = await fetch(`${API_BASEURL}${baseEventsPath}/${eventId}`, {
 			method: 'PUT',
 			body: JSON.stringify(updatedData),
 			headers: customHeaders
 		}).then((res) => {
 			return res.json()
 		})
-
-		// console.log('[updateEventService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -174,11 +174,16 @@ export async function deleteEventService(eventId) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.delete({
-			path: `${baseEventsPath}/${eventId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseEventsPath}/${eventId}`, {
+			method: 'DELETE',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)

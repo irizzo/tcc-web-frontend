@@ -11,8 +11,7 @@ import { getAllEventsService } from '@/services/eventServices'
 import { getAllNotesService } from '@/services/notesService'
 
 import Loading from '@/components/Loading'
-import SideBar from '@/components/SideBar'
-import { DashboardPageContainer } from '@/components/PageContainer'
+
 import './userPages.scss'
 
 export default function UserPagesLayout({ children }) {
@@ -28,7 +27,6 @@ export default function UserPagesLayout({ children }) {
 	useEffect(() => {
 		async function loadUserInfo() {
 			if (!userInfo.data || needsRevalidation(userInfo.updatedAt)) {
-				console.log('revalidate userInfo')
 				const res = await getUserInfo()
 				setUserInfo({ data: { email: res.result.email, firstName: res.result.firstName, lastName: res.result.lastName }, updatedAt: new Date() })
 			}
@@ -36,7 +34,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadCategories() {
 			if (!userCategories?.categoriesList || needsRevalidation(userCategories.updatedAt)) {
-				console.log('revalidate userCategories')
 				const res = await getAllCategoriesService()
 
 				setUserCategories({ categoriesList: res.result, updatedAt: new Date() })
@@ -45,7 +42,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadTasks() {
 			if (!userTasks.tasksList || needsRevalidation(userTasks.updatedAt)) {
-				console.log('revalidate userTasks')
 				const res = await listAllTasksService()
 
 				setUserTasks({ tasksList: res.result, updatedAt: new Date() })
@@ -54,7 +50,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadEvents() {
 			if (!userEvents.eventsList || needsRevalidation(userEvents.updatedAt)) {
-				console.log('revalidate userEvents')
 				const res = await getAllEventsService()
 
 				setUserEvents({ eventsList: res.result, updatedAt: new Date() })
@@ -63,7 +58,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadNotes() {
 			if (!userNotes.notesList || needsRevalidation(userNotes.updatedAt)) {
-				console.log('revalidate userNotes')
 				const res = await getAllNotesService()
 
 				setUserNotes({ notesList: res.result, updatedAt: new Date() })
@@ -77,7 +71,7 @@ export default function UserPagesLayout({ children }) {
 			loadTasks()
 			loadEvents()
 			loadNotes()
-			setUserAccessState({ loggedIn: true, updatedAt: new Date()})
+			setUserAccessState({ loggedIn: true, updatedAt: new Date() })
 
 			setTimeout(() => {
 				setIsLoading(false)
@@ -93,11 +87,8 @@ export default function UserPagesLayout({ children }) {
 	if (isLoading) return <Loading />
 
 	return (
-		<DashboardPageContainer>
-			<SideBar />
-			<main className='flex flex--row user-pages__main'>
-				{children}
-			</main>
-		</DashboardPageContainer>
+		<>
+			{children}
+		</>
 	)
 }

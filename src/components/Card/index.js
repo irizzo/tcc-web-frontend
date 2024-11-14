@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CategoryTag, DueDateTag, PriorityTag, ProgressTag } from './CardTags'
 
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import { statusInfo, prioritiesInfo } from '@/resources/locale'
 
 import './card.scss'
@@ -33,7 +33,7 @@ export function _GeneralCard({ noteInfo, categoryTitle }) {
 }
 
 export function FeedCard({ contentInfo }) {
-	const contentPath = `${routesMap.contents}/${contentInfo.id}`
+	const contentPath = `${routesMap.contents.base}/${contentInfo.id}`
 	const abstract = contentInfo.content.slice(0, 200) + '...'
 
 	return (

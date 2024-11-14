@@ -1,12 +1,12 @@
-'use server';
+'use server'
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server'
 
-import routesMap from '@/resources/routesMap';
-import { verifyUserAuthService } from '@/services/userAccessServices';
+import { routesMap } from '@/resources/routesMap'
+import { verifyUserAuthService } from '@/services/userAccessServices'
 
-// const BASEURL = process.env.currentEnv === 'production' ? process.env.prodWebBaseURL : process.env.devWebBaseURL;
-const BASEURL = 'http://localhost:3000';
+const APP_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
+console.log('[middleware] APP_BASEURL: ', APP_BASEURL)
 
 /**
  * authMiddleware
@@ -14,31 +14,32 @@ const BASEURL = 'http://localhost:3000';
  * @returns
  */
 export default async function authMiddleware(req) {
-	console.log('[authMiddleware]');
+	console.log('[authMiddleware]')
 
-	let isUserLogged = false;
-	const tokenCookie = req.cookies.get('token');
+	let isUserLogged = false
+	const tokenCookie = req.cookies.get('token')
+	console.log('[middleware]tokenCookie: ', tokenCookie)
 
-	const { pathname } = req.nextUrl;
-	const userBasePath = '/user';
+	const { pathname } = req.nextUrl
+	const userBasePath = '/user'
 
 	if (tokenCookie) {
-		const userAuthRes = await verifyUserAuthService();
-		isUserLogged = userAuthRes.success;
-		req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value);
+		const userAuthRes = await verifyUserAuthService()
+		isUserLogged = userAuthRes.success
+		req.cookies.set(userAuthRes.tokenCookieData.name, userAuthRes.tokenCookieData.value)
 	}
 
 	if (pathname.includes(userBasePath)) {
-		return isUserLogged ? NextResponse.next() : NextResponse.redirect(`${BASEURL}/login`, req.url);
-	};
-
-	if (pathname === routesMap.login || pathname === routesMap.signUp) {
-		return isUserLogged ? NextResponse.redirect(`${BASEURL}/user/dashboard`, req.url) : NextResponse.next();
+		return isUserLogged ? NextResponse.next() : NextResponse.redirect(`${APP_BASEURL}${routesMap.login}`, req.url)
 	}
 
-	return NextResponse.next();
+	if (pathname === routesMap.login || pathname === routesMap.signUp) {
+		return isUserLogged ? NextResponse.redirect(`${APP_BASEURL}${routesMap.dashboard.base}`, req.url) : NextResponse.next()
+	}
+
+	return NextResponse.next()
 }
 
 export const config = {
 	matcher: [ '/user/:path*', '/login/:path', '/sign-up/:path' ]
-};
+}

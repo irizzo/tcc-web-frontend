@@ -8,7 +8,7 @@ import { LinkButton } from '@/components/Buttons'
 import Menu from '@/components/Menu'
 
 import { appInfo, actionsTitles } from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import defaultContextData from '@/resources/defaultContextData'
 import { clearTokenCookie } from '@/utils'
 
@@ -50,7 +50,7 @@ export default function Home() {
 				<h1 className='home__main__title'>{appInfo.name}</h1>
 				<p className='home__main__subtitle'>{appInfo.description}</p>
 
-				<LinkButton path={routesMap.contents} title={actionsTitles.start} variant="filled"/>
+				<LinkButton path={routesMap.about.base} title={actionsTitles.start} variant='filled'/>
 			</main>
 		</div>
 	)

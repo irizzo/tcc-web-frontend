@@ -1,0 +1,13 @@
+@use '../../styles/variables.scss';
+
+.user-pages__main {
+	height: 98vh;
+	border-radius: variables.$radius;
+	margin: auto 0.5%;
+}
+
+.public-pages__main {
+	height: 90vh;
+	width: 100%;
+	justify-content: flex-start;
+}

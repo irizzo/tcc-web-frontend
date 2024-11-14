@@ -1,0 +1,54 @@
+@use '../../../styles/variables.scss';
+
+.feed__container {
+	width: 90%;
+	max-width: 90vw;
+	flex: 1;
+
+	justify-content: flex-start;
+}
+
+.contents__page-title {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 1%;
+}
+
+.contents__feed {
+	padding: 1%;
+	width: 100%;
+	flex: 1;
+	max-height: 90vh;
+	overflow-x: scroll;
+}
+
+.feed__list-item {
+	height: 50px;
+	width: 100%;
+	border-radius: variables.$radius;
+	padding: 5px;
+	margin-bottom: 5px;
+
+	justify-content: space-between;
+
+	text-decoration: none;
+	border-bottom: 1px solid variables.$primary-color-light--30op;
+	transition: 300ms;
+
+	h2,
+	p {
+		color: rgb(204, 204, 204);
+	}
+}
+
+.feed__list-item:hover {
+	background-color: variables.$primary-color-dark--15op;
+	color: variables.$primary-font-color;
+
+	transform: scale(102%);
+
+	h2,
+	p {
+		color: variables.$primary-font-color;
+	}
+}

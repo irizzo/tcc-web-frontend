@@ -1,0 +1,40 @@
+@use '../../../../../styles/variables.scss';
+
+.category-view {
+	flex: 1;
+	height: 100%;
+	padding: 1% 2%;
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+
+	h1 {
+		margin-bottom: 1%;
+		width: 90%;
+		border-bottom: 2px solid variables.$primary-color-light--30op;
+		text-align: center;
+	}
+
+	.category__info {
+		width: 90%;
+
+		padding: 2%;
+		
+		background-color: variables.$foreground-color;
+		border-radius: variables.$radius;
+		border: 2px solid variables.$primary-color-light--30op;
+	}
+
+	// p {
+	// 	padding: 1%;
+	// 	border-radius: variables.$radius;
+	// 	flex: 1;
+	// }
+}
+
+.category-edit {
+	flex: 1;
+	height: 100%;
+	padding: 1% 2%;
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+}

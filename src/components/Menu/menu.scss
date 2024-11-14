@@ -6,22 +6,22 @@
 	align-items: center;
 	justify-content: space-between;
 
-	width: 100vw;
+	width: 90vw;
 	padding: 1%;
-	height: 7%;
-	min-height: 40px;
+	height: 50px;
+	min-height: 50px;
+	border-radius: variables.$radius;
 
 	background-color: variables.$foreground-color;
-	border-bottom: 0.8px solid variables.$primary-color-light--30op;
+	border: none;
 
 	overflow-y: hidden;
 }
 
 .menu__title {
-	height: fit-content;
-	justify-self: flex-start;
-
 	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .menu__title:hover {
