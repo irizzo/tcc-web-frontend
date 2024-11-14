@@ -1,8 +1,10 @@
 @use '../../../../styles/variables.scss';
 
 .content__container {
-	height: 100%;
-	width: 90vw;
+	width: 100%;
+	max-width: 90vw;
+	flex: 1;
+	justify-content: flex-start;
 	border-radius: variables.$radius;
 	padding: 1% 2%;
 	background-color: variables.$foreground-color;
@@ -19,7 +21,7 @@
 		text-align: center;
 		flex: 1;
 	}
-	
+
 	p {
 		padding: 1%;
 		border-radius: variables.$radius;
