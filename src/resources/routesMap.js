@@ -1,10 +1,11 @@
-const routesMap = {
+/* eslint-disable import/no-anonymous-default-export */
+export default {
 	home: '/',
 
-	about: '/about',
+	about: '/public/about',
 	contents: {
-		base: '/contents',
-		pomo: '/contents/' // TODO: colocar link pro Pomo
+		base: '/public/contents',
+		pomo: '/public//contents/' // TODO: colocar link pro Pomo
 	},
 
 	categories: {
@@ -42,6 +43,58 @@ const routesMap = {
 	signUp: '/sign-up',
 
 	test: '/test'
-};
+}
 
-export default routesMap;
+
+const reroute = {
+	root: {
+		home: '/',
+		login: '/login',
+		signUp: '/sign-up'
+	},
+
+	public: {
+		about: {
+			base: '/public/about'
+		},
+		contents: {
+			base: '/public/contents',
+			pomo: '/public/contents/pomo'
+		}
+	},
+
+	user: {
+		categories: {
+			base: '/user/categories',
+			new: '/user/categories/new'
+		},
+
+		dashboard: {
+			base: '/user/dashboard'
+		},
+
+		events: {
+			base: '/user/events',
+			new: '/user/events/new'
+		},
+
+		focus: {
+			base: '/user/focus'
+		},
+
+		notes: {
+			base: '/user/notes',
+			new: '/user/notes/new'
+		},
+
+		settings: {
+			base: '/user/settings',
+			updatePassword: '/user/settings/update-password'
+		},
+
+		tasks: {
+			base: '/user/tasks',
+			new: '/user/tasks/new'
+		}
+	}
+}

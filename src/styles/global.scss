@@ -75,7 +75,14 @@ body {
 }
 
 .link {
-	@extend .text--highlight;
+	@extend %text;
 	cursor: pointer;
 	font-weight: bold;
+}
+
+.icon {
+	@extend %text;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
 }

@@ -33,7 +33,7 @@ export function _GeneralCard({ noteInfo, categoryTitle }) {
 }
 
 export function FeedCard({ contentInfo }) {
-	const contentPath = `${routesMap.contents}/${contentInfo.id}`
+	const contentPath = `${routesMap.contents.base}/${contentInfo.id}`
 	const abstract = contentInfo.content.slice(0, 200) + '...'
 
 	return (

@@ -1,0 +1,21 @@
+@use '../../../../styles/variables.scss';
+
+.content__container {
+	height: 100%;
+	flex: 1;
+	padding: 1% 2%;
+	background-color: variables.$foreground-color;	
+
+	h1 {
+		margin-bottom: 1%;
+		width: 90%;
+		border-bottom: 2px solid variables.$primary-color-light--30op;
+		text-align: center;
+	}
+	
+	p {
+		padding: 1%;
+		border-radius: variables.$radius;
+		flex: 1;
+	}
+}

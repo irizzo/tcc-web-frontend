@@ -1,5 +1,5 @@
 
-import { DashboardPageContainer } from '@/components/PageContainer';
+import { DashboardPageContainer, DefaultPageContainer } from '@/components/PageContainer';
 import SideBar from '@/components/SideBar';
 
 import { GeneralInfo, GeneralWarn, GeneralError } from '@/components/Messages';
@@ -13,12 +13,26 @@ const styles = {
 
 export default function Test() {
 	return (
-		<DashboardPageContainer>
-			<SideBar />
-			<main className='flex flex--row' style={styles}>
-				<GeneralInfo infoContent={'anduio amdaiow da dawodmawddia wdoad admawpda pdmapd amwd awpdija dajdoa wdap dlakmd apdaw idaj daiwdj '} />
-			
-			</main>
-		</DashboardPageContainer>
+		<>
+			<DashboardPageContainer>
+				<div className='flex' style={{ width: '300px', height: '300px', backgroundColor: 'red' }}>
+					<p>a</p>
+				</div>
+				<div className='flex' style={{ width: '300px', height: '300px', backgroundColor: 'blue' }}>
+					<p>a</p>
+				</div>
+
+			</DashboardPageContainer>
+
+			<DefaultPageContainer>
+				<div className='flex' style={{ width: '300px', height: '300px', backgroundColor: 'red' }}>
+					<p>a</p>
+				</div>
+				<div className='flex' style={{ width: '300px', height: '300px', backgroundColor: 'blue' }}>
+					<p>a</p>
+				</div>
+
+			</DefaultPageContainer>
+		</>
 	);
 }
