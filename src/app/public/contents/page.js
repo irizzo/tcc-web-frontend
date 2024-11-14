@@ -2,7 +2,7 @@
 import { GeneralInfo } from '@/components/Messages'
 import Link from 'next/link'
 
-import routesMap from '@/resources/routesMap'
+import {routesMap} from '@/resources/routesMap'
 import { contentsList } from '@/resources/mockData'
 // import contentsList from '@/resources/contents'
 import * as locale from '@/resources/locale'

@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react'
 import { UserCategoriesContext, UserTasksContext, UserEventsContext } from '@/hooks'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import Loading from '@/components/Loading'
 import { Board } from '@/components/Board'
@@ -19,7 +19,6 @@ export default function Dashboard() {
 	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
 	const [otherTasks, setOtherTasks] = useState([])
 	const [otherEvents, setOtherEvents] = useState([])
-
 
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
@@ -99,10 +98,10 @@ export default function Dashboard() {
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.today} path={null}>
-				{console.log('categories: ', categories)}
+				{/* {console.log('categories: ', categories)}
 				{console.log('userCategories: ', userCategories)}
 				{console.log('userTasks: ', userTasks)}
-				{console.log('userEvents: ', userEvents)}
+				{console.log('userEvents: ', userEvents)} */}
 				{
 					today.events && today.events.length > 0 || today.tasks && today.tasks.length > 0 ?
 						<TodayBoardContent />

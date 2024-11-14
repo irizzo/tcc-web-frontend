@@ -8,7 +8,7 @@ import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBra
 import { UserInfoContext } from '@/hooks'
 
 import { clearTokenCookie, navigateTo } from '@/utils'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/locale'
 
 import './sideBar.scss'

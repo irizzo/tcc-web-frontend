@@ -11,7 +11,7 @@ import { FormContainer, FormInfo, FormSection } from '@/components/Form'
 import { DefaultPageContainer } from '@/components/PageContainer'
 
 import { pagesTitles, timerTitles } from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import { navigateTo } from '@/utils'
 
 import '@/styles/global.scss'

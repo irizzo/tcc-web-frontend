@@ -12,7 +12,7 @@ import { FormContainer, FormSection, FormInfo } from '@/components/Form'
 import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 export default function TaskPage({ params, searchParams }) {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)

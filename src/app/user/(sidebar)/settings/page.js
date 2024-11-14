@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react'
 import { UserInfoContext } from '@/hooks'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import { clearTokenCookie, navigateTo } from '@/utils'
 import { treatUpdatedUserData } from '@/utils/dataTreatments.utils'
 import { deleteUserService, getUserInfo, updateUserService } from '@/services/userServices'

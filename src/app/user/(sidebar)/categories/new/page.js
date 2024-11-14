@@ -3,7 +3,7 @@
 import { navigateTo } from '@/utils'
 import { createCategoryService, getAllCategoriesService } from '@/services/categoryServices'
 import { pagesTitles, entitiesProperties, actionsTitles } from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import { useState, useContext } from 'react'
 import { UserCategoriesContext } from '@/hooks'

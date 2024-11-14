@@ -10,7 +10,7 @@ import { UserCategoriesContext, UserTasksContext } from '@/hooks'
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 export default function NewTask() {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)

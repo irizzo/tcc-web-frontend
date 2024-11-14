@@ -4,7 +4,7 @@ import { navigateTo } from '@/utils'
 import { createEventService, getAllEventsService } from '@/services/eventServices'
 
 import { pagesTitles, entitiesProperties, formDefaults, notFoundDefaults } from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import { useState, useContext } from 'react'
 import { UserCategoriesContext, UserEventsContext } from '@/hooks'

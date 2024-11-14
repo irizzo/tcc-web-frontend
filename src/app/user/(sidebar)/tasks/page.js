@@ -1,7 +1,7 @@
 'use client'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import { useEffect, useState, useContext } from 'react'
 import { UserCategoriesContext, UserTasksContext } from '@/hooks'

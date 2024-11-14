@@ -5,7 +5,7 @@ import { navigateTo } from '@/utils'
 import { treatUpdatedNoteData, getCategoryTitle } from '@/utils/dataTreatments.utils'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import { useContext, useState } from 'react'
 import { UserNotesContext, UserCategoriesContext } from '@/hooks'

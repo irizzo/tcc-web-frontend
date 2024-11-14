@@ -12,7 +12,7 @@ import { DefaultButton, DangerButton } from '@/components/Buttons'
 import Loading from '@/components/Loading'
 
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import './category.scss'
 
 export default function CategoryPage({ searchParams }) {

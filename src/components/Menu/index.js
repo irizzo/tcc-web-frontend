@@ -1,5 +1,5 @@
 import * as locale from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 
 import Link from 'next/link'
 import { LinkButton } from '@/components/Buttons'

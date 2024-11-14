@@ -8,7 +8,7 @@ import { LinkButton } from '@/components/Buttons'
 import Menu from '@/components/Menu'
 
 import { appInfo, actionsTitles } from '@/resources/locale'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import defaultContextData from '@/resources/defaultContextData'
 import { clearTokenCookie } from '@/utils'
 

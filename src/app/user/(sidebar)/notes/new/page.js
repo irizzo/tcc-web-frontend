@@ -2,7 +2,7 @@
 
 import { navigateTo } from '@/utils'
 import { getAllNotesService, createNoteService } from '@/services/notesService'
-import routesMap from '@/resources/routesMap'
+import { routesMap } from '@/resources/routesMap'
 import * as locale from '@/resources/locale'
 
 import { useState, useContext } from 'react'
