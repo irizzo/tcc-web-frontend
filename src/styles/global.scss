@@ -77,6 +77,11 @@ body {
 	@extend %text;
 	cursor: pointer;
 	font-weight: bold;
+	transition: 300ms;
+}
+
+.link:hover {
+	color: variables.$primary-color-light;
 }
 
 .icon {

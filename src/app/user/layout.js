@@ -10,9 +10,8 @@ import { listAllTasksService } from '@/services/taskServices'
 import { getAllEventsService } from '@/services/eventServices'
 import { getAllNotesService } from '@/services/notesService'
 
-import SideBar from '@/components/SideBar'
 import Loading from '@/components/Loading'
-import { DashboardPageContainer } from '@/components/PageContainer'
+
 import './userPages.scss'
 
 export default function UserPagesLayout({ children }) {
@@ -88,11 +87,8 @@ export default function UserPagesLayout({ children }) {
 	if (isLoading) return <Loading />
 
 	return (
-		<DashboardPageContainer>
-			<SideBar />
-			<main className='flex flex--row user-pages__main'>
-				{children}
-			</main>
-		</DashboardPageContainer>
+		<>
+			{children}
+		</>
 	)
 }

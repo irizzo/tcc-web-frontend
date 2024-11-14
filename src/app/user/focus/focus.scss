@@ -1,0 +1,71 @@
+@use '../../../styles/variables.scss';
+
+.focus__main {
+	width: 90vw;
+	height: 100vh;
+}
+
+.focus__nav {
+	width: 100%;
+	height: 50px;
+	justify-content: space-between;
+	padding: 0 1%;
+	border: none;
+	border-radius: variables.$radius;
+	background-color: variables.$foreground-color;
+
+	h1 {
+		font-weight: bold;
+	}
+}
+
+.focus__nav__icon {
+	width: 20px;
+	height: 20px;
+	color: variables.$primary-font-color;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.focus__nav__icon:hover {
+	transform: scale(110%);
+	color: variables.$primary-color-light;
+}
+
+.content__container {
+	width: 100%;
+	flex: 1;
+	border-radius: variables.$radius;
+}
+
+.focus__timer {
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+	width: 55vw;
+	height: 70vh;
+
+	color: variables.$primary-color-light;
+}
+
+.clock {
+	padding: 10px;
+	font-weight: bold;
+	font-size: 8rem;
+	width: 100%;
+	text-align: center;
+}
+
+.clock__text {
+	font-weight: bold;
+
+}
+
+.button__icon {
+	margin-right: 5px;
+}
+
+.focus__config {
+	background-color: variables.$foreground-color;
+	width: 30vw;
+	height: 70vh;
+}
