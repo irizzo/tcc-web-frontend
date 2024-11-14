@@ -57,10 +57,9 @@ export default function SideBar() {
 	)
 };
 
-function NavListItem({ children, path = '/', customIcon = null, selected = false, itemId }) {
-	const selectedClass = selected ? 'selected' : ''
+function NavListItem({ children, path = '/', customIcon = null, itemId }) {
 	return (
-		<li key={itemId} id={itemId} className={`flex flex--row nav__item ${selectedClass}`}>
+		<li key={itemId} id={itemId} className='flex flex--row nav__item'>
 			<Link className='flex flex--row nav__item__link' href={path}>
 				{customIcon ? customIcon : <FaArrowRight className='nav__item__icon' />}
 				{children}

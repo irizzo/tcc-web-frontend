@@ -1,7 +1,6 @@
 'use server'
 
 import { getTokenCookie, setCookieData } from '@/utils'
-import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
 
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
@@ -12,11 +11,16 @@ export async function listAllTasksService() {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseTasksPath}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseTasksPath}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
@@ -64,8 +68,6 @@ export async function createTaskService(taskData) {
 			return res.json()
 		})
 
-		// console.log('[createTaskService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -106,8 +108,6 @@ export async function updateTaskService(taskId, updatedData) {
 			return res.json()
 		})
 
-		// console.log('[updateTaskService] fetchRes: ', fetchRes);
-
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
@@ -135,11 +135,16 @@ export async function deleteTaskService(taskId) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.delete({
-			path: `${baseTasksPath}/${taskId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseTasksPath}/${taskId}`, {
+			method: 'DELETE',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)

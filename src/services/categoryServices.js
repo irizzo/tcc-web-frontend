@@ -1,6 +1,6 @@
-import { getTokenCookie, setCookieData } from '@/utils'
-import httpClient from './http/client'
+'use server'
 
+import { getTokenCookie, setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
 
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
@@ -28,8 +28,6 @@ export async function createCategoryService(categoryData) {
 		}).then((res) => {
 			return res.json()
 		})
-
-		// console.log('[createCategoryService] fetchRes: ', fetchRes);
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -63,11 +61,16 @@ export async function getAllCategoriesService() {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseCategoriesPath}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
@@ -75,8 +78,6 @@ export async function getAllCategoriesService() {
 		if (!fetchRes.success) {
 			throw new Error(fetchRes.message)
 		}
-
-		console.log('[getAllCategoriesService] fetchRes: ', fetchRes)
 
 		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
 			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
@@ -105,14 +106,17 @@ export async function getCategoryDetailsService(categoryId) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseCategoriesPath}/${categoryId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		})
 
-		console.log('[getCategoryDetailsService] fetchRes: ', fetchRes)
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}/${categoryId}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -140,14 +144,17 @@ export async function getCategoryByCode(categoryCode) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseCategoriesPath}/${categoryCode}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		})
 
-		console.log('[getCategoryDetailsService] fetchRes: ', fetchRes)
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}/${categoryCode}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -182,8 +189,6 @@ export async function updateCategoryService(categoryId, updatedData) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		console.log('categoryId = ', categoryId)
-
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
@@ -196,8 +201,6 @@ export async function updateCategoryService(categoryId, updatedData) {
 		}).then((res) => {
 			return res.json()
 		})
-
-		console.log('[updateCategoryService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -231,14 +234,17 @@ export async function deleteCategoryService(categoryId) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.delete({
-			path: `${baseCategoriesPath}/${categoryId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
 		})
 
-		console.log('[deleteCategoryService] fetchRes: ', fetchRes)
+		const fetchRes = await fetch(`${API_BASEURL}${baseCategoriesPath}/${categoryId}`, {
+			method: 'DELETE',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
+		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 

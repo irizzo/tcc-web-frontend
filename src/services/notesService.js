@@ -1,6 +1,6 @@
-import { getTokenCookie, setCookieData } from '@/utils'
-import httpClient from './http/client'
+'use server'
 
+import { getTokenCookie, setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
 
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
@@ -52,11 +52,16 @@ export async function getAllNotesService() {
 	try {
 		const tokenCookie = await getTokenCookie()
 
-		const fetchRes = await httpClient.get({
-			path: `${baseNotesPath}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseNotesPath}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
@@ -126,12 +131,16 @@ export async function deleteNoteService(noteId) {
 
 	try {
 		const tokenCookie = await getTokenCookie()
-
-		const fetchRes = await httpClient.delete({
-			path: `${baseNotesPath}/${noteId}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+		
+		const fetchRes = await fetch(`${API_BASEURL}${baseNotesPath}/${noteId}`, {
+			method: 'DELETE',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)

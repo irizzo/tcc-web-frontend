@@ -23,12 +23,11 @@ export default function UserPagesLayout({ children }) {
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext)
 
-	const [isLoading, setIsLoading] = useState(true)
+	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
 		async function loadUserInfo() {
 			if (!userInfo.data || needsRevalidation(userInfo.updatedAt)) {
-				console.log('revalidate userInfo')
 				const res = await getUserInfo()
 				setUserInfo({ data: { email: res.result.email, firstName: res.result.firstName, lastName: res.result.lastName }, updatedAt: new Date() })
 			}
@@ -36,7 +35,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadCategories() {
 			if (!userCategories?.categoriesList || needsRevalidation(userCategories.updatedAt)) {
-				console.log('revalidate userCategories')
 				const res = await getAllCategoriesService()
 
 				setUserCategories({ categoriesList: res.result, updatedAt: new Date() })
@@ -45,7 +43,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadTasks() {
 			if (!userTasks.tasksList || needsRevalidation(userTasks.updatedAt)) {
-				console.log('revalidate userTasks')
 				const res = await listAllTasksService()
 
 				setUserTasks({ tasksList: res.result, updatedAt: new Date() })
@@ -54,7 +51,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadEvents() {
 			if (!userEvents.eventsList || needsRevalidation(userEvents.updatedAt)) {
-				console.log('revalidate userEvents')
 				const res = await getAllEventsService()
 
 				setUserEvents({ eventsList: res.result, updatedAt: new Date() })
@@ -63,7 +59,6 @@ export default function UserPagesLayout({ children }) {
 
 		async function loadNotes() {
 			if (!userNotes.notesList || needsRevalidation(userNotes.updatedAt)) {
-				console.log('revalidate userNotes')
 				const res = await getAllNotesService()
 
 				setUserNotes({ notesList: res.result, updatedAt: new Date() })
@@ -93,17 +88,11 @@ export default function UserPagesLayout({ children }) {
 	if (isLoading) return <Loading />
 
 	return (
-		<>
-			{/* {children} */}
-			
-					<DashboardPageContainer>
+		<DashboardPageContainer>
 			<SideBar />
 			<main className='flex flex--row user-pages__main'>
 				{children}
 			</main>
 		</DashboardPageContainer>
-				
-		</>
-
 	)
 }

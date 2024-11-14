@@ -1,8 +1,6 @@
 'use server'
 
 import { getTokenCookie, setCookieData } from '@/utils'
-
-import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
 
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
@@ -12,7 +10,6 @@ export async function verifyUserAuthService() {
 	console.log('[verifyUserAuthService]')
 	try {
 		const tokenCookie = await getTokenCookie()
-
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
@@ -55,9 +52,18 @@ export async function signUpService(userSignUpData) {
 	console.log('[signUpService]')
 
 	try {
-		const fetchRes = await httpClient.post({
-			path: `${baseAccessPath}/signUp`,
-			payload: userSignUpData
+		const tokenCookie = await getTokenCookie()
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
+			method: 'POST',
+			body: JSON.stringify(userSignUpData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
@@ -90,9 +96,18 @@ export async function loginService(userLoginData) {
 	try {
 		console.log('[loginService]')
 
-		const fetchRes = await httpClient.post({
-			path: `${baseAccessPath}/login`,
-			payload: userLoginData
+		const tokenCookie = await getTokenCookie()
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
+
+		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {
+			method: 'POST',
+			body: JSON.stringify(userLoginData),
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)

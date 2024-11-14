@@ -1,5 +1,6 @@
+'use server'
+
 import { getTokenCookie, setCookieData } from '@/utils'
-import httpClient from './http/client'
 import messagesDictionary from '@/resources/messages'
 
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
@@ -10,12 +11,16 @@ export async function getUserInfo() {
 
 	try {
 		const tokenCookie = await getTokenCookie()
+		const customHeaders = new Headers({
+			'Content-type': 'application/json; charset=UTF-8',
+			'Authorization': tokenCookie.value
+		})
 
-		const fetchRes = await httpClient.get({
-			path: `${baseUserPath}`,
-			customHeaders: {
-				'Authorization': tokenCookie.value
-			}
+		const fetchRes = await fetch(`${API_BASEURL}${baseUserPath}`, {
+			method: 'GET',
+			headers: customHeaders
+		}).then((res) => {
+			return res.json()
 		})
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
