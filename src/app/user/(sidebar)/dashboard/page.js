@@ -5,12 +5,12 @@ import { UserCategoriesContext, UserTasksContext, UserEventsContext } from '@/ho
 
 import * as locale from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+import { groupTasksByDate, groupEventsByDate } from '@/utils/groupData.utils'
 
 import Loading from '@/components/Loading'
 import { Board } from '@/components/Board'
 import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
-import { groupTasksByDate, groupEventsByDate } from '@/utils/groupData.utils'
 
 export default function Dashboard() {
 	console.log('[DASHBOARD]')
@@ -119,10 +119,6 @@ export default function Dashboard() {
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.today} path={null}>
-				{/* {console.log('categories: ', categories)}
-				{console.log('userCategories: ', userCategories)}
-				{console.log('userTasks: ', userTasks)}
-				{console.log('userEvents: ', userEvents)} */}
 				{
 					today.events && today.events.length > 0 || today.tasks && today.tasks.length > 0 ?
 						<TodayBoardContent />

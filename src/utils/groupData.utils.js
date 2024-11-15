@@ -34,8 +34,6 @@ export function groupTasksByDate(tasksList) {
 		other.push(task)
 	})
 
-	// console.log('grouped: ', { today, withinAWeek, pastDue, other })
-
 	return {
 		today,
 		withinAWeek,
@@ -73,8 +71,6 @@ export function groupEventsByDate(eventsList) {
 
 		other.push(event)
 	})
-
-	// console.log('grouped: ', { today, withinAWeek, other })
 
 	return {
 		today,

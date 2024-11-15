@@ -1,10 +1,7 @@
-import { FaRegCalendar, FaCircleCheck } from 'react-icons/fa6'
 import Link from 'next/link'
-
+import { FaRegCalendar, FaCircleCheck } from 'react-icons/fa6'
 import { CategoryTag, DueDateTag, PriorityTag, ProgressTag } from './CardTags'
-
 import { routesMap } from '@/resources/routesMap'
-import { statusInfo, prioritiesInfo } from '@/resources/locale'
 
 import './card.scss'
 

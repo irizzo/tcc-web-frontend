@@ -14,19 +14,8 @@ function TagContainer({ content, children, pastDue=false }) {
 }
 
 export function DueDateTag({ dueDate, pastDue = false }) {
-	let formatted = ''
-
-	if (typeof dueDate !== typeof '') {
-		formatted = convertStampToDate(dueDate).toLocaleString()
-		formatted = formatted.slice(0, formatted.length - 3)
-	} else {
-		const [ date, time ] = dueDate.split('T')
-		const formattedDate = date.split('-').reverse().join('/')
-		const formattedTime = time.split('.')[0].slice(0, 5)
-
-		formatted = formattedDate + ', ' + formattedTime
-	}
-
+	let formatted = convertStampToDate(dueDate).toLocaleString()
+	formatted = formatted.slice(0, formatted.length - 3)
 	return (
 		<TagContainer content={formatted} pastDue={pastDue}>
 			<FaRegCalendarCheck className='tag__icon' />
