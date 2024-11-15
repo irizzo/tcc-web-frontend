@@ -4,20 +4,20 @@ import { convertStampToDate } from '@/utils/date.utils'
 import './card.scss'
 
 /* Tags */
-function TagContainer({ content, children }) {
+function TagContainer({ content, children, pastDue=false }) {
 	return (
-		<div className='flex flex--row flex--center tag__container'>
+		<div className={`flex flex--row flex--center tag__container ${pastDue ? 'past-due' : ''}`}>
 			{children}
 			<p className='tag__content'>{content}</p>
 		</div>
 	)
 }
 
-export function DueDateTag({ dueDate }) {
+export function DueDateTag({ dueDate, pastDue = false }) {
 	let formatted = ''
 
 	if (typeof dueDate !== typeof '') {
-		formatted = convertStampToDate(dueDate)
+		formatted = convertStampToDate(dueDate).toLocaleString()
 		formatted = formatted.slice(0, formatted.length - 3)
 	} else {
 		const [ date, time ] = dueDate.split('T')
@@ -28,7 +28,7 @@ export function DueDateTag({ dueDate }) {
 	}
 
 	return (
-		<TagContainer content={formatted}	>
+		<TagContainer content={formatted} pastDue={pastDue}>
 			<FaRegCalendarCheck className='tag__icon' />
 		</TagContainer>
 	)

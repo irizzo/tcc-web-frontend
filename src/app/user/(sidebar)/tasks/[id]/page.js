@@ -66,8 +66,7 @@ export default function TaskPage({ params, searchParams }) {
 			const tasksRes = await listAllTasksService()
 			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
 			setIsLoading(false)
-			navigateTo({ path: routesMap.dashboard })
-
+			navigateTo({ path: routesMap.dashboard.base })
 		} catch (error) {
 			setIsLoading(false)
 			alert(error)
