@@ -95,3 +95,45 @@ body {
 .icon:hover {
 	color: variables.$primary-color-light;
 }
+
+.watermark {
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+	opacity: 0.5;
+
+	position: absolute;
+	bottom: 2%;
+	right: 2%;
+	z-index: 100;
+	padding: 10px;
+	transition: 300ms;
+
+	ul,
+	li,
+	a {
+		@extend %text;
+		list-style: none;
+		text-decoration: none;
+		font-weight: bold;
+		transition: 300ms;
+		width: 100%;
+	}
+
+	.icon {
+		width: 15px;
+		height: 15px;
+	}
+
+	a:hover {
+		color: variables.$primary-color-light;
+
+		.icon {
+			color: variables.$primary-color-light;
+		}
+
+	}
+}
+
+.watermark:hover {
+	opacity: 1;
+}

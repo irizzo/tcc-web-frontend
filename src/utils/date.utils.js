@@ -13,60 +13,79 @@ export function needsRevalidation(updatedAt) {
 }
 
 export function convertStampToDate(timestamp) {
-	return new Date(timestamp._seconds * 1000).toLocaleString()
+	console.log('[convertStampToDate]')
+	return new Date(timestamp._seconds * 1000)
 }
 
 export function formatDateString(dateString) {
+	console.log('[formatDateString]')
+
 	const splitDateTime = dateString.split(', ')
 	const splitDate = splitDateTime[0].split('/')
 	return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}T${splitDateTime[1]}`
 }
 
-export function formatTaskDates(task) {
-	if (task.toDoDate) { task.toDoDate = convertStampToDate(task.toDoDate) }
+export function convertDateStringToReadable (dateString) {
+	const [ date, time ] = dateString.split('T')
+	const formattedDate = date.split('-').reverse().join('/')
+	const formattedTime = time.split('.')[0].slice(0, 5)
 
-	if (task.dueDate) { task.dueDate = convertStampToDate(task.dueDate) }
-
-	console.log('task w/ formatted dates: ', task)
-
-	return task
+	return `${formattedDate}, ${formattedTime}`
 }
 
-export function formatTasksListDates (arr) {
-	const formatted = arr.map((element) => {
-		const aux = element
+export function convertReadableToDateString(readable) {
 
-		if (element.toDoDate) { aux.toDoDate = convertStampToDate(element.toDoDate) }
-
-		if (element.dueDate) { aux.dueDate = convertStampToDate(element.dueDate) }
-
-		return aux
-	})
-
-	return formatted
 }
 
-export function formatEventDates(event) {
-	if (event.startDate) { event.startDate = convertStampToDate(event.startDate) }
+// export function formatTaskDates(task) {
+// 	console.log('[formatTaskDates]')
 
-	if (event.endDate) { event.endDate = convertStampToDate(event.endDate) }
+// 	if (task.toDoDate) { task.toDoDate = convertStampToDate(task.toDoDate).toLocaleString() }
 
-	console.log('event w/ formatted dates: ', event)
+// 	if (task.dueDate) { task.dueDate = convertStampToDate(task.dueDate).toLocaleString() }
 
-	return event
-}
+// 	return task
+// }
 
-export function formatEventsListDates(events) {
-	// TODO: testar se não funciona chamar a função acima
-	const formatted = events.map((event) => {
-		const aux = event
+// export function formatTasksListDates (arr) {
+// 	console.log('[formatTasksListDates]')
 
-		if (event.startDate) { aux.startDate = convertStampToDate(event.startDate) }
+// 	const formatted = arr.map((element) => {
+// 		const aux = element
 
-		if (event.endDate) { aux.endDate = convertStampToDate(event.endDate) }
+// 		if (element.toDoDate) { aux.toDoDate = convertStampToDate(element.toDoDate).toLocaleString() }
 
-		return aux
-	})
+// 		if (element.dueDate) { aux.dueDate = convertStampToDate(element.dueDate).toLocaleString() }
 
-	return formatted
-}
+// 		return aux
+// 	})
+
+// 	return formatted
+// }
+
+// export function formatEventDates(event) {
+// 	console.log('[formatEventDates]')
+
+// 	if (event.startDate) { event.startDate = convertStampToDate(event.startDate).toLocaleString() }
+
+// 	if (event.endDate) { event.endDate = convertStampToDate(event.endDate).toLocaleString() }
+
+// 	return event
+// }
+
+// export function formatEventsListDates(events) {
+// 	console.log('[formatEventsListDates]')
+
+// 	// TODO: testar se não funciona chamar a função acima
+// 	const formatted = events.map((event) => {
+// 		const aux = event
+
+// 		if (event.startDate) { aux.startDate = convertStampToDate(event.startDate).toLocaleString() }
+
+// 		if (event.endDate) { aux.endDate = convertStampToDate(event.endDate).toLocaleString() }
+
+// 		return aux
+// 	})
+
+// 	return formatted
+// }

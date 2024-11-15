@@ -1,70 +1,84 @@
+import { convertStampToDate } from '@/utils/date.utils'
+
 export function groupTasksByDate(tasksList) {
-	const today = new Date()
-	const withinAWeek = new Date()
-	withinAWeek.setDate(today.getDate() + 7)
+	const todayDate = new Date()
+	const withinAWeekRange = new Date()
+	withinAWeekRange.setDate(todayDate.getDate() + 7)
 
-	// console.log('withinAWeek: ', withinAWeek)
-
-	const todaysTasks = []
-	const withinAWeekTasks = []
-	const otherTasks = []
+	const today = []
+	const withinAWeek = []
+	const pastDue = []
+	const other = []
 
 	tasksList.forEach((task) => {
-		if (new Date(task.schedueledDate).getDate() === today.getDate() || new Date(task.DueDate).getDate() === today.getDate()) {
-			todaysTasks.push(task)
+		if (task.statusCode === 'DONE') {
 			return
 		}
 
-		if (
-			new Date(task.schedueledDate).getDate() > today.getDate() && new Date(task.schedueledDate).getDate() <= withinAWeek.getDate()
-			|| new Date(task.dueDate).getDate() > today.getDate() && new Date(task.dueDate).getDate() <= withinAWeek.getDate()
-		) {
-			withinAWeekTasks.push(task)
+		if (new Date(task.dueDate).getTime() < todayDate.getTime()) {
+			pastDue.push(task)
 			return
 		}
 
-		otherTasks.push(task)
+		if (new Date(task.schedueledDate).getTime() === todayDate.getTime() || new Date(task.dueDate).getTime() === todayDate.getTime()) {
+			today.push(task)
+			withinAWeek.push(task)
+			return
+		}
+
+		if (new Date(task.dueDate).getTime() > todayDate.getTime() && new Date(task.dueDate).getTime() <= withinAWeekRange.getTime()) {
+			withinAWeek.push(task)
+			return
+		}
+
+		other.push(task)
 	})
 
-	// console.log('groupedTasks: ', { todaysTasks, withinAWeekTasks, otherTasks })
+	// console.log('grouped: ', { today, withinAWeek, pastDue, other })
 
 	return {
-		todaysTasks,
-		withinAWeekTasks,
-		otherTasks
+		today,
+		withinAWeek,
+		pastDue,
+		other
 	}
 }
 
 export function groupEventsByDate(eventsList) {
-	const today = new Date()
-	const withinAWeek = new Date()
-	withinAWeek.setDate(today.getDate() + 7)
+	const todayDate = new Date()
+	const withinAWeekRange = new Date()
+	withinAWeekRange.setDate(withinAWeekRange.getDate() + 7)
 
-	// console.log('withinAWeek: ', withinAWeek)
-
-	const todaysEvents = []
-	const withinAWeekEvents = []
-	const otherEvents = []
+	const today = []
+	const withinAWeek = []
+	const other = []
 
 	eventsList.forEach((event) => {
-		if (new Date(event.startDate).getDate() === today.getDate()) {
-			todaysEvents.push(event)
+		const formattedStartDate = convertStampToDate(event.startDate)
+
+		if (formattedStartDate.getTime() < todayDate.getTime()) {
 			return
 		}
 
-		if (new Date(event.startDate).getDate() > today.getDate() && new Date(event.startDate).getDate() <= withinAWeek.getDate()) {
-			withinAWeekEvents.push(event)
+		if (formattedStartDate.getTime() === todayDate.getTime()) {
+			today.push(event)
+			withinAWeek.push(event)
 			return
 		}
 
-		otherEvents.push(event)
+		if (formattedStartDate.getTime() > todayDate.getTime() && formattedStartDate.getTime() <= withinAWeekRange.getTime()) {
+			withinAWeek.push(event)
+			return
+		}
+
+		other.push(event)
 	})
 
-	// console.log('groupedEvents: ', { todaysEvents, withinAWeekEvents, otherEvents })
+	// console.log('grouped: ', { today, withinAWeek, other })
 
 	return {
-		todaysEvents,
-		withinAWeekEvents,
-		otherEvents
+		today,
+		withinAWeek,
+		other
 	}
 }

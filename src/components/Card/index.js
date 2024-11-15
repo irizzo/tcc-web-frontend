@@ -52,9 +52,7 @@ export function CategoryCard({ categoryInfo }) {
 	)
 }
 
-export function TaskCard({ taskInfo, categoryTitle }) {
-	// console.log('categoryTitle: ', categoryTitle)
-
+export function TaskCard({ taskInfo, categoryTitle, pastDue = false }) {
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`
 	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate || taskInfo.priorityCode || taskInfo.statusCode) ? true : false
 
@@ -68,7 +66,7 @@ export function TaskCard({ taskInfo, categoryTitle }) {
 			{showTagsContainer && <div className='flex flex--row flex--sp-between tags__container'>
 				{taskInfo.priorityCode && <PriorityTag priorityCode={taskInfo.priorityCode} />}
 				{taskInfo.statusCode && <ProgressTag statusCode={taskInfo.statusCode} />}
-				{taskInfo.dueDate && <DueDateTag dueDate={taskInfo.dueDate} />}
+				{taskInfo.dueDate && <DueDateTag pastDue={pastDue} dueDate={taskInfo.dueDate} />}
 				{taskInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} categoryCode={taskInfo.categoryCode} />}
 			</div>}
 		</div>
@@ -76,8 +74,6 @@ export function TaskCard({ taskInfo, categoryTitle }) {
 }
 
 export function EventCard({ eventInfo, categoryTitle }) {
-	// console.log('categoryTitle: ', categoryTitle)
-
 	const eventPath = `${routesMap.events.base}/${eventInfo.id}`
 	return (
 		<div className='flex card__container'>
@@ -99,10 +95,10 @@ export function NoteCard({ noteInfo, categoryTitle }) {
 	const titleAbstract = noteInfo.title.length > 50 ? noteInfo.title.slice(0, 50) + '...' : noteInfo.title
 	const contentAbstract = noteInfo.innerContent.length > 150 ? noteInfo.innerContent.slice(0, 150) + '...' : noteInfo.innerContent
 	return (
-		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo}}>
+		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo }}>
 			<h3 className='note__title'>{noteInfo.title.length > 0 ? titleAbstract : 'Nota Sem Título'}</h3>
 			<p className='note__abstract'>{contentAbstract}</p>
-				{noteInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
+			{noteInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
 		</Link>
 	)
 }

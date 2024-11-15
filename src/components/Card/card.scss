@@ -83,6 +83,14 @@
 	}
 }
 
+.past-due {
+	// background-color: variables.$danger-color--50op;
+
+	.tag__icon, .tag__content{
+		color: variables.$danger-color;
+	}
+}
+
 .note-container {
 	text-decoration: none;
 

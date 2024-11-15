@@ -18,6 +18,7 @@ export default function Dashboard() {
 	const [today, setToday] = useState({ tasks: [], events: [] })
 	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
 	const [otherTasks, setOtherTasks] = useState([])
+	const [pastDueTasks, setPastDueTasks] = useState([])
 	const [otherEvents, setOtherEvents] = useState([])
 
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
@@ -37,10 +38,11 @@ export default function Dashboard() {
 			const sortedTasks = groupTasksByDate(userTasks.tasksList)
 			const sortedEvents = groupEventsByDate(userEvents.eventsList)
 
-			setToday({ tasks: sortedTasks.todaysTasks, events: sortedEvents.todaysEvents })
-			setWithinAWeek({ tasks: sortedTasks.withinAWeekTasks, events: sortedEvents.withinAWeekEvents })
-			setOtherTasks([...sortedTasks.otherTasks])
-			setOtherEvents([...sortedEvents.otherEvents])
+			setToday({ tasks: sortedTasks.today, events: sortedEvents.today })
+			setWithinAWeek({ tasks: sortedTasks.withinAWeek, events: sortedEvents.withinAWeek })
+			setPastDueTasks([...sortedTasks.pastDue])
+			setOtherTasks([...sortedTasks.other])
+			setOtherEvents([...sortedEvents.other])
 
 			setIsLoading(false)
 		}, 1000)
@@ -95,6 +97,25 @@ export default function Dashboard() {
 		)
 	}
 
+	function OtherTasksBoardContent() {
+		return (
+			<>
+				{
+					pastDueTasks && pastDueTasks.length > 0 ?
+						pastDueTasks.map((task) => <TaskCard pastDue key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+						:
+						null
+				}
+				{
+					otherTasks && otherTasks.length > 0 ?
+						otherTasks.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+						:
+						null
+				}
+			</>
+		)
+	}
+
 	return (
 		<>
 			<Board title={locale.groupDataByTitle.today} path={null}>
@@ -110,7 +131,7 @@ export default function Dashboard() {
 				}
 			</Board>
 
-			<Board title={locale.groupDataByTitle.withinAWeek} path={null}>
+			<Board title={locale.groupDataByTitle.dueSoon} path={null}>
 				{
 					withinAWeek.events && withinAWeek.events.length > 0 || withinAWeek.tasks && withinAWeek.tasks.length > 0 ?
 						<ThisWeekBoardContent />
@@ -121,8 +142,8 @@ export default function Dashboard() {
 
 			<Board title={'Mais ' + locale.pagesTitles.tasks.base} path={routesMap.tasks.new}>
 				{
-					otherTasks && otherTasks.length > 0 ?
-						otherTasks.map((task) => <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />)
+					pastDueTasks && pastDueTasks.length > 0 || otherTasks && otherTasks.length > 0 ?
+						<OtherTasksBoardContent />
 						:
 						<GeneralInfo infoContent={locale.notFoundDefaults.tasks} />
 				}

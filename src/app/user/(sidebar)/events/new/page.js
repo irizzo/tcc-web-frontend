@@ -48,7 +48,7 @@ export default function NewEvent() {
 			const eventsRes = await getAllEventsService()
 			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
 			setIsLoading(false)
-			navigateTo({ path: routesMap.events.base })
+			navigateTo({ path: routesMap.dashboard.base })
 
 		} catch (error) {
 			setIsLoading(false)
