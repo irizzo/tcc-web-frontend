@@ -2,6 +2,7 @@
 
 import * as locale from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+import { groupEventsByDate } from '@/utils/groupData.utils'
 
 import { useEffect, useState, useContext } from 'react'
 import { UserCategoriesContext, UserEventsContext } from '@/hooks'
@@ -12,14 +13,12 @@ import { EventCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
 export default function EventsPage() {
-	const [ categories, setCategories ] = useState({})
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
 	const [ isLoading, setIsLoading ] = useState(false)
-
-	const pastDueEvents = []
-	const dueSoonEvents = []
+	const [ categories, setCategories ] = useState({})
+	const [ sortedEvents, setSortedEvents ] = useState({})
 
 	useEffect(() => {
 		if (userCategories.categoriesList === null || userEvents.eventsList === null) {
@@ -27,13 +26,17 @@ export default function EventsPage() {
 
 			setTimeout(() => {
 				setIsLoading(false)
-			}, 2000)
+			}, 1000)
 		}
 
 		let aux = {}
 		userCategories.categoriesList.forEach((category) => {
 			aux[category.code] = category.title
 		})
+
+		const sorted = groupEventsByDate(userEvents.eventsList)
+		setSortedEvents({ ...sorted })
+
 		setCategories(aux)
 
 	}, [ userCategories.categoriesList, userEvents.eventsList ])
@@ -43,6 +46,7 @@ export default function EventsPage() {
 	return (
 		<>
 			<Board title={locale.pagesTitles.events.base} path={routesMap.events.new}>
+				{console.log('sortedEvents: ', sortedEvents)}
 				{
 					userEvents.eventsList !== null && userEvents.eventsList.length > 0 ?
 						userEvents.eventsList.map((event) => <EventCard key={event.id} eventInfo={event} categoryTitle={categories[event.categoryCode]} />)
