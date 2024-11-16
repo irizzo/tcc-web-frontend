@@ -150,8 +150,8 @@ export default function Focus() {
 							variantClasses='form__container--fullW' title='Configurar Timers'
 						>
 							<FormInfo>
-								Para saber mais, leia sobre a <b>Técnica Pomodoro</b> na aba
-								<span className='link' onClick={() => navigateTo({ path: routesMap.contents.pomo })}> <FaBook className='button__icon' /> Conteúdos</span></FormInfo>
+								Para saber mais, leia sobre a Técnica Pomodoro na aba
+								<span className='link' onClick={() => navigateTo({ path: routesMap.contents.pomo })}> Conteúdos <FaBook className='button__icon' /></span></FormInfo>
 							<FormSection labelFor='focus' sectionTitle='Duração Timer Foco'>
 								<input
 									name='focus' type='number' min={1} max={90} value={editTimers.focus} readOnly={!editing}
