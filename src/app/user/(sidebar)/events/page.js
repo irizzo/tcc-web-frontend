@@ -2,6 +2,7 @@
 
 import * as locale from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+
 import { groupEventsByMonth } from '@/utils/groupData.utils'
 
 import { useEffect, useState, useContext } from 'react'
@@ -20,6 +21,7 @@ export default function EventsPage() {
 	const [ isLoading, setIsLoading ] = useState(false)
 	const [ categories, setCategories ] = useState({})
 	const [ sortedEvents, setSortedEvents ] = useState({})
+
 	const [ selectedDate, setSelectedDate ] = useState({ month: new Date().getMonth(), year: new Date().getFullYear()})
 
 	useEffect(() => {
@@ -35,6 +37,10 @@ export default function EventsPage() {
 		userCategories.categoriesList.forEach((category) => {
 			aux[category.code] = category.title
 		})
+
+		const sorted = groupEventsByDate(userEvents.eventsList)
+		setSortedEvents({ ...sorted })
+
 		setCategories(aux)
 
 		const sorted = groupEventsByMonth(userEvents.eventsList)
@@ -47,6 +53,7 @@ export default function EventsPage() {
 	function OtherEventsBoard() {
 		return (
 			<>
+
 				{
 					sortedEvents.coming && sortedEvents.coming.length > 0 ?
 						sortedEvents.coming.map((event) => {
