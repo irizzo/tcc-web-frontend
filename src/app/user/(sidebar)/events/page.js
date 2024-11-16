@@ -38,9 +38,6 @@ export default function EventsPage() {
 			aux[category.code] = category.title
 		})
 
-		const sorted = groupEventsByDate(userEvents.eventsList)
-		setSortedEvents({ ...sorted })
-
 		setCategories(aux)
 
 		const sorted = groupEventsByMonth(userEvents.eventsList)
