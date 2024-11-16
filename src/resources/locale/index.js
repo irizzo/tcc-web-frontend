@@ -239,7 +239,8 @@ export const groupDataByTitle = {
 	all: 'Todos',
 	dueSoon: 'Prazo Próximo',
 	pastDue: 'Prazo esgotado',
-	today: 'Para Hoje'
+	today: 'Para Hoje',
+	other: 'Outros'
 }
 
 export const messagesTitles = {
