@@ -45,7 +45,7 @@ export default function Dashboard() {
 			setOtherEvents([...sortedEvents.other])
 
 			setIsLoading(false)
-		}, 1000)
+		}, 500)
 
 	}, [])
 

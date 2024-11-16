@@ -11,6 +11,7 @@ import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
 import { routesMap } from '@/resources/routesMap'
+import { formatTasksDates } from '@/utils/date.utils'
 
 export default function NewTask() {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
@@ -47,7 +48,7 @@ export default function NewTask() {
 			}
 
 			const tasksRes = await listAllTasksService()
-			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
+			setUserTasks({ tasksList: formatTasksDates(tasksRes.result), updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.dashboard.base })
 

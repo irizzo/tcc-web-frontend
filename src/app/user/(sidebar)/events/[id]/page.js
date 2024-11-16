@@ -13,6 +13,7 @@ import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 import * as locale from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+import { formatEventsDates } from '@/utils/date.utils'
 
 export default function EventPage({ params, searchParams }) {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
@@ -54,7 +55,7 @@ export default function EventPage({ params, searchParams }) {
 			}
 
 			const eventsRes = await getAllEventsService()
-			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
+			setUserEvents({ eventsList: formatEventsDates(eventsRes.result), updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.events.base })
 
@@ -76,7 +77,7 @@ export default function EventPage({ params, searchParams }) {
 			}
 
 			const eventsRes = await getAllEventsService()
-			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
+			setUserEvents({ eventsList: formatEventsDates(eventsRes.result), updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.events.base })
 
@@ -94,22 +95,22 @@ export default function EventPage({ params, searchParams }) {
 			submitCallback={(e) => handleEditEventForm(e)}
 		>
 			<FormSection labelFor='title' sectionTitle={locale.entitiesProperties.general.title}>
-				<input name='title' value={title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
+				<input name='title' value={title === null ? '' : title} readOnly={!editing} type='text' placeholder={locale.entitiesProperties.general.title} onChange={(e) => { setTitle(e.target.value) }}></input>
 			</FormSection>
 
 			<FormSection labelFor='description' sectionTitle={locale.entitiesProperties.general.description}>
-				<textarea name='description' readOnly={!editing} value={description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
+				<textarea name='description' readOnly={!editing} value={description === null ? '' : description} placeholder={locale.entitiesProperties.general.description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
 			</FormSection>
 
 			{
 				editing ?
 					<>
 						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-							<input name='startDate' value={startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value) }}></input>
+							<input name='startDate' value={startDate === null ? '' : startDate} type='datetime-local' onChange={(e) => { setStartDate(e.target.value) }}></input>
 						</FormSection>
 
 						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-							<input name='endDate' value={endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value) }}></input>
+							<input name='endDate' value={endDate === null ? '' : endDate} type='datetime-local' onChange={(e) => { setEndDate(e.target.value) }}></input>
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
@@ -127,24 +128,24 @@ export default function EventPage({ params, searchParams }) {
 								}
 							</select>
 						</FormSection>
+						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 					:
 					<>
 						<FormSection labelFor='startDate' sectionTitle={locale.entitiesProperties.events.startDate}>
-							<input name='startDate' readOnly value={startDate} type='text'></input>
+							<input name='startDate' readOnly value={startDate === null ? '' : startDate} type='text'></input>
 						</FormSection>
 
 						<FormSection labelFor='endDate' sectionTitle={locale.entitiesProperties.events.endDate}>
-							<input name='endDate' readOnly value={endDate} type='text' ></input>
+							<input name='endDate' readOnly value={endDate === null ? '' : endDate} type='text' ></input>
 						</FormSection>
 
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
-							<input name='category' readOnly value={getCategoryTitle(categoryCode, userCategories.categoriesList)} type='text'></input>
+							<input name='category' readOnly value={categoryCode === null ? '' : getCategoryTitle(categoryCode, userCategories.categoriesList)} type='text'></input>
 						</FormSection>
-
-						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 			}
+
 
 			<div className='flex flex--row flex--center'>
 				<DefaultButton

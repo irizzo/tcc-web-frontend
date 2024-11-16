@@ -11,8 +11,6 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 	treatedData.schedueledDate = (newData.schedueledDate && new Date(formatDateString(initialData.schedueledDate)).getTime() !== new Date(newData.schedueledDate).getTime()) ? newData.schedueledDate : null
 	treatedData.dueDate = (newData.dueDate && new Date(formatDateString(initialData.dueDate)).getTime() !== new Date(newData.dueDate).getTime()) ? newData.dueDate : null
 
-	console.log('initialData.dueDate: ', initialData.dueDate)
-	console.log('new Date(formatDateString(initialData.dueDate)): ', new Date(formatDateString(initialData.dueDate)))
 	return treatedData
 }
 

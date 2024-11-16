@@ -3,7 +3,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext, UserAccessStateContext } from '@/hooks'
 
-import { needsRevalidation } from '@/utils/date.utils'
+import { formatEventsDates, formatTasksDates, needsRevalidation } from '@/utils/date.utils'
 import { getUserInfo } from '@/services/userServices'
 import { getAllCategoriesService } from '@/services/categoryServices'
 import { listAllTasksService } from '@/services/taskServices'
@@ -44,7 +44,7 @@ export default function UserPagesLayout({ children }) {
 			if (!userTasks.tasksList || needsRevalidation(userTasks.updatedAt)) {
 				const res = await listAllTasksService()
 
-				setUserTasks({ tasksList: res.result, updatedAt: new Date() })
+				setUserTasks({ tasksList: formatTasksDates(res.result), updatedAt: new Date() })
 			}
 		}
 
@@ -52,7 +52,7 @@ export default function UserPagesLayout({ children }) {
 			if (!userEvents.eventsList || needsRevalidation(userEvents.updatedAt)) {
 				const res = await getAllEventsService()
 
-				setUserEvents({ eventsList: res.result, updatedAt: new Date() })
+				setUserEvents({ eventsList: formatEventsDates(res.result), updatedAt: new Date() })
 			}
 		}
 

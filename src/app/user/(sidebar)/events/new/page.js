@@ -12,6 +12,7 @@ import { UserCategoriesContext, UserEventsContext } from '@/hooks'
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
+import { formatEventsDates } from '@/utils/date.utils'
 
 export default function NewEvent() {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
@@ -46,7 +47,7 @@ export default function NewEvent() {
 			}
 
 			const eventsRes = await getAllEventsService()
-			setUserEvents({ eventsList: eventsRes.result, updatedAt: new Date() })
+			setUserEvents({ eventsList: formatEventsDates(eventsRes.result), updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.dashboard.base })
 

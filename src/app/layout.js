@@ -4,8 +4,8 @@ import { appInfo } from '@/resources/locale'
 import { Raleway } from 'next/font/google'
 const raleway = Raleway({ subsets: ['latin'], variable: '--raleway-font', display: 'swap' })
 
+import { FaLinkedin, FaSquareGithub } from 'react-icons/fa6'
 import '@/styles/global.scss'
-import { FaArrowRight, FaLinkedin, FaSquareGithub } from 'react-icons/fa6'
 
 export const metadata = {
 	title: appInfo.name,

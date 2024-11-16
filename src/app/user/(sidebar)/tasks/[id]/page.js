@@ -13,6 +13,7 @@ import { DefaultButton, DangerButton } from '@/components/Buttons'
 
 import * as locale from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+import { formatTasksDates } from '@/utils/date.utils'
 
 export default function TaskPage({ params, searchParams }) {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
@@ -20,8 +21,8 @@ export default function TaskPage({ params, searchParams }) {
 
 	const [ title, setTitle ] = useState(searchParams.title)
 	const [ description, setDescription ] = useState(searchParams.description)
-	const [ dueDate, setDueDate ] = useState(searchParams.dueDate)
-	const [ schedueledDate, setSchedueledDate ] = useState(searchParams.schedueledDate)
+	const [dueDate, setDueDate] = useState(searchParams.dueDate ? searchParams.dueDate : '')
+	const [schedueledDate, setSchedueledDate] = useState(searchParams.schedueledDate ? searchParams.schedueledDate : '')
 	const [ priorityCode, setPriorityCode ] = useState(searchParams.priorityCode)
 	const [ statusCode, setStatusCode ] = useState(searchParams.statusCode)
 	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
@@ -39,11 +40,11 @@ export default function TaskPage({ params, searchParams }) {
 		if (editing) {
 			setTitle(searchParams.title)
 			setDescription(searchParams.description)
-			setDueDate(searchParams.dueDate)
+			setDueDate(searchParams.dueDate ? searchParams.dueDate : '')
 			setCategoryCode(searchParams.categoryCode)
 			setPriorityCode(searchParams.priorityCode)
 			setStatusCode(searchParams.statusCode)
-			setSchedueledDate(searchParams.schedueledDate)
+			setSchedueledDate(searchParams.schedueledDate ? searchParams.schedueledDate : '')
 		}
 
 		setEditing(!editing)
@@ -64,9 +65,10 @@ export default function TaskPage({ params, searchParams }) {
 			}
 
 			const tasksRes = await listAllTasksService()
-			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
+			setUserTasks({ tasksList: formatTasksDates(tasksRes.result), updatedAt: new Date() })
 			setIsLoading(false)
-			navigateTo({ path: routesMap.dashboard.base })
+			navigateTo({ path: routesMap.tasks.base })
+
 		} catch (error) {
 			setIsLoading(false)
 			alert(error)
@@ -85,7 +87,7 @@ export default function TaskPage({ params, searchParams }) {
 			}
 
 			const tasksRes = await listAllTasksService()
-			setUserTasks({ tasksList: tasksRes.result, updatedAt: new Date() })
+			setUserTasks({ tasksList: formatTasksDates(tasksRes.result), updatedAt: new Date() })
 			setIsLoading(false)
 			navigateTo({ path: routesMap.tasks.base })
 
@@ -154,6 +156,7 @@ export default function TaskPage({ params, searchParams }) {
 								}
 							</select>
 						</FormSection>
+						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 					:
 					<>
@@ -176,8 +179,6 @@ export default function TaskPage({ params, searchParams }) {
 						<FormSection labelFor='category' sectionTitle={locale.entitiesProperties.general.category}>
 							<input name='category' readOnly value={categoryCode ? getCategoryTitle(categoryCode, userCategories.categoriesList) : ''} type='text'></input>
 						</FormSection>
-
-						<FormInfo>Preencha apenas o que deseja alterar</FormInfo>
 					</>
 			}
 			<div className='flex flex--row flex--center'>

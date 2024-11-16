@@ -60,7 +60,7 @@ export default function SideBar() {
 function NavListItem({ children, path = '/', customIcon = null, itemId }) {
 	return (
 		<li key={itemId} id={itemId} className='flex flex--row nav__item'>
-			<Link className='flex flex--row nav__item__link' href={path}>
+			<Link className='flex flex--row nav__item__link' href={{pathname: path, query: null}}>
 				{customIcon ? customIcon : <FaArrowRight className='nav__item__icon' />}
 				{children}
 			</Link>
