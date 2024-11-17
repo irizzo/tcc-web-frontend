@@ -68,15 +68,28 @@ const Calendar = ({ events, tasks }) => {
 						<span className='day__title'>{day}</span>
 						{day && appointmentsByDate[day] && (
 							<ul className='flex appointments__container'>
-								{appointmentsByDate[day].map((appointment, idx) => (
-									<li className='appointment' key={idx}>
-										<Link className='appointment__link' href={`${appointment.type === 'task' ? routesMap.tasks.base : routesMap.events.base}/${appointment.id}`}>
-											{appointment.type === 'task' ? <FaCircleCheck className='icon' /> : <FaRegCalendar className='icon' />}
-											{' '}
-											{appointment.title}
-										</Link>
-									</li>
-								))}
+								{
+									appointmentsByDate[day].map((appointment, idx) => {
+										const _query = {...appointment}
+										if (appointment.type === 'task') {
+											appointment.dueDate && (_query.dueDate = appointment.dueDate.toLocaleString())
+											appointment.schedueledDate && (_query.schedueledDate = appointment.schedueledDate.toLocaleString())
+										}
+										if (appointment.type === 'event') {
+											appointment.startDate && (_query.startDate = appointment.startDate.toLocaleString())
+											appointment.endDate && (_query.endDate = appointment.endDate.toLocaleString())
+										}
+										return (
+											<li className='appointment' key={idx}>
+												<Link title={appointment.title} className='appointment__link' href={{ pathname: `${appointment.type === 'task' ? routesMap.tasks.base : routesMap.events.base}/${appointment.id}` , query: _query}}>
+													{appointment.type === 'task' ? <FaCircleCheck className='icon' /> : <FaRegCalendar className='icon' />}
+													{' '}
+													{appointment.title.length > 25 ? `${appointment.title.slice(0, 25)}...` : appointment.title}
+												</Link>
+											</li>
+										)
+									})
+								}
 							</ul>
 						)}
 					</div>
