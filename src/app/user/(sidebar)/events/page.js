@@ -32,7 +32,6 @@ export default function EventsPage() {
 				setIsLoading(false)
 			}, 1000)
 		}
-		
 		let aux = {}
 		userCategories.categoriesList.forEach((category) => {
 			aux[category.code] = category.title

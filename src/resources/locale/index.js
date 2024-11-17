@@ -252,5 +252,5 @@ export const messagesTitles = {
 export const timerTitles = {
 	focus: 'Foco',
 	shortBreak: 'Descanso Curto',
-	longBreak: 'Descanso Longo',
+	longBreak: 'Descanso Longo'
 }

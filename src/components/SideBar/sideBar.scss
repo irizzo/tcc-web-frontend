@@ -62,7 +62,7 @@ nav {
 	min-height: 40px;
 	margin-bottom: 5px;
 	padding: 0% 2%;
-	
+
 	border-radius: variables.$radius;
 	color: variables.$primary-font-color;
 	text-decoration: none;
@@ -92,7 +92,7 @@ nav {
 	border-right: 2px solid variables.$primary-color-light;
 	color: variables.$primary-color-light;
 
-	div { 
+	div {
 		color: variables.$primary-color-light;
 	}
 
@@ -103,4 +103,9 @@ nav {
 	a {
 		color: variables.$primary-color-light;
 	}
+}
+
+.selected {
+	background-color: variables.$primary-color-dark--15op;
+	border-right: 2px solid variables.$primary-color-light;
 }
