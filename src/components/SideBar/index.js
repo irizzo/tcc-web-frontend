@@ -1,6 +1,7 @@
 'use client'
 
 import { useContext, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck, FaClock, FaRegClock } from 'react-icons/fa6'
@@ -14,12 +15,19 @@ import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/
 import './sideBar.scss'
 
 export default function SideBar() {
+	const router = useRouter()
+	const pathname = usePathname()
 	const currentDate = new Date()
 	const weekday = currentDate.getDay()
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
 
 	const [ currentPage, setCurrentPage ] = useState('DASHBOARD')
 	const { userInfo } = useContext(UserInfoContext)
+
+	const history = window.
+	console.log('history: ', history)
+	const p = pathname
+	console.log('p: ', p)
 
 	async function handleLogOut() {
 		await clearTokenCookie()
