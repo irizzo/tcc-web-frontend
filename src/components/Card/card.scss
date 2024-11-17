@@ -84,7 +84,9 @@
 }
 
 .past-date {
-	.tag__icon, .tag__content{
+
+	.tag__icon,
+	.tag__content {
 		color: variables.$danger-color;
 	}
 }
@@ -122,6 +124,10 @@
 		flex: 1;
 		padding: 10px 0;
 		text-wrap: wrap;
+	}
+
+	.note__tag {
+		align-self: flex-start;
 	}
 }
 

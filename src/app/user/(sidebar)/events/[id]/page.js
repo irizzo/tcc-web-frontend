@@ -19,14 +19,14 @@ export default function EventPage({ params, searchParams }) {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 
-	const [title, setTitle] = useState(searchParams.title)
-	const [description, setDescription] = useState(searchParams.description)
-	const [startDate, setStartDate] = useState(searchParams.startDate)
-	const [endDate, setEndDate] = useState(searchParams.endDate)
-	const [categoryCode, setCategoryCode] = useState(searchParams.categoryCode)
+	const [ title, setTitle ] = useState(searchParams.title)
+	const [ description, setDescription ] = useState(searchParams.description)
+	const [ startDate, setStartDate ] = useState(searchParams.startDate)
+	const [ endDate, setEndDate ] = useState(searchParams.endDate)
+	const [ categoryCode, setCategoryCode ] = useState(searchParams.categoryCode)
 
-	const [editing, setEditing] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
+	const [ editing, setEditing ] = useState(false)
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	function handleEditing() {
 		if (editing) {

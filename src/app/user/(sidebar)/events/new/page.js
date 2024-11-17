@@ -2,9 +2,9 @@
 
 import { navigateTo } from '@/utils'
 import { createEventService, getAllEventsService } from '@/services/eventServices'
-
 import { pagesTitles, entitiesProperties, formDefaults, notFoundDefaults } from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
+import { formatEventsDates } from '@/utils/date.utils'
 
 import { useState, useContext } from 'react'
 import { UserCategoriesContext, UserEventsContext } from '@/hooks'
@@ -12,7 +12,6 @@ import { UserCategoriesContext, UserEventsContext } from '@/hooks'
 import Loading from '@/components/Loading'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection } from '@/components/Form'
-import { formatEventsDates } from '@/utils/date.utils'
 
 export default function NewEvent() {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)

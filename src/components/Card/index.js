@@ -77,7 +77,7 @@ export function NoteCard({ noteInfo, categoryTitle }) {
 		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo }}>
 			<h3 className='note__title'>{noteInfo.title.length > 0 ? titleAbstract : 'Nota Sem Título'}</h3>
 			<p className='note__abstract'>{contentAbstract}</p>
-			{noteInfo.categoryCode && <CategoryTag categoryTitle={categoryTitle} />}
+			{noteInfo.categoryCode && <CategoryTag customClasses='note__tag' categoryTitle={categoryTitle} />}
 		</Link>
 	)
 }

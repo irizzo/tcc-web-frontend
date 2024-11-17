@@ -50,10 +50,10 @@ export default function Login() {
 
 	return (
 		<DefaultPageContainer>
-			<Menu buttonsShown />
+			<Menu />
 			<main className='flex flex--center' style={{ flex: 1, width: '100vw'}}>
 				<FormContainer
-					title={locale.pagesTitles.user.login}
+					title={locale.pagesTitles.login}
 					variantClasses='form__container--login'
 					submitCallback={(e) => handleLoginSubmit(e, { email: userEmail, password: userPassword })}
 				>

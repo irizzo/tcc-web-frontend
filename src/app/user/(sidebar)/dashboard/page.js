@@ -14,18 +14,17 @@ import { GeneralInfo } from '@/components/Messages'
 
 export default function Dashboard() {
 	console.log('[DASHBOARD]')
-	const [categories, setCategories] = useState({})
-	const [today, setToday] = useState({ tasks: [], events: [] })
-	const [withinAWeek, setWithinAWeek] = useState({ tasks: [], events: [] })
-	const [otherTasks, setOtherTasks] = useState([])
-	const [pastDueTasks, setPastDueTasks] = useState([])
-	const [otherEvents, setOtherEvents] = useState([])
+	const [ categories, setCategories ] = useState({})
+	const [ today, setToday ] = useState({ tasks: [], events: [] })
+	const [ withinAWeek, setWithinAWeek ] = useState({ tasks: [], events: [] })
+	const [ otherTasks, setOtherTasks ] = useState([])
+	const [ pastDueTasks, setPastDueTasks ] = useState([])
+	const [ otherEvents, setOtherEvents ] = useState([])
+	const [ isLoading, setIsLoading ] = useState(true)
 
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
 	const { userTasks, setUserTasks } = useContext(UserTasksContext)
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
-
-	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -40,9 +39,9 @@ export default function Dashboard() {
 
 			setToday({ tasks: sortedTasks.today, events: sortedEvents.today })
 			setWithinAWeek({ tasks: sortedTasks.withinAWeek, events: sortedEvents.withinAWeek })
-			setPastDueTasks([...sortedTasks.pastDue])
-			setOtherTasks([...sortedTasks.other])
-			setOtherEvents([...sortedEvents.other])
+			setPastDueTasks([ ...sortedTasks.pastDue ])
+			setOtherTasks([ ...sortedTasks.other ])
+			setOtherEvents([ ...sortedEvents.other ])
 
 			setIsLoading(false)
 		}, 500)

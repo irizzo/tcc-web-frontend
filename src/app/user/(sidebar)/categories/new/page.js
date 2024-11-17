@@ -14,10 +14,8 @@ import { DefaultButton } from '@/components/Buttons'
 
 export default function NewCategory() {
 	const { userCategories, setUserCategories } = useContext(UserCategoriesContext)
-
 	const [ categoryTitle, setCategoryTitle ] = useState('')
 	const [ categoryDescription, setCategoryDescription ] = useState('')
-
 	const [ isLoading, setIsLoading ] = useState(false)
 
 	async function handleNewCategoryForm(e, formData) {
@@ -46,7 +44,6 @@ export default function NewCategory() {
 				navigateTo({ path: routesMap.categories.base })
 			}
 		} catch (error) {
-			// console.log('[handleNewCategoryForm] error: ', error);
 			setIsLoading(false)
 			alert(error)
 		}

@@ -62,10 +62,10 @@ export default function SignUp() {
 
 	return (
 		<DefaultPageContainer>
-			<Menu buttonsShown />
+			<Menu />
 			<main className='flex flex--center' style={{ flex: 1, width: '100vw' }}>
 				<FormContainer
-					title={locale.pagesTitles.user.signUp}
+					title={locale.pagesTitles.signUp}
 					variantClasses='form__container--sign-up'
 					submitCallback={(e) => handleSignUpSubmit(e, { firstName, lastName, email, password, confirmPassword })}
 				>

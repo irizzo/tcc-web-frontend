@@ -1,7 +1,10 @@
 @use '../../../styles/variables.scss';
 
 .about__container {
-	height: 80vh;
+	// height: 80vh;
+	height: 100%;
+	width: 100%;
+	max-width: 90vw;
 	justify-content: flex-start;
 }
 .about__section {
