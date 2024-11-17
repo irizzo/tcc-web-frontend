@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
@@ -15,8 +15,6 @@ import { weekdaysMap, pagesTitles, actionsTitles, pagesKeys } from '@/resources/
 import './sideBar.scss'
 
 export default function SideBar() {
-	const router = useRouter()
-	const pathname = usePathname()
 	const currentDate = new Date()
 	const weekday = currentDate.getDay()
 	const today = `${weekdaysMap[weekday]}, ${currentDate.toLocaleDateString()}`
@@ -24,10 +22,25 @@ export default function SideBar() {
 	const [ currentPage, setCurrentPage ] = useState('DASHBOARD')
 	const { userInfo } = useContext(UserInfoContext)
 
-	const history = window.
-	console.log('history: ', history)
-	const p = pathname
-	console.log('p: ', p)
+	const pathname = usePathname()
+
+	useEffect(() => {
+		if (!pathname.includes(currentPage.toLowerCase())) {
+			console.log('!includes')
+
+			const splitPathname = pathname.split('/', 10)
+			console.log('splitPathname: ', splitPathname)
+
+			if (pathname.includes('/new')) {
+				const currentPageKey = pagesKeys[splitPathname[splitPathname.length - 2]].new
+				setCurrentPage(currentPageKey)
+				return
+			}
+
+			const currentPageKey = pagesKeys[splitPathname[splitPathname.length - 1]].base
+			setCurrentPage(currentPageKey)
+		}
+	}, [])
 
 	async function handleLogOut() {
 		await clearTokenCookie()
@@ -47,6 +60,7 @@ export default function SideBar() {
 
 	return (
 		<nav className='flex'>
+			{console.log('currentPage: ', currentPage)}
 			<header className='sidebar__header'>
 				<h1 className='header__title'>{userInfo?.data ? `${userInfo.data.firstName} ${userInfo.data.lastName}` : pagesTitles.loading + '...'}</h1>
 				<p className='header__subtitle'>{today}</p>
@@ -54,7 +68,7 @@ export default function SideBar() {
 
 			<ul className='flex nav__list'>
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.pages}</h3>
-				<NavListItem selected={currentPage === pagesKeys.dashboard ? true : false} itemId={pagesKeys.dashboard} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard.base}>{pagesTitles.dashboard}</NavListItem>
+				<NavListItem selected={currentPage === pagesKeys.dashboard.base ? true : false} itemId={pagesKeys.dashboard.base} customIcon={<FaHouse className='nav__item__icon' />} path={routesMap.dashboard.base}>{pagesTitles.dashboard.base}</NavListItem>
 				<NavListItem selected={currentPage === pagesKeys.categories.base ? true : false} itemId={pagesKeys.categories.base} customIcon={<FaHashtag className='nav__item__icon' />} path={routesMap.categories.base}>{pagesTitles.categories.base}</NavListItem>
 				<NavListItem selected={currentPage === pagesKeys.events.base ? true : false} itemId={pagesKeys.events.base} customIcon={<FaRegCalendar className='nav__item__icon' />} path={routesMap.events.base}>{pagesTitles.events.base}</NavListItem>
 				<NavListItem selected={currentPage === pagesKeys.tasks.base ? true : false} itemId={pagesKeys.tasks.base} customIcon={<FaCircleCheck className='nav__item__icon' />} path={routesMap.tasks.base}>{pagesTitles.tasks.base}</NavListItem>
@@ -69,8 +83,8 @@ export default function SideBar() {
 
 				<h3 className='nav__list__title'>{pagesTitles.sideBar.options}</h3>
 				<NavListItem selected={currentPage === pagesKeys.settings.base ? true : false} itemId={pagesKeys.settings.base} path={routesMap.settings.base} customIcon={<FaGear className='nav__item__icon' />} >{pagesTitles.settings.base}</NavListItem>
-				<NavListItem selected={currentPage === pagesKeys.contents ? true : false} itemId={pagesKeys.contents} path={routesMap.contents.base} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents}</NavListItem>
-				<NavListItem selected={currentPage === pagesKeys.about ? true : false} itemId={pagesKeys.about} path={routesMap.about.base} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about}</NavListItem>
+				<NavListItem selected={currentPage === pagesKeys.contents.base ? true : false} itemId={pagesKeys.contents.base} path={routesMap.contents.base} customIcon={<FaBook className='nav__item__icon' />} >{pagesTitles.contents.base}</NavListItem>
+				<NavListItem selected={currentPage === pagesKeys.about.base ? true : false} itemId={pagesKeys.about.base} path={routesMap.about.base} customIcon={<FaCircleInfo className='nav__item__icon' />} >{pagesTitles.about.base}</NavListItem>
 				<NavListButton onClickFunction={handleLogOut} customIcon={<FaArrowRightFromBracket className='nav__item__icon' />}>{actionsTitles.logout}</NavListButton>
 			</ul>
 		</nav>

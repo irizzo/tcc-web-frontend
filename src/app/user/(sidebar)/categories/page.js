@@ -2,10 +2,9 @@
 
 import * as locale from '@/resources/locale'
 
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 import { UserCategoriesContext } from '@/hooks'
 
-import Loading from '@/components/Loading'
 import { GeneralInfo } from '@/components/Messages'
 import { CategoryCard } from '@/components/Card'
 
@@ -13,14 +12,6 @@ import './categoriesPage.scss'
 
 export default function ContentsFeed() {
 	const { userCategories } = useContext(UserCategoriesContext)
-	// const [ isLoading, setIsLoading ] = useState(false)
-
-	// useEffect(() => {
-	// 	userCategories.categoriesList ?? (setIsLoading(true) && setTimeout(() => { setIsLoading(false)}, 2000) )
-
-	// }, [ userCategories.categoriesList ])
-
-	// if (isLoading) return <Loading />
 
 	return (
 		<main className='flex flex--center categories__main'>

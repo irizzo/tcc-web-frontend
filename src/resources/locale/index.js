@@ -94,8 +94,13 @@ export const weekdaysMap = {
 
 export const pagesTitles = {
 	home: 'Início',
+	login: 'Login',
+	signUp: 'Cadastro',
+	loading: 'Carregando',
 
-	contents: 'Conteúdos',
+	contents: {
+		base: 'Conteúdos'
+	},
 
 	categories: {
 		base: 'Categorias',
@@ -104,7 +109,9 @@ export const pagesTitles = {
 		view: 'Visualizar Categoria'
 	},
 
-	dashboard: 'Dashboard',
+	dashboard: {
+		base: 'Dashboard'
+	},
 
 	events: {
 		new: 'Novo Evento',
@@ -142,20 +149,19 @@ export const pagesTitles = {
 		options: 'Opções'
 	},
 
-	user: {
-		login: 'Login',
-		signUp: 'Cadastro'
-	},
-
-	about: 'Sobre',
-
-	loading: 'Carregando'
+	about: {
+		base: 'Sobre'
+	}
 }
 
 export const pagesKeys = {
 	home: 'HOME',
+	login: 'LOGIN',
+	signUp: 'SIGN_UP',
 
-	contents: 'CONTENTS',
+	contents: {
+		base: 'CONTENTS'
+	},
 
 	categories: {
 		base: 'CATEGORIES',
@@ -164,7 +170,9 @@ export const pagesKeys = {
 		view: 'VIEW_CATEGORY'
 	},
 
-	dashboard: 'DASHBOARD',
+	dashboard: {
+		base: 'DASHBOARD'
+	},
 
 	events: {
 		base: 'EVENTS',
@@ -196,14 +204,9 @@ export const pagesKeys = {
 		view: 'VIEW_TASKS'
 	},
 
-	user: {
-		login: 'LOGIN',
-		signUp: 'SIGN_UP'
-	},
-
-	about: 'ABOUT',
-
-	loading: 'LOADING'
+	about: {
+		base: 'ABOUT'
+	}
 }
 
 export const actionsTitles = {

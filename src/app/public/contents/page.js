@@ -24,7 +24,7 @@ function FeedListItem({ contentInfo }) {
 export default function ContentsFeed() {
 	return (
 		<div className='flex feed__container'>
-			<h1 className='contents__page-title'>{locale.pagesTitles.contents}</h1>
+			<h1 className='contents__page-title'>{locale.pagesTitles.contents.base}</h1>
 			<div className='contents__feed'>
 				{
 					contentsList.length > 0 ?

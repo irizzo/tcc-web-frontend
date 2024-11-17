@@ -1,6 +1,6 @@
-import './loading.scss';
+import './loading.scss'
 
-import * as locale from '@/resources/locale';
+import * as locale from '@/resources/locale'
 
 export default function Loading() {
 	return (

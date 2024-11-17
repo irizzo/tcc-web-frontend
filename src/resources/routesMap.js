@@ -8,7 +8,7 @@ exports.routesMap = {
 	home: '/',
 	login: '/login',
 	signUp: '/sign-up',
-	
+
 	about: {
 		base: '/public/about'
 	},
