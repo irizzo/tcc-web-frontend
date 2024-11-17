@@ -92,7 +92,6 @@
 }
 
 .note-container {
-	align-items: flex-start;
 	text-decoration: none;
 
 	height: 250px;
@@ -112,7 +111,6 @@
 	transition: 200ms;
 
 	.note__title {
-		align-self: center;
 		width: 90%;
 		min-height: fit-content;
 		padding: 10px 0;
@@ -122,11 +120,14 @@
 	}
 
 	.note__abstract {
-		align-self: center;
 		width: 90%;
 		flex: 1;
 		padding: 10px 0;
 		text-wrap: wrap;
+	}
+
+	.note__tag {
+		align-self: flex-start;
 	}
 }
 
