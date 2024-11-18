@@ -18,9 +18,10 @@ export default async function authMiddleware(req) {
 
 	let isUserLogged = false
 	const tokenCookie = req.cookies.get('token')
-	console.log('[middleware]tokenCookie: ', tokenCookie)
 
 	const { pathname } = req.nextUrl
+
+	if (pathname === '/') return NextResponse.next()
 	const userBasePath = '/user'
 
 	if (tokenCookie) {
@@ -41,5 +42,5 @@ export default async function authMiddleware(req) {
 }
 
 export const config = {
-	matcher: [ '/user/:path*', '/login/:path', '/sign-up/:path' ]
+	matcher: [ '/', '/public/:path*', '/user/:path*', '/login', '/sign-up' ]
 }

@@ -1,11 +1,13 @@
 @use '../../styles/variables.scss';
 
 .calendar__container {
-	height: 100%;
 	flex: 1;
+	height: 100%;
+	max-height: 100%;
 	padding: 20px;
 	margin-right: 1%;
 	border-radius: variables.$radius;
+	// overflow-y: scroll;
 
 	background-color: variables.$foreground-color;
 
@@ -19,6 +21,7 @@
 .calendar {
 	flex: 1;
 	width: 100%;
+	overflow-y: scroll;
 
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
@@ -74,12 +77,12 @@
 	cursor: pointer;
 	transition: 300ms;
 	border-radius: variables.$radius;
-	background-color: variables.$primary-color-light--15op;
+	// font-size: small;
 
 	.icon {
-		height: 15px;
+		height: 10px;
+		width: 10px;
 		color: variables.$primary-font-color;
-		width: 15px;
 		transition: 300ms;
 	}
 

@@ -94,12 +94,8 @@ export default function SettingsPage() {
 				throw new Error(res.message)
 			}
 
-			console.log('1')
 			await clearTokenCookie()
-			console.log('2')
 			setIsLoading(false)
-			console.log('3')
-
 			router.push(routesMap.home)
 
 		} catch (error) {

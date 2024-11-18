@@ -27,16 +27,15 @@ export function CategoryCard({ categoryInfo }) {
 
 export function TaskCard({ taskInfo, categoryTitle, pastDate = false }) {
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`
-	const taskQuery = { ...taskInfo } 
+	const taskQuery = { ...taskInfo }
 	taskInfo.dueDate && (taskQuery.dueDate = taskInfo.dueDate.toLocaleString())
 	taskInfo.schedueledDate && (taskQuery.schedueledDate = taskInfo.schedueledDate.toLocaleString())
 	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate || taskInfo.priorityCode || taskInfo.statusCode) ? true : false
 
 	return (
 		<div className='flex card__container'>
-			<Link className='flex flex--row card__title' href={{ pathname: taskPath, query: taskQuery }} >
-				<FaCircleCheck className='card__title__icon' />
-				<h4>{taskInfo.title}</h4>
+			<Link className='flex card__title' href={{ pathname: taskPath, query: taskQuery }} >
+				<h4><FaCircleCheck className='card__title__icon' /> {taskInfo.title}</h4>
 			</Link>
 
 			{showTagsContainer && <div className='flex flex--row flex--sp-between tags__container'>
