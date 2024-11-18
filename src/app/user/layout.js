@@ -65,7 +65,7 @@ export default function UserPagesLayout({ children }) {
 		}
 
 		try {
-			console.log('load resources')
+			console.debug('load resources')
 			loadUserInfo()
 			loadCategories()
 			loadTasks()
@@ -78,7 +78,7 @@ export default function UserPagesLayout({ children }) {
 			}, 2000)
 
 		} catch (error) {
-			console.log('[USER/LAYOUT] error: ', error)
+			console.debug('[USER/LAYOUT] error: ', error)
 			alert(error)
 		}
 

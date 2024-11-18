@@ -27,7 +27,7 @@ export default function SettingsPage() {
 			setIsLoading(true)
 
 			setTimeout(() => {
-				console.log('timeout')
+				console.debug('timeout')
 				setIsLoading(false)
 			}, 2000)
 		}
@@ -56,7 +56,7 @@ export default function SettingsPage() {
 	async function handleUpdateUserInfo(e) {
 		e.preventDefault()
 
-		console.log('updatedUserInfo: ', updatedUserInfo)
+		console.debug('updatedUserInfo: ', updatedUserInfo)
 
 		try {
 			setIsLoading(true)
@@ -74,7 +74,7 @@ export default function SettingsPage() {
 			setIsLoading(false)
 
 		} catch (error) {
-			console.log('error: ', error)
+			console.debug('error: ', error)
 			setIsLoading(false)
 			alert(error)
 		}
@@ -88,7 +88,7 @@ export default function SettingsPage() {
 
 			const res = await deleteUserService()
 
-			console.log('res: ', res)
+			console.debug('res: ', res)
 
 			if (!res.success) {
 				throw new Error(res.message)
@@ -99,7 +99,7 @@ export default function SettingsPage() {
 			router.push(routesMap.home)
 
 		} catch (error) {
-			console.log('error: ', error)
+			console.debug('error: ', error)
 
 			setIsLoading(false)
 			alert(error)

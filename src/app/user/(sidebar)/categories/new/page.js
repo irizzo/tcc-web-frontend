@@ -19,7 +19,7 @@ export default function NewCategory() {
 	const [ isLoading, setIsLoading ] = useState(false)
 
 	async function handleNewCategoryForm(e, formData) {
-		console.log('[handleNewCategoryForm]')
+		console.debug('[handleNewCategoryForm]')
 		try {
 			e.preventDefault()
 

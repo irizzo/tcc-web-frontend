@@ -7,7 +7,7 @@ const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_P
 const baseAccessPath = '/user-access'
 
 export async function verifyUserAuthService() {
-	console.log('[verifyUserAuthService]')
+	console.debug('[verifyUserAuthService]')
 	try {
 		const tokenCookie = await getTokenCookie()
 		const customHeaders = new Headers({
@@ -38,7 +38,7 @@ export async function verifyUserAuthService() {
 		}
 
 	} catch (error) {
-		console.log('[verifyUserAuthService] error: ', error)
+		console.debug('[verifyUserAuthService] error: ', error)
 		throw error
 	}
 }
@@ -49,7 +49,7 @@ export async function verifyUserAuthService() {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function signUpService(userSignUpData) {
-	console.log('[signUpService]')
+	console.debug('[signUpService]')
 
 	try {
 		const customHeaders = new Headers({
@@ -80,7 +80,7 @@ export async function signUpService(userSignUpData) {
 		}
 
 	} catch (error) {
-		console.log('[signUpService] error: ', error)
+		console.debug('[signUpService] error: ', error)
 		throw error
 	}
 }
@@ -92,7 +92,7 @@ export async function signUpService(userSignUpData) {
  */
 export async function loginService(userLoginData) {
 	try {
-		console.log('[loginService]')
+		console.debug('[loginService]')
 
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
@@ -123,7 +123,7 @@ export async function loginService(userLoginData) {
 		}
 
 	} catch (error) {
-		console.log('[loginService] error: ', error)
+		console.debug('[loginService] error: ', error)
 		throw error
 	}
 }

@@ -5,17 +5,23 @@ import { routesMap } from '@/resources/routesMap'
 import { verifyUserAuthService } from '@/services/userAccessServices'
 
 let APP_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
-console.log('[middleware] CURRENT_ENV: ', process.env.CURRENT_ENV)
-console.log('[middleware] APP_PROD_BASEURL: ', process.env.APP_PROD_BASEURL)
-console.log('[middleware] APP_DEV_BASEURL: ', process.env.APP_DEV_BASEURL)
-console.log('[middleware] API_PROD_BASEURL: ', process.env.API_PROD_BASEURL)
+console.debug('[middleware] CURRENT_ENV: ', process.env.CURRENT_ENV)
+console.debug('[middleware] APP_PROD_BASEURL: ', process.env.APP_PROD_BASEURL)
+console.debug('[middleware] APP_DEV_BASEURL: ', process.env.APP_DEV_BASEURL)
+console.debug('[middleware] API_PROD_BASEURL: ', process.env.API_PROD_BASEURL)
+console.debug('[middleware] window.location.href: ', window.location.href)
 
 if (!APP_BASEURL) {
-	console.log('no baseurl')
+	console.debug('no baseurl')
 	APP_BASEURL = 'https://lifesync-ir.vercel.app/'
 }
+if (APP_BASEURL !== window.location.href) {
+	const splitURL = window.location.href.slice(8).split('/')
+	console.debug('[middleware] `https://${splitURL[0]}`: ', `https://${splitURL[0]}`)
+	APP_BASEURL = `https://${splitURL[0]}`
+}
+console.debug('[middleware] APP_BASEURL: ', APP_BASEURL)
 
-console.log('customKey: ', process.env.customKey)
 
 /**
  * authMiddleware
@@ -23,7 +29,7 @@ console.log('customKey: ', process.env.customKey)
  * @returns
  */
 export default async function authMiddleware(req) {
-	console.log('[authMiddleware]')
+	console.debug('[authMiddleware]')
 
 	let isUserLogged = false
 	const tokenCookie = req.cookies.get('token')

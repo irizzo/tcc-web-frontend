@@ -11,7 +11,7 @@ const baseCategoriesPath = '/categories'
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function createCategoryService(categoryData) {
-	console.log('[createCategoryService]')
+	console.debug('[createCategoryService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -46,7 +46,7 @@ export async function createCategoryService(categoryData) {
 		}
 
 	} catch (error) {
-		console.log('[createCategoryService] error: ', error)
+		console.debug('[createCategoryService] error: ', error)
 		throw (error)
 	}
 }
@@ -56,7 +56,7 @@ export async function createCategoryService(categoryData) {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function getAllCategoriesService() {
-	console.log('[getAllCategoriesService]')
+	console.debug('[getAllCategoriesService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -90,7 +90,7 @@ export async function getAllCategoriesService() {
 		}
 
 	} catch (error) {
-		console.log('[getAllCategoriesService] error: ', error)
+		console.debug('[getAllCategoriesService] error: ', error)
 		throw (error)
 	}
 }
@@ -101,7 +101,7 @@ export async function getAllCategoriesService() {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function getCategoryDetailsService(categoryId) {
-	console.log('[getCategoryDetailsService]')
+	console.debug('[getCategoryDetailsService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -134,13 +134,13 @@ export async function getCategoryDetailsService(categoryId) {
 		}
 
 	} catch (error) {
-		console.log('[getCategoryDetailsService] error: ', error)
+		console.debug('[getCategoryDetailsService] error: ', error)
 		throw (error)
 	}
 }
 
 export async function getCategoryByCode(categoryCode) {
-	console.log('[getCategoryByCode]')
+	console.debug('[getCategoryByCode]')
 	try {
 		const tokenCookie = await getTokenCookie()
 
@@ -173,7 +173,7 @@ export async function getCategoryByCode(categoryCode) {
 		}
 
 	} catch (error) {
-		console.log('[getCategoryDetailsService] error: ', error)
+		console.debug('[getCategoryDetailsService] error: ', error)
 		throw (error)
 	}
 }
@@ -184,7 +184,7 @@ export async function getCategoryByCode(categoryCode) {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function updateCategoryService(categoryId, updatedData) {
-	console.log('[updateCategoryService]')
+	console.debug('[updateCategoryService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -219,7 +219,7 @@ export async function updateCategoryService(categoryId, updatedData) {
 		}
 
 	} catch (error) {
-		console.log('[updateCategoryService] error: ', error)
+		console.debug('[updateCategoryService] error: ', error)
 		throw (error)
 	}
 }
@@ -229,7 +229,7 @@ export async function updateCategoryService(categoryId, updatedData) {
  * @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function deleteCategoryService(categoryId) {
-	console.log('[deleteCategoryService]')
+	console.debug('[deleteCategoryService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -263,7 +263,7 @@ export async function deleteCategoryService(categoryId) {
 		}
 
 	} catch (error) {
-		console.log('[deleteCategoryService] error: ', error)
+		console.debug('[deleteCategoryService] error: ', error)
 		throw (error)
 	}
 }

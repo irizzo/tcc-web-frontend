@@ -40,7 +40,7 @@ export default function Focus() {
 		},
 
 		reset: () => {
-			console.log('reset')
+			console.debug('reset')
 			setEditTimers({ focus: 25, shortBreak: 5, longBreak: 15 })
 		}
 	}
@@ -136,7 +136,7 @@ export default function Focus() {
 	return (
 		<DefaultPageContainer>
 			<main className='flex focus__main'>
-				{console.log('userTimers: ', userTimers)}
+				{console.debug('userTimers: ', userTimers)}
 				<nav className='flex flex--row focus__nav' >
 					<FaArrowLeft className='focus__nav__icon' onClick={() => { router.back() }} />
 					<h1>{pagesTitles.focus.base}</h1>

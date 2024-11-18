@@ -6,14 +6,14 @@
  * @returns
  */
 export function groupEventsByMonth(eventsList, selectedYear = null, selectedMonth = null) {
-	console.log('[groupEventsByMonth]')
+	console.debug('[groupEventsByMonth]')
 
 	if (!selectedYear) selectedYear = new Date().getFullYear()
 	if (!selectedMonth) selectedMonth = new Date().getMonth()
 	const grouped = { selectedMonth: [], past: [], coming: [] }
 
 	eventsList.length > 0 && eventsList.forEach((event) => {
-		// console.log('[groupEventsByMonth] event: ', event)
+		// console.debug('[groupEventsByMonth] event: ', event)
 		if (event.startDate.getTime() < new Date().getTime()) return
 
 		if (event.startDate.getFullYear() > selectedYear || (event.startDate.getFullYear() === selectedYear && event.startDate.getMonth() > selectedMonth)) {
@@ -34,37 +34,37 @@ export function groupEventsByMonth(eventsList, selectedYear = null, selectedMont
 }
 
 export function groupTasksByMonth(tasksList, selectedYear=null, selectedMonth=null) {
-	console.log('[groupTasksByMonth]')
+	console.debug('[groupTasksByMonth]')
 
 	if (!selectedYear) selectedYear = new Date().getFullYear()
 	if (!selectedMonth) selectedMonth = new Date().getMonth()
 	const grouped = { selectedMonth: [], past: [], coming: [] }
 
 	tasksList.length > 0 && tasksList.forEach((task) => {
-		console.log('[groupTasksByMonth] task: ', task)
+		console.debug('[groupTasksByMonth] task: ', task)
 		if (task.statusCode === 'DONE') return
 		
 		if (!task.dueDate) {
-			console.log('[groupTasksByMonth] coming')
+			console.debug('[groupTasksByMonth] coming')
 
 			grouped.coming.push(task)
 			return
 		}
 
 		if (task.dueDate.getFullYear() > selectedYear || (task.dueDate.getFullYear() === selectedYear && task.dueDate.getMonth() > selectedMonth)) {
-			console.log('[groupTasksByMonth] coming')
+			console.debug('[groupTasksByMonth] coming')
 			grouped.coming.push(task)
 			return
 		}
 
 		if (task.dueDate.getFullYear() < selectedYear || (task.dueDate.getFullYear() === selectedYear && task.dueDate.getMonth() < selectedMonth)) {
 			grouped.past.push(task)
-			console.log('[groupTasksByMonth] past')
+			console.debug('[groupTasksByMonth] past')
 
 			return
 		}
 
-		console.log('[groupTasksByMonth] selected')
+		console.debug('[groupTasksByMonth] selected')
 
 		grouped.selectedMonth.push(task)
 		return
@@ -74,7 +74,7 @@ export function groupTasksByMonth(tasksList, selectedYear=null, selectedMonth=nu
 }
 
 export function groupTasksByDate(tasksList) {
-	console.log('[groupTasksByDate]')
+	console.debug('[groupTasksByDate]')
 
 	const todayDate = new Date()
 	const withinAWeekRange = new Date()
@@ -86,7 +86,7 @@ export function groupTasksByDate(tasksList) {
 	const other = []
 
 	tasksList.forEach((task) => {
-		// console.log('[groupTasksByDate] task: ', task)
+		// console.debug('[groupTasksByDate] task: ', task)
 
 		if (task.statusCode === 'DONE') {
 			return
@@ -128,7 +128,7 @@ export function groupTasksByDate(tasksList) {
 }
 
 export function groupEventsByDate(eventsList) {
-	console.log('[groupEventsByDate]')
+	console.debug('[groupEventsByDate]')
 
 	const todayDate = new Date()
 	const withinAWeekRange = new Date()
@@ -139,7 +139,7 @@ export function groupEventsByDate(eventsList) {
 	const other = []
 
 	eventsList.forEach((event) => {
-		// console.log('[groupEventsByDate] event: ', event)
+		// console.debug('[groupEventsByDate] event: ', event)
 
 		if (event.startDate.getTime() < todayDate.getTime()) {
 			return

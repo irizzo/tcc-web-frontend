@@ -7,7 +7,7 @@ const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_P
 const baseUserPath = '/user'
 
 export async function getUserInfo() {
-	console.log('[getUserInfo]')
+	console.debug('[getUserInfo]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -40,13 +40,13 @@ export async function getUserInfo() {
 		}
 
 	} catch (error) {
-		console.log('[getUserInfo] error: ', error)
+		console.debug('[getUserInfo] error: ', error)
 		throw error
 	}
 };
 
 export async function updateUserService(updatedData) {
-	console.log('[updateUserService]')
+	console.debug('[updateUserService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -63,7 +63,7 @@ export async function updateUserService(updatedData) {
 			return res.json()
 		})
 
-		console.log('[updateUserService] fetchRes: ', fetchRes)
+		console.debug('[updateUserService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -81,13 +81,13 @@ export async function updateUserService(updatedData) {
 			message
 		}
 	} catch (error) {
-		console.log('[updateUserService] error: ', error)
+		console.debug('[updateUserService] error: ', error)
 		throw error
 	}
 }
 
 export async function deleteUserService() {
-	console.log('[deleteUserService]')
+	console.debug('[deleteUserService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -104,7 +104,7 @@ export async function deleteUserService() {
 			return res.json()
 		})
 
-		console.log('[deleteUserService] fetchRes: ', fetchRes)
+		console.debug('[deleteUserService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -123,7 +123,7 @@ export async function deleteUserService() {
 		}
 
 	} catch (error) {
-		console.log('[deleteUserService] error: ', error)
+		console.debug('[deleteUserService] error: ', error)
 		throw error
 	}
 }

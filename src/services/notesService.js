@@ -7,7 +7,7 @@ const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_P
 const baseNotesPath = '/notes'
 
 export async function createNoteService(noteData) {
-	console.log('[createNoteService]')
+	console.debug('[createNoteService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -41,13 +41,13 @@ export async function createNoteService(noteData) {
 			message
 		}
 	} catch (error) {
-		console.log('[createNoteService] error: ', error)
+		console.debug('[createNoteService] error: ', error)
 		throw error
 	}
 }
 
 export async function getAllNotesService() {
-	console.log('[getAllNotesService]')
+	console.debug('[getAllNotesService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -81,13 +81,13 @@ export async function getAllNotesService() {
 		}
 
 	} catch (error) {
-		console.log('[getAllNotesService] error: ', error)
+		console.debug('[getAllNotesService] error: ', error)
 		throw error
 	}
 }
 
 export async function updateNoteService(noteId, updatedData) {
-	console.log('[updateNoteService]')
+	console.debug('[updateNoteService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -121,13 +121,13 @@ export async function updateNoteService(noteId, updatedData) {
 			message
 		}
 	} catch (error) {
-		console.log('[updateNoteService] error: ', error)
+		console.debug('[updateNoteService] error: ', error)
 		throw error
 	}
 }
 
 export async function deleteNoteService(noteId) {
-	console.log('[deleteNoteService]')
+	console.debug('[deleteNoteService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -160,7 +160,7 @@ export async function deleteNoteService(noteId) {
 		}
 
 	} catch (error) {
-		console.log('[deleteNoteService] error: ', error)
+		console.debug('[deleteNoteService] error: ', error)
 		throw error
 	}
 }

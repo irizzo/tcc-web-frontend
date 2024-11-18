@@ -15,7 +15,7 @@ exports.treatUpdatedTaskData = (initialData, newData) => {
 }
 
 exports.treatUpdatedCategoriesData = (initialData, newData) => {
-	console.log('[treatUpdatedCategoriesData]')
+	console.debug('[treatUpdatedCategoriesData]')
 
 	const treatedData = {}
 	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null
@@ -25,7 +25,7 @@ exports.treatUpdatedCategoriesData = (initialData, newData) => {
 }
 
 exports.treatUpdatedEventData = (initialData, newData) => {
-	console.log('[treatUpdatedEventData]')
+	console.debug('[treatUpdatedEventData]')
 
 	const treatedData = {}
 	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null
@@ -53,7 +53,7 @@ exports.getCategoryTitle = (categoryCode, categoriesList) => {
 }
 
 exports.treatUpdatedNoteData = (initialData, newData) => {
-	console.log('[treatUpdatedNoteData]')
+	console.debug('[treatUpdatedNoteData]')
 
 	const treatedData = {}
 	treatedData.title = (newData.title && initialData.title !== newData.title) ? newData.title : null
@@ -63,7 +63,7 @@ exports.treatUpdatedNoteData = (initialData, newData) => {
 }
 
 exports.treatUpdatedUserData = (initialData, newData) => {
-	console.log('[treatUpdatedUserData]')
+	console.debug('[treatUpdatedUserData]')
 
 	const treatedData = {}
 	treatedData.firstName = (newData.firstName && initialData.firstName !== newData.firstName) ? newData.firstName : null

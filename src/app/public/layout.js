@@ -16,7 +16,7 @@ export default function PublicPagesLayout({ children }) {
 		return (
 			<DashboardPageContainer>
 				<SideBar />
-				{console.log('loggedIn')}
+				{console.debug('loggedIn')}
 				<main className='flex user-pages__main'>
 					{children}
 				</main>
@@ -25,7 +25,7 @@ export default function PublicPagesLayout({ children }) {
 	} else {
 		return (
 			<DefaultPageContainer>
-				{console.log('not loggedIn')}
+				{console.debug('not loggedIn')}
 				<Menu buttonsShown />
 				<main className='flex flex--center public-pages__main'>
 					{children}

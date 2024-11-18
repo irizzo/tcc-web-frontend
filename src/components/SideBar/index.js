@@ -26,10 +26,10 @@ export default function SideBar() {
 
 	useEffect(() => {
 		if (!pathname.includes(currentPage.toLowerCase())) {
-			console.log('!includes')
+			console.debug('!includes')
 
 			const splitPathname = pathname.split('/', 10)
-			console.log('splitPathname: ', splitPathname)
+			console.debug('splitPathname: ', splitPathname)
 
 			if (pathname.includes('/new')) {
 				const currentPageKey = pagesKeys[splitPathname[splitPathname.length - 2]].new
@@ -60,7 +60,7 @@ export default function SideBar() {
 
 	return (
 		<nav className='flex'>
-			{console.log('currentPage: ', currentPage)}
+			{console.debug('currentPage: ', currentPage)}
 			<header className='sidebar__header'>
 				<h1 className='header__title'>{userInfo?.data ? `${userInfo.data.firstName} ${userInfo.data.lastName}` : pagesTitles.loading + '...'}</h1>
 				<p className='header__subtitle'>{today}</p>

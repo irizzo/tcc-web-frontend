@@ -7,7 +7,7 @@ const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_P
 const baseTasksPath = '/tasks'
 
 export async function listAllTasksService() {
-	console.log('[listAllTasksService]')
+	console.debug('[listAllTasksService]')
 	try {
 		const tokenCookie = await getTokenCookie()
 
@@ -39,7 +39,7 @@ export async function listAllTasksService() {
 			message
 		}
 	} catch (error) {
-		console.log('[listAllTasksService] error: ', error)
+		console.debug('[listAllTasksService] error: ', error)
 		throw error
 	}
 }
@@ -50,7 +50,7 @@ export async function listAllTasksService() {
  *  @returns {{ success: Boolean, result: any | null, message: String }}
  */
 export async function createTaskService(taskData) {
-	console.log('[createTaskService]')
+	console.debug('[createTaskService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -90,7 +90,7 @@ export async function createTaskService(taskData) {
 }
 
 export async function updateTaskService(taskId, updatedData) {
-	console.log('[updateTaskService]')
+	console.debug('[updateTaskService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -130,7 +130,7 @@ export async function updateTaskService(taskId, updatedData) {
 }
 
 export async function deleteTaskService(taskId) {
-	console.log('[deleteTaskService]')
+	console.debug('[deleteTaskService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()

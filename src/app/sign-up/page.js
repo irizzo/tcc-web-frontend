@@ -13,7 +13,7 @@ import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'
 
 async function handleSignUpSubmit(e, formData) {
-	console.log('[handleSignUpSubmit]')
+	console.debug('[handleSignUpSubmit]')
 	try {
 		e.preventDefault()
 
@@ -37,10 +37,10 @@ async function handleSignUpSubmit(e, formData) {
 		}
 
 		const res = await signUpService(cleanData)
-		// console.log('[handleSignUpSubmit] res: ', res);
+		// console.debug('[handleSignUpSubmit] res: ', res);
 
 		if (!res.success) {
-			// console.log('!success | message: ', res.message);
+			// console.debug('!success | message: ', res.message);
 			alert(res.message)
 			return
 

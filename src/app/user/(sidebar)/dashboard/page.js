@@ -13,7 +13,7 @@ import { EventCard, TaskCard } from '@/components/Card'
 import { GeneralInfo } from '@/components/Messages'
 
 export default function Dashboard() {
-	console.log('[DASHBOARD]')
+	console.debug('[DASHBOARD]')
 	const [ categories, setCategories ] = useState({})
 	const [ today, setToday ] = useState({ tasks: [], events: [] })
 	const [ withinAWeek, setWithinAWeek ] = useState({ tasks: [], events: [] })

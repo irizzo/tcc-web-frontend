@@ -24,7 +24,7 @@ export default function SettingsPage() {
 			setIsLoading(true)
 
 			setTimeout(() => {
-				console.log('timeout')
+				console.debug('timeout')
 				setIsLoading(false)
 			}, 2000)
 		}
@@ -34,13 +34,13 @@ export default function SettingsPage() {
 	async function handleUpdateUserPassword(e) {
 		e.preventDefault()
 
-		console.log('newPassword: ', newPassword)
+		console.debug('newPassword: ', newPassword)
 
 		try {
 			setIsLoading(true)
 
 			const updatedData = treatUpdatedUserData(userInfo, { password: newPassword.password })
-			console.log('updatedData: ', updatedData)
+			console.debug('updatedData: ', updatedData)
 			const res = await updateUserService(updatedData)
 
 			if (!res.success) {
@@ -51,7 +51,7 @@ export default function SettingsPage() {
 			navigateTo({ path: routesMap.settings.base })
 			return
 		} catch (error) {
-			console.log('error: ', error)
+			console.debug('error: ', error)
 			setIsLoading(false)
 			alert(error)
 		}

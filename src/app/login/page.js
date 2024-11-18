@@ -13,7 +13,7 @@ import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection, PasswordInput } from '@/components/Form'
 
 async function handleLoginSubmit(e, formData) {
-	console.log('[handleLoginSubmit]')
+	console.debug('[handleLoginSubmit]')
 	try {
 		e.preventDefault()
 
@@ -29,12 +29,12 @@ async function handleLoginSubmit(e, formData) {
 		}
 
 		const res = await loginService(cleanData)
-		console.log('[handleLoginSubmit] res: ', res)
+		console.debug('[handleLoginSubmit] res: ', res)
 
 		if(res.success) {
 			navigateTo({ path: '/user/dashboard' })
 		} else {
-			console.log('!success | message: ', res.message)
+			console.debug('!success | message: ', res.message)
 			alert(res.message)
 			return
 		}

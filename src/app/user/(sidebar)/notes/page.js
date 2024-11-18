@@ -33,7 +33,7 @@ export default function NotesPage() {
 			aux[category.code] = category.title
 		})
 
-		console.log('categories aux: ', aux)
+		console.debug('categories aux: ', aux)
 		setCategories(aux)
 
 	}, [ userCategories.categoriesList, userNotes.notesList ])

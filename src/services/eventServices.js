@@ -7,7 +7,7 @@ const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_P
 const baseEventsPath = '/events'
 
 export async function createEventService(eventData) {
-	console.log('[createEventService]')
+	console.debug('[createEventService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -42,13 +42,13 @@ export async function createEventService(eventData) {
 		}
 
 	} catch (error) {
-		console.log('[createEventService] error: ', error)
+		console.debug('[createEventService] error: ', error)
 		throw error
 	}
 }
 
 export async function getAllEventsService() {
-	console.log('[getAllEventsService]')
+	console.debug('[getAllEventsService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -82,13 +82,13 @@ export async function getAllEventsService() {
 		}
 
 	} catch (error) {
-		console.log('[getAllEventsService] error: ', error)
+		console.debug('[getAllEventsService] error: ', error)
 		throw error
 	}
 }
 
 export async function getEventDetailsService(eventId) {
-	console.log('[getEventDetailsService]')
+	console.debug('[getEventDetailsService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -122,13 +122,13 @@ export async function getEventDetailsService(eventId) {
 		}
 
 	} catch (error) {
-		console.log('[getEventDetailsService] error: ', error)
+		console.debug('[getEventDetailsService] error: ', error)
 		throw error
 	}
 }
 
 export async function updateEventService(eventId, updatedData) {
-	console.log('[updateEventService]')
+	console.debug('[updateEventService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -163,13 +163,13 @@ export async function updateEventService(eventId, updatedData) {
 		}
 
 	} catch (error) {
-		console.log('[updateEventService] error: ', error)
+		console.debug('[updateEventService] error: ', error)
 		throw error
 	}
 }
 
 export async function deleteEventService(eventId) {
-	console.log('[deleteEventService]')
+	console.debug('[deleteEventService]')
 
 	try {
 		const tokenCookie = await getTokenCookie()
@@ -203,7 +203,7 @@ export async function deleteEventService(eventId) {
 		}
 
 	} catch (error) {
-		console.log('[deleteEventService] error: ', error)
+		console.debug('[deleteEventService] error: ', error)
 		throw error
 	}
 }

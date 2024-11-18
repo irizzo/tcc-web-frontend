@@ -4,22 +4,22 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function navigateTo({ path }) {
-	console.log('[navigateTo]')
+	console.debug('[navigateTo]')
 	return redirect(path)
 }
 
 export async function getTokenCookie() {
-	console.log('[getTokenCookie]')
+	console.debug('[getTokenCookie]')
 	return cookies().get('token')
 }
 
 export async function clearTokenCookie() {
-	console.log('[clearTokenCookie]')
+	console.debug('[clearTokenCookie]')
 	cookies().delete('token')
 }
 
 export async function setCookieData(cookieData) {
-	console.log('[setCookieData]')
+	console.debug('[setCookieData]')
 	cookies().set({
 		name: cookieData.name,
 		value: cookieData.value,
