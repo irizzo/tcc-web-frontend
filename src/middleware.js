@@ -5,7 +5,7 @@ import { headers } from 'next/headers.js'
 import { routesMap } from '@/resources/routesMap'
 import { verifyUserAuthService } from '@/services/userAccessServices'
 
-let APP_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
+let APP_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
 
 if (!APP_BASEURL) {
 	console.debug('no baseurl')

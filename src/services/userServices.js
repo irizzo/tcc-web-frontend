@@ -3,7 +3,7 @@
 import { getTokenCookie, setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
 
-const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
+const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseUserPath = '/user'
 
 export async function getUserInfo() {
