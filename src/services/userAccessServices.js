@@ -6,10 +6,6 @@ import messagesDictionary from '@/resources/messages'
 const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseAccessPath = '/user-access'
 
-console.debug('[middleware] CURRENT_ENV: ', process.env.CURRENT_ENV)
-console.debug('[middleware] API_PROD_BASEURL: ', process.env.API_PROD_BASEURL)
-console.debug('[middleware] API_BASEURL: ', API_BASEURL)
-
 export async function verifyUserAuthService() {
 	console.debug('[verifyUserAuthService]')
 	try {
@@ -57,7 +53,7 @@ export async function signUpService(userSignUpData) {
 
 	try {
 		const customHeaders = new Headers({
-			'Content-type': 'application/json; charset=UTF-8',
+			'Content-type': 'application/json; charset=UTF-8'
 		})
 
 		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
@@ -99,7 +95,7 @@ export async function loginService(userLoginData) {
 		console.debug('[loginService]')
 
 		const customHeaders = new Headers({
-			'Content-type': 'application/json; charset=UTF-8',
+			'Content-type': 'application/json; charset=UTF-8'
 		})
 
 		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {

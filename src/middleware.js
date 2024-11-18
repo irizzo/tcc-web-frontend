@@ -26,8 +26,10 @@ export default async function authMiddleware(req) {
 
 	if (currentAPPHost[2] !== currentHost) {
 		console.debug('[authMiddleware] manage host')
-		APP_BASEURL = `${currentAPPHost[0]}://${currentHost}`
+		APP_BASEURL = `${currentAPPHost[0]}//${currentHost}`
 	}
+
+	console.debug('[authMiddleware] APP_BASEURL: ', APP_BASEURL)
 
 	let isUserLogged = false
 	const tokenCookie = req.cookies.get('token')
