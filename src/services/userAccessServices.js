@@ -6,6 +6,10 @@ import messagesDictionary from '@/resources/messages'
 const API_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseAccessPath = '/user-access'
 
+console.debug('[middleware] CURRENT_ENV: ', process.env.CURRENT_ENV)
+console.debug('[middleware] API_PROD_BASEURL: ', process.env.API_PROD_BASEURL)
+console.debug('[middleware] API_BASEURL: ', API_BASEURL)
+
 export async function verifyUserAuthService() {
 	console.debug('[verifyUserAuthService]')
 	try {
