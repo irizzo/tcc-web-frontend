@@ -1,12 +1,21 @@
 'use server'
-
 import { NextRequest, NextResponse } from 'next/server'
 
 import { routesMap } from '@/resources/routesMap'
 import { verifyUserAuthService } from '@/services/userAccessServices'
 
-const APP_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
-console.log('[middleware] APP_BASEURL: ', APP_BASEURL)
+let APP_BASEURL = process.env.CURRENT_EVN === 'production' ? process.env.APP_PROD_BASEURL : process.env.APP_DEV_BASEURL
+console.log('[middleware] CURRENT_ENV: ', process.env.CURRENT_ENV)
+console.log('[middleware] APP_PROD_BASEURL: ', process.env.APP_PROD_BASEURL)
+console.log('[middleware] APP_DEV_BASEURL: ', process.env.APP_DEV_BASEURL)
+console.log('[middleware] API_PROD_BASEURL: ', process.env.API_PROD_BASEURL)
+
+if (!APP_BASEURL) {
+	console.log('no baseurl')
+	APP_BASEURL = 'https://lifesync-ir.vercel.app/'
+}
+
+console.log('customKey: ', process.env.customKey)
 
 /**
  * authMiddleware
@@ -20,9 +29,9 @@ export default async function authMiddleware(req) {
 	const tokenCookie = req.cookies.get('token')
 
 	const { pathname } = req.nextUrl
+	const userBasePath = '/user'
 
 	if (pathname === '/') return NextResponse.next()
-	const userBasePath = '/user'
 
 	if (tokenCookie) {
 		const userAuthRes = await verifyUserAuthService()
