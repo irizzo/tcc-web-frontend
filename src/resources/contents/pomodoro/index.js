@@ -1,7 +1,10 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 import Image from 'next/image'
 import dailyPomodoro from '@/resources/contents/pomodoro/dailyPomodoro.png'
 
-const title = 'A técnica Pomodoro'
+const title = 'A Técnica Pomodoro'
+const abstract = 'O conceito de tempo é definido por “período de momentos, de horas, de dias, de semanas, de meses, de anos etc. no qual os eventos se sucedem, dando-se a noção de presente, passado e futuro” (Michaelis, 2024).'
 
 const innerContent = () => {
 	return (
@@ -12,7 +15,7 @@ const innerContent = () => {
 				<br></br>
 				A principal, e mais conhecida, ferramenta utilizada nesta técnica é o ciclo de foco e descanso, chamado também de Pomodoro, em que tradicionalmente o tempo de foco é de 25 minutos, e o de descanso é de 3 a 5 minutos (descanso curto, entre um ciclo e outro) ou de 15 a 30 minutos (descanso longo, realizado a cada 4 ciclo). O autor descreve que, em sua base, a técnica é como um conjunto de etapas a serem implementadas durante um dia, ilustrado no Quadro 1.
 			</p>
-			<Image alt='Etapas diárias da Técnica Pomodoro' src={dailyPomodoro} height={100} width={200} />
+			<Image className='image' alt='Etapas diárias da Técnica Pomodoro' src={dailyPomodoro} height={400} width={800} />
 			<p>
 				A primeira etapa diária é o Planejamento, que deve ser feita no começo do dia e com o objetivo de definir as atividades a serem realizadas no dia. A segunda etapa diária é o Monitoramento, que deve ser feito durante o dia, a fim de recolher dados brutos sobre o esforço que foi despendido e outras informações relevantes para o indivíduo. As últimas três etapas devem ser realizadas ao final do dia, sendo: Armazenamento, para compilar o que foi observado no dia; Processamento, para transformar os dados brutos observados em informações; e Visualização, para apresentar as informações de uma forma mais fácil de ser entendida e que ajude a observar o que pode ser melhorado.
 				Além destas etapas diárias, o autor descreve cinco objetivos que podem ser implementados a fim de alcançar os resultados propostos pela técnica. São eles:
@@ -31,4 +34,4 @@ const innerContent = () => {
 	)
 }
 
-export default { title, innerContent }
+export default { title, abstract, innerContent }
