@@ -4,20 +4,25 @@ import { GeneralError } from '@/components/Messages'
 import { useEffect } from 'react'
 import { navigateTo } from '@/utils'
 import { DefaultButton } from '@/components/Buttons'
+import { routesMap } from '@/resources/routesMap'
+import messagesDictionary from '@/resources/messages'
 
 export default function Error({ error, reset }) {
 	useEffect(() => {
-		// Log the error to an error reporting service
-		console.error(error)
-	}, [error])
+		console.error('error boundry: ', error)
+
+		setTimeout(() => {
+			navigateTo({ path: routesMap.home })
+		}, 3000)
+	}, [ error ])
 
 	return (
 		<div className='flex' style={{ width: '70vw', height: '70vh', borderRadius: '10px', backgroundColor: '#00000020' }}>
-			<GeneralError errorContent={'Algo deu errado... Tente novamente mais tarde.'} />
+			<GeneralError errorContent={`${messagesDictionary.DEFAULT_FAIL}... Redirecionando para o início em 3s`}/>
 			<DefaultButton
 				variant='filled'
-				title={'Início'}
-				onClick={() => navigateTo({ path: '/' })}
+				title='Tentar Novamente'
+				onClick={() => reset()}
 			/>
 		</div>
 	)

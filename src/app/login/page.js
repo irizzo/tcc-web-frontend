@@ -1,62 +1,36 @@
 'use client'
 
 import { useState } from 'react'
+import { useFormState } from 'react-dom'
 
-import { navigateTo } from '@/utils'
-import { loginService } from '@/services/userAccessServices'
-import messagesDictionary from '@/resources/messages'
 import * as locale from '@/resources/locale'
 
 import Menu from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 import { DefaultButton } from '@/components/Buttons'
-import { FormContainer, FormSection, PasswordInput } from '@/components/Form'
+import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'
+import { loginService } from '@/services/userAccessServices'
 
-async function handleLoginSubmit(e, formData) {
-	console.debug('[handleLoginSubmit]')
-	try {
-		e.preventDefault()
-
-		if (!formData.email || !formData.password) {
-			alert(messagesDictionary.EMPTY_FIELD)
-			return
-		}
-
-		// TODO: sanitize
-		const cleanData = {
-			email: formData.email,
-			password: formData.password
-		}
-
-		const res = await loginService(cleanData)
-		console.debug('[handleLoginSubmit] res: ', res)
-
-		if(res.success) {
-			navigateTo({ path: '/user/dashboard' })
-		} else {
-			console.debug('!success | message: ', res.message)
-			alert(res.message)
-			return
-		}
-
-	} catch (error) {
-		alert(error)
-	}
+const initialState = {
+	message: ''
 }
 
 export default function Login() {
+	const [ state, formAction ] = useFormState(loginService, initialState)
+
 	const [ userEmail, setUserEmail ] = useState('')
 	const [ userPassword, setUserPassword ] = useState('')
 
 	return (
 		<DefaultPageContainer>
 			<Menu />
-			<main className='flex flex--center' style={{ flex: 1, width: '100vw'}}>
+			<main className='flex flex--center' style={{ flex: 1, width: '100vw' }}>
 				<FormContainer
 					title={locale.pagesTitles.login}
 					variantClasses='form__container--login'
-					submitCallback={(e) => handleLoginSubmit(e, { email: userEmail, password: userPassword })}
+					submitCallback={formAction}
 				>
+					{state.message && <FormInfo style={{ marginTop: '2%'}}>{state.message}</FormInfo>}
 					<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
 						<input type='email' name="email" required placeholder={locale.entitiesProperties.user.email} onChange={(e) => { setUserEmail(e.target.value) }} />
 					</FormSection>
