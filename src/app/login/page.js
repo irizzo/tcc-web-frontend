@@ -3,13 +3,13 @@
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
-import * as locale from '@/resources/locale'
-
 import Menu from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'
+
 import { loginService } from '@/services/userAccessServices'
+import * as locale from '@/resources/locale'
 
 const initialState = {
 	message: ''
@@ -30,9 +30,9 @@ export default function Login() {
 					variantClasses='form__container--login'
 					submitCallback={formAction}
 				>
-					{state.message && <FormInfo style={{ marginTop: '2%'}}>{state.message}</FormInfo>}
+					{state.message && <FormInfo>{state.message}</FormInfo>}
 					<FormSection labelFor='email' sectionTitle={locale.entitiesProperties.user.email}>
-						<input type='email' name="email" required placeholder={locale.entitiesProperties.user.email} onChange={(e) => { setUserEmail(e.target.value) }} />
+						<input type='email' name='email' required placeholder={locale.entitiesProperties.user.email} onChange={(e) => { setUserEmail(e.target.value) }} />
 					</FormSection>
 
 					<FormSection labelFor='password' sectionTitle={locale.entitiesProperties.user.password}>

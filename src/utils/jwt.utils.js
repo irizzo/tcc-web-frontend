@@ -43,6 +43,8 @@ exports.validateToken = (token) => {
 exports.decodeToken = (token) => {
 	try {
 		const decoded = jwt.decode(token)
+		if (!decoded) return false
+		
 		return decoded
 
 	} catch (error) {

@@ -8,42 +8,6 @@ import { redirect } from 'next/navigation'
 const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseAccessPath = '/user-access'
 
-export async function verifyUserAuthService() {
-	console.debug('[verifyUserAuthService]')
-	try {
-		const tokenCookie = await getTokenCookie()
-		const customHeaders = new Headers({
-			'Content-type': 'application/json; charset=UTF-8',
-			'Authorization': tokenCookie.value
-		})
-
-		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/verify`, {
-			method: 'GET',
-			headers: customHeaders
-		}).then((res) => {
-			return res.json()
-		})
-
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		)
-
-		if (!fetchRes.success) {
-			throw new Error(message)
-		};
-
-		return {
-			tokenCookieData: fetchRes.tokenCookieData,
-			success: fetchRes.success,
-			result: fetchRes?.result,
-			message
-		}
-
-	} catch (error) {
-		console.debug('[verifyUserAuthService] error: ', error)
-		throw error
-	}
-}
 
 /** Sign Up Service
  *
@@ -53,7 +17,6 @@ export async function verifyUserAuthService() {
 export async function signUpService(userSignUpData) {
 	console.debug('[signUpService]')
 
-	try {
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8'
 		})
@@ -81,10 +44,6 @@ export async function signUpService(userSignUpData) {
 			message
 		}
 
-	} catch (error) {
-		console.debug('[signUpService] error: ', error)
-		throw error
-	}
 }
 
 /** Login Service
@@ -111,7 +70,6 @@ export async function loginService(prevState, formData) {
 	const customHeaders = new Headers({
 		'Content-type': 'application/json; charset=UTF-8'
 	})
-
 
 	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {
 		method: 'POST',
