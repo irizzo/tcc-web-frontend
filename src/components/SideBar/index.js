@@ -3,9 +3,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-
 import { FaArrowRight, FaGear, FaCircleInfo, FaBook, FaPlus, FaArrowRightFromBracket, FaHouse, FaRegFile, FaRegCalendar, FaHashtag, FaCircleCheck, FaClock, FaRegClock } from 'react-icons/fa6'
-
 import { UserInfoContext } from '@/hooks'
 
 import { clearTokenCookie, navigateTo } from '@/utils'
@@ -26,10 +24,7 @@ export default function SideBar() {
 
 	useEffect(() => {
 		if (!pathname.includes(currentPage.toLowerCase())) {
-			console.debug('!includes')
-
 			const splitPathname = pathname.split('/', 10)
-			console.debug('splitPathname: ', splitPathname)
 
 			if (pathname.includes('/new')) {
 				const currentPageKey = pagesKeys[splitPathname[splitPathname.length - 2]].new
@@ -42,6 +37,7 @@ export default function SideBar() {
 		}
 	}, [])
 
+	// TODO: passar pra server actions
 	async function handleLogOut() {
 		await clearTokenCookie()
 		navigateTo({ path: routesMap.home })
@@ -60,7 +56,6 @@ export default function SideBar() {
 
 	return (
 		<nav className='flex'>
-			{console.debug('currentPage: ', currentPage)}
 			<header className='sidebar__header'>
 				<h1 className='header__title'>{userInfo?.data ? `${userInfo.data.firstName} ${userInfo.data.lastName}` : pagesTitles.loading + '...'}</h1>
 				<p className='header__subtitle'>{today}</p>

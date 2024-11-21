@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useContext, useEffect } from 'react'
+import { useContext, useEffect, Suspense } from 'react'
 import { UserInfoContext, UserCategoriesContext, UserTasksContext, UserEventsContext, UserNotesContext, UserAccessStateContext } from '@/hooks'
 
 import { formatEventsDates, formatTasksDates, needsRevalidation } from '@/utils/date.utils'
@@ -9,8 +9,6 @@ import { getAllCategoriesService } from '@/services/categoryServices'
 import { listAllTasksService } from '@/services/taskServices'
 import { getAllEventsService } from '@/services/eventServices'
 import { getAllNotesService } from '@/services/notesService'
-
-import Loading from '@/components/Loading'
 
 import './userPages.scss'
 
@@ -21,8 +19,6 @@ export default function UserPagesLayout({ children }) {
 	const { userEvents, setUserEvents } = useContext(UserEventsContext)
 	const { userNotes, setUserNotes } = useContext(UserNotesContext)
 	const { userAccessState, setUserAccessState } = useContext(UserAccessStateContext)
-
-	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
 		async function loadUserInfo() {
@@ -64,7 +60,6 @@ export default function UserPagesLayout({ children }) {
 			}
 		}
 
-		try {
 			console.debug('load resources')
 			loadUserInfo()
 			loadCategories()
@@ -73,18 +68,10 @@ export default function UserPagesLayout({ children }) {
 			loadNotes()
 			setUserAccessState({ loggedIn: true, updatedAt: new Date() })
 
-			setTimeout(() => {
-				setIsLoading(false)
-			}, 2000)
-
-		} catch (error) {
-			console.debug('[USER/LAYOUT] error: ', error)
-			alert(error)
-		}
+			setTimeout(() => { console.log('timeout')}, 1000)
 
 	}, [])
 
-	if (isLoading) return <Loading />
 
 	return (
 		<>

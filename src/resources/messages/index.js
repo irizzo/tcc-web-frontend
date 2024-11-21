@@ -19,17 +19,18 @@ const messagesDictionary = {
 	DIF_CONFIRM_PASS: 'Senha e Confirmação da Senha devem ser iguais.', // TODO: change to better name
 
 	EMAIL_NOT_REGISTERED: 'Email não cadastrado',
-	EMAIL_NOT_UNIQUE: 'Email já cadastrado',
-	INVALID_PASSWORD: 'Senha inválida',
-	INVALID_EMAIL: 'Email inválido',
-	INCORRECT_PASSWORD: 'Senha incorreta',
+	EMAIL_NOT_UNIQUE: 'Email já cadastrado.',
+	INVALID_PASSWORD: 'Senha inválida.',
+	INVALID_EMAIL: 'Email inválido.',
+	INCORRECT_PASSWORD: 'Senha incorreta.',
 
 	CATEGORY_ALREADY_EXISTS: 'Categoria já existe',
 
 	INVALID_START_DATE: 'Data de início inválida.',
 	INVALID_END_DATE: 'Data de fim inválida. Deve ser maior que a data de início.',
 	INVALID_DUE_DATE: 'Data de prazo inválido.',
-	INVALID_SCHEDUELED_DATE: 'Data planejada inválida.'
+	INVALID_SCHEDUELED_DATE: 'Data planejada inválida.',
+	NOTHING_TO_CHANGE: 'Nada a ser atualizado.'
 }
 
 module.exports = messagesDictionary

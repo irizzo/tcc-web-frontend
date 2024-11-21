@@ -1,13 +1,12 @@
 'use server'
 
-import { getTokenCookie, setCookieData } from '@/utils'
+import { setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
 import { routesMap } from '@/resources/routesMap'
 import { redirect } from 'next/navigation'
 
 const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseAccessPath = '/user-access'
-
 
 export async function signUpService(prevState, formData) {
 	console.debug('[signUpService]')
@@ -23,7 +22,6 @@ export async function signUpService(prevState, formData) {
 	if (!userSignUpData.firstName || !userSignUpData.lastName || !userSignUpData.email || !userSignUpData.password) {
 		return { message: messagesDictionary.EMPTY_FIELD }
 	}
-	
 	console.log('userSignUpData: ', userSignUpData)
 
 	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
@@ -65,13 +63,12 @@ export async function loginService(prevState, formData) {
 			'Content-type': 'application/json; charset=UTF-8'
 		})
 	})
+
 	const json = await fetchRes.json()
 
 	const mssg = messagesDictionary[json.code] ? messagesDictionary[json.code] : (
 		json.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
 	)
-
-	console.log('mssg: ', mssg)
 
 	if (!fetchRes.ok || !json.success) {
 		return { message: mssg }
