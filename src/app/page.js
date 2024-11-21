@@ -3,9 +3,11 @@
 import { useContext, useState, useEffect } from 'react'
 import { UserInfoContext, UserAccessStateContext, UserNotesContext, UserTasksContext, UserEventsContext, UserTimersContext, UserCategoriesContext } from '@/hooks'
 
+import Image from 'next/image'
 import Loading from '@/components/Loading'
 import { LinkButton } from '@/components/Buttons'
 import Menu from '@/components/Menu'
+import { DefaultPageContainer } from '@/components/PageContainer'
 
 import { appInfo, actionsTitles } from '@/resources/locale'
 import { routesMap } from '@/resources/routesMap'
@@ -13,6 +15,7 @@ import defaultContextData from '@/resources/defaultContextData'
 import { clearTokenCookie } from '@/utils'
 
 import './home.scss'
+import { FaSync } from 'react-icons/fa'
 
 export default function Home() {
 	const { userInfo, setUserInfo } = useContext(UserInfoContext)
@@ -44,14 +47,22 @@ export default function Home() {
 	if (isLoading) return <Loading />
 
 	return (
-		<div className='flex home__container'>
-			<Menu buttonsShown />
-			<main className='home__main'>
-				<h1 className='home__main__title'>{appInfo.name}</h1>
-				<p className='home__main__subtitle'>{appInfo.description}</p>
-
-				<LinkButton path={routesMap.about.base} title={actionsTitles.start} variant='filled'/>
+		<DefaultPageContainer>
+			<Menu />
+			<main className='flex flex--row home__main'>
+				<Image
+					className='home__image'
+					alt='ilustração escrevendo um artigo'
+					src='writing-a-blog.svg'
+					height={400}
+					width={500}
+				/>
+				<div className='flex home__content'>
+					<h1 className='home__content__title'>{appInfo.name} <FaSync className='icon'/></h1>
+					<p className='home__content__subtitle'>{appInfo.description}</p>
+					<LinkButton path={routesMap.about.base} title={actionsTitles.start} variant='filled' />
+				</div>
 			</main>
-		</div>
+		</DefaultPageContainer>
 	)
 }

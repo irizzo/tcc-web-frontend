@@ -8,6 +8,11 @@
 
 .public-pages__main {
 	height: 90vh;
-	width: 100%;
+	min-height: 90vh;
+	width: 90vw;
 	justify-content: flex-start;
+	background-color: variables.$foreground-color;
+	border-radius: variables.$radius;
+	padding: 1% 2%;
+	overflow-y: scroll;
 }

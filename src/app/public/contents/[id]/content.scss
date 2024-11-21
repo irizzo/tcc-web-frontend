@@ -1,31 +1,55 @@
 @use '../../../../styles/variables.scss';
 
-.content__container {
+.content__title {
 	width: 100%;
-	max-width: 90vw;
-	flex: 1;
-	justify-content: flex-start;
-	border-radius: variables.$radius;
-	padding: 1% 2%;
-	background-color: variables.$foreground-color;
-
-	.content__title {
-		width: 100%;
-		border-bottom: 2px solid variables.$primary-color-light--30op;
-		justify-content: space-between;
-		padding: 5px;
-		margin-bottom: 1%;
-	}
+	border-bottom: 2px solid variables.$primary-color-light--30op;
+	justify-content: space-between;
+	padding: 5px;
+	margin-bottom: 1%;
 
 	h1 {
 		text-align: center;
 		flex: 1;
 	}
+}
 
-	p {
-		padding: 1%;
-		border-radius: variables.$radius;
-		flex: 1;
-		font-size: large;
+.content__inner-content {
+	width: 100%;
+
+	h2,
+	h3,
+	h4 {
+		width: 100%;
+		text-align: left;
+		margin-top: 10px;
+	}
+
+	p,
+	i,
+	a,
+	ul,
+	ol,
+	li {
+		font-weight: 500;
+		font-size: 1.1rem;
+		margin-bottom: 10px;
+		width: 100%;
+	}
+
+	ol {
+		list-style: inside decimal;
+	}
+
+	ul {
+		list-style: inside;
+	}
+
+	.image {
+		margin-bottom: 10px;
+	}
+
+	.content__section {
+		width: 100%;
+		align-items: flex-start;
 	}
 }
