@@ -9,76 +9,63 @@ const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_P
 const baseAccessPath = '/user-access'
 
 
-/** Sign Up Service
- *
- * @param {{ firstName: String, lastName: String, email: String, password: String }} userSignUpData
- * @returns {{ success: Boolean, result: any | null, message: String }}
- */
-export async function signUpService(userSignUpData) {
+export async function signUpService(prevState, formData) {
 	console.debug('[signUpService]')
 
-		const customHeaders = new Headers({
+	const userSignUpData = {
+		firstName: formData.get('firstName'),
+		lastName: formData.get('lastName'),
+		email: formData.get('email'),
+		password: formData.get('password')
+	}
+
+	// TODO: sanitize data
+	if (!userSignUpData.firstName || !userSignUpData.lastName || !userSignUpData.email || !userSignUpData.password) {
+		return { message: messagesDictionary.EMPTY_FIELD }
+	}
+	
+	console.log('userSignUpData: ', userSignUpData)
+
+	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
+		method: 'POST',
+		body: JSON.stringify(userSignUpData),
+		headers: new Headers({
 			'Content-type': 'application/json; charset=UTF-8'
 		})
+	})
 
-		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
-			method: 'POST',
-			body: JSON.stringify(userSignUpData),
-			headers: customHeaders
-		}).then((res) => {
-			return res.json()
-		})
+	const json = await fetchRes.json()
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+	const mssg = messagesDictionary[json.code] ? messagesDictionary[json.code] : (
+		json.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+	)
 
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL)
+	if (!fetchRes.ok || !json.success) {
+		return { message: mssg }
+	}
 
-		if (!fetchRes.success) {
-			throw new Error(message)
-		};
-
-		return {
-			success: fetchRes.success,
-			result: fetchRes?.result,
-			message
-		}
-
+	json.tokenCookieData && await setCookieData(json.tokenCookieData)
+	redirect(routesMap.dashboard.base)
 }
 
-/** Login Service
- *
- * @param {{ email: String, password: String }} formData
- * @returns {{ success: Boolean, result: any | null, message: String }}
- */
 export async function loginService(prevState, formData) {
 	console.debug('[loginService]')
-	const rawFormData = {
+	const userLoginData = {
 		email: formData.get('email'), password: formData.get('password')
 	}
 
-	if (!rawFormData.email || !rawFormData.password) {
+	if (!userLoginData.email || !userLoginData.password) {
 		return { message: messagesDictionary.EMPTY_FIELD }
 	}
 
-	// TODO: sanitize
-	const cleanData = {
-		email: rawFormData.email,
-		password: rawFormData.password
-	}
-
-	const customHeaders = new Headers({
-		'Content-type': 'application/json; charset=UTF-8'
-	})
-
 	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {
 		method: 'POST',
-		body: JSON.stringify(cleanData),
-		headers: customHeaders
+		body: JSON.stringify(userLoginData),
+		headers: new Headers({
+			'Content-type': 'application/json; charset=UTF-8'
+		})
 	})
 	const json = await fetchRes.json()
-
-	console.log('json: ', json)
 
 	const mssg = messagesDictionary[json.code] ? messagesDictionary[json.code] : (
 		json.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
