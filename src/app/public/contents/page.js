@@ -8,7 +8,7 @@ import * as locale from '@/resources/locale'
 import './contentsPage.scss'
 
 function FeedListItem({ contentInfo }) {
-	const contentPath = `${routesMap.contents.base}/${contentInfo.id}`
+	const contentPath = `${routesMap.contents.base}/${contentInfo.code}`
 	const abstract = contentInfo.abstract ? contentInfo.abstract.slice(0, 80) + '...' : ''
 
 	return (
@@ -26,7 +26,12 @@ export default function ContentsFeed() {
 			<div className='contents__feed'>
 				{
 					contentsList.map((content) => {
-						return <FeedListItem key={content.id} contentInfo={{ id: content.id, title: content.title, abstract: content.abstract }} />
+						return (
+							<FeedListItem
+								key={content.code}
+								contentInfo={{ code: content.code, title: content.title, abstract: content.abstract }}
+							/>
+						)
 					})
 				}
 			</div>
