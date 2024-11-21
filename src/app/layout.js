@@ -3,9 +3,11 @@ import { appInfo } from '@/resources/locale'
 
 import { Raleway } from 'next/font/google'
 const raleway = Raleway({ subsets: ['latin'], variable: '--raleway-font', display: 'swap' })
-
+import { Suspense } from 'react'
+import Loading from './loading'
 import { FaLinkedin, FaSquareGithub } from 'react-icons/fa6'
 import '@/styles/global.scss'
+
 
 export const metadata = {
 	title: appInfo.name,
@@ -26,7 +28,9 @@ export default function RootLayout({ children }) {
 							<li>Created By Isabelle Rizzo</li>
 						</ul>
 					</div>
-					{children}
+					<Suspense fallback={<Loading />}>
+						{children}
+					</Suspense>
 				</UserProviders>
 			</body>
 		</html>

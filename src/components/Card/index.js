@@ -56,8 +56,7 @@ export function EventCard({ eventInfo, categoryTitle, pastDate=false }) {
 	return (
 		<div className='flex card__container'>
 			<Link className='flex flex--row card__title' href={{ pathname: eventPath, query: eventQuery }} >
-				<FaRegCalendar className='card__title__icon' />
-				<h4>{eventInfo.title}</h4>
+				<h4><FaRegCalendar className='card__title__icon' /> {eventInfo.title}</h4>
 			</Link>
 
 			<div className='flex flex--row flex--sp-between tags__container'>

@@ -1,129 +1,79 @@
 'use server'
 
-import { getTokenCookie, setCookieData } from '@/utils'
+import { setCookieData } from '@/utils'
 import messagesDictionary from '@/resources/messages'
+import { routesMap } from '@/resources/routesMap'
+import { redirect } from 'next/navigation'
 
 const API_BASEURL = process.env.CURRENT_ENV === 'production' ? process.env.API_PROD_BASEURL : process.env.API_DEV_BASEURL
 const baseAccessPath = '/user-access'
 
-export async function verifyUserAuthService() {
-	console.debug('[verifyUserAuthService]')
-	try {
-		const tokenCookie = await getTokenCookie()
-		const customHeaders = new Headers({
-			'Content-type': 'application/json; charset=UTF-8',
-			'Authorization': tokenCookie.value
-		})
-
-		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/verify`, {
-			method: 'GET',
-			headers: customHeaders
-		}).then((res) => {
-			return res.json()
-		})
-
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		)
-
-		if (!fetchRes.success) {
-			throw new Error(message)
-		};
-
-		return {
-			tokenCookieData: fetchRes.tokenCookieData,
-			success: fetchRes.success,
-			result: fetchRes?.result,
-			message
-		}
-
-	} catch (error) {
-		console.debug('[verifyUserAuthService] error: ', error)
-		throw error
-	}
-}
-
-/** Sign Up Service
- *
- * @param {{ firstName: String, lastName: String, email: String, password: String }} userSignUpData
- * @returns {{ success: Boolean, result: any | null, message: String }}
- */
-export async function signUpService(userSignUpData) {
+export async function signUpService(prevState, formData) {
 	console.debug('[signUpService]')
 
-	try {
-		const customHeaders = new Headers({
+	const userSignUpData = {
+		firstName: formData.get('firstName'),
+		lastName: formData.get('lastName'),
+		email: formData.get('email'),
+		password: formData.get('password')
+	}
+
+	// TODO: sanitize data
+	if (!userSignUpData.firstName || !userSignUpData.lastName || !userSignUpData.email || !userSignUpData.password) {
+		return { message: messagesDictionary.EMPTY_FIELD }
+	}
+	console.log('userSignUpData: ', userSignUpData)
+
+	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
+		method: 'POST',
+		body: JSON.stringify(userSignUpData),
+		headers: new Headers({
 			'Content-type': 'application/json; charset=UTF-8'
 		})
+	})
 
-		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
-			method: 'POST',
-			body: JSON.stringify(userSignUpData),
-			headers: customHeaders
-		}).then((res) => {
-			return res.json()
-		})
+	const json = await fetchRes.json()
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+	const mssg = messagesDictionary[json.code] ? messagesDictionary[json.code] : (
+		json.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+	)
 
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL)
-
-		if (!fetchRes.success) {
-			throw new Error(message)
-		};
-
-		return {
-			success: fetchRes.success,
-			result: fetchRes?.result,
-			message
-		}
-
-	} catch (error) {
-		console.debug('[signUpService] error: ', error)
-		throw error
+	if (!fetchRes.ok || !json.success) {
+		return { message: mssg }
 	}
+
+	json.tokenCookieData && await setCookieData(json.tokenCookieData)
+	redirect(routesMap.dashboard.base)
 }
 
-/** Login Service
- *
- * @param {{ email: String, password: String }} userLoginData
- * @returns {{ success: Boolean, result: any | null, message: String }}
- */
-export async function loginService(userLoginData) {
-	try {
-		console.debug('[loginService]')
+export async function loginService(prevState, formData) {
+	console.debug('[loginService]')
+	const userLoginData = {
+		email: formData.get('email'), password: formData.get('password')
+	}
 
-		const customHeaders = new Headers({
+	if (!userLoginData.email || !userLoginData.password) {
+		return { message: messagesDictionary.EMPTY_FIELD }
+	}
+
+	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {
+		method: 'POST',
+		body: JSON.stringify(userLoginData),
+		headers: new Headers({
 			'Content-type': 'application/json; charset=UTF-8'
 		})
+	})
 
-		const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/login`, {
-			method: 'POST',
-			body: JSON.stringify(userLoginData),
-			headers: customHeaders
-		}).then((res) => {
-			return res.json()
-		})
+	const json = await fetchRes.json()
 
-		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
+	const mssg = messagesDictionary[json.code] ? messagesDictionary[json.code] : (
+		json.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
+	)
 
-		const message = messagesDictionary[fetchRes.code] ? messagesDictionary[fetchRes.code] : (
-			fetchRes.success ? messagesDictionary.DEFAULT_SUCCESS : messagesDictionary.DEFAULT_FAIL
-		)
-
-		if (!fetchRes.success) {
-			throw new Error(message)
-		};
-
-		return {
-			success: fetchRes.success,
-			result: fetchRes?.result,
-			message
-		}
-
-	} catch (error) {
-		console.debug('[loginService] error: ', error)
-		throw error
+	if (!fetchRes.ok || !json.success) {
+		return { message: mssg }
 	}
+
+	json.tokenCookieData && await setCookieData(json.tokenCookieData)
+	redirect(routesMap.dashboard.base)
 }
