@@ -36,14 +36,14 @@ export default function NotePage({ params, searchParams }) {
 	}
 
 	async function handleEditNoteForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		try {
 			setIsLoading(true)
 			setEditing(false)
 
 			const updatedData = treatUpdatedNoteData(searchParams, { title, innerContent, categoryCode })
-			const res = await updateNoteService(searchParams.id, updatedData)
+			const res = await updateNoteService(searchParams.code, updatedData)
 
 			if (!res.success) {
 				throw new Error(res.message)
@@ -65,7 +65,7 @@ export default function NotePage({ params, searchParams }) {
 			setIsLoading(true)
 			setEditing(false)
 
-			const res = await deleteNoteService(searchParams.id)
+			const res = await deleteNoteService(searchParams.code)
 
 			if (!res.success) {
 				throw new Error(res.message)

@@ -24,7 +24,7 @@ export default function NewNote() {
 
 	async function handleSubmit(e, formData) {
 		try {
-			e.preventDefault()
+			// e.preventDefault()
 			setIsLoading(true)
 
 			const cleanData = {

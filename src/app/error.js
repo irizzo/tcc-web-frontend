@@ -10,15 +10,11 @@ import messagesDictionary from '@/resources/messages'
 export default function Error({ error, reset }) {
 	useEffect(() => {
 		console.error('error boundry: ', error)
-
-		setTimeout(() => {
-			navigateTo({ path: routesMap.home })
-		}, 3000)
 	}, [ error ])
-
+	setTimeout(() => { navigateTo({ path: routesMap.home }) }, 5000)
 	return (
 		<div className='flex' style={{ width: '70vw', height: '70vh', borderRadius: '10px', backgroundColor: '#00000020' }}>
-			<GeneralError errorContent={`${messagesDictionary.DEFAULT_FAIL}... Redirecionando para o início em 3s`}/>
+			<GeneralError errorContent={`${messagesDictionary.DEFAULT_FAIL}... Redirecionando para o início em 5s`}/>
 			<DefaultButton
 				variant='filled'
 				title='Tentar Novamente'

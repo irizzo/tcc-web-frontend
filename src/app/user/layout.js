@@ -60,15 +60,13 @@ export default function UserPagesLayout({ children }) {
 			}
 		}
 
-			console.debug('load resources')
-			loadUserInfo()
-			loadCategories()
-			loadTasks()
-			loadEvents()
-			loadNotes()
-			setUserAccessState({ loggedIn: true, updatedAt: new Date() })
-
-			setTimeout(() => { console.log('timeout')}, 1000)
+		console.debug('load resources')
+		loadUserInfo()
+		loadCategories()
+		loadTasks()
+		loadEvents()
+		loadNotes()
+		setUserAccessState({ loggedIn: true, updatedAt: new Date() })
 
 	}, [])
 

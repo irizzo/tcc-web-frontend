@@ -33,14 +33,14 @@ export default function CategoryPage({ searchParams }) {
 	}
 
 	async function handleEditCategoryForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 		console.debug('[handleEditCategoryForm]')
 
 		setIsLoading(true)
 		setEditing(false)
 
 		const updatedData = treatUpdatedCategoriesData(searchParams, { title: categoryTitle, description: categoryDescription })
-		const res = await updateCategoryService(searchParams.id, updatedData)
+		const res = await updateCategoryService(searchParams.code, updatedData)
 
 		setIsLoading(false)
 
@@ -59,7 +59,7 @@ export default function CategoryPage({ searchParams }) {
 		setIsLoading(true)
 		setEditing(false)
 
-		const res = await deleteCategoryService(searchParams.id)
+		const res = await deleteCategoryService(searchParams.code)
 
 		if (!res.success) {
 			throw new Error(res.message)

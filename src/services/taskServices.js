@@ -95,6 +95,9 @@ export async function updateTaskService(taskId, updatedData) {
 	try {
 		const tokenCookie = await getTokenCookie()
 
+		console.log('taskId: ', taskId)
+		console.log('updatedData: ', updatedData)
+
 		const customHeaders = new Headers({
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
@@ -107,6 +110,8 @@ export async function updateTaskService(taskId, updatedData) {
 		}).then((res) => {
 			return res.json()
 		})
+
+		console.log('fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -130,8 +135,6 @@ export async function updateTaskService(taskId, updatedData) {
 }
 
 export async function deleteTaskService(taskId) {
-	console.debug('[deleteTaskService]')
-
 	try {
 		const tokenCookie = await getTokenCookie()
 

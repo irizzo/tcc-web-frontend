@@ -54,11 +54,11 @@ export default function Home() {
 					className='home__image'
 					alt='ilustração escrevendo um artigo'
 					src='writing-a-blog.svg'
-					height={400}
-					width={500}
+					height={600}
+					width={700}
 				/>
 				<div className='flex home__content'>
-					<h1 className='home__content__title'>{appInfo.name} <FaSync className='icon'/></h1>
+					<h1 className='home__content__title'>{appInfo.name}</h1>
 					<p className='home__content__subtitle'>{appInfo.description}</p>
 					<LinkButton path={routesMap.about.base} title={actionsTitles.start} variant='filled' />
 				</div>

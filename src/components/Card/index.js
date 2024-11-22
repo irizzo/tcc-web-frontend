@@ -19,7 +19,7 @@ export function GeneralCardContainer({ children, path = '', title, _query = null
 export function CategoryCard({ categoryInfo }) {
 	const categoryPath = `${routesMap.categories.base}/${categoryInfo.id}`
 	return (
-		<GeneralCardContainer path={categoryPath} title={categoryInfo.title} _query={categoryInfo}>
+		<GeneralCardContainer path={categoryPath} title={categoryInfo.title} _query={{ ...categoryInfo, code: categoryInfo.id }}>
 			{categoryInfo.description && <p>{categoryInfo.description.length > 55 ? categoryInfo.description.slice(0, 55) + '...' : categoryInfo.description}</p>}
 		</GeneralCardContainer>
 	)
@@ -27,7 +27,7 @@ export function CategoryCard({ categoryInfo }) {
 
 export function TaskCard({ taskInfo, categoryTitle, pastDate = false }) {
 	const taskPath = `${routesMap.tasks.base}/${taskInfo.id}`
-	const taskQuery = { ...taskInfo }
+	const taskQuery = { ...taskInfo, code: taskInfo.id }
 	taskInfo.dueDate && (taskQuery.dueDate = taskInfo.dueDate.toLocaleString())
 	taskInfo.schedueledDate && (taskQuery.schedueledDate = taskInfo.schedueledDate.toLocaleString())
 	const showTagsContainer = (taskInfo.categoryCode || taskInfo.dueDate || taskInfo.priorityCode || taskInfo.statusCode) ? true : false
@@ -50,7 +50,7 @@ export function TaskCard({ taskInfo, categoryTitle, pastDate = false }) {
 
 export function EventCard({ eventInfo, categoryTitle, pastDate=false }) {
 	const eventPath = `${routesMap.events.base}/${eventInfo.id}`
-	const eventQuery = { ...eventInfo }
+	const eventQuery = { ...eventInfo, code: eventInfo.id }
 	eventInfo.startDate && (eventQuery.startDate = eventInfo.startDate.toLocaleString())
 	eventInfo.endDate && (eventQuery.endDate = eventInfo.endDate.toLocaleString())
 	return (
@@ -71,8 +71,9 @@ export function NoteCard({ noteInfo, categoryTitle }) {
 	const notePath = `${routesMap.notes.base}/${noteInfo.id}`
 	const titleAbstract = noteInfo.title.length > 50 ? noteInfo.title.slice(0, 50) + '...' : noteInfo.title
 	const contentAbstract = noteInfo.innerContent.length > 150 ? noteInfo.innerContent.slice(0, 150) + '...' : noteInfo.innerContent
+
 	return (
-		<Link className='flex note-container' href={{ pathname: notePath, query: noteInfo }}>
+		<Link className='flex note-container' href={{ pathname: notePath, query: { ...noteInfo, code: noteInfo.id } }}>
 			<h3 className='note__title'>{noteInfo.title.length > 0 ? titleAbstract : 'Nota Sem Título'}</h3>
 			<p className='note__abstract'>{contentAbstract}</p>
 			{noteInfo.categoryCode && <CategoryTag customClasses='note__tag' categoryTitle={categoryTitle} />}

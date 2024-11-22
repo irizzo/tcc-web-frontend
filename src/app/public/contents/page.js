@@ -1,5 +1,7 @@
-
+'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { FaArrowLeft } from 'react-icons/fa6'
 
 import { routesMap } from '@/resources/routesMap'
 import contentsList from '@/resources/contents'
@@ -20,9 +22,14 @@ function FeedListItem({ contentInfo }) {
 }
 
 export default function ContentsFeed() {
+	const router = useRouter()
+
 	return (
 		<div className='flex feed__container'>
-			<h1 className='contents__page-title'>{locale.pagesTitles.contents.base}</h1>
+			<div className='flex flex--row content__title'>
+				<FaArrowLeft className='icon' onClick={() => { router.back() }} />
+				<h1 className='contents__page-title'>{locale.pagesTitles.contents.base}</h1>
+			</div>
 			<div className='contents__feed'>
 				{
 					contentsList.map((content) => {
