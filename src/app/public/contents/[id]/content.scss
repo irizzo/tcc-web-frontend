@@ -1,18 +1,5 @@
 @use '../../../../styles/variables.scss';
 
-.content__title {
-	width: 100%;
-	border-bottom: 2px solid variables.$primary-color-light--30op;
-	justify-content: space-between;
-	padding: 5px;
-	margin-bottom: 1%;
-
-	h1 {
-		text-align: center;
-		flex: 1;
-	}
-}
-
 .content__inner-content {
 	width: 100%;
 

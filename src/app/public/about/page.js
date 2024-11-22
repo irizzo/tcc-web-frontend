@@ -1,12 +1,14 @@
+import { PublicPageTitle } from '@/components/Menu'
 import { routesMap } from '@/resources/routesMap'
-import { pagesTitles, appInfo } from '@/resources/locale'
 import Image from 'next/image'
-import '@/app/public/about/about.scss'
+import { pagesTitles, appInfo } from '@/resources/locale'
+
+import './about.scss'
 
 export default function AboutPage() {
 	return (
 		<div className='flex about__container'>
-			<h1>{pagesTitles.about.base}</h1>
+			<PublicPageTitle pageTitle={pagesTitles.about.base} />
 
 			<section className='flex about__section'>
 				<h2>Sobre a Ferramenta</h2>

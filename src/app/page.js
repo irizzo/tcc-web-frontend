@@ -6,7 +6,7 @@ import { UserInfoContext, UserAccessStateContext, UserNotesContext, UserTasksCon
 import Image from 'next/image'
 import Loading from '@/components/Loading'
 import { LinkButton } from '@/components/Buttons'
-import Menu from '@/components/Menu'
+import { Menu } from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 
 import { appInfo, actionsTitles } from '@/resources/locale'
