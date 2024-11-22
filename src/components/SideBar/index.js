@@ -32,6 +32,12 @@ export default function SideBar() {
 				return
 			}
 
+			if (pathname.includes('/public')) {
+				console.log('splitPathname: ', splitPathname)
+				setCurrentPage('CONTENTS')
+				return
+			}
+
 			const currentPageKey = pagesKeys[splitPathname[splitPathname.length - 1]].base
 			setCurrentPage(currentPageKey)
 		}

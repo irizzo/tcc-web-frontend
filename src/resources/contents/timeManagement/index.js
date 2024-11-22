@@ -23,7 +23,7 @@ const innerContent = () => {
 					<li>Modelo de Gestão do Tempo de Estrada</li>
 					<li>A Técnica Pomodoro (também disponível <a href={routesMap.contents.pomo} className='link'>aqui</a>)</li>
 				</ol>
-				Para continuar lendo, acesse o arquivo completo do meu tcc <a className='link' href='https://docs.google.com/document/d/19tdLrRvUE02Tgw6qvq1FocMKfAE8kD0eXzUoxOlw6-0/edit?usp=sharing'>no Google Drive</a>	
+				Para continuar lendo, acesse o arquivo completo do meu tcc <a className='link' href={routesMap.contents.base}>no Google Drive</a> (disponível em breve)
 			</p>
 
 			<h2>Referências</h2>
