@@ -13,6 +13,11 @@ export function groupEventsByMonth(eventsList, selectedYear = null, selectedMont
 	const grouped = { selectedMonth: [], past: [], coming: [] }
 
 	eventsList.length > 0 && eventsList.forEach((event) => {
+		if (event.startDate.getFullYear() === selectedYear && event.startDate.getMonth() === selectedMonth) {
+			grouped.selectedMonth.push(event)
+			return
+		}
+
 		if (event.startDate.getTime() < new Date().getTime()) return
 
 		if (event.startDate.getFullYear() > selectedYear || (event.startDate.getFullYear() === selectedYear && event.startDate.getMonth() > selectedMonth)) {
@@ -24,15 +29,12 @@ export function groupEventsByMonth(eventsList, selectedYear = null, selectedMont
 			grouped.past.push(event)
 			return
 		}
-
-		grouped.selectedMonth.push(event)
-		return
 	})
 
 	return grouped
 }
 
-export function groupTasksByMonth(tasksList, selectedYear=null, selectedMonth=null) {
+export function groupTasksByMonth(tasksList, selectedYear = null, selectedMonth = null) {
 	console.debug('[groupTasksByMonth]')
 
 	if (!selectedYear) selectedYear = new Date().getFullYear()

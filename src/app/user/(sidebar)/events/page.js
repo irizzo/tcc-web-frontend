@@ -49,7 +49,6 @@ export default function EventsPage() {
 	function OtherEventsBoard() {
 		return (
 			<>
-
 				{
 					sortedEvents.coming && sortedEvents.coming.length > 0 ?
 						sortedEvents.coming.map((event) => {
