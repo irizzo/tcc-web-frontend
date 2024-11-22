@@ -135,8 +135,6 @@ export async function updateTaskService(taskId, updatedData) {
 }
 
 export async function deleteTaskService(taskId) {
-	console.debug('[deleteTaskService]')
-
 	try {
 		const tokenCookie = await getTokenCookie()
 

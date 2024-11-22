@@ -36,6 +36,7 @@ export default function TaskPage({ params, searchParams }) {
 	const prioritiesList = []
 	for (let key in locale.prioritiesInfo) prioritiesList.push(locale.prioritiesInfo[key])
 
+
 	function handleEditing() {
 		if (editing) {
 			setTitle(searchParams.title)
@@ -98,7 +99,6 @@ export default function TaskPage({ params, searchParams }) {
 	}
 
 	if (isLoading) return <Loading />
-
 	return (
 		<FormContainer
 			title={locale.pagesTitles.tasks.view}

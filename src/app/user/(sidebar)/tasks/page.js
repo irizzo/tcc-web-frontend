@@ -45,12 +45,12 @@ export default function AllTasksPage() {
 	if (isLoading) return <Loading />
 
 	function OtherTasksBoard() {
-		return(
+		return (
 			<>
 				{
 					sortedTasks.coming && sortedTasks.coming.length > 0 ?
 						sortedTasks.coming.map((task) => {
-							return <TaskCard key = { task.id } taskInfo = { task } categoryTitle = { categories[task.categoryCode]} />
+							return <TaskCard key={task.id} taskInfo={task} categoryTitle={categories[task.categoryCode]} />
 						})
 						:
 						null
