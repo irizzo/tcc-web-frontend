@@ -51,7 +51,7 @@ export default function TaskPage({ params, searchParams }) {
 	}
 
 	async function handleEditTaskForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		try {
 			setIsLoading(true)

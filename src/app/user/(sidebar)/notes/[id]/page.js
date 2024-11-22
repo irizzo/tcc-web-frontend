@@ -36,7 +36,7 @@ export default function NotePage({ params, searchParams }) {
 	}
 
 	async function handleEditNoteForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		try {
 			setIsLoading(true)

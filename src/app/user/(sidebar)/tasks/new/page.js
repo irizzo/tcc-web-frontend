@@ -28,7 +28,7 @@ export default function NewTask() {
 
 	async function handleSubmit(e, formData) {
 		try {
-			e.preventDefault()
+			// e.preventDefault()
 			setIsLoading(true)
 
 			// TODO: sanitize

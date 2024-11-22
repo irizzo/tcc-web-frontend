@@ -33,7 +33,7 @@ export default function CategoryPage({ searchParams }) {
 	}
 
 	async function handleEditCategoryForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 		console.debug('[handleEditCategoryForm]')
 
 		setIsLoading(true)

@@ -27,7 +27,7 @@ export default function NewEvent() {
 
 	async function handleSubmit(e, formData) {
 		try {
-			e.preventDefault()
+			// e.preventDefault()
 			setIsLoading(true)
 
 			// TODO: sanitize

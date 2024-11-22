@@ -54,7 +54,7 @@ export default function SettingsPage() {
 	}
 
 	async function handleUpdateUserInfo(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		console.debug('updatedUserInfo: ', updatedUserInfo)
 
@@ -82,7 +82,7 @@ export default function SettingsPage() {
 
 	async function handleDeleteUser(e) {
 		try {
-			e.preventDefault()
+			// e.preventDefault()
 			setIsLoading(true)
 			setEditing(false)
 

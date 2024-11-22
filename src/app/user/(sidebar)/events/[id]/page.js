@@ -41,7 +41,7 @@ export default function EventPage({ params, searchParams }) {
 	}
 
 	async function handleEditEventForm(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		try {
 			setIsLoading(true)

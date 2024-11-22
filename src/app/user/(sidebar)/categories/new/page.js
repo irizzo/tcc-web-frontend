@@ -21,7 +21,7 @@ export default function NewCategory() {
 	async function handleNewCategoryForm(e, formData) {
 		console.debug('[handleNewCategoryForm]')
 		try {
-			e.preventDefault()
+			// e.preventDefault()
 
 			setIsLoading(true)
 

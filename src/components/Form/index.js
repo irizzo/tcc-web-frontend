@@ -8,7 +8,7 @@ export function FormContainer({ children, title, submitCallback, variantClasses 
 	return (
 		<div className={`form__container ${variantClasses}`}>
 			<h1 className='form__title'>{title}</h1>
-			<form lang='pt-br' action={submitCallback} className='form__content' autoComplete='off'>
+			<form lang='pt-br' action={(e) => { submitCallback(e) }} className='form__content' autoComplete='off'>
 				{children}
 			</form>
 		</div>

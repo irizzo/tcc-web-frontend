@@ -32,7 +32,7 @@ export default function SettingsPage() {
 
 
 	async function handleUpdateUserPassword(e) {
-		e.preventDefault()
+		// e.preventDefault()
 
 		console.debug('newPassword: ', newPassword)
 

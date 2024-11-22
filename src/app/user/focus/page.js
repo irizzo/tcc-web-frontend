@@ -34,7 +34,7 @@ export default function Focus() {
 		},
 
 		submit: (e) => {
-			e.preventDefault()
+			// e.preventDefault()
 			setUserTimers({ ...editTimers })
 			setEditing(false)
 		},
@@ -151,7 +151,7 @@ export default function Focus() {
 						>
 							<FormInfo>
 								Para saber mais, leia sobre a Técnica Pomodoro na aba
-								<span className='link' onClick={() => navigateTo({ path: routesMap.contents.pomo })}> Conteúdos <FaBook className='button__icon' /></span></FormInfo>
+								<span className='link' onClick={() => navigateTo({ path: routesMap.contents.base })}> Conteúdos <FaBook className='button__icon' /></span></FormInfo>
 							<FormSection labelFor='focus' sectionTitle='Duração Timer Foco'>
 								<input
 									name='focus' type='number' min={1} max={90} value={editTimers.focus} readOnly={!editing}
