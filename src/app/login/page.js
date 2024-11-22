@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
-import Menu from '@/components/Menu'
+import { Menu } from '@/components/Menu'
 import { DefaultPageContainer } from '@/components/PageContainer'
 import { DefaultButton } from '@/components/Buttons'
 import { FormContainer, FormSection, PasswordInput, FormInfo } from '@/components/Form'

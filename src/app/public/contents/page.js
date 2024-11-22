@@ -1,13 +1,10 @@
-'use client'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { FaArrowLeft } from 'react-icons/fa6'
+import { PublicPageTitle } from '@/components/Menu'
+import './contentsPage.scss'
 
 import { routesMap } from '@/resources/routesMap'
 import contentsList from '@/resources/contents'
-import * as locale from '@/resources/locale'
-
-import './contentsPage.scss'
+import { pagesTitles } from '@/resources/locale'
 
 function FeedListItem({ contentInfo }) {
 	const contentPath = `${routesMap.contents.base}/${contentInfo.code}`
@@ -25,11 +22,8 @@ export default function ContentsFeed() {
 	const router = useRouter()
 
 	return (
-		<div className='flex feed__container'>
-			<div className='flex flex--row content__title'>
-				<FaArrowLeft className='icon' onClick={() => { router.back() }} />
-				<h1 className='contents__page-title'>{locale.pagesTitles.contents.base}</h1>
-			</div>
+		<>
+			<PublicPageTitle pageTitle={pagesTitles.contents.base} />
 			<div className='contents__feed'>
 				{
 					contentsList.map((content) => {
@@ -42,6 +36,6 @@ export default function ContentsFeed() {
 					})
 				}
 			</div>
-		</div>
+		</>
 	)
 }
