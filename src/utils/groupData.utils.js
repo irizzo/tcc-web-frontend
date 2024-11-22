@@ -13,7 +13,6 @@ export function groupEventsByMonth(eventsList, selectedYear = null, selectedMont
 	const grouped = { selectedMonth: [], past: [], coming: [] }
 
 	eventsList.length > 0 && eventsList.forEach((event) => {
-		// console.debug('[groupEventsByMonth] event: ', event)
 		if (event.startDate.getTime() < new Date().getTime()) return
 
 		if (event.startDate.getFullYear() > selectedYear || (event.startDate.getFullYear() === selectedYear && event.startDate.getMonth() > selectedMonth)) {
@@ -41,30 +40,22 @@ export function groupTasksByMonth(tasksList, selectedYear=null, selectedMonth=nu
 	const grouped = { selectedMonth: [], past: [], coming: [] }
 
 	tasksList.length > 0 && tasksList.forEach((task) => {
-		console.debug('[groupTasksByMonth] task: ', task)
 		if (task.statusCode === 'DONE') return
-		
-		if (!task.dueDate) {
-			console.debug('[groupTasksByMonth] coming')
 
+		if (!task.dueDate) {
 			grouped.coming.push(task)
 			return
 		}
 
 		if (task.dueDate.getFullYear() > selectedYear || (task.dueDate.getFullYear() === selectedYear && task.dueDate.getMonth() > selectedMonth)) {
-			console.debug('[groupTasksByMonth] coming')
 			grouped.coming.push(task)
 			return
 		}
 
 		if (task.dueDate.getFullYear() < selectedYear || (task.dueDate.getFullYear() === selectedYear && task.dueDate.getMonth() < selectedMonth)) {
 			grouped.past.push(task)
-			console.debug('[groupTasksByMonth] past')
-
 			return
 		}
-
-		console.debug('[groupTasksByMonth] selected')
 
 		grouped.selectedMonth.push(task)
 		return
@@ -86,8 +77,6 @@ export function groupTasksByDate(tasksList) {
 	const other = []
 
 	tasksList.forEach((task) => {
-		// console.debug('[groupTasksByDate] task: ', task)
-
 		if (task.statusCode === 'DONE') {
 			return
 		}

@@ -50,18 +50,18 @@ export default function TaskPage({ params, searchParams }) {
 		setEditing(!editing)
 	}
 
-	async function handleEditTaskForm(e) {
-		// e.preventDefault()
-
+	async function handleEditTaskForm() {
 		try {
 			setIsLoading(true)
 			setEditing(false)
 
 			const updatedData = treatUpdatedTaskData(searchParams, { title, description, dueDate, categoryCode, priorityCode, statusCode, schedueledDate })
-			const res = await updateTaskService(searchParams.id, updatedData)
+			const res = await updateTaskService(searchParams.code, updatedData)
 
 			if (!res.success) {
-				throw new Error(res.message)
+				setIsLoading(false)
+				alert(res.message)
+				return
 			}
 
 			const tasksRes = await listAllTasksService()
@@ -80,7 +80,7 @@ export default function TaskPage({ params, searchParams }) {
 			setIsLoading(true)
 			setEditing(false)
 
-			const res = await deleteTaskService(searchParams.id)
+			const res = await deleteTaskService(searchParams.code)
 
 			if (!res.success) {
 				throw new Error(res.message)

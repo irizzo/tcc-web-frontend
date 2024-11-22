@@ -48,7 +48,7 @@ export default function EventPage({ params, searchParams }) {
 			setEditing(false)
 
 			const updatedData = treatUpdatedEventData(searchParams, { title, description, startDate, endDate, categoryCode })
-			const res = await updateEventService(searchParams.id, updatedData)
+			const res = await updateEventService(searchParams.code, updatedData)
 
 			if (!res.success) {
 				throw new Error(res.message)
@@ -70,7 +70,7 @@ export default function EventPage({ params, searchParams }) {
 			setIsLoading(true)
 			setEditing(false)
 
-			const res = await deleteEventService(searchParams.id)
+			const res = await deleteEventService(searchParams.code)
 
 			if (!res.success) {
 				throw new Error(res.message)
