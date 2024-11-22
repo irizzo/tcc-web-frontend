@@ -22,7 +22,6 @@ export async function signUpService(prevState, formData) {
 	if (!userSignUpData.firstName || !userSignUpData.lastName || !userSignUpData.email || !userSignUpData.password) {
 		return { message: messagesDictionary.EMPTY_FIELD }
 	}
-	console.log('userSignUpData: ', userSignUpData)
 
 	const fetchRes = await fetch(`${API_BASEURL}${baseAccessPath}/signUp`, {
 		method: 'POST',

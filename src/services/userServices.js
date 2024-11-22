@@ -63,7 +63,6 @@ export async function updateUserService(updatedData) {
 			return res.json()
 		})
 
-		console.debug('[updateUserService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 
@@ -104,7 +103,6 @@ export async function deleteUserService() {
 			return res.json()
 		})
 
-		console.debug('[deleteUserService] fetchRes: ', fetchRes)
 
 		fetchRes.tokenCookieData && await setCookieData(fetchRes.tokenCookieData)
 

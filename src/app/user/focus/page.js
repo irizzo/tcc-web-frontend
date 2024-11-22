@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useContext } from 'react'
 import { UserTimersContext } from '@/hooks'
 import { useRouter } from 'next/navigation'
@@ -22,10 +21,10 @@ export default function Focus() {
 
 	const { userTimers, setUserTimers } = useContext(UserTimersContext)
 
-	const [editTimers, setEditTimers] = useState({ focus: userTimers['focus'], shortBreak: userTimers['shortBreak'], longBreak: userTimers['longBreak'] })
-	const [currentTimer, setCurrentTimer] = useState('focus')
-	const [deadline, setDeadline] = useState(new Date().getTime() + (userTimers[currentTimer]) * 60000)
-	const [editing, setEditing] = useState(false)
+	const [ editTimers, setEditTimers ] = useState({ focus: userTimers['focus'], shortBreak: userTimers['shortBreak'], longBreak: userTimers['longBreak'] })
+	const [ currentTimer, setCurrentTimer ] = useState('focus')
+	const [ deadline, setDeadline ] = useState(new Date().getTime() + (userTimers[currentTimer]) * 60000)
+	const [ editing, setEditing ] = useState(false)
 
 	const _handleEdit = {
 		handleState: () => {
@@ -136,7 +135,6 @@ export default function Focus() {
 	return (
 		<DefaultPageContainer>
 			<main className='flex focus__main'>
-				{console.debug('userTimers: ', userTimers)}
 				<nav className='flex flex--row focus__nav' >
 					<FaArrowLeft className='focus__nav__icon' onClick={() => { router.back() }} />
 					<h1>{pagesTitles.focus.base}</h1>

@@ -27,7 +27,6 @@ export default function SettingsPage() {
 			setIsLoading(true)
 
 			setTimeout(() => {
-				console.debug('timeout')
 				setIsLoading(false)
 			}, 2000)
 		}
@@ -53,11 +52,7 @@ export default function SettingsPage() {
 		setEditing(!editing)
 	}
 
-	async function handleUpdateUserInfo(e) {
-		// e.preventDefault()
-
-		console.debug('updatedUserInfo: ', updatedUserInfo)
-
+	async function handleUpdateUserInfo() {
 		try {
 			setIsLoading(true)
 			setEditing(false)
@@ -80,15 +75,12 @@ export default function SettingsPage() {
 		}
 	}
 
-	async function handleDeleteUser(e) {
+	async function handleDeleteUser() {
 		try {
-			// e.preventDefault()
 			setIsLoading(true)
 			setEditing(false)
 
 			const res = await deleteUserService()
-
-			console.debug('res: ', res)
 
 			if (!res.success) {
 				throw new Error(res.message)

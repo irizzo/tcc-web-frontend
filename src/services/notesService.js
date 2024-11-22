@@ -135,7 +135,7 @@ export async function deleteNoteService(noteId) {
 			'Content-type': 'application/json; charset=UTF-8',
 			'Authorization': tokenCookie.value
 		})
-		
+
 		const fetchRes = await fetch(`${API_BASEURL}${baseNotesPath}/${noteId}`, {
 			method: 'DELETE',
 			headers: customHeaders

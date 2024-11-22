@@ -32,8 +32,6 @@ export default function NotesPage() {
 		userCategories.categoriesList.forEach((category) => {
 			aux[category.code] = category.title
 		})
-
-		console.debug('categories aux: ', aux)
 		setCategories(aux)
 
 	}, [ userCategories.categoriesList, userNotes.notesList ])

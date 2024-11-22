@@ -19,8 +19,6 @@ function FeedListItem({ contentInfo }) {
 }
 
 export default function ContentsFeed() {
-	const router = useRouter()
-
 	return (
 		<>
 			<PublicPageTitle pageTitle={pagesTitles.contents.base} />
